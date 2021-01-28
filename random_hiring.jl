@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.12.18
+# v0.12.19
 
 using Markdown
 using InteractiveUtils
@@ -20,7 +20,7 @@ using PlutoUI
 md"Captain Bayes: Please enter a sequence of 200 random numbers 0-9 in that textbox to become a member of my crew. Proof yourself!"
 
 # ╔═╡ be49b1d0-58f3-11eb-1770-23439de5d5b9
-@bind random_string TextField((40, 5))
+@bind random_string TextField((40, 5); default = "0")
 
 # ╔═╡ e76f7270-58f3-11eb-37b2-fd410fcf6082
 arr = parse.(Int,split(random_string, ""))
