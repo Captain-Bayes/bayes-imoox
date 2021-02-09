@@ -14,7 +14,10 @@ macro bind(def, element)
 end
 
 # ╔═╡ ac65c4de-58f3-11eb-00c2-f9f83a4c01a2
-using PlutoUI
+begin
+	import Pkg; Pkg.add("PlutoUI")
+	using PlutoUI
+end
 
 # ╔═╡ 5580aee0-6165-11eb-2967-ff278167c8d5
 md"""
