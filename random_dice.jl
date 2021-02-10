@@ -27,7 +27,7 @@ end
 # ╔═╡ e6375832-6b29-11eb-38b2-7582cac61e64
 md"""
 
-# **The strange dice** - _The law of large numbers_
+# **The strange dice** - _The central limit theorem_
 
 **Bernoulli and Laplace** invented this interesting dice game with colored faces (red for odd numbers and green for even numbers of pips).
 The side facing the gambler works as a bonus / malus factor. 
@@ -97,7 +97,10 @@ plot(
 B,sum(B[:,2])
 
 # ╔═╡ 462e27c0-6b14-11eb-2b2f-3bd578fb8712
-sum(B[:,2].*B[:,1])
+dice_mean = sum(B[:,2].*B[:,1])
+
+# ╔═╡ 691d5aa0-6b71-11eb-2f53-db4a2217c8e0
+dice_std = sqrt(sum(B[:,2].* (B[:,1].-dice_mean).^2))
 
 # ╔═╡ 7dbbfe90-6b20-11eb-39c8-c99fd55ccf05
 sparse_vector = repeat(B[:,2]',iterations*12+1)
@@ -118,21 +121,38 @@ p_final = Array(pp'*P^(iterations))
 r = Array(LinRange(0,12,(iterations-1)*12+13*2-1))
 
 # ╔═╡ b7a9ad70-6b23-11eb-295b-4324ef257047
-plot(
-    [B[:,1],r], [B[:,2],p_final[1,:]],
-    line = ([1.1 0.1], [2 0.3], [:bar, :bar]),
-    normalize = false,
-    bins = 13,
-    marker = (6, 0.8, [:x,:x]),
+begin
+	plot(
+    [B[:,1], r, [dice_mean, dice_mean]], [B[:,2]./0.9,p_final[1,:]./((r[2]-r[1])*0.9), [0,1]],
+    line = ([1 0.3 1], [0 0.0 3], [:bar :bar :line]),
+	linestyle = [:auto :auto :dash],
+    normalize = true,
+    marker = (6, 0.8, [:none :none]),
     markerstrokewidth = 5.,
-    color = [:steelblue :orangered],
-    fill = 1.,
+    color = [:steelblue :orangered :black],
+    fill = [1. 1.],
+	bar_width = [1*0.9 (r[2]-r[1])*0.9],
     orientation = :v,
     title = string("Average distribution of \nstrange dice with ", string(iterations+1), " iterations"),
-	ylabel = "probability",
+	ylabel = "probability / width of bar",
 	xlabel = "Points",
-	label = :none,
+	label = [:none :none "Mean"],
+	ylim = [0,1],
 )
+	plot!([dice_mean - dice_std, dice_mean + dice_std, 3, dice_mean+dice_std, dice_mean-dice_std], 0.5.*[1, 1,NaN, 1, 1],
+		line = (2., 2., :path),
+		color = :magenta,
+		arrow = true,
+		label = "Std",
+		)
+	plot!([dice_mean - dice_std/sqrt(iterations), dice_mean + dice_std/sqrt(iterations), 3, dice_mean+dice_std/sqrt(iterations), dice_mean-dice_std/sqrt(iterations)], 0.08*[1, 1,NaN, 1, 1]/sqrt(((r[2]-r[1]))),
+		line = (2., 2., :path),
+		color = :green,
+		arrow = true,
+		label = "Std",
+		)
+	
+end
 
 # ╔═╡ 89f8f100-6b24-11eb-3292-c15016c60a5b
 p_final[1,:]
@@ -159,20 +179,21 @@ plot(
 
 
 # ╔═╡ Cell order:
-# ╟─1dfd0480-6b0d-11eb-1f62-dbdc1a677571
+# ╠═1dfd0480-6b0d-11eb-1f62-dbdc1a677571
 # ╟─e6375832-6b29-11eb-38b2-7582cac61e64
 # ╟─86b1d820-6b2b-11eb-19cf-6390ab5fccc8
 # ╟─29969590-6b12-11eb-11d7-9d831132fe4f
-# ╠═e3a0bab0-6b1c-11eb-198b-b54e19e544fc
-# ╟─b7a9ad70-6b23-11eb-295b-4324ef257047
+# ╟─e3a0bab0-6b1c-11eb-198b-b54e19e544fc
+# ╠═b7a9ad70-6b23-11eb-295b-4324ef257047
 # ╟─7ecb15e0-6b26-11eb-1d2b-37dd4e07ef05
-# ╟─185ef260-6b0b-11eb-1fd8-b5c70ec616d7
+# ╠═185ef260-6b0b-11eb-1fd8-b5c70ec616d7
 # ╟─943dea30-6b0b-11eb-19f0-75227e40a492
 # ╟─036a9bb0-6b0c-11eb-0ece-d54174c4d7a0
 # ╟─3eb465e0-6b14-11eb-19a4-df75db84f12d
 # ╟─427d9fb0-6b10-11eb-043c-653dbc050130
 # ╟─6df0d2c0-6b10-11eb-04d1-1b71b887b8bb
-# ╟─462e27c0-6b14-11eb-2b2f-3bd578fb8712
+# ╠═691d5aa0-6b71-11eb-2f53-db4a2217c8e0
+# ╠═462e27c0-6b14-11eb-2b2f-3bd578fb8712
 # ╟─7dbbfe90-6b20-11eb-39c8-c99fd55ccf05
 # ╟─80f0ce50-6b21-11eb-2b31-6982188b8a41
 # ╟─e107cae0-6b1d-11eb-3ff5-b7861639d659
