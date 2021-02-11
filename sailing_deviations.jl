@@ -26,14 +26,22 @@ begin
 	using DataFrames
 end
 
+# ╔═╡ 05f72bc0-6c45-11eb-3602-c955811f9acf
+
+md" Choose the **number of data points** Pascal is using in her statistics 👉 $(@bind n_data_points Slider(500:100:2000, default=1000, show_value = true)) "
+
+
 # ╔═╡ 70049580-6bea-11eb-390b-d3013dd12235
-md"Choose probability of the **ocean current** to lead to a deviation 👉 $(@bind ocean_current_prob Slider(0:0.05:0.3, show_value = true)) "
+md"Choose **probability** of the **ocean current** to lead to a deviation 👉 $(@bind ocean_current_prob Slider(0:0.05:0.3, show_value = true)) "
 
 # ╔═╡ deb2ef40-6bea-11eb-3a13-c9642d262b93
-md"Choose probability of the **Pascal fail on keeping the course** 👉 $(@bind pascal_fail_prob Slider(0:0.05:0.3, show_value = true)) "
+md"Choose **probability** of the **Pascal fail on keeping the course** 👉 $(@bind pascal_fail_prob Slider(0:0.05:0.3, show_value = true)) "
 
 # ╔═╡ 08bf49de-6bec-11eb-1b80-5f6e74cbb8d0
 @bind direction_of_current Select([ "north" => "North ⬆️", "east" => "East ➡️", "south" => "South ⬇️", "west" => "West ⬅️"])
+
+# ╔═╡ 18893b90-6c5c-11eb-051d-95eef7af0f0f
+
 
 # ╔═╡ 335a84c0-6bf2-11eb-3249-fbfb0210657c
 dd = Dict([(1, "north"), (2, "east"), (3, "south"), (4, "west")])
@@ -42,12 +50,12 @@ dd = Dict([(1, "north"), (2, "east"), (3, "south"), (4, "west")])
 direction_of_current == "north"
 
 # ╔═╡ c4582980-6bef-11eb-18e9-0b1732c8d932
-direction = rand(1:4, 1000)
+direction = rand(1:4, n_data_points)
 
 # ╔═╡ dc84d260-6bef-11eb-1e6c-23d28cf6b1d3
 begin
-	rr = rand(1000)
-	sail_deviation = zeros(1,1000)
+	rr = rand(n_data_points)
+	sail_deviation = zeros(1,n_data_points)
 	#sail_correct = pascal_fail_prob/2 .< rr .< 1-pascal_fail_prob/2;
 	sail_deviation = (-(rr .<= pascal_fail_prob/2)) + (rr.>= 1-pascal_fail_prob/2)
 	
@@ -55,7 +63,7 @@ end
 
 # ╔═╡ 71561790-6bf1-11eb-1acf-a1a46a8eb3d8
 begin 
-	ss = rand(1000)
+	ss = rand(n_data_points)
 	if direction_of_current == "north"
 		left_drift = 2;
 		right_drift = 4;
@@ -83,6 +91,9 @@ table = [[sum(deviation[ direction .==i] .<= -1) for i=1:4] [sum(deviation[ dire
 # ╔═╡ 9d0230c0-6bf8-11eb-2445-777f55b92f4a
 DataFrame([["North: "; "East:  "; "South: "; "West:  "] table], [:direction, :left_dev, :no_dev, :right_dev])
 
+# ╔═╡ d83840b0-6c54-11eb-31d3-4d1d978c4e4a
+table
+
 # ╔═╡ 83cb7cd0-6bf6-11eb-2486-3f0ffc2c8416
 (table[:,1] .+ table[:,3])./sum(table, dims=2)
 
@@ -91,10 +102,13 @@ sum(table,dims=1)
 
 # ╔═╡ Cell order:
 # ╟─a38a9620-6bea-11eb-2293-c5469f2d5bdc
-# ╟─70049580-6bea-11eb-390b-d3013dd12235
+# ╟─05f72bc0-6c45-11eb-3602-c955811f9acf
+# ╠═70049580-6bea-11eb-390b-d3013dd12235
 # ╟─deb2ef40-6bea-11eb-3a13-c9642d262b93
 # ╟─08bf49de-6bec-11eb-1b80-5f6e74cbb8d0
 # ╟─9d0230c0-6bf8-11eb-2445-777f55b92f4a
+# ╠═18893b90-6c5c-11eb-051d-95eef7af0f0f
+# ╠═d83840b0-6c54-11eb-31d3-4d1d978c4e4a
 # ╠═83cb7cd0-6bf6-11eb-2486-3f0ffc2c8416
 # ╟─335a84c0-6bf2-11eb-3249-fbfb0210657c
 # ╠═26e7f8d0-6bed-11eb-09d6-a1597aeefc22
