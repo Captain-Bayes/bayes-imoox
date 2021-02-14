@@ -15,9 +15,11 @@ end
 
 # ╔═╡ 1dfd0480-6b0d-11eb-1f62-dbdc1a677571
 begin
-	import Pkg; Pkg.add("Plotly")	
-	import Pkg; Pkg.add("PyPlot")
-	import Pkg; Pkg.add("PlutoUI")
+	import Pkg;
+	Pkg.add("Plots")
+	Pkg.add("Plotly")
+	Pkg.add("PyPlot")
+	Pkg.add("PlutoUI")
 	using PlutoUI
 	using Plots
 	using LinearAlgebra

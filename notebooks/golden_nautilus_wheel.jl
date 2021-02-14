@@ -15,7 +15,9 @@ end
 
 # ╔═╡ 8d4298e0-6c44-11eb-3406-31a39340d1aa
 begin
-	import Pkg; Pkg.add("Plotly")	
+	import Pkg;
+	Pkg.add("Plots")
+	Pkg.add("Plotly")
 	Pkg.add("PyPlot")
 	Pkg.add("PlutoUI")
 	Pkg.add("SpecialFunctions")
