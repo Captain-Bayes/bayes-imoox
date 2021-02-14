@@ -15,10 +15,12 @@ end
 
 # ╔═╡ c823a222-6e1c-11eb-18a8-01a1b673d7b0
 begin
-	import Pkg; Pkg.add("LinearAlgebra")	
-	import Pkg; Pkg.add("Random")
-	import Pkg; Pkg.add("PlutoUI")
-	import Pkg; Pkg.add("Plots")
+	import Pkg; 
+	Pkg.add("LinearAlgebra")	
+	Pkg.add("Random")
+	Pkg.add("PlutoUI")
+	Pkg.add("Plots")
+	Pkg.add("Plotly")
 	using LinearAlgebra
 	using Random
 	using Plots
@@ -168,6 +170,7 @@ end
 plot(
     L_x,
     z,
+	line =(1,1,:line),
     grid = true,
     title = txt,
     palette = :tab10,
@@ -176,7 +179,7 @@ plot(
     marker = :cross,
     xlabel = "x",
     ylabel = "y",
-    #ylim = (-20, 20),
+    ylim = (-20, 20),
 )
 
 # ╔═╡ Cell order:
