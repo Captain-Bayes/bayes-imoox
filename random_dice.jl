@@ -50,7 +50,7 @@ Look at the distribution below that shows the probabilities for the different nu
 HTML("<div><br></div>")
 
 # ╔═╡ 9f155e80-6be6-11eb-22c1-1b4f6e30ec72
-md"Choose number of 👉 $(@bind iterations Slider(1:40, show_value = true)) crew members that roll the strange dice."
+md"Choose number of 👉 $(@bind iterations Slider(1:60, show_value = true)) crew members that roll the strange dice."
 
 # ╔═╡ 7ecb15e0-6b26-11eb-1d2b-37dd4e07ef05
 HTML("<div><br><br><br><br><br><br><br><br><br><br><br><br><br></div>")
@@ -77,21 +77,39 @@ begin
 end
 
 # ╔═╡ 29969590-6b12-11eb-11d7-9d831132fe4f
-plot(
+begin
+	plot(
     B[:,1], B[:,2],
-    line = (1.0, 2, :bar),
+    line = (1.0, 0.0, :bar),
     normalize = false,
     bins = 10,
+	bar_width = 0.1,
     marker = (6, 0.5, :x),
     markerstrokewidth = 5.,
     color = [:steelblue],
     fill = 0.9,
     orientation = :v,
     title = "The strange dice distribution",
-	ylabel = "probability",
+	ylabel = "probability mass function",
 	xlabel = "Points",
 	label = :none,
 )
+plot!( B[:,1], B[:,2],
+    line = (1.0, 0, :path),
+    normalize = false,
+    bins = 10,
+	bar_width = 0.2,
+    marker = (4, 0.5, :o),
+    markerstrokewidth = 5.,
+    color = [:steelblue],
+    fill = 0.9,
+    orientation = :v,
+    title = "The strange dice distribution",
+	ylabel = "probability mass function",
+	xlabel = "Points",
+	label = :none,
+)
+end
 
 # ╔═╡ 6df0d2c0-6b10-11eb-04d1-1b71b887b8bb
 B,sum(B[:,2])
@@ -140,6 +158,7 @@ begin
     title = string("Average distribution of \nstrange dice with ", string(iter+1), " gamblers"),
 	ylabel = "probability / width of bar",
 	xlabel = "Points",
+	usetex = true,
 	label = [:none :none "Mean"],
 	ylim = [0,1],
 )
@@ -173,13 +192,13 @@ end
 [string.(rand("🧔👩👨👧🧑", 1, iterations));string.(rand("🎲", 1, iterations))] |> pretty
 
 # ╔═╡ Cell order:
-# ╟─1dfd0480-6b0d-11eb-1f62-dbdc1a677571
+# ╠═1dfd0480-6b0d-11eb-1f62-dbdc1a677571
 # ╟─e6375832-6b29-11eb-38b2-7582cac61e64
-# ╟─86b1d820-6b2b-11eb-19cf-6390ab5fccc8
+# ╠═86b1d820-6b2b-11eb-19cf-6390ab5fccc8
 # ╟─29969590-6b12-11eb-11d7-9d831132fe4f
 # ╟─e7e029f0-6b9c-11eb-179d-1d2fca9eb8af
 # ╟─9f155e80-6be6-11eb-22c1-1b4f6e30ec72
-# ╟─b7a9ad70-6b23-11eb-295b-4324ef257047
+# ╠═b7a9ad70-6b23-11eb-295b-4324ef257047
 # ╟─7ecb15e0-6b26-11eb-1d2b-37dd4e07ef05
 # ╟─185ef260-6b0b-11eb-1fd8-b5c70ec616d7
 # ╟─943dea30-6b0b-11eb-19f0-75227e40a492

@@ -19,11 +19,16 @@ begin
 	Pkg.add("PyPlot")
 	Pkg.add("PlutoUI")
 	Pkg.add("SpecialFunctions")
+	Pkg.add("StatsBase")
+	Pkg.add("Plots")
+	Pkg.add("LinearAlgebra")
+	Pkg.add("SparseArrays")
 	using PlutoUI
 	using Plots
 	using LinearAlgebra
 	using SparseArrays
 	using SpecialFunctions
+	using StatsBase
 end
 
 # ╔═╡ 9637fe40-6c44-11eb-1df3-eb0b0d36db34
@@ -52,6 +57,12 @@ In the following diagram you see the **probability distribution of wages** for t
 md"""
 **Use the slider to change the number of measurements sample size $n$ Captain Venn performs and watch the histogram**
 """
+
+# ╔═╡ 8b8cd540-6d86-11eb-339e-7b8a2df774f9
+md"Choose the **number of measurements / the sample size $n$** 👉 $(@bind n_sample_size Slider(100:100:10000, default=1000, show_value = true)) "
+
+# ╔═╡ 84bfd150-6d8a-11eb-011e-052c39c8db9c
+x_rand_var = [1, 3, 4, 6]
 
 # ╔═╡ b7a7b220-6c56-11eb-1e6c-6f7595f02439
 md"""
@@ -104,7 +115,7 @@ begin
     title = "The Poisson distribution with lambda: "*string(lambda),
 	ylabel = "probability mass function",
 	xlabel = "k - number of events",
-	label = "P_poisson",
+	label = :none,
 	ylim =[0,1],
 )
 
@@ -139,15 +150,67 @@ end
 gif(anim, "anim_fps15.gif", fps = 15)
 end
 
+# ╔═╡ 48f7c480-6d84-11eb-1f24-e16d7f649c9c
+phi = (1+sqrt(5))/2
+
+# ╔═╡ 534e1970-6d84-11eb-3f16-bb6aaa46db6f
+prob = phi.^(0:3)./sum(phi.^(0:3))
+
+# ╔═╡ 1df828e0-6d86-11eb-0d3c-2398e6700066
+sample = 5 .- sum(rand(1,n_sample_size) .<= cumsum(prob), dims=1)
+
+# ╔═╡ cfdaa470-6d86-11eb-03a6-ef281daeebb2
+sample_count = [count(==(i), sample) for i = 1:4]
+
+# ╔═╡ 5e0bfb10-6d8a-11eb-06ef-9335eb90064c
+begin	
+	plot(x_rand_var, sample_count,
+    line = (0.0 , 2.0 , :bar),
+    normalize = false,
+	bar_width = 0.04,
+    marker = (6, 0.5, :none),
+    markerstrokewidth = 5.,
+    color = [:steelblue],
+    fill = 0.9,
+    orientation = :v,
+    title = "The Poisson distribution with lambda: ",
+	ylabel = "probability mass function",
+	xlabel = "Points",
+	label = :none,
+	ylim =[0,n_sample_size/2])
+	
+	plot!(
+    x_rand_var, sample_count,
+    line = ( 1, 0., :path),
+    normalize = false,
+    marker = (5, 1.0, :o),
+    markerstrokewidth = 3.,
+    color = [:steelblue],
+    fill = 0.,
+    orientation = :v,
+    title = "The Poisson distribution with lambda: "*string(lambda),
+	ylabel = "probability mass function",
+	xlabel = "k - number of events",
+	label = :none,
+	ylim =[0,n_sample_size/2])
+end
+
 # ╔═╡ Cell order:
 # ╠═8d4298e0-6c44-11eb-3406-31a39340d1aa
 # ╟─9637fe40-6c44-11eb-1df3-eb0b0d36db34
-# ╠═9de6ada0-6c56-11eb-1055-1b29b78e6112
-# ╠═b7a7b220-6c56-11eb-1e6c-6f7595f02439
-# ╠═835da8c0-6c57-11eb-0a71-e776862dbfce
-# ╠═1b51ce3e-6c58-11eb-2539-a34e0576c612
-# ╠═b016de70-6c59-11eb-2ae2-b9ee6e5f2abd
+# ╟─9de6ada0-6c56-11eb-1055-1b29b78e6112
+# ╟─8b8cd540-6d86-11eb-339e-7b8a2df774f9
+# ╠═84bfd150-6d8a-11eb-011e-052c39c8db9c
+# ╟─5e0bfb10-6d8a-11eb-06ef-9335eb90064c
+# ╟─b7a7b220-6c56-11eb-1e6c-6f7595f02439
+# ╟─835da8c0-6c57-11eb-0a71-e776862dbfce
+# ╟─1b51ce3e-6c58-11eb-2539-a34e0576c612
+# ╟─b016de70-6c59-11eb-2ae2-b9ee6e5f2abd
 # ╠═0e35a290-6c58-11eb-2004-0b4b90f9754e
 # ╠═14661b90-6c58-11eb-28bd-4399c5896666
 # ╠═06a6c020-6c5a-11eb-3516-e5d4f4740be9
-# ╟─3d66c0a0-6c5b-11eb-0fd0-0bd81c9672c9
+# ╠═3d66c0a0-6c5b-11eb-0fd0-0bd81c9672c9
+# ╠═48f7c480-6d84-11eb-1f24-e16d7f649c9c
+# ╠═534e1970-6d84-11eb-3f16-bb6aaa46db6f
+# ╠═1df828e0-6d86-11eb-0d3c-2398e6700066
+# ╠═cfdaa470-6d86-11eb-03a6-ef281daeebb2

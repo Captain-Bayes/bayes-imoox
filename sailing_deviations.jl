@@ -35,7 +35,7 @@ md" Choose the **number of data points** Pascal is using in her statistics 👉 
 md"Choose **probability** of the **ocean current** to lead to a deviation 👉 $(@bind ocean_current_prob Slider(0:0.05:0.3, show_value = true)) "
 
 # ╔═╡ deb2ef40-6bea-11eb-3a13-c9642d262b93
-md"Choose **probability** of the **Pascal fail on keeping the course** 👉 $(@bind pascal_fail_prob Slider(0:0.05:0.3, show_value = true)) "
+md"Choose **probability** of **Pascal to fail on keeping the course** 👉 $(@bind pascal_fail_prob Slider(0:0.05:0.3, show_value = true)) "
 
 # ╔═╡ 08bf49de-6bec-11eb-1b80-5f6e74cbb8d0
 @bind direction_of_current Select([ "north" => "North ⬆️", "east" => "East ➡️", "south" => "South ⬇️", "west" => "West ⬅️"])
@@ -103,7 +103,7 @@ sum(table,dims=1)
 # ╔═╡ Cell order:
 # ╟─a38a9620-6bea-11eb-2293-c5469f2d5bdc
 # ╟─05f72bc0-6c45-11eb-3602-c955811f9acf
-# ╠═70049580-6bea-11eb-390b-d3013dd12235
+# ╟─70049580-6bea-11eb-390b-d3013dd12235
 # ╟─deb2ef40-6bea-11eb-3a13-c9642d262b93
 # ╟─08bf49de-6bec-11eb-1b80-5f6e74cbb8d0
 # ╟─9d0230c0-6bf8-11eb-2445-777f55b92f4a
