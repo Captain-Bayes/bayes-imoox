@@ -22,7 +22,7 @@ jobs:
                   Pkg.instantiate();
 
                   import PlutoUtils;
-                  PlutoUtils.Export.github_action(; export_dir=".", baked_state=false, offer_binder=false, bind_server_url="https://bayes.sieberer.me/");'
+                  PlutoUtils.Export.github_action(; export_dir=".", baked_state=false, offer_binder=true, bind_server_url="https://bayes.sieberer.me");'
 
             - name: Build and Deploy
               uses: JamesIves/github-pages-deploy-action@releases/v3
