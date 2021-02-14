@@ -1,0 +1,32 @@
+name: Spring 21 - Export Pluto notebooks & Deploy
+on:
+    push:
+        branches:
+            - deploy
+    workflow_dispatch:
+
+jobs:
+    build-and-deploy:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v2
+
+            - name: Install Julia
+              uses: julia-actions/setup-julia@v1
+              with:
+                  version: 1.5
+            - name: Run Pluto notebooks
+              run: julia --project=bind-server-environment -e '
+                  import Pkg;
+                  Pkg.instantiate();
+
+                  import PlutoUtils;
+                  PlutoUtils.Export.github_action(; export_dir=".", baked_state=false, offer_binder=false, bind_server_url="https://bayes.sieberer.me/");'
+
+            - name: Build and Deploy
+              uses: JamesIves/github-pages-deploy-action@releases/v3
+              with:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  BRANCH: deploy-output
+                  FOLDER: .
