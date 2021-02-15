@@ -6,7 +6,8 @@ on:
     workflow_dispatch:
 
 jobs:
-    build-and-deploy:
+    deploy-pages:
+        name: Deploy Github Pages
         runs-on: ubuntu-latest
         steps:
             - name: Checkout
@@ -30,3 +31,27 @@ jobs:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
                   BRANCH: deploy-output
                   FOLDER: .
+    build-docker:
+        name: Push Docker image to GitHub Packages
+        runs-on: ubuntu-latest
+        steps:
+          - name: Check out the repo
+            uses: actions/checkout@v2
+          - name: Login to GitHub Container Registry
+            uses: docker/login-action@v1
+            with:
+              registry: ghcr.io
+              username: ${{ github.repository_owner }}
+              password: ${{ secrets.CR_PAT }}
+          - name: Build and push
+            uses: docker/build-push-action@v2
+            with:
+              context: .
+              file: ./Dockerfile
+              platforms: linux/amd64
+              push: true
+              tags: |
+                user/app:latest
+                user/app:1.0.0
+                ghcr.io/user/app:latest
+                ghcr.io/user/app:1.0.0
