@@ -146,10 +146,11 @@ t = range(0, 2π, length = n)
 x = sin.(t)
 y = cos.(t)
 
-anim = @animate for i ∈ 1:n
-    circleplot(x, y, i)
-end
-gif(anim, "anim_fps15.gif", fps = 15)
+# anim = @animate for i ∈ 1:n
+#     circleplot(x, y, i)
+# end
+# gif(anim, "anim_fps15.gif", fps = 15)
+
 end
 
 # ╔═╡ 48f7c480-6d84-11eb-1f24-e16d7f649c9c
