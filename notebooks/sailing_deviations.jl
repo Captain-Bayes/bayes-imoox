@@ -15,12 +15,12 @@ end
 
 # ╔═╡ a38a9620-6bea-11eb-2293-c5469f2d5bdc
 begin
-	import Pkg;
-	Pkg.add("Plots")
-	Pkg.add("Plotly")
-	Pkg.add("PyPlot")
-	Pkg.add("PlutoUI")
-	Pkg.add("DataFrames")
+	#import Pkg;
+	#Pkg.add("Plots")
+	#Pkg.add("Plotly")
+	#Pkg.add("PyPlot")
+	#Pkg.add("PlutoUI")
+	#Pkg.add("DataFrames")
 	using PlutoUI
 	using Plots
 	using LinearAlgebra
@@ -109,14 +109,14 @@ sum(table,dims=1)
 # ╟─deb2ef40-6bea-11eb-3a13-c9642d262b93
 # ╟─08bf49de-6bec-11eb-1b80-5f6e74cbb8d0
 # ╟─9d0230c0-6bf8-11eb-2445-777f55b92f4a
-# ╠═18893b90-6c5c-11eb-051d-95eef7af0f0f
-# ╠═d83840b0-6c54-11eb-31d3-4d1d978c4e4a
-# ╠═83cb7cd0-6bf6-11eb-2486-3f0ffc2c8416
+# ╟─18893b90-6c5c-11eb-051d-95eef7af0f0f
+# ╟─d83840b0-6c54-11eb-31d3-4d1d978c4e4a
+# ╟─83cb7cd0-6bf6-11eb-2486-3f0ffc2c8416
 # ╟─335a84c0-6bf2-11eb-3249-fbfb0210657c
-# ╠═26e7f8d0-6bed-11eb-09d6-a1597aeefc22
-# ╠═c4582980-6bef-11eb-18e9-0b1732c8d932
-# ╠═dc84d260-6bef-11eb-1e6c-23d28cf6b1d3
-# ╠═71561790-6bf1-11eb-1acf-a1a46a8eb3d8
-# ╠═054eba90-6bf4-11eb-2214-ede88296a7b8
-# ╠═34da1880-6bf5-11eb-3e34-838a118066b4
-# ╠═9b0e3050-6bf5-11eb-18df-c9ec17fc42be
+# ╟─26e7f8d0-6bed-11eb-09d6-a1597aeefc22
+# ╟─c4582980-6bef-11eb-18e9-0b1732c8d932
+# ╟─dc84d260-6bef-11eb-1e6c-23d28cf6b1d3
+# ╟─71561790-6bf1-11eb-1acf-a1a46a8eb3d8
+# ╟─054eba90-6bf4-11eb-2214-ede88296a7b8
+# ╟─34da1880-6bf5-11eb-3e34-838a118066b4
+# ╟─9b0e3050-6bf5-11eb-18df-c9ec17fc42be

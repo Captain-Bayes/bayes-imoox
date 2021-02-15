@@ -15,9 +15,9 @@ end
 
 # ╔═╡ 4d9f28c0-6f82-11eb-1df0-f97522f733b1
 begin
-	import Pkg;
-	Pkg.add("PlutoUI")
-	Pkg.add("Random")
+	#import Pkg;
+	#Pkg.add("PlutoUI")
+	#Pkg.add("Random")
 	using PlutoUI
 	using Random
 end
@@ -45,4 +45,4 @@ A = round.(Int,tryparse(Int, mult_fact)*rand(MersenneTwister(seed), row_slider, 
 # ╟─dd4da650-6f81-11eb-2565-f5fbd7f13c8c
 # ╟─4bbfe170-6f82-11eb-10eb-89f060f3148f
 # ╟─1c6417a0-6f84-11eb-3bdd-c1dbff2b5c63
-# ╠═af0fec20-6f82-11eb-385a-0d297bfc5ba4
+# ╟─af0fec20-6f82-11eb-385a-0d297bfc5ba4
