@@ -15,12 +15,11 @@ end
 
 # ╔═╡ c823a222-6e1c-11eb-18a8-01a1b673d7b0
 begin
-	import Pkg; 
-	Pkg.add("LinearAlgebra")	
-	Pkg.add("Random")
-	Pkg.add("PlutoUI")
-	Pkg.add("Plots")
-	Pkg.add("Plotly")
+	#import Pkg; 
+	#Pkg.add("LinearAlgebra")	
+	#Pkg.add("Random")
+	#Pkg.add("PlutoUI")
+	#Pkg.add("Plots")
 	using LinearAlgebra
 	using Random
 	using Plots
