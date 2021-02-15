@@ -51,7 +51,5 @@ jobs:
               platforms: linux/amd64
               push: true
               tags: |
-                Captain-Bayes/bind-server:latest
-                Captain-Bayes/bind-server:1.0.0
-                ghcr.io/Captain-Bayes/bind-server:latest
-                ghcr.io/Captain-Bayes/bind-server:1.0.0
+                captain-bayes/bind-server:latest
+                ghcr.io/captain-bayes/bind-server:latest
