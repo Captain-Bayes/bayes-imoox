@@ -22,7 +22,6 @@ begin
 	Pkg.add("PlutoUI")
 	Pkg.add("SpecialFunctions")
 	Pkg.add("StatsBase")
-	Pkg.add("Plots")
 	Pkg.add("LinearAlgebra")
 	Pkg.add("SparseArrays")
 	using PlutoUI
@@ -128,6 +127,7 @@ end
 sum(poisson)
 
 # ╔═╡ 3d66c0a0-6c5b-11eb-0fd0-0bd81c9672c9
+#=
 begin
 	@userplot CirclePlot
 @recipe function f(cp::CirclePlot)
@@ -152,6 +152,7 @@ y = cos.(t)
 # gif(anim, "anim_fps15.gif", fps = 15)
 
 end
+=#
 
 # ╔═╡ 48f7c480-6d84-11eb-1f24-e16d7f649c9c
 phi = (1+sqrt(5))/2
@@ -199,11 +200,11 @@ begin
 end
 
 # ╔═╡ Cell order:
-# ╠═8d4298e0-6c44-11eb-3406-31a39340d1aa
+# ╟─8d4298e0-6c44-11eb-3406-31a39340d1aa
 # ╟─9637fe40-6c44-11eb-1df3-eb0b0d36db34
 # ╟─9de6ada0-6c56-11eb-1055-1b29b78e6112
 # ╟─8b8cd540-6d86-11eb-339e-7b8a2df774f9
-# ╠═84bfd150-6d8a-11eb-011e-052c39c8db9c
+# ╟─84bfd150-6d8a-11eb-011e-052c39c8db9c
 # ╟─5e0bfb10-6d8a-11eb-06ef-9335eb90064c
 # ╟─b7a7b220-6c56-11eb-1e6c-6f7595f02439
 # ╟─835da8c0-6c57-11eb-0a71-e776862dbfce
