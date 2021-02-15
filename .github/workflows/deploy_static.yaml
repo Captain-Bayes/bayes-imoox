@@ -1,4 +1,4 @@
-name: Spring 21 - Export Pluto notebooks & Deploy
+name: Deploy Captain Bayes Notebooks
 on:
     push:
         branches:

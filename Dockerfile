@@ -12,6 +12,10 @@ FROM julia:1.5
 # HTTP port
 EXPOSE 1234
 RUN apt-get update -y && apt-get upgrade -y
+
+# we need unzip for Blink
+RUN apt-get install -y unzip
+
 # add a new user called "pluto"
 RUN useradd -ms /bin/bash pluto
 # set the current directory
