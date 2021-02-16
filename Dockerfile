@@ -25,8 +25,8 @@ USER pluto
 # copy the contents of the github repository into /home/pluto
 COPY --chown=pluto . ${HOME}
 
-ENV JULIA_PROJECT="."
-ENV JULIA_LOAD_PATH=":./bind-server-environment"
+ENV JULIA_PROJECT="/home/pluto/bind-server-environment"
+ENV JULIA_LOAD_PATH=":/home/pluto/"
 
 # Initialize the julia project environment that will be used to run the bind server.
 RUN julia --project="./bind-server-environment" -e "import Pkg; Pkg.instantiate(); Pkg.precompile()"
