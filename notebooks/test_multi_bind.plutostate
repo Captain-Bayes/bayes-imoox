@@ -1,6 +1,6 @@
 ˆªcell_order–Ù$4d9f28c0-6f82-11eb-1df0-f97522f733b1Ù$17f84e80-6f83-11eb-0a6c-133363e073d6Ù$dd4da650-6f81-11eb-2565-f5fbd7f13c8cÙ$4bbfe170-6f82-11eb-10eb-89f060f3148fÙ$1c6417a0-6f84-11eb-3bdd-c1dbff2b5c63Ù$af0fec20-6f82-11eb-385a-0d297bfc5ba4¥bonds€¬cell_results†Ù$1c6417a0-6f84-11eb-3bdd-c1dbff2b5c63†¦queuedÂ§runningÂ¦output…¤bodyÙÿ<div class="markdown"><p>Choose the multipliaction factor ğŸ‘‰ <bond def="mult_fact"><select><option value="1">One</option><option value="10">Ten</option><option value="100">Hundred</option><option value="1000">Thousand</option></select></bond></p>
 </div>°persist_js_stateÂ¤mime©text/html²last_run_timestampËAØ
-¦pì¼º¬rootassigneeÀ§cell_idÙ$1c6417a0-6f84-11eb-3bdd-c1dbff2b5c63§runtimeÎgk	§erroredÂÙ$4bbfe170-6f82-11eb-10eb-89f060f3148f†¦queuedÂ§runningÂ¦output…¤bodyÙù<div class="markdown"><p>Choose number of ğŸ‘‰ <bond def="columns_slider"><input 
+êm0T¬rootassigneeÀ§cell_idÙ$1c6417a0-6f84-11eb-3bdd-c1dbff2b5c63§runtimeÎo>§erroredÂÙ$4bbfe170-6f82-11eb-10eb-89f060f3148f†¦queuedÂ§runningÂ¦output…¤bodyÙù<div class="markdown"><p>Choose number of ğŸ‘‰ <bond def="columns_slider"><input 
 type="range" 
 min="1" 
 step="1" 
@@ -9,7 +9,7 @@ value="1"
 oninput="this.nextElementSibling.value=this.value"
 ><output>1</output></bond> columns of random matrix.</p>
 </div>°persist_js_stateÂ¤mime©text/html²last_run_timestampËAØ
-¦pßb¬rootassigneeÀ§cell_idÙ$4bbfe170-6f82-11eb-10eb-89f060f3148f§runtimeÍ|§erroredÂÙ$dd4da650-6f81-11eb-2565-f5fbd7f13c8c†¦queuedÂ§runningÂ¦output…¤bodyÙò<div class="markdown"><p>Choose number of ğŸ‘‰ <bond def="row_slider"><input 
+êm$J©¬rootassigneeÀ§cell_idÙ$4bbfe170-6f82-11eb-10eb-89f060f3148f§runtimeÍ¹Œ§erroredÂÙ$dd4da650-6f81-11eb-2565-f5fbd7f13c8c†¦queuedÂ§runningÂ¦output…¤bodyÙò<div class="markdown"><p>Choose number of ğŸ‘‰ <bond def="row_slider"><input 
 type="range" 
 min="1" 
 step="1" 
@@ -18,8 +18,8 @@ value="2"
 oninput="this.nextElementSibling.value=this.value"
 ><output>2</output></bond> rows of random matrix.</p>
 </div>°persist_js_stateÂ¤mime©text/html²last_run_timestampËAØ
-¦pß=¬rootassigneeÀ§cell_idÙ$dd4da650-6f81-11eb-2565-f5fbd7f13c8c§runtimeÍÍŞ§erroredÂÙ$4d9f28c0-6f82-11eb-1df0-f97522f733b1†¦queuedÂ§runningÂ¦output…¤body °persist_js_stateÂ¤mimeªtext/plain²last_run_timestampËAØ
-¦pq ²¬rootassigneeÀ§cell_idÙ$4d9f28c0-6f82-11eb-1df0-f97522f733b1§runtimeÎ›Œ§erroredÂÙ$17f84e80-6f83-11eb-0a6c-133363e073d6†¦queuedÂ§runningÂ¦output…¤bodyÙæ<div class="markdown"><p>Choose seed ğŸ‘‰ <bond def="seed"><input 
+êm$&W¬rootassigneeÀ§cell_idÙ$dd4da650-6f81-11eb-2565-f5fbd7f13c8c§runtimeÍ°§erroredÂÙ$4d9f28c0-6f82-11eb-1df0-f97522f733b1†¦queuedÂ§runningÂ¦output…¤body °persist_js_stateÂ¤mimeªtext/plain²last_run_timestampËAØ
+êl¹Ø#¬rootassigneeÀ§cell_idÙ$4d9f28c0-6f82-11eb-1df0-f97522f733b1§runtimeÎ”ë1ù§erroredÂÙ$17f84e80-6f83-11eb-0a6c-133363e073d6†¦queuedÂ§runningÂ¦output…¤bodyÙæ<div class="markdown"><p>Choose seed ğŸ‘‰ <bond def="seed"><input 
 type="range" 
 min="1" 
 step="1" 
@@ -28,10 +28,10 @@ value="1"
 oninput="this.nextElementSibling.value=this.value"
 ><output>1</output></bond> for random numbers.</p>
 </div>°persist_js_stateÂ¤mime©text/html²last_run_timestampËAØ
-¦pß}¬rootassigneeÀ§cell_idÙ$17f84e80-6f83-11eb-0a6c-133363e073d6§runtimeÎ•:§erroredÂÙ$af0fec20-6f82-11eb-385a-0d297bfc5ba4†¦queuedÂ§runningÂ¦output…¤bodyº2Ã—1 Array{Int64,2}:
+êm#÷Æ¬rootassigneeÀ§cell_idÙ$17f84e80-6f83-11eb-0a6c-133363e073d6§runtimeÎ¯u+§erroredÂÙ$af0fec20-6f82-11eb-385a-0d297bfc5ba4†¦queuedÂ§runningÂ¦output…¤bodyº2Ã—1 Array{Int64,2}:
  0
  0°persist_js_stateÂ¤mimeªtext/plain²last_run_timestampËAØ
-¦qgÌ¬rootassignee¡A§cell_idÙ$af0fec20-6f82-11eb-385a-0d297bfc5ba4§runtimeÎCği§erroredÂ«cell_inputs†Ù$1c6417a0-6f84-11eb-3bdd-c1dbff2b5c63ƒ§cell_idÙ$1c6417a0-6f84-11eb-3bdd-c1dbff2b5c63¤codeÙ‡md"""
+êmœN¬rootassignee¡A§cell_idÙ$af0fec20-6f82-11eb-385a-0d297bfc5ba4§runtimeÎÜ” §erroredÂ«cell_inputs†Ù$1c6417a0-6f84-11eb-3bdd-c1dbff2b5c63ƒ§cell_idÙ$1c6417a0-6f84-11eb-3bdd-c1dbff2b5c63¤codeÙ‡md"""
 Choose the multipliaction factor ğŸ‘‰ $(@bind mult_fact Select(["1"=>"One","10"=>"Ten","100"=>"Hundred","1000"=>"Thousand"]))
 """«code_foldedÃÙ$4bbfe170-6f82-11eb-10eb-89f060f3148fƒ§cell_idÙ$4bbfe170-6f82-11eb-10eb-89f060f3148f¤codeÙumd"Choose number of ğŸ‘‰ $(@bind columns_slider Slider(1:10,default=1, show_value = true)) columns of random matrix."«code_foldedÃÙ$dd4da650-6f81-11eb-2565-f5fbd7f13c8cƒ§cell_idÙ$dd4da650-6f81-11eb-2565-f5fbd7f13c8c¤codeÙnmd"Choose number of ğŸ‘‰ $(@bind row_slider Slider(1:10,default=2, show_value = true)) rows of random matrix."«code_foldedÃÙ$4d9f28c0-6f82-11eb-1df0-f97522f733b1ƒ§cell_idÙ$4d9f28c0-6f82-11eb-1df0-f97522f733b1¤codeÙZbegin
 	import Pkg;
@@ -39,4 +39,4 @@ Choose the multipliaction factor ğŸ‘‰ $(@bind mult_fact Select(["1"=>"One","10"=
 	Pkg.add("Random")
 	using PlutoUI
 	using Random
-end«code_foldedÃÙ$17f84e80-6f83-11eb-0a6c-133363e073d6ƒ§cell_idÙ$17f84e80-6f83-11eb-0a6c-133363e073d6¤codeÙemd"Choose seed ğŸ‘‰ $(@bind seed Slider(1:1000, default = 1, show_value = true)) for random numbers."«code_foldedÃÙ$af0fec20-6f82-11eb-385a-0d297bfc5ba4ƒ§cell_idÙ$af0fec20-6f82-11eb-385a-0d297bfc5ba4¤codeÙ`A = round.(Int,tryparse(Int, mult_fact)*rand(MersenneTwister(seed), row_slider, columns_slider))«code_foldedÂ«notebook_idÙ$643cfe3a-6fa6-11eb-1b5d-2531a067e7cc«in_temp_dirÂ©shortpath²test_multi_bind.jl¤pathÙF/home/runner/work/bayes-imoox/bayes-imoox/notebooks/test_multi_bind.jl
+end«code_foldedÃÙ$17f84e80-6f83-11eb-0a6c-133363e073d6ƒ§cell_idÙ$17f84e80-6f83-11eb-0a6c-133363e073d6¤codeÙemd"Choose seed ğŸ‘‰ $(@bind seed Slider(1:1000, default = 1, show_value = true)) for random numbers."«code_foldedÃÙ$af0fec20-6f82-11eb-385a-0d297bfc5ba4ƒ§cell_idÙ$af0fec20-6f82-11eb-385a-0d297bfc5ba4¤codeÙ`A = round.(Int,tryparse(Int, mult_fact)*rand(MersenneTwister(seed), row_slider, columns_slider))«code_foldedÂ«notebook_idÙ$7b555142-7048-11eb-1393-b920cedbf1d3«in_temp_dirÂ©shortpath²test_multi_bind.jl¤pathÙF/home/runner/work/bayes-imoox/bayes-imoox/notebooks/test_multi_bind.jl
