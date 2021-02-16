@@ -29,10 +29,10 @@ ENV JULIA_PROJECT="${HOME}/bind-server-environment"
 ENV JULIA_LOAD_PATH=":."
 
 # Initialize the julia project environment that will be used to run the bind server.
-RUN julia -e "import Pkg; Pkg.instantiate(); Pkg.precompile()"
+RUN julia --project="${HOME}/bind-server-environment" -e "import Pkg; Pkg.instantiate(); Pkg.precompile()"
 
 # Precompile the packages in home
 RUN julia --project=${HOME} -e "import Pkg; Pkg.instantiate(); Pkg.precompile()"
 
 # The "default command" for this docker thing.
-CMD ["julia", "--project=/home/pluto/bind-server-environment", "-e", "import PlutoBindServer; PlutoBindServer.run_directory(\"notebooks\"; port=1234 , host=\"0.0.0.0\", workspace_use_distributed=true)"]
+CMD ["julia", "-e", "import PlutoBindServer; PlutoBindServer.run_directory(\"notebooks\"; port=1234 , host=\"0.0.0.0\", workspace_use_distributed=true)"]
