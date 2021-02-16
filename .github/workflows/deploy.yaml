@@ -18,13 +18,13 @@ jobs:
               with:
                   version: 1.5
             - name: Run Pluto notebooks
-              run: julia --project=bind-server-environment -e '
-                  import Pkg;
-                  Pkg.instantiate();
-
+              run: julia -e '
+                  import Pkg; Pkg.instantiate();
                   import PlutoUtils;
                   PlutoUtils.Export.github_action(; export_dir=".", baked_state=false, offer_binder=true, bind_server_url="https://bayes.sieberer.me");'
-
+              env:
+                JULIA_LOAD_PATH: ":."
+                JULIA_PROJECT: "./bind-server-environment"
             - name: Build and Deploy
               uses: JamesIves/github-pages-deploy-action@releases/v3
               with:
