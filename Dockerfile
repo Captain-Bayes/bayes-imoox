@@ -25,14 +25,14 @@ USER pluto
 # copy the contents of the github repository into /home/pluto
 COPY --chown=pluto . ${HOME}
 
-ENV JULIA_PROJECT="${HOME}"
-ENV JULIA_LOAD_PATH=":${HOME}/bind-server-environment"
+ENV JULIA_PROJECT="."
+ENV JULIA_LOAD_PATH=":./bind-server-environment"
 
 # Initialize the julia project environment that will be used to run the bind server.
-RUN julia --project="${HOME}/bind-server-environment" -e "import Pkg; Pkg.instantiate(); Pkg.precompile()"
+RUN julia --project="./bind-server-environment" -e "import Pkg; Pkg.instantiate(); Pkg.precompile()"
 
 # Precompile the packages in home
-RUN julia --project=${HOME} -e "import Pkg; Pkg.instantiate(); Pkg.precompile()"
+RUN julia --project="." -e "import Pkg; Pkg.instantiate(); Pkg.precompile()"
 
 # The "default command" for this docker thing.
 CMD ["julia", "-e", "import PlutoBindServer; PlutoBindServer.run_directory(\"notebooks\"; port=1234 , host=\"0.0.0.0\", workspace_use_distributed=true)"]
