@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.12.20
+# v0.12.21
 
 using Markdown
 using InteractiveUtils
@@ -15,16 +15,27 @@ end
 
 # ╔═╡ c823a222-6e1c-11eb-18a8-01a1b673d7b0
 begin
-	#import Pkg; 
-	#Pkg.add("LinearAlgebra")	
-	#Pkg.add("Random")
-	#Pkg.add("PlutoUI")
-	#Pkg.add("Plots")
-	using LinearAlgebra
-	using Random
-	using Plots
-    using PlutoUI
-	md""" **0) import packages** """
+
+	try
+		using LinearAlgebra
+		using Random
+		using Plots
+   	 	using PlutoUI
+		md""" **0) import packages** 	All needed Packages available :) """
+	catch
+		using Pkg;
+		Pkg.activate(mktempdir())
+		Pkg.add("PlutoUI")
+		Pkg.add("Plots")
+		#Pkg.add("LinearAlgebra")
+		#Pkg.add("Random")
+		
+		using LinearAlgebra
+		using Random
+		using Plots
+   	 	using PlutoUI
+		md""" **0) import packages** Some Package sources not added, this will take 			approx. 3-6 minutes"""
+	end
 end
 
 # ╔═╡ 53b7c092-6e9b-11eb-0fa7-57fc1385457c
@@ -63,7 +74,7 @@ md"
 begin
 	Nslide = 100
 	L_𝛼  = [0 100 ; 0.01 20 ; 0.01 40 ; 0.1 10]
-	L_𝜎 = [-1 -1; -1 -1; 0.1 20; 1 20]
+	L_𝜎 = [0 1; 0 1; 0.1 20; 1 20]
 	L_d_𝛼 = 	(L_𝛼[:,2]-L_𝛼[:,1])/Nslide
 	L_d_𝜎 = 	(L_𝜎[:,2]-L_𝜎[:,1])/Nslide
 	md"""**2) range of parameters**"""
@@ -119,7 +130,7 @@ ik = parse(Int32,kernel);
 md"
 **Specify the seed value of random number generator**  
 
-1 $(@bind seed Slider(1:1000)) 1000
+1 $(@bind seed Slider(1:200)) 200
 "
 
 # ╔═╡ 05d7032c-6e25-11eb-0b48-7f9a594b5b88
@@ -136,17 +147,17 @@ The seed you chose: $(seed)
 
 
 # ╔═╡ 431df5da-6eb4-11eb-11af-898fdf3601d5
-	if L_𝜎[ik,2] > 0
+#	if L_𝜎[ik,2] > 0
 		md"""**Choose parameters 𝛼:**
 	$(L_𝛼[ik,1]) $(@bind 𝛼 Slider(L_𝛼[ik,1]:L_d_𝛼[ik]:L_𝛼[ik,2])) $(L_𝛼[ik,2]) **and 𝜎:**
 		$(L_𝜎[ik,1]) $(@bind 𝜎 Slider(L_𝜎[ik,1]:L_d_𝜎[ik]:L_𝜎[ik,2])) $(L_𝜎[ik,2])
 		"""
-	else
-		𝜎 = L_𝜎[ik,2]
-				md"""**Choose parameter 𝛼:**
-	$(L_𝛼[ik,1]) $(@bind 𝛼 Slider(L_𝛼[ik,1]:L_d_𝛼[ik]:L_𝛼[ik,2])) $(L_𝛼[ik,2]) 
-	"""
-	end
+	#else
+#		𝜎 = L_𝜎[ik,2]
+#				md"""**Choose parameter 𝛼:**
+#	$(L_𝛼[ik,1]) $(@bind 𝛼 Slider(L_𝛼[ik,1]:L_d_𝛼[ik]:L_𝛼[ik,2])) $(L_𝛼[ik,2]) 
+#	"""
+#	end
 
 # ╔═╡ 2506c99c-6e1d-11eb-31a2-dd1b99a80d8a
 begin

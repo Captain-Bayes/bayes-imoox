@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.12.20
+# v0.12.21
 
 using Markdown
 using InteractiveUtils
@@ -15,19 +15,38 @@ end
 
 # ╔═╡ 8d4298e0-6c44-11eb-3406-31a39340d1aa
 begin
-	#import Pkg;
-	#Pkg.add("Plots")
-	#Pkg.add("PlutoUI")
-	#Pkg.add("SpecialFunctions")
-	#Pkg.add("StatsBase")
-	#Pkg.add("LinearAlgebra")
-	#Pkg.add("SparseArrays")
-	using PlutoUI
-	using Plots
-	using LinearAlgebra
-	using SparseArrays
-	using SpecialFunctions
-	using StatsBase
+	try
+		using PlutoUI
+		using Plots
+		using LinearAlgebra
+		using SparseArrays
+		using SpecialFunctions
+		using StatsBase
+		md""" 
+		# Packages
+		
+		All needed Packages available :) """
+	catch
+		using Pkg;
+		Pkg.activate(mktempdir())
+		Pkg.add("PlutoUI")
+		Pkg.add("Plots")
+		#Pkg.add("LinearAlgebra")
+		#Pkg.add("SparseArrays")
+		Pkg.add("SpecialFunctions")
+		Pkg.add("StatsBase")
+		using PlutoUI
+		using Plots
+		using LinearAlgebra
+		using SparseArrays
+		using SpecialFunctions
+		using StatsBase
+		md""" 
+		# Packages
+		
+		Some Package sources not added, this will take approx. 3 minutes"""
+	end
+	
 end
 
 # ╔═╡ 9637fe40-6c44-11eb-1df3-eb0b0d36db34
