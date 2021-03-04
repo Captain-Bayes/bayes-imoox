@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.12.20
+# v0.12.21
 
 using Markdown
 using InteractiveUtils
@@ -15,13 +15,29 @@ end
 
 # ╔═╡ 1dfd0480-6b0d-11eb-1f62-dbdc1a677571
 begin
-#	import Pkg;
-#	Pkg.add("Plots")
-#	Pkg.add("PlutoUI")
-	using PlutoUI
-	using Plots
-	using LinearAlgebra
-	using SparseArrays
+	try
+		using PlutoUI
+		using Plots
+		using LinearAlgebra
+		using SparseArrays
+		md""" 
+		# Packages
+		
+		All needed Packages available :) """
+	catch
+		using Pkg;
+		Pkg.activate(mktempdir())
+		Pkg.add("Plots")
+		Pkg.add("PlutoUI")
+		using PlutoUI
+		using Plots
+		using LinearAlgebra
+		using SparseArrays
+		md""" 
+		# Packages
+		
+		Some Package sources not added, this will take approx. 3 minutes"""
+	end
 end
 
 # ╔═╡ e6375832-6b29-11eb-38b2-7582cac61e64
@@ -192,13 +208,13 @@ end
 [string.(rand("🧔👩👨👧🧑", 1, iterations));string.(rand("🎲", 1, iterations))] |> pretty
 
 # ╔═╡ Cell order:
-# ╟─1dfd0480-6b0d-11eb-1f62-dbdc1a677571
 # ╟─e6375832-6b29-11eb-38b2-7582cac61e64
 # ╟─86b1d820-6b2b-11eb-19cf-6390ab5fccc8
 # ╟─29969590-6b12-11eb-11d7-9d831132fe4f
 # ╟─e7e029f0-6b9c-11eb-179d-1d2fca9eb8af
 # ╟─9f155e80-6be6-11eb-22c1-1b4f6e30ec72
 # ╟─b7a9ad70-6b23-11eb-295b-4324ef257047
+# ╟─1dfd0480-6b0d-11eb-1f62-dbdc1a677571
 # ╟─7ecb15e0-6b26-11eb-1d2b-37dd4e07ef05
 # ╟─185ef260-6b0b-11eb-1fd8-b5c70ec616d7
 # ╟─943dea30-6b0b-11eb-19f0-75227e40a492
