@@ -64,6 +64,10 @@ Captain Venn wants to find out the chances for the four tasks of the day. Help h
 
 """
 
+# ╔═╡ e03eeec0-8299-11eb-119b-5dfd576a2811
+md"""
+Choose the **random seed** $\,\,$ 👉 $(@bind seed Slider(1:100, default=1, show_value = true)) 
+"""
 
 # ╔═╡ e03eeec0-8299-11eb-119b-5dfd576a2811
 md"""
@@ -71,11 +75,13 @@ Choose the **random seed** $\,\,$ 👉 $(@bind seed Slider(1:100, default=1, sho
 """
 
 # ╔═╡ 8d180f60-829e-11eb-36a3-6fb2eab9c846
+#md"""
+#Start the **measurements** (don't forget to stop the clock at some point!):  $(@bind #n_sample_size Clock(0.2,true,false)) 
+#"""
+
 md"""
-Start the **measurements** (don't forget to stop the clock at some point!):  $(@bind n_sample_size Clock(0.2,true,false)) 
+Change the number of measurements 👉 $\mathcal{N} =$ $(@bind n_sample_size Scrubbable(1:1:200, default=1))  (*drag the red number with the mouse* 🖱)
 """
-
-
 
 # ╔═╡ 32d0d060-82b1-11eb-37a0-4bcd4881e6e1
 md"""
@@ -122,17 +128,16 @@ In order to see the variation of the sample mean we **repeat the measurements wi
 
 # ╔═╡ 8b8cd540-6d86-11eb-339e-7b8a2df774f9
 md"""
-Choose the **number of repetitions** n 👉 $(@bind rep Scrubbable(100:100:2000)) of sampling samples with **sample size** N:
-👉 
-$(@bind n_sam_size Scrubbable(500:1000:12000))
+Choose the **number of repetitions** 👉 n =   $(@bind rep Scrubbable(100:100:2000)) of sampling samples with **sample size**
+👉 N = $(@bind n_sam_size Scrubbable(500:1000:12000))
 """
 
 # ╔═╡ a2541e60-8356-11eb-1b16-6fb19948ed1c
 md"""
 # Some code below
-In order to have a look at the code ownload the notebook or load it on binder (takes 6-10 minutes)
+In order to have a look at the code download the notebook or load it on binder (takes 6-10 minutes)
 
-To do so, **press the binder button** in the right top corner
+To do so, **press the binder button** in the right top corner ↗
 """
 
 # ╔═╡ 48f7c480-6d84-11eb-1f24-e16d7f649c9c
@@ -175,6 +180,10 @@ begin
 	plot!([0.1, 0.1], [0, rep/6], line=(3.2, 1.0, :line), linestyle=:dash, color = :red, label="10% limit")
 	plot!([0.1056, 0.1056], [0, rep/6], line=(3.2, 1.0, :line), linestyle=:dash, color = :green, label="intrinsic mean")
 end
+
+# ╔═╡ 86962d00-8449-11eb-31f9-dfb502c7e132
+md"""
+Captain Venn's statement of having at least 10% free days is **wrong** in **$(round(100*sum(X.<0.1)/length(X), digits=1)) %** of all $(n_sam_size) day-long sailing turns *(a contract for $(round(n_sam_size/365, digits=1)) years)*"""
 
 # ╔═╡ d6519370-825a-11eb-1ae5-ed41bc0c343f
 begin 
@@ -264,6 +273,7 @@ The estimated free days ratio from the data is: $(round(100*sum(sample_1 .==1)/l
 # ╟─b7a7b220-6c56-11eb-1e6c-6f7595f02439
 # ╟─8b8cd540-6d86-11eb-339e-7b8a2df774f9
 # ╟─5523cb40-82b6-11eb-3e29-81d50ff29db6
+# ╟─86962d00-8449-11eb-31f9-dfb502c7e132
 # ╟─a2541e60-8356-11eb-1b16-6fb19948ed1c
 # ╟─70209d20-8350-11eb-2da3-9f99a25eb4f9
 # ╟─48f7c480-6d84-11eb-1f24-e16d7f649c9c
