@@ -64,6 +64,10 @@ Captain Venn wants to find out the chances for the four tasks of the day. Help h
 
 """
 
+# ╔═╡ e03eeec0-8299-11eb-119b-5dfd576a2811
+md"""
+Choose the **random seed** $\,\,$ 👉 $(@bind seed Slider(1:100, default=1, show_value = true)) 
+"""
 
 # ╔═╡ e03eeec0-8299-11eb-119b-5dfd576a2811
 md"""
