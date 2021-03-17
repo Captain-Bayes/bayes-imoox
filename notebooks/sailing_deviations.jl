@@ -21,6 +21,7 @@ begin
 		using LinearAlgebra
 		using SparseArrays
 		using DataFrames
+		using Random
 		md""" 
 		#### Packages
 		
@@ -30,6 +31,7 @@ begin
 		Pkg.activate(mktempdir())
 		Pkg.add("PlutoUI")
 		Pkg.add("Plots")
+		Pkg.add("Random")
 		#Pkg.add("LinearAlgebra")
 		#Pkg.add("SparseArrays")
 		#Pkg.add("DataFrames")
@@ -39,6 +41,7 @@ begin
 		using LinearAlgebra
 		using SparseArrays
 		using DataFrames
+		using Random
 		md""" 
 		#### Packages
 		
@@ -93,16 +96,20 @@ md"""
 ## Experimental setup
 """
 
+# ╔═╡ c1d63b90-86b4-11eb-209d-8985ce0e2f82
+md" Choose a random **seed** 👉 $(@bind seed Slider(1:1:200, default=1, show_value = true)) "
+
+
 # ╔═╡ 05f72bc0-6c45-11eb-3602-c955811f9acf
 
 md" Choose the **number of data points** Pascal is using in her statistics 👉 $(@bind n_data_points Slider(500:100:2000, default=1000, show_value = true)) "
 
 
 # ╔═╡ 70049580-6bea-11eb-390b-d3013dd12235
-md"Choose **probability** of the **ocean current** to lead to a deviation 👉 $(@bind ocean_current_prob Slider(0:0.05:0.3, show_value = true)) "
+md"Choose **probability** of the **ocean current** to lead to a deviation 👉 $(@bind ocean_current_prob Slider(0:0.05:0.3, default = 0.15, show_value = true)) "
 
 # ╔═╡ deb2ef40-6bea-11eb-3a13-c9642d262b93
-md"Choose **probability** of **Pascal to fail on keeping the course** 👉 $(@bind pascal_fail_prob Slider(0:0.05:0.3, show_value = true)) "
+md"Choose **probability** of **Pascal to fail on keeping the course** 👉 $(@bind pascal_fail_prob Slider(0:0.05:0.3, default = 0.1, show_value = true)) "
 
 # ╔═╡ 08bf49de-6bec-11eb-1b80-5f6e74cbb8d0
 md"""
@@ -141,15 +148,22 @@ end
 	md"#### function defintion"
 end
 
+# ╔═╡ 0a0abad2-86b5-11eb-1d3f-4d7e79c32419
+begin
+	rng = MersenneTwister(seed); 
+	direction = rand(rng, 1:4, n_data_points)  
+	rr = rand(rng,n_data_points)
+	ss = rand(rng,n_data_points)
+	md"#### Random number generator, determine random sailing directions and deviations"
+end
+
 # ╔═╡ c4582980-6bef-11eb-18e9-0b1732c8d932
 begin
-	direction = rand(1:4, n_data_points)  
 	md"#### determine random sailing directions"
 end
 
 # ╔═╡ dc84d260-6bef-11eb-1e6c-23d28cf6b1d3
 begin
-	rr = rand(n_data_points)
 	sail_deviation = zeros(1,n_data_points)
 	sail_deviation = (-(rr .<= pascal_fail_prob/2)) + (rr.>= 1-pascal_fail_prob/2)
 	# r<= p/2   => -1
@@ -160,7 +174,6 @@ end
 
 # ╔═╡ 71561790-6bf1-11eb-1acf-a1a46a8eb3d8
 begin 
-	ss = rand(n_data_points)
 	if direction_of_current == "north"
 		left_drift = 2;
 		right_drift = 4;
@@ -224,7 +237,7 @@ begin
 	marg_prob_dir = sum(joint_prob, dims=2)
 	marg_prob_dev = sum(joint_prob, dims=1)
 	#random variables
-	X_dir = [0,pi/2,pi,3*pi/2] #[1,2,3,4]
+	X_dir = [0,pi/2,pi,3*pi/2] #[1,2,3,4]#
 	X_dev = [-1,0,1]
 	#mean values
 	Av_dir = sum(X_dir.*marg_prob_dir)
@@ -278,6 +291,7 @@ $\textrm{CoV}(X, Y) \approx \frac{N}{N-1}\sum_{ij} \frac{\boldsymbol{N}_{ij}}{N}
 # ╔═╡ Cell order:
 # ╟─5f9b8270-79c4-11eb-0780-03bde90c8d2b
 # ╟─7dafedbe-7aa3-11eb-2054-79fd4db63d4b
+# ╟─c1d63b90-86b4-11eb-209d-8985ce0e2f82
 # ╟─05f72bc0-6c45-11eb-3602-c955811f9acf
 # ╟─70049580-6bea-11eb-390b-d3013dd12235
 # ╟─deb2ef40-6bea-11eb-3a13-c9642d262b93
@@ -285,11 +299,12 @@ $\textrm{CoV}(X, Y) \approx \frac{N}{N-1}\sum_{ij} \frac{\boldsymbol{N}_{ij}}{N}
 # ╟─6345d02e-7a69-11eb-0e07-a519c0d7b2d0
 # ╟─2a1a57c0-7ab9-11eb-0e60-115736d61684
 # ╟─b859d540-7cd7-11eb-29b5-95d538b7dc0a
-# ╠═f6ed4510-79d2-11eb-16b9-87007281ed31
+# ╟─f6ed4510-79d2-11eb-16b9-87007281ed31
 # ╟─1ae179d4-7a6a-11eb-317b-09994dba67d1
 # ╟─0a2a4d9c-7a89-11eb-23ce-dfd7d38b0ab8
-# ╠═a38a9620-6bea-11eb-2293-c5469f2d5bdc
+# ╟─a38a9620-6bea-11eb-2293-c5469f2d5bdc
 # ╟─da7a4c84-7a77-11eb-3e98-ff115e06df23
+# ╟─0a0abad2-86b5-11eb-1d3f-4d7e79c32419
 # ╟─c4582980-6bef-11eb-18e9-0b1732c8d932
 # ╟─dc84d260-6bef-11eb-1e6c-23d28cf6b1d3
 # ╟─71561790-6bf1-11eb-1acf-a1a46a8eb3d8

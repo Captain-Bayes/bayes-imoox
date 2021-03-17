@@ -176,9 +176,9 @@ uuid = "9fa8497b-333b-5362-9e8d-4d0656e87820"
 
 [[FuzzyCompletions]]
 deps = ["REPL"]
-git-tree-sha1 = "5ca3ddf3061771d25d1699ce53a80a39300811e3"
+git-tree-sha1 = "9cde086faa37f32794be3d2df393ff064d43cd66"
 uuid = "fb4132e2-a121-4a70-b8a1-d5b831dcdcc2"
-version = "0.4.0"
+version = "0.4.1"
 
 [[GLFW_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl", "Libglvnd_jll", "Pkg", "Xorg_libXcursor_jll", "Xorg_libXi_jll", "Xorg_libXinerama_jll", "Xorg_libXrandr_jll"]
@@ -289,9 +289,9 @@ version = "1.2.1"
 
 [[Latexify]]
 deps = ["Formatting", "InteractiveUtils", "LaTeXStrings", "MacroTools", "Markdown", "Printf", "Requires"]
-git-tree-sha1 = "537df0b32bc0a99620872cc6d06278e454da4533"
+git-tree-sha1 = "fbc08b5a78e264ba3d19da90b36ce1789ca67a40"
 uuid = "23fbe1c1-3f47-55db-b15f-69d7ec21a316"
-version = "0.14.10"
+version = "0.14.11"
 
 [[LibCURL]]
 deps = ["LibCURL_jll", "MozillaCACerts_jll"]
@@ -610,9 +610,9 @@ uuid = "10745b16-79ce-11e8-11f9-7d13ad32a3b2"
 
 [[StatsBase]]
 deps = ["DataAPI", "DataStructures", "LinearAlgebra", "Missings", "Printf", "Random", "SortingAlgorithms", "SparseArrays", "Statistics"]
-git-tree-sha1 = "400aa43f7de43aeccc5b2e39a76a79d262202b76"
+git-tree-sha1 = "a83fa3021ac4c5a918582ec4721bc0cf70b495a9"
 uuid = "2913bbd2-ae8a-5f71-8c99-4fb6c76f3a91"
-version = "0.33.3"
+version = "0.33.4"
 
 [[StructArrays]]
 deps = ["Adapt", "DataAPI", "Tables"]
