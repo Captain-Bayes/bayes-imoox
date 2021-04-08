@@ -17,7 +17,6 @@ end
 #add packages
 begin
 	try
-using HypertextLiteral
 using Plots
 using Random
 using StatsBase
@@ -26,7 +25,8 @@ using LinearAlgebra
 using SparseArrays
 using Markdown
 using InteractiveUtils
-
+using HypertextLiteral
+		
 catch 
 using Pkg
 Pkg.activate(mktempdir())
@@ -39,6 +39,7 @@ Pkg.add("Markdown")
 Pkg.add("InteractiveUtils")
 Pkg.add("LinearAlgebra")
 Pkg.add("HypertextLiteral")
+
 using Plots
 using Random
 using StatsBase
@@ -47,6 +48,7 @@ using LinearAlgebra
 using SparseArrays
 using Markdown
 using InteractiveUtils
+using HypertextLiteral
 #plotly()
 	end
 	md"Packages"
