@@ -17,7 +17,6 @@ end
 #add packages
 begin
 	try
-using HypertextLiteral
 using Plots
 using Random
 using StatsBase
@@ -26,7 +25,8 @@ using LinearAlgebra
 using SparseArrays
 using Markdown
 using InteractiveUtils
-
+using HypertextLiteral
+		
 catch 
 using Pkg
 Pkg.activate(mktempdir())
@@ -39,15 +39,16 @@ Pkg.add("Markdown")
 Pkg.add("InteractiveUtils")
 Pkg.add("LinearAlgebra")
 Pkg.add("HypertextLiteral")
+
 using Plots
 using Random
 using StatsBase
 using PlutoUI
 using LinearAlgebra
 using SparseArrays
-using HypertextLiteral
 using Markdown
 using InteractiveUtils
+using HypertextLiteral
 #plotly()
 	end
 	md"Packages"
@@ -62,6 +63,27 @@ md"
 "
 # CC-BY-4.0 (IMOOX, TU Graz, Institute of Theoretical and Computational Physics)
 # Authors: Johanna Moser, Gerhard Dorn, Wolfgang von der Linden
+
+# ╔═╡ b4dc3a2f-f407-4b8c-a448-4849a914be99
+md"""
+# About the creators
+
+We, **Johanna Moser, Prof. Wolfgang von der Linden** and **Gerhard Dorn** created this notebook in the context of teaching **Bayesian probability theory** using story telling.
+
+In order to make the content more approachable we invented the story of **Captain Bayes and her crew** who navigate on the ocean of uncertainty and experience a lot of adventures in probability theory. 
+
+The course is a free massive open online course (MOOC) available on the platform [`IMOOX`](https://imoox.at/mooc/local/landingpage/course.php?shortname=bayes&lang=en)
+
+$(Resource("https://raw.githubusercontent.com/Captain-Bayes/images/main/adventure_map.gif"))
+
+We even have a **trailer**: 
+"""
+
+# ╔═╡ 97565f62-8129-4515-852e-2a47748dacce
+html"""<div style="display: flex; justify-content: center;">
+<div  notthestyle="position: relative; right: 0; top: 0; z-index: 300;">
+<iframe src="https://www.youtube.com/embed/gTWU6JFHxXg" width=600 height=375  frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+</div>"""
 
 # ╔═╡ 89c46920-7ed0-11eb-3c5f-574d525a9f1f
 md" Here again you can see our compass 🧭! Now you can change the probabilities by increasing the number next to the directions ⬅⬆➡⬇ and thus simulate wind or currents. Let's see how this might affect our journey!
@@ -312,8 +334,8 @@ Can you show me the cummulative probabilities and where we might be after one ye
 # ╔═╡ e130ac04-e3eb-4be5-ae6c-c87eaf7064a5
 begin
 	days_max_first_journey = 200
-	days_max = 1000
-	n_reps_max = 20000
+	days_max = 100
+	n_reps_max = 2000
 	days_slider = @bind days Slider(1:1:days_max_first_journey, show_value = true, default = 100)
 	days_slider_2 = @bind days_2 Slider(1:25:days_max, show_value = true, default = 100)
 	seed_slider = @bind seed NumberField(1:100, default = 20)
@@ -863,6 +885,8 @@ end
 # ╔═╡ Cell order:
 # ╟─f36826be-93cd-11eb-3cd4-278a16171c91
 # ╟─24d68cf0-7ed0-11eb-004b-7b2702a5de1a
+# ╟─b4dc3a2f-f407-4b8c-a448-4849a914be99
+# ╟─97565f62-8129-4515-852e-2a47748dacce
 # ╟─1aa40340-9382-11eb-1031-5fa5b0f133ee
 # ╟─c6f9c954-54c4-48ce-8465-fc85202b79f4
 # ╟─38fd06d0-93cc-11eb-030e-a7888d7d7eee
