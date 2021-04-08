@@ -45,6 +45,7 @@ using StatsBase
 using PlutoUI
 using LinearAlgebra
 using SparseArrays
+using HypertextLiteral
 using Markdown
 using InteractiveUtils
 #plotly()
