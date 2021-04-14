@@ -383,10 +383,10 @@ Can you show me the cummulative probabilities and where we might be after one ye
 # ╔═╡ e130ac04-e3eb-4be5-ae6c-c87eaf7064a5
 begin
 	days_max_first_journey = 200
-	days_max = 1000
-	n_reps_max = 20000
+	days_max = 200
+	n_reps_max = 2000
 	days_slider = @bind days Slider(1:1:days_max_first_journey, show_value = true, default = 100)
-	days_slider_2 = @bind days_2 Slider(1:25:days_max, show_value = true, default = 100)
+	days_slider_2 = @bind days_2 Slider(1:3:200, show_value = true, default = 100)
 	seed_slider = @bind seed NumberField(1:100, default = 20)
 	seed_slider_2 = @bind seed_2 NumberField(1:100, default = 20)
 	
@@ -507,7 +507,22 @@ begin
 end
 
 # ╔═╡ 8510bdd0-96c6-11eb-3a9a-bd311edac8f4
-@htl("""
+begin
+md"""
+$(Resource("https://raw.githubusercontent.com/Captain-Bayes/images/main/Kompass_empty.png", :width => 200))
+
+
+North: $(N1)
+	
+West: $(W1)
+ East: $(E1)
+	
+South: $(S1)
+
+	"""
+	
+	
+#=	@htl("""
 <table class="compasstable">
 	
     <tbody>
@@ -528,7 +543,8 @@ end
         </tr>
     </tbody>
 </table>
-""")
+""")=#
+end
 
 # ╔═╡ 815094e0-93ce-11eb-3878-3be919148949
 begin
@@ -657,7 +673,22 @@ md"$(Resource(bernoulli, :width=>180)) The simulation is finished, Captain! Here
 md"""If you are still not happy with the expected time to reach turtle island, you could say our simulation was just bad luck, we only use **$(max_runs) runs** and **$(overfl) days** for each run to get the average return statistic, so maybe the true value is different 🤔."""
 
 # ╔═╡ 76380dec-000c-43d6-957f-4fb156846ff9
-@htl("""
+begin
+md"""
+$(Resource("https://raw.githubusercontent.com/Captain-Bayes/images/main/Kompass_empty.png", :width => 200))
+
+
+North: $(N1)
+	
+West: $(W1)
+ East: $(E1)
+	
+South: $(S1)
+
+	"""
+	
+	
+#=	@htl("""
 <table class="compasstable">
 	
     <tbody>
@@ -678,7 +709,8 @@ md"""If you are still not happy with the expected time to reach turtle island, y
         </tr>
     </tbody>
 </table>
-""")
+""")=#
+end
 
 # ╔═╡ 55e65cf6-7f5c-4faa-b271-cb78761300aa
 begin
@@ -725,7 +757,7 @@ begin
 	max_x_1_run = maximum(abs.(pos_first_run[1:days,1]))
 	max_y_1_run = maximum(abs.(pos_first_run[1:days,2]))
 	plot(
-			pos_first_run[1:days,1], pos_first_run[1:days,2], linecolor   = :green,
+			[pos_first_run[1:days,1]], [pos_first_run[1:days,2]], linecolor   = :green,
 			linealpha = 0.2,
 			linewidth = 2, aspect_ratio =:equal,
 			marker = (:dot , 5, 0.2, :green),
@@ -748,24 +780,31 @@ end
 
 # ╔═╡ 29523c50-7554-11eb-25c1-1b56caf928c5
 begin
+	color_green = [76,173,133]/255
+	compass_green = RGB(color_green[1], color_green[2], color_green[3])
+	color_red = [172,50,50]/255
+	compass_red = RGB(color_red[1], color_red[2], color_red[3])
+	color_yellow = [242,233,52]/255
+	compass_yellow = RGB(color_yellow[1], color_yellow[2], color_yellow[3])
+	color_blue = [48,96,130]/255
+	compass_blue = RGB(color_blue[1], color_blue[2], color_blue[3])
 plot(compass, K_first_run[:,days]/days,
 		line = (1., 1., :bar), label = "simulation", title = "cardinal directions chosen")
-plot!(compass, weights, line = (1.0, 0.0, :bar), bar_width = 0.02,
-    marker = (:circle, 50, 1), color = [:red], label = :none, legend = :right)
+plot!([compass], [weights], line = (1.0, 0.0, :bar), bar_width = 0.03, color = :red, label = "theory", legend = :right)
 	
 plot!(compass, weights,
-		line = (0., 0, :path),
+		line = (0., 0.0, :path),
     normalize = false,
     bins = 10,
 	bar_width = 0.2,
     marker = (7, 1., :o),
     markerstrokewidth = 1,
-    color = [:red],
+    color = [compass_yellow, compass_red, compass_blue, compass_green],
     fill = 1.,
     orientation = :v,
 	ylabel = "Relative frequency",
 	xlabel = "Directions",
-	label = "theory")
+	label = :none)
 end
 
 # ╔═╡ 9600df90-7f46-11eb-2d6f-953d8166854e
@@ -786,9 +825,8 @@ begin
 	
 	hist_data_2 = sparse(final_pos_2[1:nr_reps,2].+max_distance.+1, final_pos_2[1:nr_reps,1].+max_distance.+1, 	 	 ones(size(final_pos_2[1:nr_reps],1)), 2*max_distance + 1, 2*max_distance + 1)
 	
-	
 	if averaged_final
-	heatmap(-max_distance:1:max_distance, -max_distance:1:max_distance, Array(hist_data + hist_data_2)./2, seriestype = :bar, c=:dense, axis = :equal) 
+	heatmap(-max_distance:1:max_distance, -max_distance:1:max_distance, Array(hist_data + hist_data_2)./2, seriestype = :bar, c=:dense) 
 	else
 	heatmap(-max_distance:1:max_distance, -max_distance:1:max_distance, Array(hist_data), seriestype = :bar, c=:dense) 
 	end

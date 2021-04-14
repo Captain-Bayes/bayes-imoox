@@ -405,7 +405,7 @@ Can you show me the cummulative probabilities and where we might be after one ye
 # ╔═╡ e130ac04-e3eb-4be5-ae6c-c87eaf7064a5
 begin
 	days_max_first_journey = 200
-	days_max = 100
+	days_max = 400
 	n_reps_max = 2000
 	days_slider = @bind days Slider(1:1:days_max_first_journey, show_value = true, default = 100)
 	days_slider_2 = @bind days_2 Slider(1:25:days_max, show_value = true, default = 100)
