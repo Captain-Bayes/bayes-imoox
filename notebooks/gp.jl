@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.12.21
+# v0.14.1
 
 using Markdown
 using InteractiveUtils
@@ -41,26 +41,26 @@ end
 # ╔═╡ 53b7c092-6e9b-11eb-0fa7-57fc1385457c
 md"
 # _The Gaussian Process_
-Given a vector of pivot points $\boldsymbol x$,
-the corresponding random vector  $\boldsymbol y(\boldsymbol x)$
+Given a vector of pivot points $\boldsymbol t = t_1, \dots, t_k, \dots$,
+the corresponding random vector  $\vec{x} = (x^{(t_1)}, \dots, x^{t_k}, \dots )$
 is drawn from a multivariate Gaussian 
 
-$\boldsymbol z \sim {\cal G}(\mu,C)$
+$\vec{x} \sim \mathcal{G}(\vec{\mu},\Sigma)$
 
-with zero mean $\boldsymbol \mu  = \boldsymbol0$
-and a covariance with matrix elements: $C_{ij} = C(x_i,x_j)$.
+with zero mean $\vec{\mu}  = \boldsymbol0$
+and a covariance with matrix elements: $\Sigma_{kl} = k(t_k,t_l)$ which is given by the kernel function $k(\boldsymbol{t}, \boldsymbol{t})$ that defines how the pivot points $t_k$ are correlated.
 
 
 
-The different Gaussian processes differ in the kernel function $C(x,y)$
+Many different stochastic processes can be realized as Gaussian process just by using a different kernel function $k(\boldsymbol{t}, \boldsymbol{t})$:
 
-1) Straight line process: $C(x,y) = \alpha \cdot x\cdot y$
+1) Straight line process: $k(t_k,t_l) = \alpha \cdot t_k\cdot t_l$
 
-2) Wiener process: $C(x,y) = \alpha * min(x, y)$
+2) Wiener process: $k(t_k,t_l) = \alpha \cdot \text{min}(t_k, t_l)$
 
-3) Squared exponential kernel: $C(x,y) = \alpha * \exp(- \frac{(x-y)^2}{\sigma^2})$
+3) Squared exponential kernel: $k(t_k,t_l) = \alpha \cdot \exp(- \frac{(t_k-t_l)^2}{\sigma^2})$
 
-4) Ornstein-Uhlenbeck process: $C(x,y) = \alpha * \exp(- \frac{|x-y|}{\sigma})$
+4) Ornstein-Uhlenbeck process: $k(t_k,t_l) = \alpha \cdot \exp(- \frac{|t_k-t_l|}{\sigma})$
 
 GPs are magic ✨ 
 "
@@ -149,8 +149,9 @@ The seed you chose: $(seed)
 # ╔═╡ 431df5da-6eb4-11eb-11af-898fdf3601d5
 #	if L_𝜎[ik,2] > 0
 		md"""**Choose parameters 𝛼:**
-	$(L_𝛼[ik,1]) $(@bind 𝛼 Slider(L_𝛼[ik,1]:L_d_𝛼[ik]:L_𝛼[ik,2])) $(L_𝛼[ik,2]) **and 𝜎:**
-		$(L_𝜎[ik,1]) $(@bind 𝜎 Slider(L_𝜎[ik,1]:L_d_𝜎[ik]:L_𝜎[ik,2])) $(L_𝜎[ik,2])
+	$(@bind 𝛼 Slider(0.1:0.1:20, show_value=true, default=1))
+
+and **𝜎:**$(@bind 𝜎 Slider(0.1:0.1:40, show_value=true, default=1)) (only for *Squared exponential* and *Ornstein-Uhlenbeck*)
 		"""
 	#else
 #		𝜎 = L_𝜎[ik,2]
@@ -193,13 +194,13 @@ plot(
 )
 
 # ╔═╡ Cell order:
-# ╟─53b7c092-6e9b-11eb-0fa7-57fc1385457c
+# ╠═53b7c092-6e9b-11eb-0fa7-57fc1385457c
 # ╟─0ac101ba-6ecc-11eb-090e-6b5998c6bbfd
 # ╟─c823a222-6e1c-11eb-18a8-01a1b673d7b0
 # ╟─0bef3462-6e1d-11eb-08f6-e3b2c36a0721
 # ╟─dca69d60-6e8c-11eb-3305-3fa2cedd5dac
 # ╟─1edc6c32-6e1d-11eb-2f8a-b9dd2aff7b99
-# ╟─05d7032c-6e25-11eb-0b48-7f9a594b5b88
+# ╠═05d7032c-6e25-11eb-0b48-7f9a594b5b88
 # ╟─2506c99c-6e1d-11eb-31a2-dd1b99a80d8a
 # ╟─21cff596-6ecc-11eb-093c-f97fac9ab7cb
 # ╟─2837bf6e-6eb2-11eb-2b2a-190fa3669085

@@ -329,7 +329,6 @@ elseif dial_index >= 8
 		
 end
 
-
 # ╔═╡ 9d9726dd-3456-4988-ae96-c25129092c39
 md"""
 That's cool! But how will we know where we'll (most likely) end up?
@@ -409,7 +408,7 @@ Can you show me the cummulative probabilities and where we might be after one ye
 # ╔═╡ e130ac04-e3eb-4be5-ae6c-c87eaf7064a5
 begin
 	days_max_first_journey = 200
-	days_max = 100
+	days_max = 400
 	n_reps_max = 2000
 	days_slider = @bind days Slider(1:1:days_max_first_journey, show_value = true, default = 100)
 	days_slider_2 = @bind days_2 Slider(1:25:days_max, show_value = true, default = 100)
@@ -479,7 +478,6 @@ hide_everything_below =
 	
 md"definition hide everything below"
 end
-
 
 # ╔═╡ 4f304620-93cb-11eb-1da6-739664f2a105
 begin
@@ -735,7 +733,6 @@ weights = [n, E/norm, S/norm, W/norm]
 	md"variables"
 end
 
-
 # ╔═╡ 5cea77d0-93d1-11eb-1508-aff9495e46d8
 begin
 	dial
@@ -864,7 +861,6 @@ button.addEventListener("click", (e) => {
 div.value = count
 </script>
 """)
-
 
 # ╔═╡ 8e804243-9123-497d-a4b2-552f04c1d9d5
 begin

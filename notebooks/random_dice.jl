@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.12.21
+# v0.14.1
 
 using Markdown
 using InteractiveUtils
@@ -171,26 +171,28 @@ begin
     fill = [1. 1.],
 	bar_width = [1*0.9 (r[2]-r[1])*0.9],
     orientation = :v,
-    title = string("Average distribution of \nstrange dice with ", string(iter+1), " gamblers"),
+    title = "Average distribution of \nstrange dice with "*string(iter+1)*" gamblers",
 	ylabel = "probability / width of bar",
 	xlabel = "Points",
 	usetex = true,
 	label = [:none :none "Mean"],
 	ylim = [0,1],
 )
+	
+	if iter > 0
+	plot!([dice_mean - dice_std/sqrt(iter), dice_mean + dice_std/sqrt(iter), 3, dice_mean+dice_std/sqrt(iter), dice_mean-dice_std/sqrt(iter)], 0.08*[1, 1,NaN, 1, 1]/sqrt(((r[2]-r[1]))),
+		line = (2., 2., :path),
+		color = :green,
+		arrow = true,
+		label = "Std/sqrt(" * string(iter+1) *")",
+		)
+	end
 	plot!([dice_mean - dice_std, dice_mean + dice_std, 3, dice_mean+dice_std, dice_mean-dice_std], 0.5.*[1, 1,NaN, 1, 1],
 		line = (2., 2., :path),
 		color = :magenta,
 		arrow = true,
 		label = "Std",
 		)
-	plot!([dice_mean - dice_std/sqrt(iter), dice_mean + dice_std/sqrt(iter), 3, dice_mean+dice_std/sqrt(iter), dice_mean-dice_std/sqrt(iter)], 0.08*[1, 1,NaN, 1, 1]/sqrt(((r[2]-r[1]))),
-		line = (2., 2., :path),
-		color = :green,
-		arrow = true,
-		label = string("Std/sqrt(",string(iter+1), ")"),
-		)
-	
 end
 
 # ╔═╡ 89f8f100-6b24-11eb-3292-c15016c60a5b

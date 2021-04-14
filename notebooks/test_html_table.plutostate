@@ -1,0 +1,698 @@
+‰ªcell_order•Ù$0fe07ad2-dd62-40cd-abf6-0bd44bc43aa4Ù$55abd7c5-235f-41d0-ac2b-056989845148Ù$a6cc31b0-9d70-11eb-3a8f-a3e534ed0eebÙ$e023d584-b95b-4e45-bbba-497c175e4e08Ù$4978f47b-2da3-4cd7-b9f9-f7747de17ec1¥bonds€¬cell_results…Ù$55abd7c5-235f-41d0-ac2b-056989845148†¦queuedÂ§runningÂ¦output…¤bodyÚ¬<div class="markdown"><h1>Minimal example</h1>
+<h4>if <strong>htl table</strong> &#40;Package HypertextLiteral&#41; works with PlutoSliderServer</h4>
+<p>ğŸ”¼: <bond def="N"><script>
+
+const d3format = await import("https://cdn.jsdelivr.net/npm/d3-format@2/+esm")
+
+const argmin = xs => xs.indexOf(Math.min(...xs))
+const closest_index = (xs, y) => argmin(xs.map(x => Math.abs(x-y)))
+
+const values = [0, 1, 2, 3]
+
+const el = html`
+<span title="Click and drag this number left or right!" style="cursor: col-resize;
+touch-action: none;
+background: rgb(252, 209, 204);
+padding: 0em .2em;
+border-radius: .3em;
+font-weight: bold;">1</span>
+`
+
+
+
+let old_x = 0
+let old_index = 0
+let current_index = closest_index(values, 1)
+
+const formatter = s => "" + d3format.format("")(s) + ""
+
+
+
+Object.defineProperty(el, 'value', {
+	get: () => values[current_index],
+	set: x => {
+		current_index = closest_index(values, x)
+		el.innerText = formatter(el.value)
+	},
+});
+
+// initial value
+el.innerText = formatter(1)
+
+const onScrub = (e) => {
+	const offset = e.clientX - old_x
+	const new_index = Math.min(values.length-1, Math.max(0, 
+		Math.round(offset/10) + old_index
+	))
+
+	if(new_index !== current_index) {
+		current_index = new_index
+		el.innerText = formatter(el.value)
+		el.dispatchEvent(new CustomEvent("input"))
+	}
+}
+
+const onpointerdown = (e) => {
+	old_x = e.clientX
+	old_index = current_index
+	window.addEventListener("pointermove", onScrub)
+}
+el.addEventListener("pointerdown", onpointerdown)
+
+
+const onpointerup = () => {
+	window.removeEventListener("pointermove", onScrub)
+}
+window.addEventListener("pointerup", onpointerup)
+
+el.onselectstart = () => false
+
+invalidation.then(() => {
+	el.removeEventListener("pointerdown", onpointerdown)
+	window.removeEventListener("pointerup", onpointerup)
+})
+
+return el
+
+</script></bond>, </p>
+<p>â–¶: <bond def="E"><script>
+
+const d3format = await import("https://cdn.jsdelivr.net/npm/d3-format@2/+esm")
+
+const argmin = xs => xs.indexOf(Math.min(...xs))
+const closest_index = (xs, y) => argmin(xs.map(x => Math.abs(x-y)))
+
+const values = [0, 1, 2, 3]
+
+const el = html`
+<span title="Click and drag this number left or right!" style="cursor: col-resize;
+touch-action: none;
+background: rgb(252, 209, 204);
+padding: 0em .2em;
+border-radius: .3em;
+font-weight: bold;">1</span>
+`
+
+
+
+let old_x = 0
+let old_index = 0
+let current_index = closest_index(values, 1)
+
+const formatter = s => "" + d3format.format("")(s) + ""
+
+
+
+Object.defineProperty(el, 'value', {
+	get: () => values[current_index],
+	set: x => {
+		current_index = closest_index(values, x)
+		el.innerText = formatter(el.value)
+	},
+});
+
+// initial value
+el.innerText = formatter(1)
+
+const onScrub = (e) => {
+	const offset = e.clientX - old_x
+	const new_index = Math.min(values.length-1, Math.max(0, 
+		Math.round(offset/10) + old_index
+	))
+
+	if(new_index !== current_index) {
+		current_index = new_index
+		el.innerText = formatter(el.value)
+		el.dispatchEvent(new CustomEvent("input"))
+	}
+}
+
+const onpointerdown = (e) => {
+	old_x = e.clientX
+	old_index = current_index
+	window.addEventListener("pointermove", onScrub)
+}
+el.addEventListener("pointerdown", onpointerdown)
+
+
+const onpointerup = () => {
+	window.removeEventListener("pointermove", onScrub)
+}
+window.addEventListener("pointerup", onpointerup)
+
+el.onselectstart = () => false
+
+invalidation.then(() => {
+	el.removeEventListener("pointerdown", onpointerdown)
+	window.removeEventListener("pointerup", onpointerup)
+})
+
+return el
+
+</script></bond>, </p>
+<p>ğŸ”½: <bond def="S"><script>
+
+const d3format = await import("https://cdn.jsdelivr.net/npm/d3-format@2/+esm")
+
+const argmin = xs => xs.indexOf(Math.min(...xs))
+const closest_index = (xs, y) => argmin(xs.map(x => Math.abs(x-y)))
+
+const values = [0, 1, 2, 3]
+
+const el = html`
+<span title="Click and drag this number left or right!" style="cursor: col-resize;
+touch-action: none;
+background: rgb(252, 209, 204);
+padding: 0em .2em;
+border-radius: .3em;
+font-weight: bold;">1</span>
+`
+
+
+
+let old_x = 0
+let old_index = 0
+let current_index = closest_index(values, 1)
+
+const formatter = s => "" + d3format.format("")(s) + ""
+
+
+
+Object.defineProperty(el, 'value', {
+	get: () => values[current_index],
+	set: x => {
+		current_index = closest_index(values, x)
+		el.innerText = formatter(el.value)
+	},
+});
+
+// initial value
+el.innerText = formatter(1)
+
+const onScrub = (e) => {
+	const offset = e.clientX - old_x
+	const new_index = Math.min(values.length-1, Math.max(0, 
+		Math.round(offset/10) + old_index
+	))
+
+	if(new_index !== current_index) {
+		current_index = new_index
+		el.innerText = formatter(el.value)
+		el.dispatchEvent(new CustomEvent("input"))
+	}
+}
+
+const onpointerdown = (e) => {
+	old_x = e.clientX
+	old_index = current_index
+	window.addEventListener("pointermove", onScrub)
+}
+el.addEventListener("pointerdown", onpointerdown)
+
+
+const onpointerup = () => {
+	window.removeEventListener("pointermove", onScrub)
+}
+window.addEventListener("pointerup", onpointerup)
+
+el.onselectstart = () => false
+
+invalidation.then(() => {
+	el.removeEventListener("pointerdown", onpointerdown)
+	window.removeEventListener("pointerup", onpointerup)
+})
+
+return el
+
+</script></bond>, </p>
+<p>â—€: <bond def="W"><script>
+
+const d3format = await import("https://cdn.jsdelivr.net/npm/d3-format@2/+esm")
+
+const argmin = xs => xs.indexOf(Math.min(...xs))
+const closest_index = (xs, y) => argmin(xs.map(x => Math.abs(x-y)))
+
+const values = [0, 1, 2, 3]
+
+const el = html`
+<span title="Click and drag this number left or right!" style="cursor: col-resize;
+touch-action: none;
+background: rgb(252, 209, 204);
+padding: 0em .2em;
+border-radius: .3em;
+font-weight: bold;">1</span>
+`
+
+
+
+let old_x = 0
+let old_index = 0
+let current_index = closest_index(values, 1)
+
+const formatter = s => "" + d3format.format("")(s) + ""
+
+
+
+Object.defineProperty(el, 'value', {
+	get: () => values[current_index],
+	set: x => {
+		current_index = closest_index(values, x)
+		el.innerText = formatter(el.value)
+	},
+});
+
+// initial value
+el.innerText = formatter(1)
+
+const onScrub = (e) => {
+	const offset = e.clientX - old_x
+	const new_index = Math.min(values.length-1, Math.max(0, 
+		Math.round(offset/10) + old_index
+	))
+
+	if(new_index !== current_index) {
+		current_index = new_index
+		el.innerText = formatter(el.value)
+		el.dispatchEvent(new CustomEvent("input"))
+	}
+}
+
+const onpointerdown = (e) => {
+	old_x = e.clientX
+	old_index = current_index
+	window.addEventListener("pointermove", onScrub)
+}
+el.addEventListener("pointerdown", onpointerdown)
+
+
+const onpointerup = () => {
+	window.removeEventListener("pointermove", onScrub)
+}
+window.addEventListener("pointerup", onpointerup)
+
+el.onselectstart = () => false
+
+invalidation.then(() => {
+	el.removeEventListener("pointerdown", onpointerdown)
+	window.removeEventListener("pointerup", onpointerup)
+})
+
+return el
+
+</script></bond></p>
+</div>°persist_js_stateÂ¤mime©text/html²last_run_timestampËAØßG5»®¬rootassigneeÀ§cell_idÙ$55abd7c5-235f-41d0-ac2b-056989845148§runtimeÍ[i§erroredÂÙ$0fe07ad2-dd62-40cd-abf6-0bd44bc43aa4†¦queuedÂ§runningÂ¦output…¤bodyÙ,<div class="markdown"><p>Packages</p>
+</div>°persist_js_stateÂ¤mime©text/html²last_run_timestampËAØßGr?¬rootassigneeÀ§cell_idÙ$0fe07ad2-dd62-40cd-abf6-0bd44bc43aa4§runtimeÎ
+S4§erroredÂÙ$a6cc31b0-9d70-11eb-3a8f-a3e534ed0eeb†¦queuedÂ§runningÂ¦output…¤bodyÚÅ<table class="compasstable">
+	
+    <tbody>
+        <tr>
+            <td></td>
+            <td style="text-align:center">	<bond def="N"><script>
+
+const d3format = await import("https://cdn.jsdelivr.net/npm/d3-format@2/+esm")
+
+const argmin = xs => xs.indexOf(Math.min(...xs))
+const closest_index = (xs, y) => argmin(xs.map(x => Math.abs(x-y)))
+
+const values = [0, 1, 2, 3]
+
+const el = html`
+<span title="Click and drag this number left or right!" style="cursor: col-resize;
+touch-action: none;
+background: rgb(252, 209, 204);
+padding: 0em .2em;
+border-radius: .3em;
+font-weight: bold;">1</span>
+`
+
+
+
+let old_x = 0
+let old_index = 0
+let current_index = closest_index(values, 1)
+
+const formatter = s => "" + d3format.format("")(s) + ""
+
+
+
+Object.defineProperty(el, 'value', {
+	get: () => values[current_index],
+	set: x => {
+		current_index = closest_index(values, x)
+		el.innerText = formatter(el.value)
+	},
+});
+
+// initial value
+el.innerText = formatter(1)
+
+const onScrub = (e) => {
+	const offset = e.clientX - old_x
+	const new_index = Math.min(values.length-1, Math.max(0, 
+		Math.round(offset/10) + old_index
+	))
+
+	if(new_index !== current_index) {
+		current_index = new_index
+		el.innerText = formatter(el.value)
+		el.dispatchEvent(new CustomEvent("input"))
+	}
+}
+
+const onpointerdown = (e) => {
+	old_x = e.clientX
+	old_index = current_index
+	window.addEventListener("pointermove", onScrub)
+}
+el.addEventListener("pointerdown", onpointerdown)
+
+
+const onpointerup = () => {
+	window.removeEventListener("pointermove", onScrub)
+}
+window.addEventListener("pointerup", onpointerup)
+
+el.onselectstart = () => false
+
+invalidation.then(() => {
+	el.removeEventListener("pointerdown", onpointerdown)
+	window.removeEventListener("pointerup", onpointerup)
+})
+
+return el
+
+</script></bond></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><bond def="W"><script>
+
+const d3format = await import("https://cdn.jsdelivr.net/npm/d3-format@2/+esm")
+
+const argmin = xs => xs.indexOf(Math.min(...xs))
+const closest_index = (xs, y) => argmin(xs.map(x => Math.abs(x-y)))
+
+const values = [0, 1, 2, 3]
+
+const el = html`
+<span title="Click and drag this number left or right!" style="cursor: col-resize;
+touch-action: none;
+background: rgb(252, 209, 204);
+padding: 0em .2em;
+border-radius: .3em;
+font-weight: bold;">1</span>
+`
+
+
+
+let old_x = 0
+let old_index = 0
+let current_index = closest_index(values, 1)
+
+const formatter = s => "" + d3format.format("")(s) + ""
+
+
+
+Object.defineProperty(el, 'value', {
+	get: () => values[current_index],
+	set: x => {
+		current_index = closest_index(values, x)
+		el.innerText = formatter(el.value)
+	},
+});
+
+// initial value
+el.innerText = formatter(1)
+
+const onScrub = (e) => {
+	const offset = e.clientX - old_x
+	const new_index = Math.min(values.length-1, Math.max(0, 
+		Math.round(offset/10) + old_index
+	))
+
+	if(new_index !== current_index) {
+		current_index = new_index
+		el.innerText = formatter(el.value)
+		el.dispatchEvent(new CustomEvent("input"))
+	}
+}
+
+const onpointerdown = (e) => {
+	old_x = e.clientX
+	old_index = current_index
+	window.addEventListener("pointermove", onScrub)
+}
+el.addEventListener("pointerdown", onpointerdown)
+
+
+const onpointerup = () => {
+	window.removeEventListener("pointermove", onScrub)
+}
+window.addEventListener("pointerup", onpointerup)
+
+el.onselectstart = () => false
+
+invalidation.then(() => {
+	el.removeEventListener("pointerdown", onpointerdown)
+	window.removeEventListener("pointerup", onpointerup)
+})
+
+return el
+
+</script></bond></td>
+            <td><img src="https://raw.githubusercontent.com/Captain-Bayes/images/main/Kompass_empty.png" width=200></td>
+            <td><bond def="E"><script>
+
+const d3format = await import("https://cdn.jsdelivr.net/npm/d3-format@2/+esm")
+
+const argmin = xs => xs.indexOf(Math.min(...xs))
+const closest_index = (xs, y) => argmin(xs.map(x => Math.abs(x-y)))
+
+const values = [0, 1, 2, 3]
+
+const el = html`
+<span title="Click and drag this number left or right!" style="cursor: col-resize;
+touch-action: none;
+background: rgb(252, 209, 204);
+padding: 0em .2em;
+border-radius: .3em;
+font-weight: bold;">1</span>
+`
+
+
+
+let old_x = 0
+let old_index = 0
+let current_index = closest_index(values, 1)
+
+const formatter = s => "" + d3format.format("")(s) + ""
+
+
+
+Object.defineProperty(el, 'value', {
+	get: () => values[current_index],
+	set: x => {
+		current_index = closest_index(values, x)
+		el.innerText = formatter(el.value)
+	},
+});
+
+// initial value
+el.innerText = formatter(1)
+
+const onScrub = (e) => {
+	const offset = e.clientX - old_x
+	const new_index = Math.min(values.length-1, Math.max(0, 
+		Math.round(offset/10) + old_index
+	))
+
+	if(new_index !== current_index) {
+		current_index = new_index
+		el.innerText = formatter(el.value)
+		el.dispatchEvent(new CustomEvent("input"))
+	}
+}
+
+const onpointerdown = (e) => {
+	old_x = e.clientX
+	old_index = current_index
+	window.addEventListener("pointermove", onScrub)
+}
+el.addEventListener("pointerdown", onpointerdown)
+
+
+const onpointerup = () => {
+	window.removeEventListener("pointermove", onScrub)
+}
+window.addEventListener("pointerup", onpointerup)
+
+el.onselectstart = () => false
+
+invalidation.then(() => {
+	el.removeEventListener("pointerdown", onpointerdown)
+	window.removeEventListener("pointerup", onpointerup)
+})
+
+return el
+
+</script></bond></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td style="text-align:center">	<bond def="S"><script>
+
+const d3format = await import("https://cdn.jsdelivr.net/npm/d3-format@2/+esm")
+
+const argmin = xs => xs.indexOf(Math.min(...xs))
+const closest_index = (xs, y) => argmin(xs.map(x => Math.abs(x-y)))
+
+const values = [0, 1, 2, 3]
+
+const el = html`
+<span title="Click and drag this number left or right!" style="cursor: col-resize;
+touch-action: none;
+background: rgb(252, 209, 204);
+padding: 0em .2em;
+border-radius: .3em;
+font-weight: bold;">1</span>
+`
+
+
+
+let old_x = 0
+let old_index = 0
+let current_index = closest_index(values, 1)
+
+const formatter = s => "" + d3format.format("")(s) + ""
+
+
+
+Object.defineProperty(el, 'value', {
+	get: () => values[current_index],
+	set: x => {
+		current_index = closest_index(values, x)
+		el.innerText = formatter(el.value)
+	},
+});
+
+// initial value
+el.innerText = formatter(1)
+
+const onScrub = (e) => {
+	const offset = e.clientX - old_x
+	const new_index = Math.min(values.length-1, Math.max(0, 
+		Math.round(offset/10) + old_index
+	))
+
+	if(new_index !== current_index) {
+		current_index = new_index
+		el.innerText = formatter(el.value)
+		el.dispatchEvent(new CustomEvent("input"))
+	}
+}
+
+const onpointerdown = (e) => {
+	old_x = e.clientX
+	old_index = current_index
+	window.addEventListener("pointermove", onScrub)
+}
+el.addEventListener("pointerdown", onpointerdown)
+
+
+const onpointerup = () => {
+	window.removeEventListener("pointermove", onScrub)
+}
+window.addEventListener("pointerup", onpointerup)
+
+el.onselectstart = () => false
+
+invalidation.then(() => {
+	el.removeEventListener("pointerdown", onpointerdown)
+	window.removeEventListener("pointerup", onpointerup)
+})
+
+return el
+
+</script></bond></td>
+            <td></td>
+        </tr>
+    </tbody>
+</table>
+°persist_js_stateÂ¤mime©text/html²last_run_timestampËAØßGk£Æ¬rootassigneeÀ§cell_idÙ$a6cc31b0-9d70-11eb-3a8f-a3e534ed0eeb§runtimeÎ Ä •§erroredÂÙ$4978f47b-2da3-4cd7-b9f9-f7747de17ec1†¦queuedÂ§runningÂ¦output…¤bodyÙ5<div class="markdown"><p>define tablestyle</p>
+</div>°persist_js_stateÂ¤mime©text/html²last_run_timestampËAØßGß¬rootassigneeÀ§cell_idÙ$4978f47b-2da3-4cd7-b9f9-f7747de17ec1§runtimeÎ’š§erroredÂÙ$e023d584-b95b-4e45-bbba-497c175e4e08†¦queuedÂ§runningÂ¦output…¤bodyÙU	<style>
+	.compasstable td {
+		font-size: 30px;
+		text-align: center;
+	}
+	
+	</style>
+°persist_js_stateÂ¤mime©text/html²last_run_timestampËAØßD–xê¬rootassigneeÀ§cell_idÙ$e023d584-b95b-4e45-bbba-497c175e4e08§runtimeÍä§erroredÂ«cell_inputs…Ù$55abd7c5-235f-41d0-ac2b-056989845148ƒ§cell_idÙ$55abd7c5-235f-41d0-ac2b-056989845148¤codeÙ¢md"""
+# Minimal example 
+
+#### if **htl table** (Package HypertextLiteral) works with PlutoSliderServer
+
+ğŸ”¼: $(N1), 
+
+â–¶: $(E1), 
+
+ğŸ”½: $(S1), 
+
+â—€: $(W1)"""«code_foldedÃÙ$0fe07ad2-dd62-40cd-abf6-0bd44bc43aa4ƒ§cell_idÙ$0fe07ad2-dd62-40cd-abf6-0bd44bc43aa4¤codeÚ
+#add packages
+begin
+	try
+using HypertextLiteral
+using PlutoUI
+#using Plots
+
+catch 
+using Pkg
+Pkg.activate(mktempdir())
+#Pkg.add("Plots")
+Pkg.add("HypertextLiteral")
+Pkg.add("PlutoUI")
+#using Plots
+using HypertextLiteral
+using PlutoUi
+#plotly()
+	end
+	md"Packages"
+end«code_foldedÃÙ$a6cc31b0-9d70-11eb-3a8f-a3e534ed0eebƒ§cell_idÙ$a6cc31b0-9d70-11eb-3a8f-a3e534ed0eeb¤codeÚ@htl("""
+<table class="compasstable">
+	
+    <tbody>
+        <tr>
+            <td></td>
+            <td style="text-align:center">	$(N1)</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>$(W1)</td>
+            <td><img src="https://raw.githubusercontent.com/Captain-Bayes/images/main/Kompass_empty.png" width=200></td>
+            <td>$(E1)</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td style="text-align:center">	$(S1)</td>
+            <td></td>
+        </tr>
+    </tbody>
+</table>
+""")«code_foldedÃÙ$4978f47b-2da3-4cd7-b9f9-f7747de17ec1ƒ§cell_idÙ$4978f47b-2da3-4cd7-b9f9-f7747de17ec1¤codeÚ#begin
+	# used to reset the compass to make it fair again, when entering the next section
+	
+	W1 = @bind W Scrubbable(0:1:3, default=1)
+	N1 = @bind N Scrubbable(0:1:3, default=1)
+	E1 = @bind E Scrubbable(0:1:3, default=1)
+	S1 = @bind S Scrubbable(0:1:3, default=1)
+	
+	md"define tablestyle"
+end«code_foldedÃÙ$e023d584-b95b-4e45-bbba-497c175e4e08ƒ§cell_idÙ$e023d584-b95b-4e45-bbba-497c175e4e08¤codeÙ`html"""
+	<style>
+	.compasstable td {
+		font-size: 30px;
+		text-align: center;
+	}
+	
+	</style>
+"""«code_foldedÃ«notebook_idÙ$95630ae8-9d7a-11eb-30ba-1d4c04d49780«in_temp_dirÂ©shortpath²test_html_table.jl®process_status¥ready¤pathÙF/home/runner/work/bayes-imoox/bayes-imoox/notebooks/test_html_table.jl
