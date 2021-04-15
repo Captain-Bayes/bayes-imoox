@@ -1,5 +1,7 @@
 ### A Pluto.jl notebook ###
+
 # v0.14.2
+
 
 using Markdown
 using InteractiveUtils
@@ -79,6 +81,7 @@ md"""
 
 dial: $(dial)"""
 
+
 # ╔═╡ 02a6c890-ff1f-48de-9915-14de46dac7bc
 begin
 	dial
@@ -90,9 +93,12 @@ this cell contains the variable that is changed by the button, so this cell is a
 end
 
 
+
 # ╔═╡ Cell order:
 # ╟─429cffb0-9d72-11eb-0722-8b23c24be58a
 # ╟─298483e9-3871-498e-b231-91cf68da8abf
 # ╟─431f88fd-32e7-4e9e-b7fe-e9113d1f338a
 # ╟─38aa1430-3456-4980-bc15-d50f8f7d4bdf
+
 # ╟─02a6c890-ff1f-48de-9915-14de46dac7bc
+

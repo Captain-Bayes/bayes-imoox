@@ -1,5 +1,7 @@
 ### A Pluto.jl notebook ###
+
 # v0.14.2
+
 
 using Markdown
 using InteractiveUtils
@@ -19,7 +21,9 @@ begin
 	try
 using HypertextLiteral
 using PlutoUI
+
 using Plots
+
 
 catch 
 using Pkg
@@ -64,6 +68,7 @@ md"""
 
 #### if **htl table** (Package HypertextLiteral) works with PlutoSliderServer
 
+
 🔼: $(N), 
 
 ▶: $(E), 
@@ -71,6 +76,7 @@ md"""
 🔽: $(S), 
 
 ◀: $(W)"""
+
 
 # ╔═╡ a6cc31b0-9d70-11eb-3a8f-a3e534ed0eeb
 @htl("""
@@ -96,6 +102,7 @@ md"""
 </table>
 """)
 
+
 # ╔═╡ 4a6fd3f5-89d3-4594-8400-92a68f99edc5
 begin
 	angles = [0.0, pi/2, pi, 3*pi/2, 0.0]
@@ -105,6 +112,7 @@ begin
 	plot(angles, weighted, proj=:polar, m=2, label = "weights")
 	#warum so wahnsinnig langsam?
 end
+
 
 # ╔═╡ Cell order:
 # ╟─0fe07ad2-dd62-40cd-abf6-0bd44bc43aa4

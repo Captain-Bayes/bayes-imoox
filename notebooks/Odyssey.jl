@@ -463,7 +463,9 @@ end
 
 # ╔═╡ 8510bdd0-96c6-11eb-3a9a-bd311edac8f4
 begin
+
 #=md"""
+
 $(Resource("https://raw.githubusercontent.com/Captain-Bayes/images/main/Kompass_empty.png", :width => 200))
 
 
@@ -475,9 +477,11 @@ West: $(W1)
 South: $(S1)
 
 	"""
+
 	=#
 	
 	@htl("""
+
 <table class="compasstable">
 	
     <tbody>
@@ -498,6 +502,7 @@ South: $(S1)
         </tr>
     </tbody>
 </table>
+
 """)
 end
 
@@ -545,6 +550,7 @@ end
 begin #calculate changes to probability:
 direct = [North, South, East, West]
 weights = direct./sum(direct)
+
 end
 
 # ╔═╡ 815094e0-93ce-11eb-3878-3be919148949
@@ -641,6 +647,7 @@ pos_first_run = [0 0; K_first_run[1,:] - K_first_run[3,:]  K_first_run[2,:] - K_
 
 #how to blend in law of large numbers
 end
+
 
 # ╔═╡ 5b711a00-6d8c-11eb-00ac-4dd20bc3dcc6
 begin
