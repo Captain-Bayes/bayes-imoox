@@ -450,7 +450,7 @@ html"""
 
 # ╔═╡ 69d1a4d0-96c6-11eb-002f-9138e617a1c2
 begin
-	#see_distribution 
+	see_distribution 
 	# used to reset the compass to make it fair again, when entering the next section
 	
 	W1 = @bind West Scrubbable(0:1:3, default=1)
@@ -458,14 +458,12 @@ begin
 	E1 = @bind East Scrubbable(0:1:3, default=1)
 	S1 = @bind South Scrubbable(0:1:3, default=1)
 	
-	md"define tablestyle"
+	md"direction sliders"
 end
 
 # ╔═╡ 8510bdd0-96c6-11eb-3a9a-bd311edac8f4
 begin
-
 #=md"""
-
 $(Resource("https://raw.githubusercontent.com/Captain-Bayes/images/main/Kompass_empty.png", :width => 200))
 
 
@@ -477,11 +475,9 @@ West: $(W1)
 South: $(S1)
 
 	"""
-
 	=#
 	
 	@htl("""
-
 <table class="compasstable">
 	
     <tbody>
@@ -502,7 +498,6 @@ South: $(S1)
         </tr>
     </tbody>
 </table>
-
 """)
 end
 
@@ -548,9 +543,8 @@ end
 
 # ╔═╡ 254669e2-764f-4b77-a7eb-37dea55bed2f
 begin #calculate changes to probability:
-direct = [North, South, East, West]
+direct = [East, North, West, South]
 weights = direct./sum(direct)
-
 end
 
 # ╔═╡ 815094e0-93ce-11eb-3878-3be919148949
@@ -647,7 +641,6 @@ pos_first_run = [0 0; K_first_run[1,:] - K_first_run[3,:]  K_first_run[2,:] - K_
 
 #how to blend in law of large numbers
 end
-
 
 # ╔═╡ 5b711a00-6d8c-11eb-00ac-4dd20bc3dcc6
 begin

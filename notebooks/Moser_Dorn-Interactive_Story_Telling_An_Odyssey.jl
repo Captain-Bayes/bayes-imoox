@@ -85,14 +85,12 @@ html"""<div style="display: flex; justify-content: center;">
 <iframe src="https://www.youtube.com/embed/gTWU6JFHxXg" width=600 height=375  frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
 </div>"""
 
-
 # ╔═╡ c6f9c954-54c4-48ce-8465-fc85202b79f4
 begin
 	
 	md"""Switch to the next 8 days 📅 by clicking the up 🔼 button: 👉 $(@bind dial NumberField(0:8; default=0))"""
 	#md"""$(@bind dial ClickCounterWithReset("Dial!", "Start over!"))"""
 end
-
 
 # ╔═╡ 89c46920-7ed0-11eb-3c5f-574d525a9f1f
 md" Here again you can see our compass 🧭! Now you can change the probabilities by increasing the number next to the directions ⬅⬆➡⬇ and thus simulate wind or currents. Let's see how this might affect our journey!
@@ -257,7 +255,6 @@ bayes = "https://raw.githubusercontent.com/Captain-Bayes/images/main/bayes_50px.
 end
 
 # ╔═╡ 1aa40340-9382-11eb-1031-5fa5b0f133ee
-
 begin
 local	rng1 = MersenneTwister(32) #seperate rng so that it won't actualize again when you're further down
 	dir_index = 5 .-sum(rand(rng1, 1, 8).<=cumsum([0.25, 0.25, 0.25, 0.25]), dims = 1)
