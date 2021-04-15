@@ -450,7 +450,7 @@ html"""
 
 # ╔═╡ 69d1a4d0-96c6-11eb-002f-9138e617a1c2
 begin
-	#see_distribution 
+	see_distribution 
 	# used to reset the compass to make it fair again, when entering the next section
 	
 	W1 = @bind West Scrubbable(0:1:3, default=1)
@@ -458,7 +458,7 @@ begin
 	E1 = @bind East Scrubbable(0:1:3, default=1)
 	S1 = @bind South Scrubbable(0:1:3, default=1)
 	
-	md"define tablestyle"
+	md"direction sliders"
 end
 
 # ╔═╡ 8510bdd0-96c6-11eb-3a9a-bd311edac8f4
@@ -543,7 +543,7 @@ end
 
 # ╔═╡ 254669e2-764f-4b77-a7eb-37dea55bed2f
 begin #calculate changes to probability:
-direct = [North, South, East, West]
+direct = [East, North, West, South]
 weights = direct./sum(direct)
 end
 
