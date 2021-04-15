@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.14.1
+# v0.14.2
 
 using Markdown
 using InteractiveUtils
@@ -19,15 +19,15 @@ begin
 	try
 using HypertextLiteral
 using PlutoUI
-#using Plots
+using Plots
 
 catch 
 using Pkg
 Pkg.activate(mktempdir())
-#Pkg.add("Plots")
+Pkg.add("Plots")
 Pkg.add("HypertextLiteral")
 Pkg.add("PlutoUI")
-#using Plots
+using Plots
 using HypertextLiteral
 using PlutoUi
 #plotly()
@@ -64,13 +64,13 @@ md"""
 
 #### if **htl table** (Package HypertextLiteral) works with PlutoSliderServer
 
-🔼: $(N1), 
+🔼: $(N), 
 
-▶: $(E1), 
+▶: $(E), 
 
-🔽: $(S1), 
+🔽: $(S), 
 
-◀: $(W1)"""
+◀: $(W)"""
 
 # ╔═╡ a6cc31b0-9d70-11eb-3a8f-a3e534ed0eeb
 @htl("""
@@ -96,9 +96,20 @@ md"""
 </table>
 """)
 
+# ╔═╡ 4a6fd3f5-89d3-4594-8400-92a68f99edc5
+begin
+	angles = [0.0, pi/2, pi, 3*pi/2, 0.0]
+	numbers = [E, S, N, W]
+	su = sum(numbers)
+	weighted = [E/su, N/su, W/su, S/su, E/su]
+	plot(angles, weighted, proj=:polar, m=2, label = "weights")
+	#warum so wahnsinnig langsam?
+end
+
 # ╔═╡ Cell order:
 # ╟─0fe07ad2-dd62-40cd-abf6-0bd44bc43aa4
 # ╟─55abd7c5-235f-41d0-ac2b-056989845148
 # ╟─a6cc31b0-9d70-11eb-3a8f-a3e534ed0eeb
+# ╟─4a6fd3f5-89d3-4594-8400-92a68f99edc5
 # ╟─e023d584-b95b-4e45-bbba-497c175e4e08
 # ╟─4978f47b-2da3-4cd7-b9f9-f7747de17ec1
