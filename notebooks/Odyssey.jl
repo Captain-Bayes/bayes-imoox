@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.14.1
+# v0.14.2
 
 using Markdown
 using InteractiveUtils
@@ -62,13 +62,6 @@ md"
 "
 # CC-BY-4.0 (IMOOX, TU Graz, Institute of Theoretical and Computational Physics)
 # Authors: Johanna Moser, Gerhard Dorn, Wolfgang von der Linden
-
-# ╔═╡ c6f9c954-54c4-48ce-8465-fc85202b79f4
-begin
-	
-	md"""Switch to the next 8 days 📅 by clicking the up 🔼 button: 👉 $(@bind dial NumberField(0:8; default=0))"""
-	#md"""$(@bind dial ClickCounterWithReset("Dial!", "Start over!"))"""
-end
 
 # ╔═╡ 89c46920-7ed0-11eb-3c5f-574d525a9f1f
 md" Here again you can see our compass 🧭! Now you can change the probabilities by increasing the number next to the directions ⬅⬆➡⬇ and thus simulate wind or currents. Let's see how this might affect our journey!
@@ -239,69 +232,16 @@ local	rng1 = MersenneTwister(32) #seperate rng so that it won't actualize again 
 local	K_start = [sum(dir_index[1:j] .== i) for i in 1:4, j in 1:8]
 	pos_start = [0 0; K_start[1,:] - K_start[3,:] K_start[2,:] - K_start[4,:]]
 	
-	dial_index = Integer(round(dial,digits=0))
+	
 	
 	md" ## Welcome 
 to this random journey! Each day we choose the sailing direction randomly. Hmm, let us try to use my famous random compass for this navigation! 
 
-Can you help me with the dial process? Just switch to the next days by clicking the up button 🔼, and see what happens!
-	
+
+Can you help me with to dial? Click the button below, and see what happens! 
+		
 $(Resource(bayes, :width => 200))"
-	#Can you help me with to dial? Click the button below, and see what happens! 
-	
-end
-
-# ╔═╡ 5d25f3a0-93a4-11eb-3da6-c96ae54a0d70
-begin
-	
-	if dial_index > 0 && dial_index < 9
-		
-	lim_start = maximum(abs.(pos_start[:]))
-	plot(
-			pos_start[1:dial_index+1,1], pos_start[1:dial_index+1,2], 
-			linecolor   = :green,
-			linealpha = 0.2,
-			linewidth = 2, aspect_ratio =:equal,
-			marker = (:dot , 5, 0.2, :green),
-			label=false,
-			xlim =[-lim_start, lim_start],
-		    ylim =[-lim_start, lim_start],
-			legend = :bottom
-			)
-	plot!(
-			[0],[0],
-			marker = (:dot, 10, 1.0, :red),
-			label = "initial position"
-			)
-
-	plot!(
-			[pos_start[dial_index+1,1]], [pos_start[dial_index+1,2]],
-			marker = (:circle, 10, 1.0, :green),
-			label = "current position"
-			)
-	
-	end
-end
-
-# ╔═╡ 38fd06d0-93cc-11eb-030e-a7888d7d7eee
-begin
-#dial first steps
-
-
-local dir = ["E", "N", "W",  "S"]
-local word = [ "east", "north", "west" ,"south"]
-local url = ["https://raw.githubusercontent.com/Captain-Bayes/images/main/Kompass_east-export.gif", "https://raw.githubusercontent.com/Captain-Bayes/images/main/Kompass_north-export.gif",  "https://raw.githubusercontent.com/Captain-Bayes/images/main/Kompass_west-export.gif",  "https://raw.githubusercontent.com/Captain-Bayes/images/main/Kompass_south-export.gif"]
-
-		
-if dial_index < 8	&& dial_index > 0
-	md"Well done! The compass needle landed on **$(dir[dir_index[dial_index]])**. Seems like we'll be heading **$(word[dir_index[dial_index]])wards** today! $(Resource(url[dir_index[dial_index]], :width => 200))"
-elseif dial_index >= 8
-		md"""
-		$(Resource(ernesto_short, :width => 30))
-		
-		**Thank you for helping Captain Bayes dial the compass! From now on, she can handle it on her own. Scroll down further to see the whole journey of our crew. You can also change the seed to see different possible journeys!** """
-	end
-		
+	#Can you help me with the dial process? Just switch to the next days by clicking the up button 🔼, and see what happens!
 end
 
 # ╔═╡ 9d9726dd-3456-4988-ae96-c25129092c39
@@ -380,6 +320,28 @@ Puh, that's not much! Oh, I what may be the chances that I get there within a ye
 Can you show me the cummulative probabilities and where we might be after one year?
 "
 
+# ╔═╡ 55e65cf6-7f5c-4faa-b271-cb78761300aa
+begin
+#define variables
+
+first_steps_x = [0]
+first_steps_y = [0]
+	
+	x0 = [0,0]
+
+	
+compass_dict = Dict("N"=> 1, "E" => 2, "S" => 3, "W" => 4)
+	
+	
+	
+compass = ["E", "N", "W", "S"] #possible directions
+compass_numbers = [1, 2, 3, 4]
+times_compass = [0, 0, 0, 0] #counts times every direction NESW is chosen
+actual_directions = [[1, 0], [0, 1], [-1, 0],  [0, -1] ]
+
+	md"variables"
+end
+
 # ╔═╡ e130ac04-e3eb-4be5-ae6c-c87eaf7064a5
 begin
 	days_max_first_journey = 200
@@ -454,13 +416,6 @@ hide_everything_below =
 md"definition hide everything below"
 end
 
-# ╔═╡ 4f304620-93cb-11eb-1da6-739664f2a105
-begin
-	if dial_index < 8
-			hide_everything_below
-	end
-end
-
 # ╔═╡ 81cfef50-93d4-11eb-3448-975c908bd1a2
 begin
 if see_distribution == false
@@ -495,20 +450,22 @@ html"""
 
 # ╔═╡ 69d1a4d0-96c6-11eb-002f-9138e617a1c2
 begin
-	see_distribution 
+	#see_distribution 
 	# used to reset the compass to make it fair again, when entering the next section
 	
-	W1 = @bind W Scrubbable(0:1:3, default=1)
-	N1 = @bind N Scrubbable(0:1:3, default=1)
-	E1 = @bind E Scrubbable(0:1:3, default=1)
-	S1 = @bind S Scrubbable(0:1:3, default=1)
+	W1 = @bind West Scrubbable(0:1:3, default=1)
+	N1 = @bind North Scrubbable(0:1:3, default=1)
+	E1 = @bind East Scrubbable(0:1:3, default=1)
+	S1 = @bind South Scrubbable(0:1:3, default=1)
 	
 	md"define tablestyle"
 end
 
 # ╔═╡ 8510bdd0-96c6-11eb-3a9a-bd311edac8f4
 begin
-md"""
+
+#=md"""
+
 $(Resource("https://raw.githubusercontent.com/Captain-Bayes/images/main/Kompass_empty.png", :width => 200))
 
 
@@ -520,9 +477,11 @@ West: $(W1)
 South: $(S1)
 
 	"""
+
+	=#
 	
-	
-#=	@htl("""
+	@htl("""
+
 <table class="compasstable">
 	
     <tbody>
@@ -543,16 +502,61 @@ South: $(S1)
         </tr>
     </tbody>
 </table>
-""")=#
+
+""")
+end
+
+# ╔═╡ 76380dec-000c-43d6-957f-4fb156846ff9
+begin
+#=md"""
+$(Resource("https://raw.githubusercontent.com/Captain-Bayes/images/main/Kompass_empty.png", :width => 200))
+
+
+North: $(N1)
+	
+West: $(W1)
+ East: $(E1)
+	
+South: $(S1)
+
+	"""
+=#	
+	
+	@htl("""
+<table class="compasstable">
+	
+    <tbody>
+        <tr>
+            <td></td>
+            <td style="text-align:center">	$(N1)</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>$(W1)</td>
+            <td><img src="https://raw.githubusercontent.com/Captain-Bayes/images/main/Kompass_empty.png" width=200></td>
+            <td>$(E1)</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td style="text-align:center">	$(S1)</td>
+            <td></td>
+        </tr>
+    </tbody>
+</table>
+""")
+end
+
+# ╔═╡ 254669e2-764f-4b77-a7eb-37dea55bed2f
+begin #calculate changes to probability:
+direct = [North, South, East, West]
+weights = direct./sum(direct)
+
 end
 
 # ╔═╡ 815094e0-93ce-11eb-3878-3be919148949
 begin
 	angles = [0.0, pi/2, pi, 3*pi/2, 0.0]
-	numbers = [E, S, N, W]
-	su = sum(numbers)
-	weighted = [E/su, N/su, W/su, S/su, E/su]
-	plot(angles, weighted, proj=:polar, m=2, label = "weights")
+	plot(angles, [weights;weights[1]], proj=:polar, m=2, label = "weights")
 	#warum so wahnsinnig langsam?
 end
 
@@ -562,7 +566,7 @@ begin
 
 	
 #probabilities for the four directions
-prob = weighted[1:4]
+prob = weights[1:4]
 # create all random variables using the seed defined above
 rng = MersenneTwister(seed_2)
 
@@ -644,113 +648,6 @@ pos_first_run = [0 0; K_first_run[1,:] - K_first_run[3,:]  K_first_run[2,:] - K_
 #how to blend in law of large numbers
 end
 
-# ╔═╡ d4a2ab30-7f4a-11eb-0a76-d50b21c3217b
-begin
-	median_island = StatsBase.median(days_histogram)
-
-	plot1 = histogram(days_histogram, bins = 100, label = :none, xlabel = "days", ylabel = "occurrences")
-	
-	
-	plot!([StatsBase.median(days_histogram)],[0], marker = "red", label = string("Median =",StatsBase.median(days_histogram)), legend=:top)
-# calculate median manually:
-	hist_return = [sum(days_histogram .== i) for i in 1:overfl]
-	
-	#med = minimum(findall(cumsum(hist_return./max_runs) .>= 0.5))
-	
-	#einfügen: theoretische kurve?
-	
-	
-	
-	plot1
-end
-
-# ╔═╡ 6cbe3250-805d-11eb-0f34-43f4c1669537
-md"$(Resource(bernoulli, :width=>180)) The simulation is finished, Captain! Here's the histogram. Taking the median as a measure of average, it looks like we'll arrive in about $(median_island) days...
-
-"
-
-# ╔═╡ 10b945c9-4946-49bf-9e16-62b27b3766d7
-md"""If you are still not happy with the expected time to reach turtle island, you could say our simulation was just bad luck, we only use **$(max_runs) runs** and **$(overfl) days** for each run to get the average return statistic, so maybe the true value is different 🤔."""
-
-# ╔═╡ 76380dec-000c-43d6-957f-4fb156846ff9
-begin
-md"""
-$(Resource("https://raw.githubusercontent.com/Captain-Bayes/images/main/Kompass_empty.png", :width => 200))
-
-
-North: $(N1)
-	
-West: $(W1)
- East: $(E1)
-	
-South: $(S1)
-
-	"""
-	
-	
-#=	@htl("""
-<table class="compasstable">
-	
-    <tbody>
-        <tr>
-            <td></td>
-            <td style="text-align:center">	$(N1)</td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>$(W1)</td>
-            <td><img src="https://raw.githubusercontent.com/Captain-Bayes/images/main/Kompass_empty.png" width=200></td>
-            <td>$(E1)</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td style="text-align:center">	$(S1)</td>
-            <td></td>
-        </tr>
-    </tbody>
-</table>
-""")=#
-end
-
-# ╔═╡ 55e65cf6-7f5c-4faa-b271-cb78761300aa
-begin
-#define variables
-
-first_steps_x = [0]
-first_steps_y = [0]
-	
-	x0 = [0,0]
-
-	
-compass_dict = Dict("N"=> 1, "E" => 2, "S" => 3, "W" => 4)
-	
-	
-	
-compass = ["E", "N", "W", "S"] #possible directions
-compass_numbers = [1, 2, 3, 4]
-times_compass = [0, 0, 0, 0] #counts times every direction NESW is chosen
-actual_directions = [[1, 0], [0, 1], [-1, 0],  [0, -1] ]
-#calculate changes to probability:
-norm = N + S + E + W
-n = N/norm
-e = n + E/norm
-s = e + S/norm
-w = s + W/norm
-weights = [n, E/norm, S/norm, W/norm]
-	md"variables"
-end
-
-# ╔═╡ 5cea77d0-93d1-11eb-1508-aff9495e46d8
-begin
-	dial
-if length(first_steps_x) < 7
-md"""
-## One journey (hidden)"""
-	else
-		md"""
-## One journey"""
-end
-end
 
 # ╔═╡ 5b711a00-6d8c-11eb-00ac-4dd20bc3dcc6
 begin
@@ -842,6 +739,34 @@ begin
 	#plot!([0],[0], marker = (:dot, 10, 1.0, :red))
 end
 
+# ╔═╡ d4a2ab30-7f4a-11eb-0a76-d50b21c3217b
+begin
+	median_island = StatsBase.median(days_histogram)
+
+	plot1 = histogram(days_histogram, bins = 100, label = :none, xlabel = "days", ylabel = "occurrences")
+	
+	
+	plot!([StatsBase.median(days_histogram)],[0], marker = "red", label = string("Median =",StatsBase.median(days_histogram)), legend=:top)
+# calculate median manually:
+	hist_return = [sum(days_histogram .== i) for i in 1:overfl]
+	
+	#med = minimum(findall(cumsum(hist_return./max_runs) .>= 0.5))
+	
+	#einfügen: theoretische kurve?
+	
+	
+	
+	plot1
+end
+
+# ╔═╡ 6cbe3250-805d-11eb-0f34-43f4c1669537
+md"$(Resource(bernoulli, :width=>180)) The simulation is finished, Captain! Here's the histogram. Taking the median as a measure of average, it looks like we'll arrive in about $(median_island) days...
+
+"
+
+# ╔═╡ 10b945c9-4946-49bf-9e16-62b27b3766d7
+md"""If you are still not happy with the expected time to reach turtle island, you could say our simulation was just bad luck, we only use **$(max_runs) runs** and **$(overfl) days** for each run to get the average return statistic, so maybe the true value is different 🤔."""
+
 # ╔═╡ 073ac878-52dd-4112-9b42-ad08649fe927
 ClickCounterWithReset(text="Click", reset_text="Reset") = HTML("""
 <div>
@@ -874,6 +799,85 @@ button.addEventListener("click", (e) => {
 div.value = count
 </script>
 """)
+
+# ╔═╡ c6f9c954-54c4-48ce-8465-fc85202b79f4
+begin
+	
+	#md"""Switch to the next 8 days 📅 by clicking the up 🔼 button: 👉 $(@bind dial NumberField(0:8; default=0))"""
+	md"""$(@bind dial ClickCounterWithReset("Dial!", "Start over!"))"""
+end
+
+# ╔═╡ 38fd06d0-93cc-11eb-030e-a7888d7d7eee
+begin
+#dial first steps
+
+dial_index = minimum([8,Integer(round(dial,digits=0))])
+local dir = ["E", "N", "W",  "S"]
+local word = [ "east", "north", "west" ,"south"]
+local url = ["https://raw.githubusercontent.com/Captain-Bayes/images/main/Kompass_east-export.gif", "https://raw.githubusercontent.com/Captain-Bayes/images/main/Kompass_north-export.gif",  "https://raw.githubusercontent.com/Captain-Bayes/images/main/Kompass_west-export.gif",  "https://raw.githubusercontent.com/Captain-Bayes/images/main/Kompass_south-export.gif"]
+
+		
+if dial_index < 8	&& dial_index > 0
+	md"Well done! The compass needle landed on **$(dir[dir_index[dial_index]])**. Seems like we'll be heading **$(word[dir_index[dial_index]])wards** today! $(Resource(url[dir_index[dial_index]], :width => 200))"
+elseif dial_index >= 8
+		md"""
+		$(Resource(ernesto_short, :width => 30))
+		
+		**Thank you for helping Captain Bayes dial the compass! From now on, she can handle it on her own. Scroll down further to see the whole journey of our crew. You can also change the seed to see different possible journeys!** """
+	end
+		
+end
+
+# ╔═╡ 5d25f3a0-93a4-11eb-3da6-c96ae54a0d70
+begin
+	
+	if dial_index > 0 
+		
+	lim_start = maximum(abs.(pos_start[:]))
+	plot(
+			pos_start[1:dial_index+1,1], pos_start[1:dial_index+1,2], 
+			linecolor   = :green,
+			linealpha = 0.2,
+			linewidth = 2, aspect_ratio =:equal,
+			marker = (:dot , 5, 0.2, :green),
+			label=false,
+			xlim =[-lim_start, lim_start],
+		    ylim =[-lim_start, lim_start],
+			legend = :bottom
+			)
+	plot!(
+			[0],[0],
+			marker = (:dot, 10, 1.0, :red),
+			label = "initial position"
+			)
+
+	plot!(
+			[pos_start[dial_index+1,1]], [pos_start[dial_index+1,2]],
+			marker = (:circle, 10, 1.0, :green),
+			label = "current position"
+			)
+	
+	end
+end
+
+# ╔═╡ 4f304620-93cb-11eb-1da6-739664f2a105
+begin
+	if dial_index < 8
+			hide_everything_below
+	end
+end
+
+# ╔═╡ 5cea77d0-93d1-11eb-1508-aff9495e46d8
+begin
+
+if dial_index < 8
+md"""
+## One journey (hidden)"""
+	else
+		md"""
+## One journey"""
+end
+end
 
 # ╔═╡ 8e804243-9123-497d-a4b2-552f04c1d9d5
 begin
@@ -954,6 +958,7 @@ end
 # ╟─bdc92620-ab48-4587-a333-1578ce8a4e17
 # ╟─264b06d9-6fea-4260-9b42-66feca66a654
 # ╟─55e65cf6-7f5c-4faa-b271-cb78761300aa
+# ╟─254669e2-764f-4b77-a7eb-37dea55bed2f
 # ╟─e130ac04-e3eb-4be5-ae6c-c87eaf7064a5
 # ╟─c3a505f0-66e8-11eb-3540-69ce34959d64
 # ╟─438caa30-66e8-11eb-31e9-917e458e4d33
