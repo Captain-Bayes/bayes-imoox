@@ -19,6 +19,50 @@ begin
 	using LaTeXStrings
 	using PlutoUI
 	using Plots
+	
+	begin
+	try
+		using PlutoUI
+		using Plots
+		#using Plots.PlotMeasures
+		using LaTeXStrings
+		#using Markdown
+		#using Images
+		#using LinearAlgebra
+		#using SparseArrays
+		using SpecialFunctions
+		#using StatsBase
+		#using Random
+		#using Distributions
+		md""" 
+		### Packages
+		
+		All needed Packages available :) """
+	catch
+		using Pkg;
+		Pkg.activate(mktempdir())
+		Pkg.add("PlutoUI")
+		Pkg.add("Plots")
+		Pkg.add("LaTeXStrings")
+		#Pkg.add("Markdown")
+		#Pkg.add("Images")
+		#Pkg.add("LinearAlgebra")
+		#Pkg.add("SparseArrays")
+		Pkg.add("SpecialFunctions")
+		#Pkg.add("StatsBase")
+		#Pkg.add("Distributions")
+		using PlutoUI, Plots, LaTeXStrings, SpecialFunctions
+		#using LinearAlgebra
+		#using SparseArrays
+		#using StatsBase
+		#using Random
+		md""" 
+		### Packages
+		
+		Some Package sources not added, this will take approx. 3 minutes"""
+	end
+	
+end
 end
 
 # ╔═╡ 4c0002d6-7159-11eb-22f3-93820c6bed3b
@@ -29,17 +73,19 @@ md"
 md"""
 ## Here is the story 📖:
 * _The Bayesian crew approaches the shore of an island. They assume that this is one of the two islands on the treasure map._ 
-* _For these islands they know the percentage_ $q_\alpha$ (with $\alpha \in \{1,2\}$ ) _of frogfish._
+* _For these islands they know the percentage_ $Q_\alpha$ (with $\alpha \in \{1,2\}$ ) _of frogfish_ 🐸/🐟.
 
-* _They catch $N$ fish and observe_ $n_{ff}$ _frogfish._
+* _They catch $(latexstring("\\mathcal{N}")) fish and observe_ $(latexstring("\\boldsymbol{K}")) _frogfish._
 
-* ❓ _The question is : What is the probability_ $P(I_\alpha\mid n_{ff},N)$ _that they discovered island_ $I_{\alpha}$ 
+* ❓ _The question is : What is the probability_  $(latexstring("P(I_\\alpha \\mid \\boldsymbol{K}, \\mathcal{N})"))
+  _that they discovered island_ $(latexstring("I_{\\alpha}"))
 
+ 
 * 😟 _Here is the more worrying situation : Maybe it is a mysterious island for which they have no clue about the frog-fish percentage_ 
 
-* _Let's assume the prior probability that it is indeed a mysterious island is_ $Prior_{myst.island}$ 
+* _Let's assume the prior probability that it is indeed a mysterious island is_ $(latexstring("P(I_3) = \\alpha"))
 
-* _The first case is actually covered for_ $Prior_{myst.island}=0$
+* _The first case is actually covered for_ $(latexstring("P(I_3) = \\alpha = 0"))
 
 """
 
@@ -50,16 +96,33 @@ md"""
 
 # ╔═╡ ca94159c-71e5-11eb-2d65-b72e0a5eeda6
 md"""
-**Prior probability for a mysterious island :**	0 $(@bind Prior Slider(0:.001:1; default=.0,show_value=true)) 1
+**Prior probability for a mysterious island $(latexstring("P(I_3) = \\alpha")):** $(@bind Prior Slider(0:.001:1; default=.0,show_value=true))
 """
 
 # ╔═╡ c52ad006-715b-11eb-0112-f903af616279
 begin
 	md"""
-	**N:** $(@bind N NumberField(10:100; default=20)),    
-	**q1:**	$(@bind q1 Slider(0:.05:1; default=.2, show_value=true)),    
-		**q2:**	$(@bind q2 Slider(0:.05:1; default=.4, show_value=true))
+ $(latexstring("\\mathcal{N}")): $(@bind N NumberField(10:100; default=20)),    
+	
+Frogfish ratio 🐸/🐟 at treasure island $(latexstring("Q_1")):	$(@bind q1 Slider(0.05:.05:0.95; default=.2, show_value=true)),    
+
+Frogfish ratio 🐸/🐟 at paradox island $(latexstring("Q_2")):	$(@bind q2 Slider(0.05:.05:0.95; default=.4, show_value=true))
 	"""
+end
+
+# ╔═╡ 5b0d2077-05a2-4e36-a38f-19b038449fb5
+md"""The probabilities for the 3 islands with $(latexstring("P(I_3) = \\alpha = ")) $(Prior) for $(latexstring("\\boldsymbol{K}")) = $(@bind K Scrubbable(0:N)) 
+is 
+"""
+
+# ╔═╡ 8ca101d4-f1c1-4ec9-a344-afec8080d197
+function sr(variable, dig = 2)
+	# string and round - converts a variable into a string with the predifined precission - to be extended to scientific and other formats
+	if dig == 0
+		return string(round(Int, variable))
+	else
+		return string(round(variable, digits = dig))
+	end
 end
 
 # ╔═╡ dc0bd828-7159-11eb-349a-216bfcc0835c
@@ -92,7 +155,8 @@ begin
 	for ng in 1: n_ff_max+1
 		P[ng,:] = P[ng,:]./sum(P[ng,:])
 	end
-
+	md"
+### Program"
 end
 
 # ╔═╡ 1f6ec6d4-715a-11eb-1a01-3984eba81101
@@ -130,21 +194,29 @@ for i = 1: 2
     legend = :outertopright
     )
 end
+	T = [L_n_ff Prob]
 plot(plot1)
 
 
 end
 
-# ╔═╡ d39c0658-71e3-11eb-3d58-edf898c00fae
+# ╔═╡ 75454b67-3066-42c2-808b-8af621ad477f
+md"""
+-  $(latexstring("I_1")) ... **treasure island**: $(sr.(T[K+1,2],3))
+-  $(latexstring("I_2")) ... **paradox island**: $(sr.(T[K+1,3],3))
+-  $(latexstring("I_3")) ... **misterious island:** $(sr.(T[K+1,4],3))
 
+"""
 
 # ╔═╡ Cell order:
 # ╟─4c0002d6-7159-11eb-22f3-93820c6bed3b
-# ╟─4ff8a6cc-7159-11eb-1fc5-0948835a1233
 # ╟─00383ed0-71b9-11eb-15ed-af46eb2a90c2
-# ╟─dc0bd828-7159-11eb-349a-216bfcc0835c
 # ╟─3c3d53d6-715d-11eb-3c6d-1dcd6a5eda99
 # ╟─ca94159c-71e5-11eb-2d65-b72e0a5eeda6
 # ╟─c52ad006-715b-11eb-0112-f903af616279
 # ╟─1f6ec6d4-715a-11eb-1a01-3984eba81101
-# ╟─d39c0658-71e3-11eb-3d58-edf898c00fae
+# ╟─5b0d2077-05a2-4e36-a38f-19b038449fb5
+# ╟─75454b67-3066-42c2-808b-8af621ad477f
+# ╟─8ca101d4-f1c1-4ec9-a344-afec8080d197
+# ╟─dc0bd828-7159-11eb-349a-216bfcc0835c
+# ╟─4ff8a6cc-7159-11eb-1fc5-0948835a1233

@@ -19,6 +19,7 @@ begin
 	try
 		using PlutoUI
 		using Plots
+		using Plots.PlotMeasures
 		using LaTeXStrings
 		using Markdown
 		using Images
@@ -45,7 +46,7 @@ begin
 		#Pkg.add("SpecialFunctions")
 		#Pkg.add("StatsBase")
 		#Pkg.add("Distributions")
-		using PlutoUI, Plots, LaTeXStrings, Markdown, Images
+		using PlutoUI, Plots, LaTeXStrings, Markdown, Images, Plots.PlotMeasures
 		#using LinearAlgebra
 		#using SparseArrays
 		#using StatsBase
@@ -155,6 +156,104 @@ md"""
 ### Prior
 """
 
+# ╔═╡ 74a7a904-f043-4a69-93ea-2483d9eb0826
+begin
+	
+	image_claire = "https://raw.githubusercontent.com/Captain-Bayes/images/main/claire_100px.gif"
+	tin_pot = "https://raw.githubusercontent.com/Captain-Bayes/images/main/Tin_pot.png"
+	iron_pot = "https://raw.githubusercontent.com/Captain-Bayes/images/main/Iron_pot.png"
+	brass_pot = "https://raw.githubusercontent.com/Captain-Bayes/images/main/Brass_pot.png"
+	copper_pot = "https://raw.githubusercontent.com/Captain-Bayes/images/main/Copper_pot.png"
+	
+	
+	md"""
+	The pot ratings of Claire's pottery store
+	 were the following:
+	
+	- Tin pot: $(L"\overline{\boldsymbol{R}} = 3.9,\, \mathcal{N} = 250")
+	- Brass pot: $(L"\overline{\boldsymbol{R}} = 4.2,\, \mathcal{N} = 80")
+	- Iron pot: $(L"\overline{\boldsymbol{R}} = 5,\, \mathcal{N} = 2")
+	- Copper pot: $(L"\overline{\boldsymbol{R}} = 4.5,\, \mathcal{N} = 15")
+	$(Resource(image_claire, :width=> 200))
+	$(Resource(tin_pot, :width=> 80)) 
+	$(Resource(brass_pot, :width=> 100)) 
+	$(Resource(iron_pot, :width=> 130)) 
+	$(Resource(copper_pot, :width=> 100))
+	"""
+end
+
+# ╔═╡ 44ea4b68-20d0-4f67-95d6-4228c9174c2b
+md"""
+## Some nice large plots
+"""
+
+# ╔═╡ 8102cbf7-e2ad-4492-9756-278fb8d072e7
+begin
+	Q = [0.000001;0.01:0.01:1]
+	ll = -Q.*log.(Q)
+	
+	plot(Q, ll, 
+	size = (600,400),
+	xlabel = latexstring("Q_i"),
+	ylabel = latexstring("S(Q_i)"),
+	labelfontsize = 20,
+	tickfontsize = 15,
+	bottom_margin =5mm,
+	left_margin = 5mm,
+	linewidth = 3,
+	label = :none,
+		title= "Entropy",
+	titlefontsize = 20,	
+	#foreground_color_grid = :black,
+	#foreground_color_xticks = :black,
+	background_color = :transparent,
+	#foreground_color_axis = :black,
+	#foreground_color_text = :black,
+	#foreground_color_border = :black,
+	foreground_color = :black,
+	fontfamily="Computer Modern"
+	)
+	
+	#	savefig("C://Lehre//Bayes MOOC//Lesson 6//Images//entropy")
+	
+	
+end
+
+# ╔═╡ 9345ab4c-69f9-47b2-a1a4-388adeb4f74c
+begin
+	Rat = 1:5
+	lam = -5:0.01:5
+	
+	normierung = sum(exp.(lam'.*Rat),dims=1)
+	mean_value = sum(Rat.*exp.(lam'.*Rat)./normierung, dims = 1)
+	
+	plot(lam, mean_value', 
+	size = (600,400),
+	xlabel = latexstring("\\lambda"),
+	ylabel = latexstring("\\mu(\\lambda)"),
+	labelfontsize = 20,
+	tickfontsize = 15,
+	bottom_margin =5mm,
+	left_margin = 5mm,
+	linewidth = 3,
+	label = :none,
+	titlefontsize = 20,	
+		title = "Lagrange paramter and mean value",
+	#foreground_color_grid = :black,
+	#foreground_color_xticks = :black,
+	background_color = :transparent,
+	#foreground_color_axis = :black,
+	#foreground_color_text = :black,
+	#foreground_color_border = :black,
+	foreground_color = :black,
+	fontfamily="Computer Modern"
+	)
+	
+	#	savefig("C://Lehre//Bayes MOOC//Lesson 6//Images//lagrange")
+	
+	
+end
+
 # ╔═╡ 033db041-4b66-4a4f-a063-1b7d310c232c
 md"""
 ## Program code
@@ -190,7 +289,7 @@ begin
 
 		return Z,λ,q_r
 	end
-	md" ### Newton Ralphson"
+	md" ### Newton Raphson"
 end
 
 # ╔═╡ b033b45c-7b28-11eb-1216-5703dc0e7792
@@ -198,16 +297,24 @@ begin
 	aux1,𝜆_ME,q_r = Newton(L_r,μ_r; max_iter = 10000, ε = 1.e-3)
 
 	txt2 = latexstring("\\mathrm{MaxEnt\\, probability\\,  for\\, given \\, true\\, mean\\, \\mu }")
+	col_pal = palette(:default) # color palette
 	
-	bar(L_r,q_r,
-		line= false,
+	plot(L_r,q_r,
+		line= (0.0 , 2.0 , :bar),
+		bar_width = 0.05,
 		title = txt2,
 		ylim = (0.0, 1.1),
 		xlabel = latexstring("R"),
 		ylabel = latexstring("P\\,(R\\,|\\mu)"),		
 		label = false
 	)
-	plot!(size=[500,300])
+	plot!(L_r,q_r,size=[500,300],
+		line = ( 1, 0., :path),
+		marker = (5, 1., :o),
+		markerstrokewidth = 1.,
+    	color = col_pal[1],
+		label = false
+	)
 
 end
 
@@ -221,7 +328,8 @@ md"
 begin
 	N_iter_max = 10000
 	eps_lagr = 1.e-8
-	L_μ = [1.01:0.01:4.99;]
+	μ_Delta = 0.01
+	L_μ = [1.01:μ_Delta:4.99;]
 	L_𝜆 = zeros(length(L_μ))
 	L_Z = zeros(length(L_μ))
 
@@ -293,14 +401,16 @@ and your prior choice
 -------------
 
 
-rating $\overline{\boldsymbol{R}}$:    $(@bind 	mean_r Slider(1.0:0.01:5, show_value=true,default=2.0)) 
+rating $\overline{\boldsymbol{R}}$:    $(@bind 	mean_r Scrubbable(1.0:0.05:5, default=4.5)) 
 
 
-number of votes $\mathcal{N}$: $(@bind 	N Slider(1:250, show_value=true,default=20)) 
+number of votes $\mathcal{N}$: $(@bind 	N Slider(1:250, show_value=true,default=80)) 
 
 
-α :    $slider_α     
-β :    $slider_β     
+Parameters for prior probability (flat prior: $(L"\alpha = \beta = 1")):
+
+ $(L"\alpha"):    $slider_α     
+ $(L"\beta"):    $slider_β     
       (_to change the values, click and pull the numbers_) 
 """
 
@@ -311,7 +421,7 @@ begin
 	L_ln_P 	= R * L_𝜆 .- N * log.(L_Z) .- log.(Prior)
 	L_ln_P  = L_ln_P .- maximum(L_ln_P)
 	L_P     = exp.(L_ln_P)
-	L_P     = L_P/sum(L_P)
+	L_P     = L_P/(sum(L_P)*μ_Delta)
     md"### compute posterior "
 end
 
@@ -324,10 +434,59 @@ begin
 	xlabel = latexstring("\\mu"),
 	ylabel = latexstring("P\\, (\\mu |  \\textbf{R}, \\mathcal{N})"),
 	title  = txt,
-	ylim   = (0, 0.06)
+	ylim   = (0, 6)
 	)
 	plot(plot1,plot2,layout = (1, 2))
 		plot!(size=[600,300])
+end
+
+# ╔═╡ 9096d5fe-ee6b-4842-ac4b-0fd8a421db32
+begin
+	mean_rating = sum(L_μ.*L_P)
+	stdeviation = sqrt(sum((L_μ .-mean_rating).^2 .*L_P))
+	string(round(mean_rating, digits=3))*"±"*string(round(stdeviation,digits=2))
+	md"### mean rating"
+end
+
+# ╔═╡ eb0a9de2-48b4-4220-abfc-433ce87c879c
+function sr(variable, dig = 2)
+	# string and round - converts a variable into a string with the predifined precission - to be extended to scientific and other formats
+	if dig == 0
+		return string(round(Int, variable))
+	else
+		return string(round(variable, digits = dig))
+	end
+end
+
+# ╔═╡ 43389709-7d95-4d06-a284-a532b3d23dee
+begin
+	
+	#plotting for video
+	title_mu_plots = latexstring("\\overline{\\boldsymbol{R}} = " * string(round(mean_r,digits=2)) * ",\\, \\mathcal{N} = "*string(round(Int,N)))
+	
+	plot(plot2,size=(600,400), 
+	xlabel = latexstring("\\mu_{\\textrm{copper}}"),
+	labelfontsize = 20,
+	tickfontsize = 15,
+	bottom_margin =5mm,
+	left_margin = 5mm,
+		linewidth = 3,
+	#title = title_mu_plots,
+	titlefontsize = 20,
+	background_color = :transparent,
+	fontfamily="Computer Modern",
+		ylim = [0,2],
+		label=latexstring("\\overline{\\mathbf{R}} = "* sr(mean_r,2) * ", \\mathcal{N} = "* sr(N,0) ),
+		legendfontsize = 15,
+		leg = :topleft,
+
+		
+		
+	)
+	#savefig("C://Lehre//Bayes MOOC//Lesson 6//Images//posterior_copper")
+	
+	# copper: 
+	
 end
 
 # ╔═╡ f1586893-5fe6-4202-801b-80fda48511bc
@@ -351,10 +510,17 @@ end
 # ╟─53365c4a-b00a-4bdf-8314-9ab9dbd19db6
 # ╟─4b6c15b2-7ac8-42cf-8c6b-070ae19405bd
 # ╟─7cde88e1-a4c0-4541-aa8d-61845b479192
+# ╟─74a7a904-f043-4a69-93ea-2483d9eb0826
+# ╟─44ea4b68-20d0-4f67-95d6-4228c9174c2b
+# ╟─43389709-7d95-4d06-a284-a532b3d23dee
+# ╟─8102cbf7-e2ad-4492-9756-278fb8d072e7
+# ╟─9345ab4c-69f9-47b2-a1a4-388adeb4f74c
 # ╟─033db041-4b66-4a4f-a063-1b7d310c232c
 # ╟─3bcf9ac2-213d-44fe-b8b5-8b54695c3029
 # ╟─1b9848f0-7a4a-4916-b7df-ffcd61c39415
+# ╟─9096d5fe-ee6b-4842-ac4b-0fd8a421db32
 # ╟─248a131d-49c7-45cd-8e30-527386e317f5
 # ╟─a22bf9fc-7b28-11eb-30c1-0fa6d84c74d1
 # ╟─4c48af3c-dac8-43d4-9a57-7fed5052300a
+# ╟─eb0a9de2-48b4-4220-abfc-433ce87c879c
 # ╟─f1586893-5fe6-4202-801b-80fda48511bc
