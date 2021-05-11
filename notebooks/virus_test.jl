@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.14.2
+# v0.14.3
 
 using Markdown
 using InteractiveUtils
@@ -74,7 +74,7 @@ Note: The properties of a test - **sensitivity and specificity** - are independe
 md""" The **population size** of your city is $(@bind pop_size Slider(10000:10000:1000000, default = 300000, show_value = true)) among whom $(@bind test_ratio_percentage Scrubbable(1:100, default = 5))% **got tested** (think of an example where this number could be important).
 
 
-The **percentage of infected people** is estimated to be $(@bind inf_rate_percent Scrubbable(0:5:100, default = 5))%
+The **percentage of infected people** is estimated to be $(@bind inf_rate_percent Scrubbable(0:1:100, default = 5))%
 
 """
 
@@ -96,9 +96,11 @@ begin
 	tested_people = pop_size * test_ratio
 	
 	infected = pop_size * inf_rate
-	pop_size * (1-inf_rate) 
+	
+	
+	
 	P_positive_test = sensi*inf_rate + (1-spec)*(1-inf_rate)
-	P_V_B = sensi * inf_rate/P_positive_test
+	P_V_B = sensi * inf_rate/ P_positive_test
 	
 	P_neg_V_neg_B = spec * (1-inf_rate)/(1-P_positive_test)
 	
@@ -176,8 +178,8 @@ end
 # ╔═╡ b70ab060-2117-4c24-adac-27982e5065f3
 md"""
 The probability to have the virus if the test is positive or negative is
--  $(latexstring("P(V|B) = ")) $(sr(P_V_B))
--  $(latexstring("P(V|\\neg B) = ")) $(sr(P_V_neg_B))
+-  $(latexstring("P(V|B) = ")) $(sr(P_V_B,5))
+-  $(latexstring("P(V|\\neg B) = ")) $(sr(P_V_neg_B,5))
 
 The probability for a positive test is:
 -  $(latexstring("P(B) = ")) $(sr(P_positive_test))
@@ -191,4 +193,4 @@ The probability for a positive test is:
 # ╟─b70ab060-2117-4c24-adac-27982e5065f3
 # ╟─813ea500-a2ec-11eb-29cb-89ed915aa25a
 # ╟─d5e23d38-5a43-470d-846e-a05d8a56a726
-# ╟─8b39a33a-d7bd-45f2-91e9-173688ea1ec5
+# ╠═8b39a33a-d7bd-45f2-91e9-173688ea1ec5
