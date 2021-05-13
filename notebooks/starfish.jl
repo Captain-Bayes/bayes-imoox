@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.14.2
+# v0.14.5
 
 using Markdown
 using InteractiveUtils
@@ -56,6 +56,8 @@ begin
 		
 		Some Package sources not added, this will take approx. 3 minutes"""
 	end
+	# TODO: make it more generally, so one understands how to compare rating
+	# maybe make to diagrams next to each other to make them compareable
 	
 end
 

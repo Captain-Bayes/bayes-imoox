@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.12.21
+# v0.14.5
 
 using Markdown
 using InteractiveUtils
@@ -50,7 +50,7 @@ begin
 		
 		Some Package sources not added, this will take approx. 3 minutes"""
 	end
-	
+	# TODO: add a GIF of the golden Nautilus wheel spinning and maybe a link to the derivation of the proabilities and to the video
 end
 
 # ╔═╡ 9637fe40-6c44-11eb-1df3-eb0b0d36db34
@@ -69,18 +69,13 @@ md"""
 Choose the **random seed** $\,\,$ 👉 $(@bind seed Slider(1:100, default=1, show_value = true)) 
 """
 
-# ╔═╡ e03eeec0-8299-11eb-119b-5dfd576a2811
-md"""
-Choose the **random seed** $\,\,$ 👉 $(@bind seed Slider(1:100, default=1, show_value = true)) 
-"""
-
 # ╔═╡ 8d180f60-829e-11eb-36a3-6fb2eab9c846
 #md"""
 #Start the **measurements** (don't forget to stop the clock at some point!):  $(@bind #n_sample_size Clock(0.2,true,false)) 
 #"""
 
 md"""
-Change the number of measurements 👉 $\mathcal{N} =$ $(@bind n_sample_size Scrubbable(1:1:200, default=1))  (*drag the red number with the mouse* 🖱)
+Change the number of measurements 👉 $\mathcal{N} =$ $(@bind n_sample_size Scrubbable(1:1:200, default=10))  (*drag the red number with the mouse* 🖱)
 """
 
 # ╔═╡ 32d0d060-82b1-11eb-37a0-4bcd4881e6e1
