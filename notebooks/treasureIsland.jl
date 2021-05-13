@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.14.2
+# v0.14.5
 
 using Markdown
 using InteractiveUtils
@@ -60,7 +60,9 @@ begin
 		### Packages
 		
 		Some Package sources not added, this will take approx. 3 minutes"""
-	end
+		end
+		
+		#TODO: Add the treasure map and work on the story - add a part where the theory is better explained and a link to the video and course
 	
 end
 end
@@ -111,7 +113,7 @@ Frogfish ratio 🐸/🐟 at paradox island $(latexstring("Q_2")):	$(@bind q2 Sli
 end
 
 # ╔═╡ 5b0d2077-05a2-4e36-a38f-19b038449fb5
-md"""The probabilities for the 3 islands with $(latexstring("P(I_3) = \\alpha = ")) $(Prior) for $(latexstring("\\boldsymbol{K}")) = $(@bind K Scrubbable(0:N)) 
+md"""The probabilities for the 3 islands with $(latexstring("P(I_3) = \\alpha = ")) $(Prior) for $(latexstring("\\boldsymbol{K}")) = $(@bind K Scrubbable(0:100, default = 8)) 
 is 
 """
 
@@ -200,13 +202,33 @@ plot(plot1)
 
 end
 
+# ╔═╡ f1baf505-a90b-49bb-85e1-96d7e1b49889
+begin
+keep_working(text=md"The answer is not quite right.", title="Keep working on it!") = Markdown.MD(Markdown.Admonition("danger", title, [text]));
+
+almost(text) = Markdown.MD(Markdown.Admonition("warning", "Almost there!", [text]));
+
+hint(text) = Markdown.MD(Markdown.Admonition("hint", "Hint", [text]));
+	
+correct(text=md"Great! You got the right answer! Let's move on to the next section.") = Markdown.MD(Markdown.Admonition("correct", "Got it!", [text]));
+md" Definition of Boxes"
+end
+
 # ╔═╡ 75454b67-3066-42c2-808b-8af621ad477f
-md"""
+begin
+	if K <= N
+	md"""
 -  $(latexstring("I_1")) ... **treasure island**: $(sr.(T[K+1,2],3))
 -  $(latexstring("I_2")) ... **paradox island**: $(sr.(T[K+1,3],3))
 -  $(latexstring("I_3")) ... **misterious island:** $(sr.(T[K+1,4],3))
 
-"""
+	"""
+	else
+	keep_working(md"""Please choose a **smaller number** for $(latexstring("K")) than $(N).
+	""", "Wrong input!")
+	end
+	
+end
 
 # ╔═╡ Cell order:
 # ╟─4c0002d6-7159-11eb-22f3-93820c6bed3b
@@ -220,3 +242,4 @@ md"""
 # ╟─8ca101d4-f1c1-4ec9-a344-afec8080d197
 # ╟─dc0bd828-7159-11eb-349a-216bfcc0835c
 # ╟─4ff8a6cc-7159-11eb-1fc5-0948835a1233
+# ╟─f1baf505-a90b-49bb-85e1-96d7e1b49889

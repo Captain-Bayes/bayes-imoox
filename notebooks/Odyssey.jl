@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.14.2
+# v0.14.5
 
 using Markdown
 using InteractiveUtils
@@ -450,7 +450,7 @@ html"""
 
 # ╔═╡ 69d1a4d0-96c6-11eb-002f-9138e617a1c2
 begin
-	see_distribution 
+	#see_distribution 
 	# used to reset the compass to make it fair again, when entering the next section
 	
 	W1 = @bind West Scrubbable(0:1:3, default=1)
