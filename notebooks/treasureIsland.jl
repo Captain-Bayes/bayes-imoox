@@ -15,12 +15,7 @@ end
 
 # ╔═╡ 4ff8a6cc-7159-11eb-1fc5-0948835a1233
 begin 
-	using SpecialFunctions
-	using LaTeXStrings
-	using PlutoUI
-	using Plots
 	
-	begin
 	try
 		using PlutoUI
 		using Plots
@@ -60,11 +55,11 @@ begin
 		### Packages
 		
 		Some Package sources not added, this will take approx. 3 minutes"""
-		end
+	end
 		
 		#TODO: Add the treasure map and work on the story - add a part where the theory is better explained and a link to the video and course
 	
-end
+
 end
 
 # ╔═╡ 4c0002d6-7159-11eb-22f3-93820c6bed3b
