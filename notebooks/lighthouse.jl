@@ -64,6 +64,9 @@ html"""<div style="display: flex; justify-content: center;">
 <iframe src="https://www.youtube.com/embed/rFvR_sU3Sc4" width=600 height=375  frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
 </div>"""
 
+# ╔═╡ 6b2f6ea4-6d58-43f6-9527-e576422f1feb
+
+
 # ╔═╡ 1c0c7b6a-e4f2-4e28-a6d5-1daf194ecf32
 md"""
 *Well there is this **misfit function** that might help to evaluate the parameter choices*
@@ -82,111 +85,6 @@ So let's uns Bayes' theorem to derive the probability for the two parameters giv
 
  $(latexstring("p(\\vec a \\mid \\boldsymbol a_{\\sphericalangle}, \\boldsymbol x) = \\frac{1}{Z} p(\\boldsymbol a_{\\sphericalangle} \\mid \\vec a, \\boldsymbol x) \\cdot p(\\vec a) "))
 """
-
-# ╔═╡ 161bdcd4-55ac-4869-91bd-0141d0fc72db
-begin 
-	Lin_1 = @bind lin_1 Scrubbable(-2:0.01:2, default=-1, format=".3")
-	Lin_2 = @bind lin_2 Scrubbable(40:1:60, default=50, format="+")
-	
-	Quad_1 = @bind quad_1 Scrubbable(-0.040:0.005:0.04, default=0.02, format=".4",)
-	Quad_2 = @bind quad_2 Scrubbable(-2:0.1:2, default=-1.2, format="+.1")
-	Quad_3 = @bind quad_3 Scrubbable(40:1:60, default=50, format="+")
-	
-	Cubic_1 = @bind cubic_1 Scrubbable(-0.01:0.001:0.01, default=0.008, format=".4")
-	Cubic_2 = @bind cubic_2 Scrubbable(-2:0.01:2, default=-0.35, format="+.4")
-	Cubic_3 = @bind cubic_3 Scrubbable(-5:0.1:5, default=3.6, format="+.4")
-	Cubic_4 = @bind cubic_4 Scrubbable(20:60, default=40, format="+")
-	
-	md"""Define Sliders for parameter trials of height angle"""
-end
-
-# ╔═╡ 16938d4f-6f25-4924-8bdf-b0eb638a6c4f
-begin
-	claire = "https://raw.githubusercontent.com/Captain-Bayes/images/main/claire_100px.gif"
-	makabe = "https://raw.githubusercontent.com/Captain-Bayes/images/main/makeba_100px.gif"
-	bayes = "https://raw.githubusercontent.com/Captain-Bayes/images/main/bayes_100px.gif"
-	bernoulli = "https://raw.githubusercontent.com/Captain-Bayes/images/main/Bernoulli_wet.gif"
-	island = "https://raw.githubusercontent.com/Captain-Bayes/images/main/Turtle_island_with_ship.png"
-	map = "https://raw.githubusercontent.com/Captain-Bayes/images/main/Fishground_map.png"
-	frogfish_image = "https://raw.githubusercontent.com/Captain-Bayes/images/main/frogfish_green_full.gif"
-	venn = "https://raw.githubusercontent.com/Captain-Bayes/images/main/venn_100px.gif"
-	angles_view = "https://raw.githubusercontent.com/Captain-Bayes/images/main/Gipfel_angles.png"
-	mountain_view = "https://raw.githubusercontent.com/Captain-Bayes/images/main/Gipfel_view.png"
-	image_of_data = "https://raw.githubusercontent.com/Captain-Bayes/images/main/Daten_brett.png"
-	diagram_of_data = "https://raw.githubusercontent.com/Captain-Bayes/images/main/Diagram.png"
-	treasure_map = "https://raw.githubusercontent.com/Captain-Bayes/images/main/Treasure_map_2.png"
-	
-	md"""Images"""
-end
-
-# ╔═╡ 6c070606-1411-40fc-b6cd-8f27f052136b
-md"""
-# Starpath prediction 🌠
-$(Resource(mountain_view, :width=>600))
-> *Welcome on top of **Tortuga mountain**. I am **Captain Venn** and trying to find the **treasure** hidden in this treasure map:*
-$(Resource(venn, :width=>150))
-$(Resource(treasure_map, :width=>500))
-
-> *Watch the **video** below for the full story:*
-
-"""
-
-# ╔═╡ 2a0955a7-e6a4-4f1c-a19d-e36e92171a70
-md"""
-> *I am up here on the mountain top for several days now in order to measure the **azimutal** and **horizontal** angle of **Arcuturus** at midnight which is not an easy task! Especially to find the exact mid of the night is difficult! I guess the uncertainties of my time measurements are in the order of 1 to 5 minutes.*
-
-$(Resource(angles_view, :width=>600))
-
-> **Have a look at my data below** 👇
-"""
-
-# ╔═╡ 5fc032bb-990d-424e-a256-ef2979980606
-begin 
-	x = [4, 11, 12, 13, 14, 15, 16, 17, 18, 23, 24, 25]
-	azimuth = [278.7, 282.1, 280, 281.2, 282, 280.9, 280, 283.2, 281.3, 282.7, 283.7, 282.5]
-	# wrong writing
-	#azimuth = [278.7, 282.1, 280, 281.2, 282, 280.9, 280, 283.2, 231.3, 282.7, 283.7, 282.5]
-	height = [45.9, 47.7, 44., 40.3, 36.2, 36.2, 39.8, 34.8, 38.3, 32.5, 31., 35.1]
-	
-	
-	sigma_a = 2
-	sigma_h = 3
-	delta_height = sigma_h * ones(length(height),1)
-	
-	sigma_x = 1/12/24
-	
-	
-	function fa(x,a) 
-		return a[1].*x .+ a[2]
-	end
-	
-	function fh(x,a) 
-		return a[1].*x .+ a[2]
-	end
-	
-	P_a = [range(-0.81,0.8,length = 201) , range(270,290; length = 200)]
-	fa(x,[0.2,2]) - azimuth
-	
-	T_a = [exp.(sum(-0.5 .* (fa(x,[i, j]) - azimuth).^2 ./(sigma_a^2 .+ i.^2 .* sigma_x.^2))) for j in P_a[2], i in P_a[1]]
-	T_a = T_a./(sum(T_a).* Float64(P_a[1].step) .* Float64(P_a[2].step))
-	
-	P_h = [range(-2,0,length = 200) , range(30,60; length = 200)]
-	T_h = [exp.(sum(-0.5 .* (fa(x,[i, j]) - height).^2 ./(sigma_h^2 .+ i.^2 .* sigma_x.^2))) for j in P_h[2], i in P_h[1] ]
-	T_h = T_h./(sum(T_h) .* Float64(P_h[1].step) .* Float64(P_h[2].step))
-	
-	#heatmap(collect(P_a[1]), collect(P_a[2]), T)
-	# either use uncertainties in both directions or not
-	
-	# TODO: Check how to make data explorable in a Markdown environment
-	#$([x azimuth height])
-	md"""
-	## The data: 
-	> *Unfortunately the weather was **cloudy** and **rainy** during the shortest nights of the year. I took measurements before and after the **21st of June** but I have such **strong errors**! Can you help me to **find out the angles** which will guide me to my treasure?*
-	$(Resource(image_of_data, :width=>600))
-	$(Resource(diagram_of_data, :width=>600))
-	
-	"""
-end
 
 # ╔═╡ 70dd38b5-8447-428a-96a3-950fcecfcc91
 begin
@@ -246,6 +144,189 @@ begin
 	
 	#savefig("C://Lehre//Bayes MOOC//Lesson 7//Images//joint_prob_height")
 	plot(h2)
+end
+
+# ╔═╡ 68854d41-0400-405c-948a-bb244f46ce4d
+begin 
+	f_eval = [[fa(21,[i,j]) for  j in P_a[2], i in P_a[1]][:] T_a[:]]
+	
+	a_range = range(minimum(f_eval[:,1]), maximum(f_eval[:,1]), length = 200)
+	
+	y_a_range = [sum(f_eval[a_range[i] .<= f_eval[:,1] .<= a_range[i+1],2]) for i in 1:(length(a_range)-1)].* Float64(P_a[1].step) .* Float64(P_a[2].step)./Float64(a_range.step)
+	
+	plot(a_range[1:end-1], y_a_range,
+		title = "Interpolation of azimuth angle at day 21",
+		xlabel = latexstring("a_{\\sphericalangle}"), 
+		ylabel = latexstring("p\\,(a_{\\sphericalangle})"),
+		label = :none,
+	size = (600,400),
+		labelfontsize = 20,
+		tickfontsize = 15,
+		bottom_margin =5mm,
+		left_margin = 5mm,
+		right_margin = 10mm,
+		linewidth = 3,
+		titlefontsize = 20,	
+		#foreground_color_grid = :black,
+		#foreground_color_xticks = :black,
+		background_color = :transparent,
+		#foreground_color_axis = :black,
+		#foreground_color_text = :black,
+		#foreground_color_border = :black,
+		foreground_color = :black,
+		fontfamily="Computer Modern")
+	
+	#savefig("C://Lehre//Bayes MOOC//Lesson 7//Images//sol_azimuth")
+	
+end
+
+# ╔═╡ 4ba5f3c7-6a68-46ba-ba45-9c0b3b685385
+begin 
+	f_eval_h = [[fh(21,[i,j]) for    j in P_h[2], i in P_h[1]][:] T_h[:]]
+	
+	h_range = range(minimum(f_eval_h[:,1]), maximum(f_eval_h[:,1]), length = 200)
+	
+	y_h_range = [sum(f_eval_h[h_range[i] .<= f_eval_h[:,1] .< h_range[i+1],2]) for i in 1:(length(h_range)-1)].* Float64(P_h[1].step) .* Float64(P_h[2].step)./Float64(h_range.step)
+	
+	plot(h_range[1:end-1], y_h_range ,
+		title = "Interpolation of height angle at day 21",
+		xlabel = latexstring("h_{\\measuredangle}"), 
+		ylabel = latexstring("p\\,(h_{\\measuredangle})"),
+		label = :none,
+	size = (600,400),
+		labelfontsize = 20,
+		tickfontsize = 15,
+		bottom_margin =5mm,
+		left_margin = 5mm,
+		right_margin = 10mm,
+		linewidth = 3,
+		titlefontsize = 20,	
+		#foreground_color_grid = :black,
+		#foreground_color_xticks = :black,
+		background_color = :transparent,
+		#foreground_color_axis = :black,
+		#foreground_color_text = :black,
+		#foreground_color_border = :black,
+		foreground_color = :black,
+		fontfamily="Computer Modern")
+	
+	#savefig("C://Lehre//Bayes MOOC//Lesson 7//Images//sol_height")
+	
+end
+
+# ╔═╡ 161bdcd4-55ac-4869-91bd-0141d0fc72db
+begin 
+	Lin_1 = @bind lin_1 Scrubbable(-2:0.01:2, default=-1, format=".3")
+	Lin_2 = @bind lin_2 Scrubbable(40:1:60, default=50, format="+")
+	
+	Quad_1 = @bind quad_1 Scrubbable(-0.040:0.005:0.04, default=0.02, format=".4",)
+	Quad_2 = @bind quad_2 Scrubbable(-2:0.1:2, default=-1.2, format="+.1")
+	Quad_3 = @bind quad_3 Scrubbable(40:1:60, default=50, format="+")
+	
+	Cubic_1 = @bind cubic_1 Scrubbable(-0.01:0.001:0.01, default=0.008, format=".4")
+	Cubic_2 = @bind cubic_2 Scrubbable(-2:0.01:2, default=-0.35, format="+.4")
+	Cubic_3 = @bind cubic_3 Scrubbable(-5:0.1:5, default=3.6, format="+.4")
+	Cubic_4 = @bind cubic_4 Scrubbable(20:60, default=40, format="+")
+	
+	md"""Define Sliders for parameter trials of height angle"""
+end
+
+# ╔═╡ 16938d4f-6f25-4924-8bdf-b0eb638a6c4f
+begin
+	claire = "https://raw.githubusercontent.com/Captain-Bayes/images/main/claire_100px.gif"
+	makabe = "https://raw.githubusercontent.com/Captain-Bayes/images/main/makeba_100px.gif"
+	bayes = "https://raw.githubusercontent.com/Captain-Bayes/images/main/bayes_100px.gif"
+	bernoulli = "https://raw.githubusercontent.com/Captain-Bayes/images/main/Bernoulli_wet.gif"
+	island = "https://raw.githubusercontent.com/Captain-Bayes/images/main/Turtle_island_with_ship.png"
+	map = "https://raw.githubusercontent.com/Captain-Bayes/images/main/Fishground_map.png"
+	frogfish_image = "https://raw.githubusercontent.com/Captain-Bayes/images/main/frogfish_green_full.gif"
+	venn = "https://raw.githubusercontent.com/Captain-Bayes/images/main/venn_100px.gif"
+	angles_view = "https://raw.githubusercontent.com/Captain-Bayes/images/main/Gipfel_angles.png"
+	mountain_view = "https://raw.githubusercontent.com/Captain-Bayes/images/main/Gipfel_view.png"
+	image_of_data = "https://raw.githubusercontent.com/Captain-Bayes/images/main/Daten_brett.png"
+	diagram_of_data = "https://raw.githubusercontent.com/Captain-Bayes/images/main/Diagram.png"
+	treasure_map = "https://raw.githubusercontent.com/Captain-Bayes/images/main/Treasure_map_2.png"
+	
+	md"""Images"""
+end
+
+# ╔═╡ 6c070606-1411-40fc-b6cd-8f27f052136b
+md"""
+# The lighthouse problem
+$(Resource(mountain_view, :width=>600))
+> *It tell you from my observations I know, there must be a lighthouse somewhere over the sea. Have a look at my data!*
+
+
+> *Watch the **video** below for the full story:*
+
+"""
+#$(Resource(treasure_map, :width=>500))
+
+
+# ╔═╡ 2a0955a7-e6a4-4f1c-a19d-e36e92171a70
+md"""
+> *I am up here on the mountain top for several days now in order to measure the **azimutal** and **horizontal** angle of **Arcuturus** at midnight which is not an easy task! Especially to find the exact mid of the night is difficult! I guess the uncertainties of my time measurements are in the order of 1 to 5 minutes.*
+
+$(Resource(angles_view, :width=>600))
+
+> **Have a look at my data below** 👇
+"""
+
+# ╔═╡ 5fc032bb-990d-424e-a256-ef2979980606
+begin 
+	x =  [4.73,  0.45, -1.73,  1.09,  2.19,  0.12,  1.31,  1.00,
+                     1.32,  1.07,  0.86, -0.49, -2.59,  1.73,  2.11,  1.61,
+                     4.98,  1.71,  2.23,-57.20,  0.96,  1.25, -1.56,  2.45,
+                     1.19,  2.17,-10.66,  1.91, -4.16,  1.92,  0.10,  1.98,
+                    -2.51,  5.55, -0.47,  1.91,  0.95, -0.78, -0.84,  1.72,
+                    -0.01,  1.48,  2.70,  1.21,  4.41, -4.79,  1.33,  0.81,
+                     0.20,  1.58,  1.29, 16.19,  2.75, -2.38, -1.79,  6.50,
+                   -18.53,  0.72,  0.94,  3.64,  1.94, -0.11,  1.57,  0.57]
+	
+	
+	md"""
+	## The data: 
+	> *Unfortunately the weather was **cloudy** and **rainy** during the shortest nights of the year. I took measurements before and after the **21st of June** but I have such **strong errors**! Can you help me to **find out the angles** which will guide me to my treasure?*
+	$(Resource(image_of_data, :width=>600))
+	$(Resource(diagram_of_data, :width=>600))
+	
+	"""
+end
+
+# ╔═╡ 2630e21d-3f42-4d72-a2e7-b127b4ad09fe
+begin
+	histogram(x, bins = -15:1/3:15, ylim = [0,20])
+	
+	
+end
+
+# ╔═╡ 70eedefd-0a0d-454f-a15e-13d47db594bc
+begin 
+	plot(x,rand(1:2:30, length(x)), line = :scatter, label = :none,
+		title = "Measured height angle",
+		xlabel = latexstring("\\textrm{days } x"), 
+		ylabel = latexstring("h_{\\measuredangle}"),
+		xlim = [-7,7],
+	size = (320,180),
+		labelfontsize = 5,
+		tickfontsize = 3,
+		bottom_margin =1mm,
+		left_margin = 1mm,
+		right_margin = 1mm,
+		linewidth = 3,
+		markersize = 4,
+		titlefontsize = 7,	
+		#foreground_color_grid = :black,
+		#foreground_color_xticks = :black,
+		background_color = :transparent,
+		#foreground_color_axis = :black,
+		#foreground_color_text = :black,
+		#foreground_color_border = :black,
+		foreground_color = :black,
+		fontfamily="Computer Modern")
+	#savefig("C://Lehre//Bayes MOOC//Lesson 8//Images//lighthouse")
+	
+	
 end
 
 # ╔═╡ 5ef19a3a-fcfc-4607-88e6-c28197a572f8
@@ -328,74 +409,6 @@ begin
 	#savefig("C://Lehre//Bayes MOOC//Lesson 7//Images//poss_sol_azimuth")
 end
 
-# ╔═╡ 68854d41-0400-405c-948a-bb244f46ce4d
-begin 
-	f_eval = [[fa(21,[i,j]) for  j in P_a[2], i in P_a[1]][:] T_a[:]]
-	
-	a_range = range(minimum(f_eval[:,1]), maximum(f_eval[:,1]), length = 200)
-	
-	y_a_range = [sum(f_eval[a_range[i] .<= f_eval[:,1] .<= a_range[i+1],2]) for i in 1:(length(a_range)-1)].* Float64(P_a[1].step) .* Float64(P_a[2].step)./Float64(a_range.step)
-	
-	plot(a_range[1:end-1], y_a_range,
-		title = "Interpolation of azimuth angle at day 21",
-		xlabel = latexstring("a_{\\sphericalangle}"), 
-		ylabel = latexstring("p\\,(a_{\\sphericalangle})"),
-		label = :none,
-	size = (600,400),
-		labelfontsize = 20,
-		tickfontsize = 15,
-		bottom_margin =5mm,
-		left_margin = 5mm,
-		right_margin = 10mm,
-		linewidth = 3,
-		titlefontsize = 20,	
-		#foreground_color_grid = :black,
-		#foreground_color_xticks = :black,
-		background_color = :transparent,
-		#foreground_color_axis = :black,
-		#foreground_color_text = :black,
-		#foreground_color_border = :black,
-		foreground_color = :black,
-		fontfamily="Computer Modern")
-	
-	#savefig("C://Lehre//Bayes MOOC//Lesson 7//Images//sol_azimuth")
-	
-end
-
-# ╔═╡ 4ba5f3c7-6a68-46ba-ba45-9c0b3b685385
-begin 
-	f_eval_h = [[fh(21,[i,j]) for    j in P_h[2], i in P_h[1]][:] T_h[:]]
-	
-	h_range = range(minimum(f_eval_h[:,1]), maximum(f_eval_h[:,1]), length = 200)
-	
-	y_h_range = [sum(f_eval_h[h_range[i] .<= f_eval_h[:,1] .< h_range[i+1],2]) for i in 1:(length(h_range)-1)].* Float64(P_h[1].step) .* Float64(P_h[2].step)./Float64(h_range.step)
-	
-	plot(h_range[1:end-1], y_h_range ,
-		title = "Interpolation of height angle at day 21",
-		xlabel = latexstring("h_{\\measuredangle}"), 
-		ylabel = latexstring("p\\,(h_{\\measuredangle})"),
-		label = :none,
-	size = (600,400),
-		labelfontsize = 20,
-		tickfontsize = 15,
-		bottom_margin =5mm,
-		left_margin = 5mm,
-		right_margin = 10mm,
-		linewidth = 3,
-		titlefontsize = 20,	
-		#foreground_color_grid = :black,
-		#foreground_color_xticks = :black,
-		background_color = :transparent,
-		#foreground_color_axis = :black,
-		#foreground_color_text = :black,
-		#foreground_color_border = :black,
-		foreground_color = :black,
-		fontfamily="Computer Modern")
-	
-	#savefig("C://Lehre//Bayes MOOC//Lesson 7//Images//sol_height")
-	
-end
-
 # ╔═╡ ac2f313d-1529-4366-ab58-00679e510f6a
 md"""
 $(Resource(bayes, :width=>140))
@@ -470,19 +483,20 @@ end
 
 # ╔═╡ 6b9ea181-a1c1-446c-88cc-d468dec2a60f
 begin 
-	plot(x,height, line = :scatter, label = :none,
+	plot(x,rand(1:2:20, length(x)), line = :scatter, label = :none,
 		title = "Measured height angle",
 		xlabel = latexstring("\\textrm{days } x"), 
 		ylabel = latexstring("h_{\\measuredangle}"),
-		xlim = [0,26],
-	size = (600,400),
-		labelfontsize = 20,
-		tickfontsize = 15,
-		bottom_margin =5mm,
-		left_margin = 5mm,
-		right_margin = 5mm,
+		xlim = [-7,7],
+	size = (320,180),
+		labelfontsize = 5,
+		tickfontsize = 1,
+		bottom_margin =1mm,
+		left_margin = 1mm,
+		right_margin = 1mm,
 		linewidth = 3,
-		titlefontsize = 20,	
+		markersize = 2,
+		titlefontsize = 7,	
 		#foreground_color_grid = :black,
 		#foreground_color_xticks = :black,
 		background_color = :transparent,
@@ -491,6 +505,7 @@ begin
 		#foreground_color_border = :black,
 		foreground_color = :black,
 		fontfamily="Computer Modern")
+	#savefig("C://Lehre//Bayes MOOC//Lesson 8//Images//lighthouse")
 	
 	days = 0:0.1:25
 	f_lin(x) = lin_1.*x .+ lin_2
@@ -505,11 +520,11 @@ begin
 	if model_function == "Linear model"
 	 	M(x) = M_lin(x)
 		a_vec = [lin_1; lin_2]
-	plot!(days, lin_1 .* days .+ lin_2,
+	#=plot!(days, lin_1 .* days .+ lin_2,
 		linewidth = 3,
 		label = latexstring("\\textrm{Linear model: y =}" * sr(lin_1,2) * "\\cdot x + " * sr(lin_2,1)),
 		legendfontsize = 12,
-		)
+		)=#
 		
 	elseif model_function == "Quadratic model"
 		M(x) = M_quad(x)
@@ -572,11 +587,14 @@ In this case we assume the uncertainties $(latexstring("\\sigma_\\nu")) of the h
 end
 
 # ╔═╡ Cell order:
-# ╟─6c070606-1411-40fc-b6cd-8f27f052136b
+# ╠═6c070606-1411-40fc-b6cd-8f27f052136b
 # ╟─ec784992-f4af-4ece-bf72-555960a054ca
 # ╟─2a0955a7-e6a4-4f1c-a19d-e36e92171a70
-# ╟─5fc032bb-990d-424e-a256-ef2979980606
+# ╠═5fc032bb-990d-424e-a256-ef2979980606
+# ╠═6b2f6ea4-6d58-43f6-9527-e576422f1feb
 # ╠═ac2f313d-1529-4366-ab58-00679e510f6a
+# ╠═2630e21d-3f42-4d72-a2e7-b127b4ad09fe
+# ╠═70eedefd-0a0d-454f-a15e-13d47db594bc
 # ╟─4c05708b-61d7-4b68-97e1-7fc155419460
 # ╠═6b9ea181-a1c1-446c-88cc-d468dec2a60f
 # ╟─1c0c7b6a-e4f2-4e28-a6d5-1daf194ecf32
