@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.14.5
+# v0.14.7
 
 using Markdown
 using InteractiveUtils
@@ -417,16 +417,16 @@ end
 
 # ╔═╡ Cell order:
 # ╟─0b775a36-64d0-4f32-a409-6c0dd859b337
-# ╟─82c39e5a-e46a-4db5-9b7c-d879c415a908
+# ╠═82c39e5a-e46a-4db5-9b7c-d879c415a908
 # ╟─9d959eb7-6b01-41fc-a8c1-62ce5c42e2dd
 # ╟─7d431428-0418-45fa-8ba6-3ec6837019f5
 # ╟─6df77838-6816-4af8-978d-83bb79de947a
-# ╟─7d00c4b6-2ade-44ed-821d-845e0b696b8b
+# ╠═7d00c4b6-2ade-44ed-821d-845e0b696b8b
 # ╟─5d46bf84-f89a-4190-9d8a-822dcc8418c9
 # ╟─f4b80850-0f0c-4a05-bcd5-70392d98c658
 # ╟─b0d6f8d5-4aae-4518-a10a-82a945667622
 # ╟─a83984f9-7375-40be-a0a2-03b71ffa2fea
 # ╟─bedfbe0a-feec-4b1a-86af-a6327adb0804
 # ╟─0972e9e4-7aa6-46cf-9c36-16c1b55858e9
-# ╟─efc86030-bd6a-4820-b410-d1399b73968b
-# ╟─39b06b5b-c218-4aae-88d1-0e641d7303a8
+# ╠═efc86030-bd6a-4820-b410-d1399b73968b
+# ╠═39b06b5b-c218-4aae-88d1-0e641d7303a8
