@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.14.4
+# v0.14.7
 
 using Markdown
 using InteractiveUtils
@@ -15,16 +15,52 @@ end
 
 # ╔═╡ 03b75df2-b63b-11eb-31ea-51aedea29d36
 begin
-	using Random
-	using PlutoUI
-	using Plots
-	using Markdown
-	using LaTeXStrings
-	using InteractiveUtils
-	using Statistics
-	using StatsBase
-	using Printf
-	md"### - Modules	"
+	try
+		using Random
+		using PlutoUI
+		using Plots
+		using Markdown
+		using LaTeXStrings
+		using InteractiveUtils
+		using Statistics
+		using StatsBase
+		using Printf
+		md""" 
+		### - Packages
+		
+		All needed Packages available :) """
+	catch
+		using Pkg;
+		Pkg.activate(mktempdir())
+		Pkg.add("Random")
+		Pkg.add("PlutoUI")
+		Pkg.add("Plots")
+		Pkg.add("LaTeXStrings")
+		Pkg.add("Markdown")
+		Pkg.add("InteractiveUtils")
+		Pkg.add("Statistics")
+		Pkg.add("StatsBase")
+		Pkg.add("Printf")
+		#Pkg.add("LinearAlgebra")
+		#Pkg.add("SparseArrays")
+		#Pkg.add("SpecialFunctions")
+		#Pkg.add("StatsBase")
+		#Pkg.add("Distributions")
+		using Random
+		using PlutoUI
+		using Plots
+		using Markdown
+		using LaTeXStrings
+		using InteractiveUtils
+		using Statistics
+		using StatsBase
+		using Printf
+		md""" 
+		### - Packages
+		
+		Some Package sources not added, this will take approx. 3 minutes"""
+	end
+	
 end
 
 # ╔═╡ 5ca51224-da81-4580-a385-561e6fd801d7
@@ -366,15 +402,15 @@ begin
 end
 
 # ╔═╡ Cell order:
-# ╠═5ca51224-da81-4580-a385-561e6fd801d7
+# ╟─5ca51224-da81-4580-a385-561e6fd801d7
 # ╟─3a500c66-fdb5-4610-820c-a869cccc387a
-# ╠═7150c842-3c12-4b1b-b456-cc831b5d4f9f
-# ╠═7d678458-234b-456f-b26d-eda77abd087a
+# ╟─7150c842-3c12-4b1b-b456-cc831b5d4f9f
+# ╟─7d678458-234b-456f-b26d-eda77abd087a
 # ╟─27a8af50-b9b6-4cf1-9075-e54617662e7a
 # ╟─2e6e1d6a-35d6-4f9d-ac63-3538adeb67f3
 # ╟─b0ef1450-312b-43da-ace8-b0d15697c42d
 # ╟─5667ded2-1e9c-4a68-a3b2-750f3e09651e
-# ╠═edf2f357-b73f-42e7-ab41-ae79c7b0cc4d
+# ╟─edf2f357-b73f-42e7-ab41-ae79c7b0cc4d
 # ╟─dbfe7c71-cbe7-4808-b9c2-d820ca72ee59
 # ╟─cf2effed-8eb2-42c1-b5ae-c40f4fd4c48e
 # ╟─4620e8bd-a5c9-4f37-8139-d5957a9a9f14
@@ -385,10 +421,10 @@ end
 # ╟─0b51a7d4-5a66-43bc-9755-eb7c29bc8606
 # ╟─3f6daf82-ba74-4836-a5bf-0e48456bc890
 # ╟─583ad6aa-7bf1-4c59-bcff-bc3548b2bce6
-# ╠═40d8dcc5-2f27-46aa-9391-95155fc9850c
-# ╠═cda88397-7aa4-4fc8-b8b5-3823f41a6e8e
-# ╠═f06a9996-0be1-4542-9c23-b6d1b00077fc
-# ╠═2f4b80af-fabf-459f-9104-8723c40bc96c
-# ╠═0646e617-6fd3-4249-9f60-c130d9b48a6e
-# ╠═03b75df2-b63b-11eb-31ea-51aedea29d36
-# ╠═9ffc5b26-e08c-48b9-a4da-b55c13c71319
+# ╟─40d8dcc5-2f27-46aa-9391-95155fc9850c
+# ╟─cda88397-7aa4-4fc8-b8b5-3823f41a6e8e
+# ╟─f06a9996-0be1-4542-9c23-b6d1b00077fc
+# ╟─2f4b80af-fabf-459f-9104-8723c40bc96c
+# ╟─0646e617-6fd3-4249-9f60-c130d9b48a6e
+# ╟─03b75df2-b63b-11eb-31ea-51aedea29d36
+# ╟─9ffc5b26-e08c-48b9-a4da-b55c13c71319
