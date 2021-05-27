@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.14.4
+# v0.14.7
 
 using Markdown
 using InteractiveUtils
@@ -15,16 +15,52 @@ end
 
 # ╔═╡ 53cbed91-a234-4e33-95c0-9b4a750c39ba
 begin
-	using Random
-	using PlutoUI
-	using Plots
-	using Markdown
-	using LaTeXStrings
-	using InteractiveUtils
-	using Statistics
-	using StatsBase
-	using Printf
-	md"### - modules	"
+	try
+		using Random
+		using PlutoUI
+		using Plots
+		using Markdown
+		using LaTeXStrings
+		using InteractiveUtils
+		using Statistics
+		using StatsBase
+		using Printf
+		md""" 
+		### - Packages
+		
+		All needed Packages available :) """
+	catch
+		using Pkg;
+		Pkg.activate(mktempdir())
+		Pkg.add("Random")
+		Pkg.add("PlutoUI")
+		Pkg.add("Plots")
+		Pkg.add("LaTeXStrings")
+		Pkg.add("Markdown")
+		Pkg.add("InteractiveUtils")
+		Pkg.add("Statistics")
+		Pkg.add("StatsBase")
+		Pkg.add("Printf")
+		#Pkg.add("LinearAlgebra")
+		#Pkg.add("SparseArrays")
+		#Pkg.add("SpecialFunctions")
+		#Pkg.add("StatsBase")
+		#Pkg.add("Distributions")
+		using Random
+		using PlutoUI
+		using Plots
+		using Markdown
+		using LaTeXStrings
+		using InteractiveUtils
+		using Statistics
+		using StatsBase
+		using Printf
+		md""" 
+		### - Packages
+		
+		Some Package sources not added, this will take approx. 3 minutes"""
+	end
+	
 end
 
 # ╔═╡ 36ebbc95-ca82-4e64-978c-7b51d0cd61ee
@@ -458,7 +494,9 @@ begin
 	if counter == 0
 		tipx("you can now perform individually the first $(Nclim) NESA steps
 		by repeatedly pressing the NEXT STEP button")
+		
 	elseif counter ≤ Nclim 
+		global plot1
 		plot1 = plot(L_x,L_y, label = false)
 		
 		plot1 = plot!(title = @sprintf("n = %3.0d, N_walker = %3.0d",counter,N_w))		
@@ -466,6 +504,7 @@ begin
 			seriestype = :scatter,markercolor = :green, marker = :dot, label = false)
 		x_rej = L_x_min[counter]
 		f_rej = L_f_min[counter]
+		
 		plot1 = plot!([x_rej],[f_rej],
 			seriestype = :scatter,markercolor = :red, marker = :x,
 			markersize = 8, label = false)
@@ -473,7 +512,8 @@ begin
 		f_new = L_f_new[counter]		
 		plot1 = plot!([x_new],[f_new],
 			seriestype = :scatter,markercolor = :red, marker = :dot,
-			markersize = 8, label = false)		
+			markersize = 8, label = false)	
+		
 		plot1 = plot!([x_new,x_new],[f_new+.2,f_new+.05], 
 			arrow=(:closed, 4.0),label =  false)
 		plot1 = annotate!(x_new,f_new+.3,"added")
@@ -489,15 +529,18 @@ begin
 		
 		plot1 = annotate!(2.05,2.95, text(@sprintf("%2.0d)   %8.4f   %8.4f",0,0.0,1.0),:left,7))
 			
-			
-		for m = 1: counter
-			plot1 = annotate!(2.05,2.95 -m*0.1,text(@sprintf("%2.0d)   %8.4f   %8.4f",m,L_f_min[m],(N_w/(N_w+1))^m),:left,7))
+		
+		for m = 1:counter
+			plot1 = annotate!(2.05, 2.95 - m * 0.1 ,text(@sprintf("%2.0d)   %8.4f   %8.4f",m,L_f_min[m],(N_w/(N_w+1))^m),:left,7))
 		end 
+			
 		plot(plot1,size=(600,400))
 
 	else
 		hintx("Now that you know how NESA works, let's check whether the constraint prior mass has the assumed properties")
 	end
+	
+	
 end
 
 # ╔═╡ 5a5a20be-cc27-4f06-a2ee-ffff9a4a59a2
