@@ -75,49 +75,14 @@ TableOfContents(aside = true)
 md"# Metropolis Markov Chain Monte Carlo
 ## Follow the algorithm step by step"
 
-# ╔═╡ 7150c842-3c12-4b1b-b456-cc831b5d4f9f
-begin
-	#md"""$(@bind counter ClickCounterWithReset("NEXT STEP", "RESET"))"""
-	md"""Increase the steps 👉$(@bind counter NumberField(0:30; default=0))"""
-	
-
-end
-
 # ╔═╡ b0ef1450-312b-43da-ace8-b0d15697c42d
 md"## Real MCMC simulation
 
 ### bare simulation
 "
 
-# ╔═╡ edf2f357-b73f-42e7-ab41-ae79c7b0cc4d
-if counter > 20
-md"""
-Start real simulation! 👉 $(@bind real_simulation CheckBox())
-"""
-end
-
 # ╔═╡ 4620e8bd-a5c9-4f37-8139-d5957a9a9f14
 md"### autocorrelation analysis"
-
-# ╔═╡ 435ce2aa-488f-42e1-b27f-4e92373c6b6a
-if counter > 20
-	if real_simulation
-md"""
-Let's study the autocorrelation! 👉 $(@bind do_acc CheckBox())
-"""
-end
-end
-
-# ╔═╡ e5aebcc2-6f45-4a30-a92b-1f4566e01947
-if counter > 20
-	if real_simulation
-		if do_acc
-md"""
-Let's skip the correlated data points! 👉 $(@bind do_new CheckBox())
-"""
-		end
-end
-end
 
 # ╔═╡ 0b51a7d4-5a66-43bc-9755-eb7c29bc8606
 md"### final result"
@@ -209,6 +174,41 @@ div.value = count
 </script>
 """)
 
+
+# ╔═╡ 7150c842-3c12-4b1b-b456-cc831b5d4f9f
+begin
+	md"""$(@bind counter ClickCounterWithReset("NEXT STEP", "RESET"))"""
+	#md"""Increase the steps 👉$(@bind counter NumberField(0:30; default=0))"""
+	
+
+end
+
+# ╔═╡ edf2f357-b73f-42e7-ab41-ae79c7b0cc4d
+if counter > 20
+md"""
+Start real simulation! 👉 $(@bind real_simulation CheckBox())
+"""
+end
+
+# ╔═╡ 435ce2aa-488f-42e1-b27f-4e92373c6b6a
+if counter > 20
+	if real_simulation
+md"""
+Let's study the autocorrelation! 👉 $(@bind do_acc CheckBox())
+"""
+end
+end
+
+# ╔═╡ e5aebcc2-6f45-4a30-a92b-1f4566e01947
+if counter > 20
+	if real_simulation
+		if do_acc
+md"""
+Let's skip the correlated data points! 👉 $(@bind do_new CheckBox())
+"""
+		end
+end
+end
 
 # ╔═╡ 9ffc5b26-e08c-48b9-a4da-b55c13c71319
 begin
