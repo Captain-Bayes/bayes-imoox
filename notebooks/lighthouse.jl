@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.14.5
+# v0.14.7
 
 using Markdown
 using InteractiveUtils
@@ -61,8 +61,13 @@ end
 # ╔═╡ ec784992-f4af-4ece-bf72-555960a054ca
 html"""<div style="display: flex; justify-content: center;">
 <div  notthestyle="position: relative; right: 0; top: 0; z-index: 300;">
-<iframe src="https://www.youtube.com/embed/rFvR_sU3Sc4" width=600 height=375  frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+<iframe src="https://www.youtube.com/embed/ABbv9g5kTdI" width=600 height=375  frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
 </div>"""
+
+# ╔═╡ 7127d313-c9a3-4206-bae7-ac7fc9fbe514
+md"""
+# TO BE FINISHED! WORK IN PROGRESS 🚧
+"""
 
 # ╔═╡ 6b2f6ea4-6d58-43f6-9527-e576422f1feb
 
@@ -146,74 +151,6 @@ begin
 	plot(h2)
 end
 
-# ╔═╡ 68854d41-0400-405c-948a-bb244f46ce4d
-begin 
-	f_eval = [[fa(21,[i,j]) for  j in P_a[2], i in P_a[1]][:] T_a[:]]
-	
-	a_range = range(minimum(f_eval[:,1]), maximum(f_eval[:,1]), length = 200)
-	
-	y_a_range = [sum(f_eval[a_range[i] .<= f_eval[:,1] .<= a_range[i+1],2]) for i in 1:(length(a_range)-1)].* Float64(P_a[1].step) .* Float64(P_a[2].step)./Float64(a_range.step)
-	
-	plot(a_range[1:end-1], y_a_range,
-		title = "Interpolation of azimuth angle at day 21",
-		xlabel = latexstring("a_{\\sphericalangle}"), 
-		ylabel = latexstring("p\\,(a_{\\sphericalangle})"),
-		label = :none,
-	size = (600,400),
-		labelfontsize = 20,
-		tickfontsize = 15,
-		bottom_margin =5mm,
-		left_margin = 5mm,
-		right_margin = 10mm,
-		linewidth = 3,
-		titlefontsize = 20,	
-		#foreground_color_grid = :black,
-		#foreground_color_xticks = :black,
-		background_color = :transparent,
-		#foreground_color_axis = :black,
-		#foreground_color_text = :black,
-		#foreground_color_border = :black,
-		foreground_color = :black,
-		fontfamily="Computer Modern")
-	
-	#savefig("C://Lehre//Bayes MOOC//Lesson 7//Images//sol_azimuth")
-	
-end
-
-# ╔═╡ 4ba5f3c7-6a68-46ba-ba45-9c0b3b685385
-begin 
-	f_eval_h = [[fh(21,[i,j]) for    j in P_h[2], i in P_h[1]][:] T_h[:]]
-	
-	h_range = range(minimum(f_eval_h[:,1]), maximum(f_eval_h[:,1]), length = 200)
-	
-	y_h_range = [sum(f_eval_h[h_range[i] .<= f_eval_h[:,1] .< h_range[i+1],2]) for i in 1:(length(h_range)-1)].* Float64(P_h[1].step) .* Float64(P_h[2].step)./Float64(h_range.step)
-	
-	plot(h_range[1:end-1], y_h_range ,
-		title = "Interpolation of height angle at day 21",
-		xlabel = latexstring("h_{\\measuredangle}"), 
-		ylabel = latexstring("p\\,(h_{\\measuredangle})"),
-		label = :none,
-	size = (600,400),
-		labelfontsize = 20,
-		tickfontsize = 15,
-		bottom_margin =5mm,
-		left_margin = 5mm,
-		right_margin = 10mm,
-		linewidth = 3,
-		titlefontsize = 20,	
-		#foreground_color_grid = :black,
-		#foreground_color_xticks = :black,
-		background_color = :transparent,
-		#foreground_color_axis = :black,
-		#foreground_color_text = :black,
-		#foreground_color_border = :black,
-		foreground_color = :black,
-		fontfamily="Computer Modern")
-	
-	#savefig("C://Lehre//Bayes MOOC//Lesson 7//Images//sol_height")
-	
-end
-
 # ╔═╡ 161bdcd4-55ac-4869-91bd-0141d0fc72db
 begin 
 	Lin_1 = @bind lin_1 Scrubbable(-2:0.01:2, default=-1, format=".3")
@@ -246,6 +183,9 @@ begin
 	image_of_data = "https://raw.githubusercontent.com/Captain-Bayes/images/main/Daten_brett.png"
 	diagram_of_data = "https://raw.githubusercontent.com/Captain-Bayes/images/main/Diagram.png"
 	treasure_map = "https://raw.githubusercontent.com/Captain-Bayes/images/main/Treasure_map_2.png"
+	lighthouse_image = "https://raw.githubusercontent.com/Captain-Bayes/images/main/lighthouse_problem_draft.png"
+	lighthouse_gif = "https://raw.githubusercontent.com/Captain-Bayes/images/main/Lighthouse.gif"
+	lyra = "https://raw.githubusercontent.com/Captain-Bayes/images/main/lyra_100px.gif"
 	
 	md"""Images"""
 end
@@ -253,7 +193,9 @@ end
 # ╔═╡ 6c070606-1411-40fc-b6cd-8f27f052136b
 md"""
 # The lighthouse problem
-$(Resource(mountain_view, :width=>600))
+$(Resource(lighthouse_gif, :width=>600))
+
+$(Resource(lyra, :width=>150))
 > *It tell you from my observations I know, there must be a lighthouse somewhere over the sea. Have a look at my data!*
 
 
@@ -262,15 +204,6 @@ $(Resource(mountain_view, :width=>600))
 """
 #$(Resource(treasure_map, :width=>500))
 
-
-# ╔═╡ 2a0955a7-e6a4-4f1c-a19d-e36e92171a70
-md"""
-> *I am up here on the mountain top for several days now in order to measure the **azimutal** and **horizontal** angle of **Arcuturus** at midnight which is not an easy task! Especially to find the exact mid of the night is difficult! I guess the uncertainties of my time measurements are in the order of 1 to 5 minutes.*
-
-$(Resource(angles_view, :width=>600))
-
-> **Have a look at my data below** 👇
-"""
 
 # ╔═╡ 5fc032bb-990d-424e-a256-ef2979980606
 begin 
@@ -293,26 +226,19 @@ begin
 	"""
 end
 
-# ╔═╡ 2630e21d-3f42-4d72-a2e7-b127b4ad09fe
-begin
-	histogram(x, bins = -15:1/3:15, ylim = [0,20])
-	
-	
-end
-
 # ╔═╡ 70eedefd-0a0d-454f-a15e-13d47db594bc
 begin 
 	plot(x,rand(1:2:30, length(x)), line = :scatter, label = :none,
-		title = "Measured height angle",
+		title = "Light observations",
 		xlabel = latexstring("\\textrm{days } x"), 
 		ylabel = latexstring("h_{\\measuredangle}"),
 		xlim = [-7,7],
-	size = (320,180),
-		labelfontsize = 5,
-		tickfontsize = 3,
-		bottom_margin =1mm,
-		left_margin = 1mm,
-		right_margin = 1mm,
+	size = (640,320),
+		labelfontsize = 15,
+		tickfontsize = 13,
+		bottom_margin =5mm,
+		left_margin = 5mm,
+		right_margin = 5mm,
 		linewidth = 3,
 		markersize = 4,
 		titlefontsize = 7,	
@@ -329,45 +255,11 @@ begin
 	
 end
 
-# ╔═╡ 5ef19a3a-fcfc-4607-88e6-c28197a572f8
+# ╔═╡ 2630e21d-3f42-4d72-a2e7-b127b4ad09fe
 begin
-	# show data points and also possible solutions using the model defined above.
-	# with a click one can choose to display these semitransparent lines (work in quantiles - the top % the second and so on (limit to a max of 500-1000 lines)
-	# a maximum of
-	xx_hz = P_h[1]' .+ P_h[2].*0
-	yy_hz = P_h[1]'.*0 .+ P_h[2]
+	histogram(x, bins = -15:1/3:15, ylim = [0,20])
 	
-	t = 4:26
-	# plot(x, azimuth, line= :scatter, label="azimuth", legend=:bottom)
-	plot(x,height, line = :scatter, label = :none)
-
-	for i = 1:length(xx_hz)
-		if T_h[i] > 0.7
-			plot!(t, xx_hz[i] .* t .+ yy_hz[i], linewidth = 2, opacity = T_h[i]/30., color = :blue, label = :none)
-		end
-	end
-	plot!(x,height, line = :scatter, label = :none,
-		title = "linear solutions for height angle",
-		xlabel = latexstring("\\textrm{days } x"), 
-		ylabel = latexstring("h_{\\measuredangle}"),
-	size = (600,400),
-		labelfontsize = 20,
-		tickfontsize = 15,
-		bottom_margin =5mm,
-		left_margin = 5mm,
-		right_margin = 5mm,
-		linewidth = 3,
-		titlefontsize = 20,	
-		#foreground_color_grid = :black,
-		#foreground_color_xticks = :black,
-		background_color = :transparent,
-		#foreground_color_axis = :black,
-		#foreground_color_text = :black,
-		#foreground_color_border = :black,
-		foreground_color = :black,
-		fontfamily="Computer Modern")
 	
-	#savefig("C://Lehre//Bayes MOOC//Lesson 7//Images//poss_sol_height")
 end
 
 # ╔═╡ b09f27cb-0461-4ead-9328-dd950c958f66
@@ -587,14 +479,14 @@ In this case we assume the uncertainties $(latexstring("\\sigma_\\nu")) of the h
 end
 
 # ╔═╡ Cell order:
-# ╠═6c070606-1411-40fc-b6cd-8f27f052136b
+# ╟─6c070606-1411-40fc-b6cd-8f27f052136b
 # ╟─ec784992-f4af-4ece-bf72-555960a054ca
-# ╟─2a0955a7-e6a4-4f1c-a19d-e36e92171a70
-# ╠═5fc032bb-990d-424e-a256-ef2979980606
+# ╟─7127d313-c9a3-4206-bae7-ac7fc9fbe514
+# ╟─5fc032bb-990d-424e-a256-ef2979980606
+# ╟─70eedefd-0a0d-454f-a15e-13d47db594bc
 # ╠═6b2f6ea4-6d58-43f6-9527-e576422f1feb
-# ╠═ac2f313d-1529-4366-ab58-00679e510f6a
+# ╟─ac2f313d-1529-4366-ab58-00679e510f6a
 # ╠═2630e21d-3f42-4d72-a2e7-b127b4ad09fe
-# ╠═70eedefd-0a0d-454f-a15e-13d47db594bc
 # ╟─4c05708b-61d7-4b68-97e1-7fc155419460
 # ╠═6b9ea181-a1c1-446c-88cc-d468dec2a60f
 # ╟─1c0c7b6a-e4f2-4e28-a6d5-1daf194ecf32
@@ -603,10 +495,7 @@ end
 # ╟─8cdf76c3-263f-471b-8ac7-288ff669bca3
 # ╟─70dd38b5-8447-428a-96a3-950fcecfcc91
 # ╟─75e89a64-94c0-4f95-b548-ecaf3e6587e9
-# ╟─b09f27cb-0461-4ead-9328-dd950c958f66
-# ╟─5ef19a3a-fcfc-4607-88e6-c28197a572f8
-# ╟─68854d41-0400-405c-948a-bb244f46ce4d
-# ╟─4ba5f3c7-6a68-46ba-ba45-9c0b3b685385
+# ╠═b09f27cb-0461-4ead-9328-dd950c958f66
 # ╟─161bdcd4-55ac-4869-91bd-0141d0fc72db
 # ╠═e7666210-a660-11eb-3e0d-7d9aec9a9f9e
 # ╠═16938d4f-6f25-4924-8bdf-b0eb638a6c4f
