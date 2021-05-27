@@ -25,6 +25,8 @@ begin
 		using Statistics
 		using StatsBase
 		using Printf
+		using HypertextLiteral
+
 		md""" 
 		### - Packages
 		
@@ -41,6 +43,7 @@ begin
 		Pkg.add("Statistics")
 		Pkg.add("StatsBase")
 		Pkg.add("Printf")
+		Pkg.add("HypertextLiteral")
 		#Pkg.add("LinearAlgebra")
 		#Pkg.add("SparseArrays")
 		#Pkg.add("SpecialFunctions")
@@ -55,6 +58,8 @@ begin
 		using Statistics
 		using StatsBase
 		using Printf
+		using HypertextLiteral
+
 		md""" 
 		### - Packages
 		
@@ -136,7 +141,7 @@ begin
 end
 
 # ╔═╡ 0646e617-6fd3-4249-9f60-c130d9b48a6e
-begin
+
 ClickCounterWithReset(text="Click", reset_text="Reset") = HTML("""
 <div>
 <button>$(text)</button>&nbsp;&nbsp;&nbsp;&nbsp;
@@ -168,9 +173,7 @@ button.addEventListener("click", (e) => {
 div.value = count
 </script>
 """)
-	
-	md"### - macro for individual steps"
-end
+
 
 # ╔═╡ 7150c842-3c12-4b1b-b456-cc831b5d4f9f
 begin

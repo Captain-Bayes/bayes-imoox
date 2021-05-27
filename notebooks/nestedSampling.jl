@@ -89,7 +89,7 @@ md"## - Check the integral"
 md"# Auxiliary stuff"
 
 # ╔═╡ 54e74311-1892-4120-b58f-e2cf0dc28016
-begin
+
 ClickCounterWithReset(text="Click", reset_text="Reset") = HTML("""
 <div>
 <button>$(text)</button>&nbsp;&nbsp;&nbsp;&nbsp;
@@ -122,8 +122,7 @@ div.value = count
 </script>
 """)
 	
-	md"### - macro for individual steps bindere"
-end
+
 
 # ╔═╡ 98567be3-d02e-4b32-b760-e25bd185c8d5
 begin
@@ -167,6 +166,62 @@ begin
 	
 
 	md"### - initial values"
+end
+
+# ╔═╡ a3528065-dfa6-4cad-8080-c188583f638a
+
+begin
+
+	if counter == 0
+		tipx("you can now perform individually the first $(Nclim) NESA steps
+		by repeatedly pressing the NEXT STEP button")
+		
+	elseif counter ≤ Nclim 
+		global plot1
+		plot1 = plot(L_x,L_y, label = false)
+		
+		plot1 = plot!(title = @sprintf("n = %3.0d, N_walker = %3.0d",counter,N_w))		
+		plot1 = plot!(M_x_pos[counter,:],M_f_pos[counter,:],
+			seriestype = :scatter,markercolor = :green, marker = :dot, label = false)
+		x_rej = L_x_min[counter]
+		f_rej = L_f_min[counter]
+		
+		plot1 = plot!([x_rej],[f_rej],
+			seriestype = :scatter,markercolor = :red, marker = :x,
+			markersize = 8, label = false)
+		x_new = L_x_new[counter]
+		f_new = L_f_new[counter]		
+		plot1 = plot!([x_new],[f_new],
+			seriestype = :scatter,markercolor = :red, marker = :dot,
+			markersize = 8, label = false)	
+		
+		plot1 = plot!([x_new,x_new],[f_new+.2,f_new+.05], 
+			arrow=(:closed, 4.0),label =  false)
+		plot1 = annotate!(x_new,f_new+.3,"added")
+		
+		plot1 = plot!([x_rej+.2,x_rej+0.05],[f_rej,f_rej], 
+			arrow=(:closed, 4.0),label =  false)	
+		plot1 = annotate!(x_rej+0.3,f_rej,"discarded",
+		xlim = (0.,2.6),
+		ylim = (-.2,2.9))
+		plot1 = plot!([0,2.0],[0,0],color=:black,label=false)		
+		
+		plot1 = annotate!(2.08,3.1 ,text(latexstring("n \\ \\qquad   f_n \\qquad \\qquad X_n"),:left,8))
+		
+		plot1 = annotate!(2.05,2.95, text(@sprintf("%2.0d)   %8.4f   %8.4f",0,0.0,1.0),:left,7))
+			
+		
+		for m = 1:counter
+			plot1 = annotate!(2.05, 2.95 - m * 0.1 ,text(@sprintf("%2.0d)   %8.4f   %8.4f",m,L_f_min[m],(N_w/(N_w+1))^m),:left,7))
+		end 
+			
+		plot(plot1,size=(600,400))
+
+	else
+		hintx("Now that you know how NESA works, let's check whether the constraint prior mass has the assumed properties")
+	end
+	
+	
 end
 
 # ╔═╡ 7007f520-b514-456a-a2b3-70d8611b2f48
@@ -427,122 +482,6 @@ if counter > Nclim && flag_prior_mass
 	plot(plot2,size = (600,600))
 end
 
-# ╔═╡ 7822f358-dbc7-461d-948b-8c5b60d4a59f
-begin
-		L_x = [0.0:.01:2.0;]
-		L_y = likelihood(L_x,f_𝜎_1,f_𝜎_2)
-	
-		N_iter_max = 100
-		
-		N_steps = 100
-		N_w     = 10
-
-
-		L_f_min = zeros(N_steps)
-		L_x_min = zeros(N_steps)	
-
-		L_x_pos = rand(rng,N_w) .* x_max
-		L_f_pos = likelihood(L_x_pos,f_𝜎_1,f_𝜎_2)
-
-		M_x_pos = zeros(N_steps,N_w)
-		M_f_pos = zeros(N_steps,N_w)	
-
-		L_f_min = zeros(N_steps)
-		L_x_min = zeros(N_steps)	
-		L_f_new = zeros(N_steps)
-		L_x_new = zeros(N_steps)	
-		
-		for i = 1: N_steps
-			ind_min    = argmin(L_f_pos)
-			M_x_pos[i,:] = L_x_pos
-			M_f_pos[i,:] = L_f_pos	
-
-			del        = std(L_x_pos)*10
-
-			f_thresh   = L_f_pos[ind_min]
-			L_f_min[i] = f_thresh
-			L_x_min[i] = L_x_pos[ind_min]			
-			it 		   = rand(rng,1:N_w)
-			while it == ind_min
-				it = rand(rng,1:N_w)
-			end
-			xt0 = L_x_pos[it]
-		
-			xt, ft = trial_step(N_iter_max,xt0,f_thresh,del)
-
-
-
-			L_x_pos[ind_min] = xt			
-			L_f_pos[ind_min] = ft
-			L_x_new[i] = xt
-			L_f_new[i] = ft							
-		end
-
-
-
-
-
-
-	md"### - prepare data for single step mode"
-	
-end
-
-# ╔═╡ a3528065-dfa6-4cad-8080-c188583f638a
-
-begin
-
-	if counter == 0
-		tipx("you can now perform individually the first $(Nclim) NESA steps
-		by repeatedly pressing the NEXT STEP button")
-		
-	elseif counter ≤ Nclim 
-		global plot1
-		plot1 = plot(L_x,L_y, label = false)
-		
-		plot1 = plot!(title = @sprintf("n = %3.0d, N_walker = %3.0d",counter,N_w))		
-		plot1 = plot!(M_x_pos[counter,:],M_f_pos[counter,:],
-			seriestype = :scatter,markercolor = :green, marker = :dot, label = false)
-		x_rej = L_x_min[counter]
-		f_rej = L_f_min[counter]
-		
-		plot1 = plot!([x_rej],[f_rej],
-			seriestype = :scatter,markercolor = :red, marker = :x,
-			markersize = 8, label = false)
-		x_new = L_x_new[counter]
-		f_new = L_f_new[counter]		
-		plot1 = plot!([x_new],[f_new],
-			seriestype = :scatter,markercolor = :red, marker = :dot,
-			markersize = 8, label = false)	
-		
-		plot1 = plot!([x_new,x_new],[f_new+.2,f_new+.05], 
-			arrow=(:closed, 4.0),label =  false)
-		plot1 = annotate!(x_new,f_new+.3,"added")
-		
-		plot1 = plot!([x_rej+.2,x_rej+0.05],[f_rej,f_rej], 
-			arrow=(:closed, 4.0),label =  false)	
-		plot1 = annotate!(x_rej+0.3,f_rej,"discarded",
-		xlim = (0.,2.6),
-		ylim = (-.2,2.9))
-		plot1 = plot!([0,2.0],[0,0],color=:black,label=false)		
-		
-		plot1 = annotate!(2.08,3.1 ,text(latexstring("n \\ \\qquad   f_n \\qquad \\qquad X_n"),:left,8))
-		
-		plot1 = annotate!(2.05,2.95, text(@sprintf("%2.0d)   %8.4f   %8.4f",0,0.0,1.0),:left,7))
-			
-		
-		for m = 1:counter
-			plot1 = annotate!(2.05, 2.95 - m * 0.1 ,text(@sprintf("%2.0d)   %8.4f   %8.4f",m,L_f_min[m],(N_w/(N_w+1))^m),:left,7))
-		end 
-			
-		plot(plot1,size=(600,400))
-
-	else
-		hintx("Now that you know how NESA works, let's check whether the constraint prior mass has the assumed properties")
-	end
-	
-	
-end
-
 # ╔═╡ 5a5a20be-cc27-4f06-a2ee-ffff9a4a59a2
 if counter > Nclim && flag_integral
 	N_stepsi = 1000
@@ -598,6 +537,67 @@ end
 if counter > Nclim && flag_integral
 	txt = @sprintf("int_nesa/int_exact = %8.3f ± %8.3f (2σ)" ,mean(L_int),std(L_int)/sqrt(N_repi))
 	md"The numerical result yields:     $txt"
+end
+
+# ╔═╡ 7822f358-dbc7-461d-948b-8c5b60d4a59f
+begin
+	let
+		L_x = [0.0:.01:2.0;]
+		L_y = likelihood(L_x,f_𝜎_1,f_𝜎_2)
+	
+		N_iter_max = 100
+		
+		N_steps = 100
+		N_w     = 10
+
+
+		L_f_min = zeros(N_steps)
+		L_x_min = zeros(N_steps)	
+
+		L_x_pos = rand(rng,N_w) .* x_max
+		L_f_pos = likelihood(L_x_pos,f_𝜎_1,f_𝜎_2)
+
+		M_x_pos = zeros(N_steps,N_w)
+		M_f_pos = zeros(N_steps,N_w)	
+
+		L_f_min = zeros(N_steps)
+		L_x_min = zeros(N_steps)	
+		L_f_new = zeros(N_steps)
+		L_x_new = zeros(N_steps)	
+		
+		for i = 1: N_steps
+			ind_min    = argmin(L_f_pos)
+			M_x_pos[i,:] = L_x_pos
+			M_f_pos[i,:] = L_f_pos	
+
+			del        = std(L_x_pos)*10
+
+			f_thresh   = L_f_pos[ind_min]
+			L_f_min[i] = f_thresh
+			L_x_min[i] = L_x_pos[ind_min]			
+			it 		   = rand(rng,1:N_w)
+			while it == ind_min
+				it = rand(rng,1:N_w)
+			end
+			xt0 = L_x_pos[it]
+		
+			xt, ft = trial_step(N_iter_max,xt0,f_thresh,del)
+
+
+
+			L_x_pos[ind_min] = xt			
+			L_f_pos[ind_min] = ft
+			L_x_new[i] = xt
+			L_f_new[i] = ft							
+		end
+
+
+	end
+
+
+
+	md"### - prepare data for single step mode"
+	
 end
 
 # ╔═╡ Cell order:
