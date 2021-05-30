@@ -82,13 +82,6 @@ $f(x) = \exp\bigg(-\frac{(x -x_1)^2}{2 \sigma_1^2}\bigg) + 1.5\; \exp\bigg(-\fra
 The exact result is $I = \sqrt{2 \pi \sigma_1^2} + 1.5\; \sqrt{2 \pi \sigma_2^2}$
 ## - Follow the algorithm step by step 🕵🏻‍♀️"
 
-# ╔═╡ 98567be3-d02e-4b32-b760-e25bd185c8d5
-begin
-	#md"""$(@bind counter ClickCounterWithReset("NEXT STEP", "RESET"))"""
-	md"""Increase the steps 👉$(@bind counter NumberField(0:30; default=0))"""
-	
-end
-
 # ╔═╡ 93315217-1dd9-4a50-abeb-ef5ad5cf44ef
 md"## - Check the integral"
 
@@ -131,6 +124,13 @@ div.value = count
 	
 
 
+# ╔═╡ 98567be3-d02e-4b32-b760-e25bd185c8d5
+begin
+	md"""$(@bind counter ClickCounterWithReset("NEXT STEP", "RESET"))"""
+	#md"""Increase the steps 👉$(@bind counter NumberField(0:40; default=0))"""
+	
+end
+
 # ╔═╡ 2f3bb4ef-2239-4617-b9fd-f6cffd0653e4
 begin
 
@@ -170,10 +170,19 @@ begin
 	md"### - initial values"
 end
 
+# ╔═╡ 627e437a-c271-4098-920e-12becf65b79c
+begin
+	flag_integral_checkbox = @bind flag_integral CheckBox()
+	flag_prior_mass_checkbox = @bind flag_prior_mass CheckBox()
+	seed_2_slider = @bind seed2 Slider(1:200, show_value=true,default=123)
+	N_wi_slider = @bind N_wi Slider(1:200, show_value=true,default=100)
+	md"### - Checkboxes and Sliders"
+end
+
 # ╔═╡ 7007f520-b514-456a-a2b3-70d8611b2f48
 if counter > Nclim
 	md"""
-	Start testing the constraint prior mass distribution! 👉 $(@bind flag_prior_mass CheckBox())
+	Start testing the constraint prior mass distribution! 👉 $(flag_prior_mass_checkbox)
 	"""
 end
 
@@ -221,7 +230,7 @@ end
 # ╔═╡ 1166b1ba-f08c-43cf-9ef1-19e664c3233f
 if counter > Nclim && flag_prior_mass
 	md"""
-See, how the NESA integration performs?  👉 $(@bind flag_integral CheckBox())
+See, how the NESA integration performs?  👉 $(flag_integral_checkbox)
 	"""
 end
 
@@ -235,13 +244,13 @@ end
 
 # ╔═╡ 75fbf125-14e1-483a-8c8d-996166703057
 if counter > Nclim && flag_integral
-md"seed of the random number generator   $(@bind seed2 Slider(1:1000, show_value=true,default=123))
+md"seed of the random number generator   $(seed_2_slider)
  _with a new seed you get a new sample_"
 end
 
 # ╔═╡ 026c059e-eaf9-479b-a8a4-ca44c3b60b1e
 if counter > Nclim && flag_integral
-md"number of walkers N   $(@bind N_wi Slider(1:200, show_value=true,default=100))"
+md"number of walkers N   $(N_wi_slider)"
 end
 
 # ╔═╡ 7ac24f4e-5ff9-45db-b3d5-2044dcc45b1e
@@ -369,7 +378,7 @@ end
 # ╔═╡ 311a6427-767b-49f3-af28-0903116ecc98
 begin
 	# details for constraint prior mass test
-
+	let
 	L_x_X = [0.0:.00001:x_max;]
 	N_x_X = length(L_x_X)
 	L_y_X = likelihood(L_x_X,f_𝜎_1,f_𝜎_2)
@@ -418,8 +427,8 @@ begin
 	end
 
 
-	plot2 = plot(L_plot...)
-
+	global plot2 = plot(L_plot...)
+	end
 	md"## - Check the constraint prior mass distribution"
 end
 
@@ -430,29 +439,29 @@ end
 
 # ╔═╡ 7822f358-dbc7-461d-948b-8c5b60d4a59f
 begin
-	
+	let
 		L_x = [0.0:.01:2.0;]
 		L_y = likelihood(L_x,f_𝜎_1,f_𝜎_2)
 	
 		N_iter_max = 100
 		
 		N_steps = 100
-		N_w     = 10
+		global N_w     = 10
 
 
-		L_f_min = zeros(N_steps)
-		L_x_min = zeros(N_steps)	
+		 L_f_min = zeros(N_steps)
+		 L_x_min = zeros(N_steps)	
 
-		L_x_pos = rand(rng,N_w) .* x_max
-		L_f_pos = likelihood(L_x_pos,f_𝜎_1,f_𝜎_2)
+		 L_x_pos = rand(rng,N_w) .* x_max
+		 L_f_pos = likelihood(L_x_pos,f_𝜎_1,f_𝜎_2)
 
-		M_x_pos = zeros(N_steps,N_w)
-		M_f_pos = zeros(N_steps,N_w)	
+		 M_x_pos = zeros(N_steps,N_w)
+		 M_f_pos = zeros(N_steps,N_w)	
 
-		L_f_min = zeros(N_steps)
-		L_x_min = zeros(N_steps)	
-		L_f_new = zeros(N_steps)
-		L_x_new = zeros(N_steps)	
+		 L_f_min = zeros(N_steps)
+		 L_x_min = zeros(N_steps)	
+		 L_f_new = zeros(N_steps)
+		 L_x_new = zeros(N_steps)	
 		
 		for i = 1: N_steps
 			ind_min    = argmin(L_f_pos)
@@ -479,10 +488,52 @@ begin
 			L_x_new[i] = xt
 			L_f_new[i] = ft							
 		end
+		
+		# Plot 1
+		
+		
+		
+		global plot1
+		if 0 < counter
+				plot1 = plot(L_x,L_y, label = false)
+
+				plot1 = plot!(title = @sprintf("n = %3.0d, N_walker = %3.0d",counter,N_w))		
+				plot1 = plot!(M_x_pos[counter,:],M_f_pos[counter,:],
+					seriestype = :scatter,markercolor = :green, marker = :dot, label = false)
+				x_rej = L_x_min[counter]
+				f_rej = L_f_min[counter]
+
+				plot1 = plot!([x_rej],[f_rej],
+					seriestype = :scatter,markercolor = :red, marker = :x,
+					markersize = 8, label = false)
+				x_new = L_x_new[counter]
+				f_new = L_f_new[counter]		
+				plot1 = plot!([x_new],[f_new],
+					seriestype = :scatter,markercolor = :red, marker = :dot,
+					markersize = 8, label = false)	
+
+				plot1 = plot!([x_new,x_new],[f_new+.2,f_new+.05], 
+					arrow=(:closed, 4.0),label =  false)
+				plot1 = annotate!(x_new,f_new+.3,"added")
+
+				plot1 = plot!([x_rej+.2,x_rej+0.05],[f_rej,f_rej], 
+					arrow=(:closed, 4.0),label =  false)	
+				plot1 = annotate!(x_rej+0.3,f_rej,"discarded",
+				xlim = (0.,2.6),
+				ylim = (-.2,2.9))
+				plot1 = plot!([0,2.0],[0,0],color=:black,label=false)		
+
+				plot1 = annotate!(2.08,3.1 ,text(latexstring("n \\ \\qquad   f_n \\qquad \\qquad X_n"),:left,8))
+
+				plot1 = annotate!(2.05,2.95, text(@sprintf("%2.0d)   %8.4f   %8.4f",0,0.0,1.0),:left,7))
 
 
-	
+				for m = 1:counter
+					plot1 = annotate!(2.05, 2.95 - m * 0.1 ,text(@sprintf("%2.0d)   %8.4f   %8.4f",m,L_f_min[m],(N_w/(N_w+1))^m),:left,7))
+				end 
 
+		end
+	end
 
 
 	md"### - prepare data for single step mode"
@@ -498,44 +549,7 @@ begin
 		by repeatedly pressing the NEXT STEP button")
 		
 	elseif counter ≤ Nclim 
-		global plot1
-		plot1 = plot(L_x,L_y, label = false)
 		
-		plot1 = plot!(title = @sprintf("n = %3.0d, N_walker = %3.0d",counter,N_w))		
-		plot1 = plot!(M_x_pos[counter,:],M_f_pos[counter,:],
-			seriestype = :scatter,markercolor = :green, marker = :dot, label = false)
-		x_rej = L_x_min[counter]
-		f_rej = L_f_min[counter]
-		
-		plot1 = plot!([x_rej],[f_rej],
-			seriestype = :scatter,markercolor = :red, marker = :x,
-			markersize = 8, label = false)
-		x_new = L_x_new[counter]
-		f_new = L_f_new[counter]		
-		plot1 = plot!([x_new],[f_new],
-			seriestype = :scatter,markercolor = :red, marker = :dot,
-			markersize = 8, label = false)	
-		
-		plot1 = plot!([x_new,x_new],[f_new+.2,f_new+.05], 
-			arrow=(:closed, 4.0),label =  false)
-		plot1 = annotate!(x_new,f_new+.3,"added")
-		
-		plot1 = plot!([x_rej+.2,x_rej+0.05],[f_rej,f_rej], 
-			arrow=(:closed, 4.0),label =  false)	
-		plot1 = annotate!(x_rej+0.3,f_rej,"discarded",
-		xlim = (0.,2.6),
-		ylim = (-.2,2.9))
-		plot1 = plot!([0,2.0],[0,0],color=:black,label=false)		
-		
-		plot1 = annotate!(2.08,3.1 ,text(latexstring("n \\ \\qquad   f_n \\qquad \\qquad X_n"),:left,8))
-		
-		plot1 = annotate!(2.05,2.95, text(@sprintf("%2.0d)   %8.4f   %8.4f",0,0.0,1.0),:left,7))
-			
-		
-		for m = 1:counter
-			plot1 = annotate!(2.05, 2.95 - m * 0.1 ,text(@sprintf("%2.0d)   %8.4f   %8.4f",m,L_f_min[m],(N_w/(N_w+1))^m),:left,7))
-		end 
-			
 		plot(plot1,size=(600,400))
 
 	else
@@ -608,12 +622,12 @@ end
 # ╟─98567be3-d02e-4b32-b760-e25bd185c8d5
 # ╟─a3528065-dfa6-4cad-8080-c188583f638a
 # ╟─7007f520-b514-456a-a2b3-70d8611b2f48
+# ╟─311a6427-767b-49f3-af28-0903116ecc98
 # ╟─a7bb1c76-97e2-4c79-8928-99b173ce0f6d
 # ╟─0816fdd9-c529-48e1-8c31-40e4a700240e
 # ╟─9ecef464-1a0d-4830-8d27-7de069e11380
 # ╟─b9c105d5-d296-4a57-8bc0-5294081dbba7
 # ╟─246d932a-5d4d-4628-bf5a-a2ac848779ec
-# ╟─311a6427-767b-49f3-af28-0903116ecc98
 # ╟─93315217-1dd9-4a50-abeb-ef5ad5cf44ef
 # ╟─585cb5a1-7276-4c82-8609-e6637166d048
 # ╟─1166b1ba-f08c-43cf-9ef1-19e664c3233f
@@ -628,6 +642,7 @@ end
 # ╟─2f3bb4ef-2239-4617-b9fd-f6cffd0653e4
 # ╟─53cbed91-a234-4e33-95c0-9b4a750c39ba
 # ╟─de042b85-4f4d-447f-8ec3-8406ca031718
+# ╟─627e437a-c271-4098-920e-12becf65b79c
 # ╟─d1dbd77c-caaf-4e1c-b691-5f1ba201e21d
 # ╟─7822f358-dbc7-461d-948b-8c5b60d4a59f
 # ╟─dc7a78e0-3b84-4ee0-9db4-c5670183857a
