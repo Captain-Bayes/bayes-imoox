@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.14.5
+# v0.14.7
 
 using Markdown
 using InteractiveUtils
@@ -67,6 +67,17 @@ HTML("<div><br></div>")
 
 # ╔═╡ 9f155e80-6be6-11eb-22c1-1b4f6e30ec72
 md"Choose number of 👉 $(@bind iterations Slider(1:60, show_value = true)) crew members that roll the strange dice."
+
+# ╔═╡ 4976c4b5-3f45-458d-83b8-3721abff5331
+md"""
+# About the creators
+
+This notebook was created by **Gerhard Dorn** in the context of the course **Bayesian probability theory**.
+
+The course is a free massive open online course (MOOC) available on the platform [`IMOOX`](https://imoox.at/mooc/local/landingpage/course.php?shortname=bayes&lang=en)
+
+$(Resource("https://raw.githubusercontent.com/Captain-Bayes/images/main/adventure_map.gif"))
+"""
 
 # ╔═╡ 7ecb15e0-6b26-11eb-1d2b-37dd4e07ef05
 HTML("<div><br><br><br><br><br><br><br><br><br><br><br><br><br></div>")
@@ -216,6 +227,7 @@ end
 # ╟─e7e029f0-6b9c-11eb-179d-1d2fca9eb8af
 # ╟─9f155e80-6be6-11eb-22c1-1b4f6e30ec72
 # ╟─b7a9ad70-6b23-11eb-295b-4324ef257047
+# ╟─4976c4b5-3f45-458d-83b8-3721abff5331
 # ╟─1dfd0480-6b0d-11eb-1f62-dbdc1a677571
 # ╟─7ecb15e0-6b26-11eb-1d2b-37dd4e07ef05
 # ╟─185ef260-6b0b-11eb-1fd8-b5c70ec616d7
