@@ -61,6 +61,12 @@ begin
 	
 end
 
+# ╔═╡ e8a625a0-bc1c-469c-9ef3-3af12ec6de6b
+html"""<div style="display: flex; justify-content: center;">
+<div  notthestyle="position: relative; right: 0; top: 0; z-index: 300;">
+<iframe src="https://www.youtube.com/embed/rFvR_sU3Sc4" width=600 height=375  frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+</div>"""
+
 # ╔═╡ 9d959eb7-6b01-41fc-a8c1-62ce5c42e2dd
 md"""
 ## Where to draw the line? or a curve?
@@ -370,10 +376,10 @@ end
 
 # ╔═╡ 82c39e5a-e46a-4db5-9b7c-d879c415a908
 md"""
-Makabe and Claire have a dispute, Makabe and her village try to protect the endangered frogfish whereas Claire needs to catch fish. 
+As shown in Episode 7: "Makabe and Claire have a dispute, Makabe and her village try to protect the endangered frogfish whereas Claire needs to catch fish. 
 
 $(Resource(frogfish_image, :width=>100))
-So they are looking for a boundary to split the sea between their villages in a protected area for the frogfish and an area for fishing.
+So they are looking for a **boundary** to split the sea between their villages in a **protected area for the frogfish 🐸** and an **area for fishing 🐟**.
 
 Bernoulli already went out to collect some data where frogfish and normal fish can be found
 $(Resource(bernoulli, :width=>100))
@@ -415,9 +421,21 @@ begin
 	
 end
 
+# ╔═╡ bb3bb1b3-bcbb-4c29-b73b-cb1784b11649
+md"""
+# About the creators
+
+This notebook was created by **Gerhard Dorn** in the context of the course **Bayesian probability theory**.
+
+The course is a free massive open online course (MOOC) available on the platform [`IMOOX`](https://imoox.at/mooc/local/landingpage/course.php?shortname=bayes&lang=en)
+
+$(Resource("https://raw.githubusercontent.com/Captain-Bayes/images/main/adventure_map.gif"))
+"""
+
 # ╔═╡ Cell order:
 # ╟─0b775a36-64d0-4f32-a409-6c0dd859b337
-# ╠═82c39e5a-e46a-4db5-9b7c-d879c415a908
+# ╟─e8a625a0-bc1c-469c-9ef3-3af12ec6de6b
+# ╟─82c39e5a-e46a-4db5-9b7c-d879c415a908
 # ╟─9d959eb7-6b01-41fc-a8c1-62ce5c42e2dd
 # ╟─7d431428-0418-45fa-8ba6-3ec6837019f5
 # ╟─6df77838-6816-4af8-978d-83bb79de947a
@@ -429,4 +447,5 @@ end
 # ╟─bedfbe0a-feec-4b1a-86af-a6327adb0804
 # ╟─0972e9e4-7aa6-46cf-9c36-16c1b55858e9
 # ╠═efc86030-bd6a-4820-b410-d1399b73968b
-# ╠═39b06b5b-c218-4aae-88d1-0e641d7303a8
+# ╟─bb3bb1b3-bcbb-4c29-b73b-cb1784b11649
+# ╟─39b06b5b-c218-4aae-88d1-0e641d7303a8

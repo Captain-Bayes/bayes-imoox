@@ -88,6 +88,17 @@ md"## - Check the integral"
 # ╔═╡ 4659617d-b2ae-4e08-94e6-3ef71bcbf48e
 md"# Auxiliary stuff"
 
+# ╔═╡ fc692905-354b-4519-8956-f340b83ad661
+md"""
+## About the creators
+
+This notebook was created by **Prof. Wolfgang von der Linden** and **Gerhard Dorn** in the context of the course **Bayesian probability theory**.
+
+The course is a free massive open online course (MOOC) available on the platform [`IMOOX`](https://imoox.at/mooc/local/landingpage/course.php?shortname=bayes&lang=en)
+
+$(Resource("https://raw.githubusercontent.com/Captain-Bayes/images/main/adventure_map.gif"))
+"""
+
 # ╔═╡ 54e74311-1892-4120-b58f-e2cf0dc28016
 
 ClickCounterWithReset(text="Click", reset_text="Reset") = HTML("""
@@ -163,8 +174,7 @@ begin
 
 	Ω = x_max 	
 	
-	seed = 135
-	rng   = MersenneTwister(seed) 
+	
 	
 
 	md"### - initial values"
@@ -253,14 +263,6 @@ if counter > Nclim && flag_integral
 md"number of walkers N   $(N_wi_slider)"
 end
 
-# ╔═╡ 7ac24f4e-5ff9-45db-b3d5-2044dcc45b1e
-if counter > Nclim && flag_integral
-begin
-	rng2   = MersenneTwister(seed2) 
-	nothing
-end
-end
-
 # ╔═╡ d1dbd77c-caaf-4e1c-b691-5f1ba201e21d
 begin
 	function likelihood(x,f_𝜎_1,f_𝜎_2)
@@ -335,6 +337,7 @@ begin
 		L_f_pos = likelihood(L_x_pos,f_𝜎_1,f_𝜎_2)
 
 		L_f_min = zeros(N_steps)
+		let
 
 		for i = 1: N_steps
 			del        = std(L_x_pos)*10
@@ -357,10 +360,11 @@ begin
 			L_f_pos[ind_min] = ft
 			L_x_pos[ind_min] = xt
 		end
+		end	
 		return L_f_min
 	end
 	
-	function trial_step(N_iter_max,xt0,f_thresh,del)
+	function trial_step(N_iter_max,xt0,f_thresh,del, rng)
 		xt = 0.
 		ft = 0.
 		for j = 1: N_iter_max
@@ -375,70 +379,10 @@ begin
 	md"### - some subroutines"
 end
 
-# ╔═╡ 311a6427-767b-49f3-af28-0903116ecc98
-begin
-	# details for constraint prior mass test
-	let
-	L_x_X = [0.0:.00001:x_max;]
-	N_x_X = length(L_x_X)
-	L_y_X = likelihood(L_x_X,f_𝜎_1,f_𝜎_2)
-	
-
-	n_hist = 6
-	N_rep  = 1000
-	N_wh    = 40
-	L_hist = zeros(N_rep,n_hist)
-	
-	for i = 1: N_rep
-		L_fh = one_run(n_hist,N_wh,f_𝜎_1,f_𝜎_2,x_max,rng)
-		L_Xh = [sum(L_y_X .> L_fh[j])/N_x_X for j = 1: n_hist]
-		L_hist[i,:] = L_Xh
-	end
-
-	L_plot = Vector{Any}(undef,n_hist)
-	L_mean = zeros(n_hist)
-
-	for n = 1: n_hist
-		h = fit(Histogram, L_hist[:,n], nbins=40)
-		r = h.edges[1]
-		local x = first(r)+step(r)/2:step(r):last(r)
-		hh = h.weights./sum(h.weights)
-		plotx = plot(x, hh, seriestype = :scatter,
-		marker=:dot,
-		markersize = 2,
-		label = false
-		)
-
-		p = ((log.(x)).^(n-1)) .* x.^(N_wh-1)
-		p = p/sum(p)
-		plotx = plot!(x,p,
-			legendfont = 6,
-			label = false,
-			xaxis = ("X", (0,1.1),0:0.5:1,font(6, "Verdana")),
-			yaxis = ("p(X)", (0,.16),0:0.1:0.2,font(6, "Verdana")),
-			)
-
-		plotx = annotate!(.2,0.14,text("n=$(n)", :left, 8))
-		avg = (N_wh/(N_wh+1))^n
-		plotx = plot!([avg,avg],[0,2],color=:red,linewidth = 2)
-		L_plot[n] = plotx
-		
-       L_mean[n] = sum(x.*p)
-	end
-
-
-	global plot2 = plot(L_plot...)
-	end
-	md"## - Check the constraint prior mass distribution"
-end
-
-# ╔═╡ 9ecef464-1a0d-4830-8d27-7de069e11380
-if counter > Nclim && flag_prior_mass 
-	plot(plot2,size = (600,600))
-end
-
 # ╔═╡ 7822f358-dbc7-461d-948b-8c5b60d4a59f
 begin
+	seed = 135
+	rng   = MersenneTwister(seed) 
 	let
 		L_x = [0.0:.01:2.0;]
 		L_y = likelihood(L_x,f_𝜎_1,f_𝜎_2)
@@ -479,7 +423,7 @@ begin
 			end
 			xt0 = L_x_pos[it]
 		
-			xt, ft = trial_step(N_iter_max,xt0,f_thresh,del)
+			xt, ft = trial_step(N_iter_max,xt0,f_thresh,del, rng)
 
 
 
@@ -559,8 +503,72 @@ begin
 	
 end
 
+# ╔═╡ 311a6427-767b-49f3-af28-0903116ecc98
+begin
+	# details for constraint prior mass test
+	let
+	L_x_X = [0.0:.00001:x_max;]
+	N_x_X = length(L_x_X)
+	L_y_X = likelihood(L_x_X,f_𝜎_1,f_𝜎_2)
+	
+
+	n_hist = 6
+	N_rep  = 1000
+	N_wh    = 40
+	L_hist = zeros(N_rep,n_hist)
+	
+	for i = 1: N_rep
+		L_fh = one_run(n_hist,N_wh,f_𝜎_1,f_𝜎_2,x_max,rng)
+		L_Xh = [sum(L_y_X .> L_fh[j])/N_x_X for j = 1: n_hist]
+		L_hist[i,:] = L_Xh
+	end
+
+	L_plot = Vector{Any}(undef,n_hist)
+	L_mean = zeros(n_hist)
+
+	for n = 1: n_hist
+		h = fit(Histogram, L_hist[:,n], nbins=40)
+		r = h.edges[1]
+		local x = first(r)+step(r)/2:step(r):last(r)
+		hh = h.weights./sum(h.weights)
+		plotx = plot(x, hh, seriestype = :scatter,
+		marker=:dot,
+		markersize = 2,
+		label = false
+		)
+
+		p = ((log.(x)).^(n-1)) .* x.^(N_wh-1)
+		p = p/sum(p)
+		plotx = plot!(x,p,
+			legendfont = 6,
+			label = false,
+			xaxis = ("X", (0,1.1),0:0.5:1,font(6, "Verdana")),
+			yaxis = ("p(X)", (0,.16),0:0.1:0.2,font(6, "Verdana")),
+			)
+
+		plotx = annotate!(.2,0.14,text("n=$(n)", :left, 8))
+		avg = (N_wh/(N_wh+1))^n
+		plotx = plot!([avg,avg],[0,2],color=:red,linewidth = 2)
+		L_plot[n] = plotx
+		
+       L_mean[n] = sum(x.*p)
+	end
+
+
+	global plot2 = plot(L_plot...)
+	end
+	md"## - Check the constraint prior mass distribution"
+end
+
+# ╔═╡ 9ecef464-1a0d-4830-8d27-7de069e11380
+if counter > Nclim && flag_prior_mass 
+	plot(plot2,size = (600,600))
+end
+
 # ╔═╡ 5a5a20be-cc27-4f06-a2ee-ffff9a4a59a2
-if counter > Nclim && flag_integral
+begin
+	if counter > Nclim && flag_integral
+	rng2   = MersenneTwister(seed2) 
 	N_stepsi = 1000
 	N_repi   = 100
 	L_ni = [0:N_stepsi-1;]
@@ -610,6 +618,8 @@ txtx = @sprintf("N walker = %3.0d",N_wi)
 
 end
 
+end
+
 # ╔═╡ 38257648-8beb-49c1-9c7c-11204cb6cd08
 if counter > Nclim && flag_integral
 	txt = @sprintf("int_nesa/int_exact = %8.3f ± %8.3f (2σ)" ,mean(L_int),std(L_int)/sqrt(N_repi))
@@ -634,10 +644,10 @@ end
 # ╟─cf0f3b29-f601-4776-acd8-0f4a809819e4
 # ╟─75fbf125-14e1-483a-8c8d-996166703057
 # ╟─026c059e-eaf9-479b-a8a4-ca44c3b60b1e
-# ╟─7ac24f4e-5ff9-45db-b3d5-2044dcc45b1e
 # ╟─5a5a20be-cc27-4f06-a2ee-ffff9a4a59a2
 # ╟─38257648-8beb-49c1-9c7c-11204cb6cd08
 # ╟─4659617d-b2ae-4e08-94e6-3ef71bcbf48e
+# ╟─fc692905-354b-4519-8956-f340b83ad661
 # ╟─54e74311-1892-4120-b58f-e2cf0dc28016
 # ╟─2f3bb4ef-2239-4617-b9fd-f6cffd0653e4
 # ╟─53cbed91-a234-4e33-95c0-9b4a750c39ba

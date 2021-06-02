@@ -122,6 +122,17 @@ end
 # ╔═╡ 0b51a7d4-5a66-43bc-9755-eb7c29bc8606
 md"### final result"
 
+# ╔═╡ 8bcc329f-f48f-4a20-91bd-4556507b5c07
+md"""
+# About the creators
+
+This notebook was created by **Prof. Wolfgang von der Linden** and **Gerhard Dorn** in the context of the course **Bayesian probability theory**.
+
+The course is a free massive open online course (MOOC) available on the platform [`IMOOX`](https://imoox.at/mooc/local/landingpage/course.php?shortname=bayes&lang=en)
+
+$(Resource("https://raw.githubusercontent.com/Captain-Bayes/images/main/adventure_map.gif"))
+"""
+
 # ╔═╡ 583ad6aa-7bf1-4c59-bcff-bc3548b2bce6
 md"________________________________________________________________________________
 ## Auxiliary stuff"
@@ -448,6 +459,7 @@ end
 # ╟─e5aebcc2-6f45-4a30-a92b-1f4566e01947
 # ╟─0b51a7d4-5a66-43bc-9755-eb7c29bc8606
 # ╟─3f6daf82-ba74-4836-a5bf-0e48456bc890
+# ╟─8bcc329f-f48f-4a20-91bd-4556507b5c07
 # ╟─583ad6aa-7bf1-4c59-bcff-bc3548b2bce6
 # ╟─40d8dcc5-2f27-46aa-9391-95155fc9850c
 # ╟─cda88397-7aa4-4fc8-b8b5-3823f41a6e8e

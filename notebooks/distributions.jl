@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.14.5
+# v0.14.7
 
 using Markdown
 using InteractiveUtils
@@ -17,19 +17,22 @@ end
 begin
 	try
 		using PlutoUI
-		using Plots
+		using Plots, Plots.PlotMeasures
 		#using LinearAlgebra
 		#using SparseArrays
 		using SpecialFunctions
 		#using StatsBase
 		#using Random
 		using Distributions
+		using LaTeXStrings	
+		using Markdown
+		using HypertextLiteral
 		md""" 
 		# Packages
 		
 		All needed Packages available :) """
 	catch
-		using Pkg;
+		
 		Pkg.activate(mktempdir())
 		Pkg.add("PlutoUI")
 		Pkg.add("Plots")
@@ -37,15 +40,17 @@ begin
 		#Pkg.add("SparseArrays")
 		Pkg.add("SpecialFunctions")
 		#Pkg.add("StatsBase")
-		Pkg.add("Distributions")
+		Pkg.add(["Distributions", "HypertextLiteral", "LaTeXStrings", "Markdown"])
+		
 		using PlutoUI
-		using Plots
+		using Plots, Plots.PlotMeasures
 		#using LinearAlgebra
 		#using SparseArrays
 		using SpecialFunctions
 		#using StatsBase
 		#using Random
 		using Distributions
+		using LaTeXStrings
 		md""" 
 		# Packages
 		
@@ -55,10 +60,12 @@ begin
 end
 
 # ╔═╡ d141cf00-8352-11eb-2e51-f115e26e1570
-md"""
-# Popular probability distributions 🥳
+begin
+	md"""
+# Popular discrete probability distributions 🥳
 Here you can explore some of the most famous discrete probability distributions
 """
+end
 
 # ╔═╡ e6d68ef0-8352-11eb-1999-0384c7ff8526
 md"""
@@ -109,12 +116,32 @@ begin
     fill = 0.,
     orientation = :v,
     title = "The Poisson distribution with lambda: "*string(lambda),
-	ylabel = "probability mass function",
+	ylabel = latexstring("P_{\\mathcal{P}}(K\\,|\\, \\lambda)"),
 	xlabel = "K - number of counting events",
 	label = :none,
-	ylim =[0,1],
+	ylim =[0,1],	
+	#xtick = [0,10],
+	#ytick = [0,1/10],
+	#xticklabel = latexstring("x_{\\textrm{max}}"),
+	#ylim = [0,50],
+	legend= :right,
+	#xlim = [0,60],
+	# series properties
+	# size of image, margins, font size, ...
+	size = (900,600),  
+	labelfontsize = 30,
+	legendfontsize = 20,
+	tickfontsize = 20,
+	bottom_margin =25mm,
+	left_margin = 5mm,
+	right_margin = 10mm,
+	titlefontsize = 25,	
+	background_color = :transparent,  
+	# this is really cool, transparent background :)
+	foreground_color = :black,
+	# makes it look like LaTeX
+	fontfamily="Computer Modern"
 )
-	
 end
 
 # ╔═╡ 47882682-844f-11eb-335e-afc41d5498e1
@@ -206,8 +233,32 @@ begin
     marker = (5, 1., :o),
     markerstrokewidth = 1.,
 	label = "Binomial",
-	color = col_pal[1]
-	)
+	color = col_pal[1],
+	xlabel = latexstring("K"), 
+	ylabel = latexstring("P_{\\mathcal{B}}(K\\,|\\, N,Q)"),
+	#xtick = [0,10],
+	#ytick = [0,1/10],
+	#xticklabel = latexstring("x_{\\textrm{max}}"),
+	#ylim = [0,50],
+	legend= :right,
+	title = "Binomial distribution",
+	#xlim = [0,60],
+	# series properties
+	# size of image, margins, font size, ...
+	size = (900,600),  
+	labelfontsize = 30,
+	legendfontsize = 20,
+	tickfontsize = 20,
+	bottom_margin =25mm,
+	left_margin = 5mm,
+	right_margin = 10mm,
+	titlefontsize = 25,	
+	background_color = :transparent,  
+	# this is really cool, transparent background :)
+	foreground_color = :black,
+	# makes it look like LaTeX
+	fontfamily="Computer Modern"
+)
 
 end
 
@@ -252,7 +303,7 @@ begin
     markerstrokewidth = 5.,
     color = col_pal[1],
 	xlim = (0,40),
-	ylim = (0,.5),
+	ylim = (0,.3),
 	label = :none)
 	
 	plot!(L_k,P_k,
@@ -261,8 +312,33 @@ begin
     marker = (5, 1., :o),
     markerstrokewidth = 1.,
     color = col_pal[1],
-	label = "Geometric"
-		)
+	label = "Geometric",
+	xlabel = latexstring("K"), 
+	ylabel = latexstring("P_{\\mathcal{G}}(K\\,|\\, Q_a)"),
+		title = "Geometric distribution",
+	#xtick = [0,10],
+	#ytick = [0,1/10],
+	#xticklabel = latexstring("x_{\\textrm{max}}"),
+	#ylim = [0,50],
+	legend= :right,
+	#xlim = [0,60],
+	# series properties
+	# size of image, margins, font size, ...
+	size = (900,600),  
+	labelfontsize = 30,
+	legendfontsize = 20,
+	tickfontsize = 20,
+	bottom_margin =25mm,
+	left_margin = 5mm,
+	right_margin = 10mm,
+	titlefontsize = 25,	
+	background_color = :transparent,  
+	# this is really cool, transparent background :)
+	foreground_color = :black,
+	# makes it look like LaTeX
+	fontfamily="Computer Modern"
+)
+		
 #=	
 	avg = N*q
 	var = N*q*(1-q)
@@ -280,9 +356,234 @@ begin
 =#
 end
 
+# ╔═╡ 1cc62475-2dd3-488b-9647-9d5b2986d791
+md"""
+# Popular continuous probability distributions 🐱‍👤
+"""
+
+# ╔═╡ 48811336-16f6-496f-848d-54fd834bb0da
+md"""
+## Gamma distribution
+
+> $p_{\Gamma}(x\,|\,\alpha, \beta)  = \frac{\beta^\alpha}{\Gamma(\alpha)} x^{\alpha-1} e^{-\beta x}, \quad x \in [0,\infty)$
+> $\Gamma(\alpha):= \int_0^\infty t^{\alpha-1} e^{-t} dt$
+
+
+_What's the connection to the Poisson distribution?_  🤔
+
+"""
+
+# ╔═╡ fb470501-cea4-4ac9-a652-d9874dbd7bdc
+md"""
+Choose **parameters** $\alpha$ 👉 $(@bind α Scrubbable(0:0.1:5, default = 2)) and 
+
+ $\beta$ 👉 $(@bind β Scrubbable(0:0.1:5, default = 2))
+"""
+
+# ╔═╡ 3d85408a-b356-4107-b604-b39fb5a6982e
+md"""
+## Beta distribution
+
+> $p_{\beta}(x\,|\,\alpha, \rho)  = \frac{1}{B(\alpha,\rho)} x^{\alpha-1} (1-x)^{\rho-1}, \quad x \in [0,1]$
+> $B(\alpha, \rho):= \int_0^1 p^{\alpha-1} (1-p)^{\rho-1}dp$
+
+
+_What's the conjugated Likelihood?_  🤔
+
+"""
+
+# ╔═╡ 8ced1f19-501a-47ff-8b0a-eee49816bd4a
+md"""
+Choose **parameters** $\alpha$ 👉 $(@bind α_b Scrubbable(0:0.1:5, default = 2)) and 
+
+ $\rho$ 👉 $(@bind ρ Scrubbable(0:0.1:5, default = 2))
+
+
+"""
+
+# ╔═╡ 8efc6cb4-23f3-4ff3-84ee-2cd7891dd1a8
+md"""
+## Gaussian distribution
+
+> $p_{\mathcal{N}}(x\,|\,x_0, \sigma)  = \frac{1}{\sqrt{2\pi\sigma^2}} \exp\left( -\frac{(x-x_0)^2}{2\sigma^2}\right), \quad x \in (-\infty,\infty)$
+
+
+_What's the definition in more dimensions?_  🤔
+
+"""
+
+# ╔═╡ ed6970b0-8f76-4490-aef6-7bdfba026c27
+md"""
+Choose **parameters** $x_0$ 👉 $(@bind x_0 Scrubbable(-10:0.1:10, default = 0)) and 
+
+ $\sigma$ 👉 $(@bind σ Scrubbable(0.1:0.1:5, default = 2))
+
+
+"""
+
+# ╔═╡ 44d4d19e-b0d2-4768-bc6b-eb63affc3898
+md"""
+# About the creators
+
+This notebook was created by **Prof. Wolfgang von der Linden** and **Gerhard Dorn** in the context of the course **Bayesian probability theory**.
+
+The course is a free massive open online course (MOOC) available on the platform [`IMOOX`](https://imoox.at/mooc/local/landingpage/course.php?shortname=bayes&lang=en)
+
+$(Resource("https://raw.githubusercontent.com/Captain-Bayes/images/main/adventure_map.gif"))
+"""
+
+# ╔═╡ 02f9fccb-594a-4594-b3f1-900f0847e01e
+function sr(variable, dig = 2; add_sign = false)
+	# string and round - converts a variable into a string with the predifined precission - to be extended to scientific and other formats
+	if dig == 0
+		st = string(round(Int, variable))
+	else
+		st =  string(round(variable, digits = dig))
+	end
+	
+	if add_sign
+		st = (variable < 0 ? "" : "+") * st
+	end
+	
+	return st
+	
+	
+end
+
+
+# ╔═╡ c3fad29d-ffa2-4bab-a164-6b53573b6050
+begin
+	
+	md"""asdf $asdf$ $(α)  as"""
+	gamma_x = 0:0.1:10
+	
+	
+	gamma_pdf = β^α / gamma(α) .* gamma_x.^(α-1) .* exp.(-β .* gamma_x)
+	
+	plot(gamma_x, gamma_pdf,
+	lines = :path,
+	title = "Gamma distribution" ,
+	#yscale = :log10,
+	# labels
+	xlabel = latexstring("x"), 
+	ylabel = latexstring("p_\\Gamma(x\\,|\\, \\alpha, \\beta)"),
+	label = latexstring(" \\alpha = " * sr(α,2) * ", \\beta = " * sr(β,2)),
+	#xtick = [0,10],
+	#ytick = [0,1/10],
+	#xticklabel = latexstring("x_{\\textrm{max}}"),
+	#ylim = [0,50],
+	legend= :right,
+	#xlim = [0,60],
+	# series properties
+	linewidth = 4,
+	# size of image, margins, font size, ...
+	size = (900,600),  
+	labelfontsize = 30,
+	legendfontsize = 20,
+	tickfontsize = 20,
+	bottom_margin =25mm,
+	left_margin = 5mm,
+	right_margin = 10mm,
+	titlefontsize = 25,	
+	background_color = :transparent,  
+	# this is really cool, transparent background :)
+	foreground_color = :black,
+	# makes it look like LaTeX
+	fontfamily="Computer Modern"
+)
+	
+	
+end
+
+# ╔═╡ 2ba5aa6f-cdb8-4a82-85c2-66820ceefd4b
+begin
+	beta_x = 0:0.01:1
+	
+	
+	beta_pdf = 1 ./beta(α_b, ρ) .* beta_x.^(α_b-1) .* (1 .- beta_x).^(ρ-1)
+	
+	plot(beta_x, beta_pdf,
+	lines = :path,
+	title = "Beta distribution",
+	#yscale = :log10,
+	# labels
+	xlabel = latexstring("x"), 
+	ylabel = latexstring("p_\\beta(x\\,|\\, \\alpha, \\rho)"),
+	label = latexstring(" \\alpha = " * sr(α_b,2) * ", \\rho = " * sr(ρ,2)),
+	#xtick = [0,10],
+	#ytick = [0,1/10],
+	#xticklabel = latexstring("x_{\\textrm{max}}"),
+	ylim = [0,4],
+	legend= :top,
+	#xlim = [0,60],
+	# series properties
+	linewidth = 4,
+	# size of image, margins, font size, ...
+	size = (900,600),  
+	labelfontsize = 30,
+	legendfontsize = 20,
+	tickfontsize = 20,
+	bottom_margin =25mm,
+	left_margin = 5mm,
+	right_margin = 10mm,
+	titlefontsize = 25,	
+	background_color = :transparent,  
+	# this is really cool, transparent background :)
+	foreground_color = :black,
+	# makes it look like LaTeX
+	fontfamily="Computer Modern"
+)
+	
+	
+	#savefig("C://beta_alpha_01_rho_01")
+	
+end
+
+# ╔═╡ 49cbd69b-e140-422c-9c1e-e9dd2a0545d8
+begin
+	d = -10:0.01:10
+	
+	d1_pdf = 1 ./sqrt(2*pi*σ^2) .* exp.(- (d .-x_0).^2 ./(2*σ^2))
+	plot(d, d1_pdf,
+	lines = :path,
+	title = "Gaussian distribution",
+	#yscale = :log10,
+	# labels
+	xlabel = latexstring("x"), 
+	ylabel = latexstring("p\\,(x\\,|\\, \\vec a)"),
+	label = latexstring(" x_0 = " * sr(x_0,2) * ", \\sigma = " * sr(σ,2)),
+	#xtick = [0,10],
+	#ytick = [0,1/10],
+	#xticklabel = latexstring("x_{\\textrm{max}}"),
+	ylim = [0,1],
+	legend= :topright,
+	#xlim = [0,60],
+	# series properties
+	linewidth = 4,
+	# size of image, margins, font size, ...
+	size = (900,600),  
+	labelfontsize = 30,
+	legendfontsize = 18,
+	tickfontsize = 20,
+	bottom_margin =25mm,
+	left_margin = 5mm,
+	right_margin = 10mm,
+	titlefontsize = 25,	
+	background_color = :transparent,  
+	# this is really cool, transparent background :)
+	foreground_color = :black,
+	# makes it look like LaTeX
+	fontfamily="Computer Modern"
+)
+end
+
 # ╔═╡ 2fd9b8e0-8450-11eb-3bb3-47a5129b79d4
 hint(text) = Markdown.MD(Markdown.Admonition("hint", "Hint", [text]));
 #blue
+
+# ╔═╡ 3554f46b-3a86-4e97-8c02-4911f8f0776a
+	TableOfContents()
+
 
 # ╔═╡ 4dee8720-8450-11eb-2c00-ff79035aeddb
 keep_working(text=md"The answer is not quite right.") = Markdown.MD(Markdown.Admonition("danger", "Keep working on it!", [text]));
@@ -308,7 +609,7 @@ end
 # ╔═╡ Cell order:
 # ╟─d141cf00-8352-11eb-2e51-f115e26e1570
 # ╟─e6d68ef0-8352-11eb-1999-0384c7ff8526
-# ╠═6196a940-8353-11eb-1a09-29cb2338d697
+# ╟─6196a940-8353-11eb-1a09-29cb2338d697
 # ╟─a88ae050-8353-11eb-3eee-b7ee9b717fdb
 # ╟─47882682-844f-11eb-335e-afc41d5498e1
 # ╟─92552af0-844f-11eb-23fa-5711044ae250
@@ -319,8 +620,21 @@ end
 # ╟─08562f30-8453-11eb-36bd-7b55fcd4b82e
 # ╟─b10c08c0-8453-11eb-1614-ef634e6929e5
 # ╟─65567910-8453-11eb-1de3-d38bd5010350
+# ╟─1cc62475-2dd3-488b-9647-9d5b2986d791
+# ╟─48811336-16f6-496f-848d-54fd834bb0da
+# ╟─fb470501-cea4-4ac9-a652-d9874dbd7bdc
+# ╟─c3fad29d-ffa2-4bab-a164-6b53573b6050
+# ╟─3d85408a-b356-4107-b604-b39fb5a6982e
+# ╟─8ced1f19-501a-47ff-8b0a-eee49816bd4a
+# ╟─2ba5aa6f-cdb8-4a82-85c2-66820ceefd4b
+# ╟─8efc6cb4-23f3-4ff3-84ee-2cd7891dd1a8
+# ╟─ed6970b0-8f76-4490-aef6-7bdfba026c27
+# ╟─49cbd69b-e140-422c-9c1e-e9dd2a0545d8
+# ╟─44d4d19e-b0d2-4768-bc6b-eb63affc3898
 # ╟─73555af0-8353-11eb-215d-d3578a6f1e2e
+# ╟─02f9fccb-594a-4594-b3f1-900f0847e01e
 # ╟─2fd9b8e0-8450-11eb-3bb3-47a5129b79d4
+# ╟─3554f46b-3a86-4e97-8c02-4911f8f0776a
 # ╟─4dee8720-8450-11eb-2c00-ff79035aeddb
 # ╟─5768fb00-8450-11eb-0960-b3f6ca4b4bb8
 # ╟─4027c390-8450-11eb-2bb2-c7f245b545e6
