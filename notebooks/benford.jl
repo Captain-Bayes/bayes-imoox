@@ -24,6 +24,7 @@ begin
 		using StatsBase
 		using Images
 		using DelimitedFiles
+		
 
 		#using LinearAlgebra
 		#using SparseArrays
@@ -84,7 +85,7 @@ html"""<div style="display: flex; justify-content: center;">
 </div>"""
 
 # ╔═╡ 27811f40-08a7-4da7-9788-db4b0c47153b
-Markdown.MD(Markdown.Admonition("hint", string("Benford's law"), [md"""For a lot of naturally occurring datasets, the probability that the leading digit of a number in the set is the number  $(latexstring("d  \quad d \in \{1, 2, 3, .. 9\}")) can be calculated with
+Markdown.MD(Markdown.Admonition("hint", string("Benford's law"), [md"""For a lot of naturally occurring datasets, the probability that the leading digit of a number in the set is the number  $(latexstring(" d \\in \\{1, 2, 3, .. 9\\}")) can be calculated with
 
 $(latexstring("P(d) = log_{10}(d + 1) - log_{10}(d)"))"""]))
 
@@ -108,14 +109,44 @@ if data_list == "Random data"
 md""" Choose a seed for the randomly generated data! $(@bind seed Scrubbable(0:1:20))"""
 end
 
+# ╔═╡ 64d6faa9-1564-4d7d-bf32-02f0720fa552
+md"""
+## Comparison with Benford's law
+"""
+
+# ╔═╡ 05d42951-063d-45d6-87ce-4d15b0472b84
+begin
+	
+	# how to extract data from the non so csv csv file
+	#=
+	file_source = readdlm("data_marine_litter.csv", '\\')
+		litter_count = []
+		litter_mass = []
+		for i in 3:986
+			append!(litter_count, parse(Float64, reverse(split(file_source[i], ","))[8]))
+		append!(litter_mass, parse(Float64, reverse(split(file_source[i], ","))[7]))
+			end
+		#a1 = convert(Array{Float64,1}, marine_numbers)
+	
+	writedlm("litter_beach.txt", [["count" "mass"]; [litter_count litter_mass]], "," )
+	
+	=#
+end
+
 # ╔═╡ c13206e8-ff41-405a-b9b8-50b589854901
 md""" **Lyra:** You're right, it does coincide quite well! But there are some cases, where it does not work at all! Do you know why, Captain Bayes?
 
-**Bayes:** Benford's law applies to many, albeit not all naturally occurring datasets.
+**Bayes:** Benford's law applies to many, albeit not all naturally occurring datasets. The data has to be scale invariant. But the question is how do we know if this is the case? 
+A good hint for scale invariance is data that spans several magnitudes. In many cases this is a sufficient criteria.
 
-**Bayes:** Specifically, it is required that the data is spread out over several order of magnitudes. Let's say x is the smallest number in our set. Benford's law will work best, if there are numbers in our set that are 10000x or higher. It is plausible that your data does not always fulfill this criterium - we're going to plot a logarithmic histogram of your data to clear that up!
+We can examine our data in the histogram below, for some data you can observe a bias which is the reason why Benford's law is violated.
 
 
+"""
+
+# ╔═╡ a2a6d8c3-c9b7-458d-b5a7-6d3b3f68a926
+md"""
+## Data analysis and discussion
 """
 
 # ╔═╡ 8a30e661-3057-4a30-a495-b1523b42207b
@@ -150,6 +181,80 @@ html"""<div style="display: flex; justify-content: center;">
 <div  notthestyle="position: relative; right: 0; top: 0; z-index: 300;">
 <iframe src="https://www.youtube.com/embed/udDNi8yZH4o?start=1328" width=600 height=375  frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
 </div>"""
+
+# ╔═╡ a8d53828-ca73-4cb7-906f-ca2c94735a93
+md"""
+## About the creators
+
+This notebook was created by **Johanna Moser** and **Gerhard Dorn** in the context of the course **Bayesian probability theory**.
+
+The course is a free massive open online course (MOOC) available on the platform [`IMOOX`](https://imoox.at/mooc/local/landingpage/course.php?shortname=bayes&lang=en)
+
+$(Resource("https://raw.githubusercontent.com/Captain-Bayes/images/main/adventure_map.gif"))
+"""
+
+# ╔═╡ 7b74d968-8591-49ba-81d8-9d8485676e93
+TableOfContents()
+
+# ╔═╡ a491e298-7a49-4cef-b269-886455538348
+begin
+	
+	
+	check_box_skip = @bind skip_low_gram CheckBox()
+	select_counting = @bind count_in_pairs_dozens Select(["Single pieces", "Pairs", "Dozens"])
+	
+	md"""
+	### define Checkboxes and Sliders """
+end
+
+# ╔═╡ 8368ba6c-cada-4caa-b37f-752034bfd571
+begin 
+	if data_list =="Mass of marine litter in g🚯" || data_list =="Mass of marine litter in lbs 🚯" 
+		
+		
+		md""" See what happens if we **exclude objects** with **less than 10 grams** ⚖ from our analysis 👉 $(check_box_skip)
+		
+		Check Benford's law now in the first plot 👆"""
+	end
+	if data_list == "Pieces of litter on the beach"
+			md""" Change the way of counting 👉 $(select_counting)"""
+		
+	end
+	
+end
+
+# ╔═╡ 5dfa126f-754f-4d25-a191-6e5437df99da
+begin 
+	#read in data
+	
+	# population
+	temp_population =  readdlm("data_city_population.csv", ';', skipblanks = true, skipstart = 1)[1:6889,3]
+	
+	population = parse.(Float64, filter.(x -> !isspace(x), temp_population))
+	
+	# litter
+	litter_pieces = readdlm("litter_beach.txt",',', skipstart = 1)[:,1]
+	litter_mass = readdlm("litter_beach.txt",',', skipstart = 1)[:,2]
+	if skip_low_gram
+		litter_mass = litter_mass[litter_mass .>= 10]
+		
+	end
+	
+	if count_in_pairs_dozens == "Pairs"
+		litter_pieces = litter_pieces./2
+	elseif count_in_pairs_dozens == "Dozens"
+		litter_pieces = litter_pieces./12
+	end
+	
+	
+	
+	# fish population
+	
+	fish_catches = readdlm("data_salmon.csv", ',', skipstart = 1)[:,5]
+	
+	md""" 
+	## Load data"""
+end
 
 # ╔═╡ ea7c16d9-dd13-41c6-9c03-431d068fd105
 begin
@@ -195,36 +300,38 @@ begin
 	if data_list =="Mass of marine litter in g🚯"
 		
 		md"""
-		The data's range spans 4 orders of magnitude.
+		The data's range spans 4 orders of magnitude and the comparison with Benford's law looks promising. However the data is **biased** 😨🤯, because so much data is in the one digit area and the values are **rounded** to integers in grams, so all 0.5 to 0.9 entries are mapped to one gram. Check the conversion to pound which actually should not alter the result.
 		
 		 $(Resource(bayes, :width=>180))"""
 		
 	elseif data_list =="Mass of marine litter in lbs 🚯"
 		md"""
-		**Bayes:** The data's range spans 4 orders of magnitude. However, there doesn't seem to be a scale invariance for the first ci - I must admit, I am a bit puzzeled...
+		**Bayes:** The data's range spans 4 orders of magnitude. Now you see the effect of the bias. We have converted the mass in gram to mass in pound by multiplying with 0.002something. This should not alter the result, but the bias due to rounding and having so many entries in the one digit range in grams has now a considerable effect.
 		
 		 $(Resource(bayes, :width=>180))"""	
 	elseif data_list =="Pieces of litter on the beach"
+		
 		md"""
-		**Bayes:** The data's range spans 3 orders of magnitude
+		
+		**Bayes:** The data's range spans 3 orders of magnitude. At first glance the behaviour corresponds to the one predicted by Benford's law. 
+		
+		**BUT:** There might be a slight bias due to the fact that we can only have integer numbers and a lot of ONES in the data. We could check if the data is scale invariant if we count in pairs or in dozens. 
 		
 		$(Resource(bayes, :width=>180))"""
 				
 	elseif data_list =="Frogfish caught weekly"
 		md""" 
-		**Bayes:** The data's range only spans 1 order of magnitude! This explains the strong deviations!
-		
-		$(Resource(bayes, :width=>180))"""
+		**Bayes:** The data spans several orders of magnitude, so this is a good hint for scale invariance and we see that the data behaves according to Benford's law.
+$(Resource(bayes, :width=>180))"""
 		
 	elseif data_list =="Reef population"
-		md""" 
-		**Bayes:** The data's range spans almost 3 orders of magnitude. But since there surely are populations at the Reef that have less inhabitants, I am guessing you have cut off the data at some point, is that correct?
+		md""" **Bayes:** The data's range spans almost 3 orders of magnitude. But since there surely are populations at the Reef that have less inhabitants, I am guessing you have cut off the data at some point, is that correct?
 		
-		$(Resource(bayes, :width=>180))
+$(Resource(bayes, :width=>180))
 		
 **Lyra:**  Oh my, yes that is correct! I got so bored with counting groups of only 10 fish! I decided to only count populations that are higher than 6000! Does that interfere with the analysis of the numbers?
 		
-		$(Resource(lyra, :width=>180))
+$(Resource(lyra, :width=>180))
 
 **Bayes:** I'm afraid so. But at least that can explain the peak at 6!"""
 					
@@ -305,68 +412,26 @@ begin
 		
 		
 	elseif data_list == "Reef population"
-		#get data
-		datasetpopulation = readdlm("data_city_population.csv", '\\')
-		population_1 = []
-		population = []
-		for i in 2:6890
-			append!(population_1, [split(datasetpopulation[i], ";")[3]])
-			b = filter(x -> !isspace(x), population_1[i-1])
-			append!(population, [b])
-		end
-		a1 = parse.(Int64, population)
-		
-		
-		
-		
+		a1 = population
+
 		
 	elseif data_list == "Frogfish caught weekly"
 		#get data
-		datasetfish = readdlm("data_salmon.csv", '\\')
-		fish_nr = []
-		for i in 3:986
-			append!(fish_nr, split(datasetfish[i], ",")[5])
-			end
-		a1 = parse.(Int64, fish_nr)
-		
-
-		
+		a1 = fish_catches
+	
 		
 		
 	elseif data_list == "Pieces of litter on the beach"
-		#get data
-		datasetlitter = readdlm("data_marine_litter.csv", '\\')
-		marine_numbers = []
-		for i in 3:986
-			append!(marine_numbers, parse(Float64, reverse(split(datasetlitter[i], ","))[8]))
-			end
-		a1 = convert(Array{Float64,1}, marine_numbers)
+		a1 = litter_pieces
 		
-		
-		
+	
 		
 	elseif data_list == "Mass of marine litter in g🚯"
-		#get data
-		datasetlitter = readdlm("data_marine_litter.csv", '\\')
-		marine_mass_g = []
-	
-		for i in 3:986
-			append!(marine_mass_g, parse(Float64, reverse(split(datasetlitter[i], ","))[7]))
-			end
-		a1 = convert(Array{Float64,1}, marine_mass_g)
+		a1 = litter_mass
 		
-		
-		
-		
+			
 	elseif data_list == "Mass of marine litter in lbs 🚯"
-		#get data
-		datasetlitter = readdlm("data_marine_litter.csv", '\\')
-		marine_mass_lbs = []
-		for i in 3:986
-			append!(marine_mass_lbs, parse(Float64, reverse(split(datasetlitter[i], ","))[7])*0.00220462)
-		end
-	
-		a1= convert(Array{Float64,1}, marine_mass_lbs)
+		a1= litter_mass .* 0.00220462
 		
 	end
 	
@@ -383,20 +448,22 @@ p_benford = log.(10, (d .+ 1.0)) - log.(10, d)
 d_discrete = range(1,stop = 9, length = 9)
 p_benford_discrete = log.(10, (d_discrete .+ 1.0)) - log.(10, d_discrete )
 	
-plot!(d , p_benford, label = "Theory")
+plot!(d , p_benford, label = "Theory", 
+	
+	linewidth = 3)
 plot!(d_discrete,p_benford_discrete, line = :scatter, label = :none,
 		title = "Testing Benford's Law for " * String(data_list),
 		xlabel = "first digit", 
 		ylabel = "relative frequency",
 		#xlim = [0,10],
-		size = (1200,800),
+		size = (600,400),
 		labelfontsize = 15,
 		tickfontsize = 13,
 		bottom_margin =5mm,
 		left_margin = 5mm,
 		right_margin = 5mm,
-		linewidth = 3,
-		titlefontsize = 20,	
+		linewidth = 5,
+		titlefontsize = 13,	
 		#foreground_color_grid = :black,
 		#foreground_color_xticks = :black,
 		background_color = :transparent,
@@ -416,7 +483,29 @@ a2 = a1[0 .< a1]
 	bins_exp = range(log10(minimum(a2)), log10(maximum(a2)), step = 0.1)
 		bins =  10 .^ bins_exp
 	
-	plot((histogram(a1; bins, xaxis=(:log10, [minimum(a2), :auto]))))
+	plot((histogram(a1; bins, xaxis=(:log10, [minimum(a2), :auto]))), 
+		label = "", 
+		title = "Frequency analysis of data \n(" * String(data_list) * ")",
+		xlabel = "range", 
+		ylabel = "frequencies",
+		#xlim = [0,10],
+		size = (600,400),
+		labelfontsize = 15,
+		tickfontsize = 13,
+		bottom_margin =5mm,
+		left_margin = 5mm,
+		right_margin = 5mm,
+		linewidth = 1,
+		titlefontsize = 16,	
+		#foreground_color_grid = :black,
+		#foreground_color_xticks = :black,
+		background_color = :transparent,
+		#foreground_color_axis = :black,
+		#foreground_color_text = :black,
+		#foreground_color_border = :black,
+		foreground_color = :black,
+		fontfamily="Computer Modern")
+	
 	
 end
 
@@ -432,14 +521,22 @@ end
 # ╟─91d8c001-c210-4c42-a7f2-5e84ee907ea6
 # ╟─fb1b6ea0-330c-4744-b3b8-19730b55e7e5
 # ╟─56b1302d-6a0e-4262-aa0e-9ae98c2167df
+# ╟─64d6faa9-1564-4d7d-bf32-02f0720fa552
 # ╟─ac233104-737c-4a92-843d-45042ba25cd1
+# ╟─05d42951-063d-45d6-87ce-4d15b0472b84
 # ╟─c13206e8-ff41-405a-b9b8-50b589854901
+# ╟─a2a6d8c3-c9b7-458d-b5a7-6d3b3f68a926
 # ╟─d16680ec-541d-42f0-867e-4259b30adcdb
 # ╟─7959439c-f947-40b3-8d2a-7dc96e90bbdc
+# ╟─8368ba6c-cada-4caa-b37f-752034bfd571
 # ╟─8a30e661-3057-4a30-a495-b1523b42207b
 # ╟─4f48ef9a-05ea-41f9-a2a0-381865b8be6a
 # ╟─601c53ed-ac2f-48fe-8afa-6b511a3ef369
+# ╟─a8d53828-ca73-4cb7-906f-ca2c94735a93
+# ╟─7b74d968-8591-49ba-81d8-9d8485676e93
+# ╟─5dfa126f-754f-4d25-a191-6e5437df99da
 # ╟─673b5f44-0db4-4848-95d7-24a31e7e86b1
+# ╟─a491e298-7a49-4cef-b269-886455538348
 # ╟─ea7c16d9-dd13-41c6-9c03-431d068fd105
 # ╟─1f8c2dfc-1f42-41f9-b18d-3f04df20e527
 # ╟─ce366a2b-3933-4b4b-a01c-c0a1ed7da96a
