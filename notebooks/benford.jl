@@ -114,25 +114,6 @@ md"""
 ## Comparison with Benford's law
 """
 
-# ╔═╡ 05d42951-063d-45d6-87ce-4d15b0472b84
-begin
-	
-	# how to extract data from the non so csv csv file
-	#=
-	file_source = readdlm("data_marine_litter.csv", '\\')
-		litter_count = []
-		litter_mass = []
-		for i in 3:986
-			append!(litter_count, parse(Float64, reverse(split(file_source[i], ","))[8]))
-		append!(litter_mass, parse(Float64, reverse(split(file_source[i], ","))[7]))
-			end
-		#a1 = convert(Array{Float64,1}, marine_numbers)
-	
-	writedlm("litter_beach.txt", [["count" "mass"]; [litter_count litter_mass]], "," )
-	
-	=#
-end
-
 # ╔═╡ c13206e8-ff41-405a-b9b8-50b589854901
 md""" **Lyra:** You're right, it does coincide quite well! But there are some cases, where it does not work at all! Do you know why, Captain Bayes?
 
@@ -196,6 +177,25 @@ $(Resource("https://raw.githubusercontent.com/Captain-Bayes/images/main/adventur
 # ╔═╡ 7b74d968-8591-49ba-81d8-9d8485676e93
 TableOfContents()
 
+# ╔═╡ 05d42951-063d-45d6-87ce-4d15b0472b84
+begin
+	
+	# how to extract data from the non so csv csv file
+	#=
+	file_source = readdlm("data_marine_litter.csv", '\\')
+		litter_count = []
+		litter_mass = []
+		for i in 3:986
+			append!(litter_count, parse(Float64, reverse(split(file_source[i], ","))[8]))
+		append!(litter_mass, parse(Float64, reverse(split(file_source[i], ","))[7]))
+			end
+		#a1 = convert(Array{Float64,1}, marine_numbers)
+	
+	writedlm("litter_beach.txt", [["count" "mass"]; [litter_count litter_mass]], "," )
+	
+	=#
+end
+
 # ╔═╡ a491e298-7a49-4cef-b269-886455538348
 begin
 	
@@ -215,8 +215,7 @@ begin
 		md""" See what happens if we **exclude objects** with **less than 10 grams** ⚖ from our analysis 👉 $(check_box_skip)
 		
 		Check Benford's law now in the first plot 👆"""
-	end
-	if data_list == "Pieces of litter on the beach"
+	elseif data_list == "Pieces of litter on the beach"
 			md""" Change the way of counting 👉 $(select_counting)"""
 		
 	end
@@ -521,20 +520,20 @@ end
 # ╟─91d8c001-c210-4c42-a7f2-5e84ee907ea6
 # ╟─fb1b6ea0-330c-4744-b3b8-19730b55e7e5
 # ╟─56b1302d-6a0e-4262-aa0e-9ae98c2167df
+# ╟─8368ba6c-cada-4caa-b37f-752034bfd571
 # ╟─64d6faa9-1564-4d7d-bf32-02f0720fa552
 # ╟─ac233104-737c-4a92-843d-45042ba25cd1
-# ╟─05d42951-063d-45d6-87ce-4d15b0472b84
 # ╟─c13206e8-ff41-405a-b9b8-50b589854901
 # ╟─a2a6d8c3-c9b7-458d-b5a7-6d3b3f68a926
 # ╟─d16680ec-541d-42f0-867e-4259b30adcdb
 # ╟─7959439c-f947-40b3-8d2a-7dc96e90bbdc
-# ╟─8368ba6c-cada-4caa-b37f-752034bfd571
 # ╟─8a30e661-3057-4a30-a495-b1523b42207b
 # ╟─4f48ef9a-05ea-41f9-a2a0-381865b8be6a
 # ╟─601c53ed-ac2f-48fe-8afa-6b511a3ef369
 # ╟─a8d53828-ca73-4cb7-906f-ca2c94735a93
 # ╟─7b74d968-8591-49ba-81d8-9d8485676e93
 # ╟─5dfa126f-754f-4d25-a191-6e5437df99da
+# ╟─05d42951-063d-45d6-87ce-4d15b0472b84
 # ╟─673b5f44-0db4-4848-95d7-24a31e7e86b1
 # ╟─a491e298-7a49-4cef-b269-886455538348
 # ╟─ea7c16d9-dd13-41c6-9c03-431d068fd105

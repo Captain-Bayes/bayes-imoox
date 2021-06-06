@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.14.5
+# v0.14.7
 
 using Markdown
 using InteractiveUtils
@@ -70,47 +70,24 @@ md" ## Welcome to Gauß Island!"
 
 # ╔═╡ b634c37d-ad76-4ee2-83f2-50ec1382da84
 begin
-	venn_speaking = "https://raw.githubusercontent.com/Captain-Bayes/images/main/venn_100px.gif"
-	bayes_speaking = "https://raw.githubusercontent.com/Captain-Bayes/images/main/bayes_100px.gif"
-	venn_small = "https://raw.githubusercontent.com/Captain-Bayes/images/main/venn_50px1.gif" 
-	bayes_small = "https://raw.githubusercontent.com/Captain-Bayes/images/main/bayes_50px.gif" 
 
 md""" Please choose your Player: $(@bind player Select(["Captain Bayes 👩‍🦰", "Captain Venn 🧔"]))"""
 end
 
-# ╔═╡ 3b8c2f10-4852-4f47-bc16-b07ace186847
-begin
-	#show gifs
-	if player == "Captain Bayes 👩‍🦰"
-		notplayer = "Captain Venn 🧔"
-		md"""$(Resource(bayes_small)) Let's do this! """
-	elseif player == "Captain Venn 🧔"
-		notplayer = "Captain Bayes 👩‍🦰"
-		md"""$(Resource(venn_small)) Let's do this! """
-	end
-	
-end
-
-# ╔═╡ 7585c3d4-dff2-4851-a385-b34a9d32caff
-md"""
-
-The **rules of the game** are very simple. 
-- you are 2 players, Captain Bayes 👩‍🦰 and Captain Venn 🧔
-- initially you have  $(latexstring("a_0")) coins and $(notplayer) $(latexstring("b_0")) coins
-- at each step a coin is flipped. If it shows head you win one coin from $notplayer. In the other case the opposite happens
-- so the number of coins  $a_t$ that you have at time $(latexstring("t")) follows a random walk. In each step it can increase or decrease by one with equal probability.
-
-- **THE END** of the game is reached if one person has lost all their money.
-- So the game is over if, $a_t = 0$  (you lost)  or  $a_t = a_0 + b_0$ (you won)
-
-"""
-
 # ╔═╡ 548170ab-6e70-4dbe-80ef-b6639ddeec19
 begin
 steps = rand([1, -1], 100)
-	html"""<p>If you choose to start another game, please actualize this cell by pressing the <img src="https://cdn.jsdelivr.net/gh/ionic-team/ionicons@5.0.0/src/svg/caret-forward-circle-outline.svg" style="width: 1em; height: 1em; margin-bottom: -.2em;"> in the lower-right corner!</p>"""
+	md"""If you choose to **start another random game**, please actualize this cell by pressing the $(@bind new_rand Button("New random game")) button.
 	
+	"""
+#=	html"""<p>If you choose to start another game, please actualize this cell by pressing the 
+	
+	<img src="https://cdn.jsdelivr.net/gh/ionic-team/ionicons@5.0.0/src/svg/caret-forward-circle-outline.svg" style="width: 1em; height: 1em; margin-bottom: -.2em;"> in the lower-right corner!</p>"""
+	=#
 end
+
+# ╔═╡ bf6f3892-03f2-4327-808f-0736db0abb49
+md"""🏆🏆"""
 
 # ╔═╡ 5e652821-67ed-4f28-b377-e11bfec2c7d5
 md""" Good job! So let's speed it up a bit, shall we? You can see the outcome for different games if you change the seed!"""
@@ -168,14 +145,6 @@ begin
 
 end
 
-# ╔═╡ abcbfc9e-5d8f-444e-acc3-737d67f85394
-md""" $(Resource(bayes_speaking, :width => 200))Hmm... I wonder how likely it is for me to win, if I start with, let's say 10 coins and Captain Venn starts with 15 coins for example... Can you help me calculate the probability?
-
-
-What is the probability for Captain Bayes to win if she has 10 coins and Captain Venn has 15? 
-
-P = $(@bind P NumberField(0:0.1:1))"""
-
 # ╔═╡ aa6c0d3d-fd08-4a68-9a5d-9b4b57726981
 md""" The next interesting question would be to calculate the average time of such a game; to calculate it, let's choose 10 and 15 coins again!
 
@@ -183,10 +152,6 @@ md""" The next interesting question would be to calculate the average time of su
 What is the average time for a game where one player has 10 coins and the other one has 15?
 
 <t> = $(@bind t_average Select(["10", "50", "150", "500", "1000"]))"""
-
-# ╔═╡ 65c66c12-3faa-4545-8173-bf2d6990c65e
-
-md""" $(Resource(venn_speaking, :width => 200)) Oh Captain Bayes, you and your calculations! Everyone knows, the only way to truly determine probabilities is through a lot of thorough experiments!  Are you up for another round (or maybe a few 100 or 1000 just to be sure) to *really* find out how many games you'd win, as well as their average time?""" 
 
 # ╔═╡ 275fdf1d-f6ef-43fd-a75d-13ba121b9cbd
 md""" Choose the parameters for our experiments:
@@ -394,13 +359,6 @@ correct(text=md"Great! You got the right answer! Let's move on to the next secti
 md" Definition of Boxes"
 end
 
-# ╔═╡ 46d93fe0-5dc6-42b1-8caf-2987cb907e64
-if P == 0.4
-	correct(md"Great! For $a_0$ and $b_0$ coins, you can calculate the probability that player A wins with  $P_\text{A} = \frac{a_0}{a_0+b_0}$")
-else  
-	keep_working(md" You might want to scroll further down to see the results of more simulations, maybe you'll find the answer there!") #maybe hint?
-end
-
 # ╔═╡ 7e838398-4eab-4def-9bd5-003c5223436d
 #if t richtig box korrekt man berechnets mit a0b0 btw variance is delta t... if not not quite there yet, hint: ...
 if t_average == "150"
@@ -413,6 +371,79 @@ end
 
 # ╔═╡ 528d9788-cf10-4079-b210-760ea79b6d66
 hint(md" If you need help, or are interested in a full derivation of there formulae, you can scoll down to the bottom of this notebook!")
+
+# ╔═╡ 36da5e49-ac59-4eee-b4bf-7a6dbca6a397
+begin
+		venn_speaking = "https://raw.githubusercontent.com/Captain-Bayes/images/main/venn_100px.gif"
+	bayes_speaking = "https://raw.githubusercontent.com/Captain-Bayes/images/main/bayes_100px.gif"
+	venn_small = "https://raw.githubusercontent.com/Captain-Bayes/images/main/venn_50px1.gif" 
+	bayes_small = "https://raw.githubusercontent.com/Captain-Bayes/images/main/bayes_50px.gif" 
+
+	
+heads = repeat([""],5,1)
+tails = repeat([""],5,1)
+	coin = "https://raw.githubusercontent.com/Captain-Bayes/images/main/Coin.gif"
+heads[1] = "https://raw.githubusercontent.com/Captain-Bayes/images/main/Coin_heads_1.gif"
+heads[2] = "https://raw.githubusercontent.com/Captain-Bayes/images/main/Coin_heads_2.gif"
+heads[3] = "https://raw.githubusercontent.com/Captain-Bayes/images/main/Coin_heads_3.gif"
+heads[4] = "https://raw.githubusercontent.com/Captain-Bayes/images/main/Coin_heads_4.gif"
+heads[5] = "https://raw.githubusercontent.com/Captain-Bayes/images/main/Coin_heads_5.gif"
+	
+tails[1] = "https://raw.githubusercontent.com/Captain-Bayes/images/main/Coin_tails_1.gif"
+tails[2] = "https://raw.githubusercontent.com/Captain-Bayes/images/main/Coin_tails_2.gif"
+tails[3] = "https://raw.githubusercontent.com/Captain-Bayes/images/main/Coin_tails_3.gif"
+tails[4] = "https://raw.githubusercontent.com/Captain-Bayes/images/main/Coin_tails_4.gif"
+tails[5] = "https://raw.githubusercontent.com/Captain-Bayes/images/main/Coin_tails_5.gif"
+	
+	
+	md"""Images"""
+end
+
+# ╔═╡ 3b8c2f10-4852-4f47-bc16-b07ace186847
+begin
+	#show gifs
+	if player == "Captain Bayes 👩‍🦰"
+		notplayer = "Captain Venn 🧔"
+		md"""$(Resource(bayes_small)) Let's do this! """
+	elseif player == "Captain Venn 🧔"
+		notplayer = "Captain Bayes 👩‍🦰"
+		md"""$(Resource(venn_small)) Let's do this! """
+	end
+	
+end
+
+# ╔═╡ 7585c3d4-dff2-4851-a385-b34a9d32caff
+md"""
+
+The **rules of the game** are very simple. 
+- you are **two players**, Captain Bayes 👩‍🦰 and Captain Venn 🧔
+- initially you have **``a_0`` coins** and $(notplayer) ``b_0`` **coins**
+- at each step a **coin is flipped**. If it shows **head you win** one coin from $notplayer. In the other case the opposite happens
+- so the number of coins  ``a_t`` that you have at time ``t`` follows a random walk. In each step it can increase or decrease by one with equal probability.
+
+- **THE END** of the game is reached if one person has **lost all his/her money**.
+- So the game is over if, ``a_t = 0``  (you lost)  or  ``a_t = a_0 + b_0`` (you won)
+
+"""
+
+# ╔═╡ abcbfc9e-5d8f-444e-acc3-737d67f85394
+md""" $(Resource(bayes_speaking, :width => 200))Hmm... I wonder how likely it is for me to win, if I start with, let's say 10 coins and Captain Venn starts with 15 coins for example... Can you help me calculate the probability?
+
+
+What is the probability for Captain Bayes to win if she has 10 coins and Captain Venn has 15? 
+
+P = $(@bind P NumberField(0:0.1:1))"""
+
+# ╔═╡ 46d93fe0-5dc6-42b1-8caf-2987cb907e64
+if P == 0.4
+	correct(md"Great! For $a_0$ and $b_0$ coins, you can calculate the probability that player A wins with  $P_\text{A} = \frac{a_0}{a_0+b_0}$")
+else  
+	keep_working(md" You might want to scroll further down to see the results of more simulations, maybe you'll find the answer there!") #maybe hint?
+end
+
+# ╔═╡ 65c66c12-3faa-4545-8173-bf2d6990c65e
+
+md""" $(Resource(venn_speaking, :width => 200)) Oh Captain Bayes, you and your calculations! Everyone knows, the only way to truly determine probabilities is through a lot of thorough experiments!  Are you up for another round (or maybe a few 100 or 1000 just to be sure) to *really* find out how many games you'd win, as well as their average time?""" 
 
 # ╔═╡ 13a0ad55-acff-4a7f-9aed-c5f4a3dfa9d1
 html"""
@@ -439,7 +470,7 @@ begin
 	coin_nr = 5
 	coin_nr_b =  coin_nr
 	
-	md""" Very well, $player ! You and your opponent will recieve an initial treasure of $coin_nr coins!
+	md""" Very well, **$player** ! You and your opponent will recieve an initial treasure of $coin_nr coins!
 	
 	$(repeat(["💰"], 1,coin_nr) |> pretty)""" 
 end
@@ -447,8 +478,8 @@ end
 # ╔═╡ 1e4436d6-c508-43a0-9422-798f9229207a
 begin
 	#coin gif 
-	coin_gif_1 =  "https://raw.githubusercontent.com/Captain-Bayes/images/main/adventure_map.gif"
-	coin_gif_2 =  "https://raw.githubusercontent.com/Captain-Bayes/images/main/adventure_map.gif"
+	coin_gif_1 =  rand(heads)
+	coin_gif_2 =  rand(tails)
 	first_coins_counter
 	
 	coins_a = coin_nr
@@ -509,11 +540,12 @@ end
 # ╟─1e4436d6-c508-43a0-9422-798f9229207a
 # ╟─7d57740b-6902-4521-8d7a-353d1c664abe
 # ╟─918b2535-79f0-4593-b13b-4f3f39237566
+# ╠═bf6f3892-03f2-4327-808f-0736db0abb49
 # ╟─5e652821-67ed-4f28-b377-e11bfec2c7d5
 # ╟─3568e317-bd51-46f7-abd0-7a583b6fbfa7
 # ╟─ce3d3d5e-d244-4960-bc08-e366154af9a7
 # ╟─59eefc76-8432-11eb-398a-15c5a7294116
-# ╟─abcbfc9e-5d8f-444e-acc3-737d67f85394
+# ╠═abcbfc9e-5d8f-444e-acc3-737d67f85394
 # ╟─46d93fe0-5dc6-42b1-8caf-2987cb907e64
 # ╟─aa6c0d3d-fd08-4a68-9a5d-9b4b57726981
 # ╟─7e838398-4eab-4def-9bd5-003c5223436d
@@ -532,5 +564,6 @@ end
 # ╟─a0d87c4e-ff2c-4454-ab01-c07031ccc727
 # ╟─52009176-20b6-4afd-b9dd-71df43b873c8
 # ╟─69ee3ead-c1c8-4671-b9bd-b23fa56396d9
+# ╟─36da5e49-ac59-4eee-b4bf-7a6dbca6a397
 # ╟─13a0ad55-acff-4a7f-9aed-c5f4a3dfa9d1
 # ╟─20ab96cf-ce70-434e-926a-ce81ae607a17
