@@ -68,7 +68,7 @@ end
 # ╔═╡ 548170ab-6e70-4dbe-80ef-b6639ddeec19
 begin
 
-	md"""If you choose to **start another random game**, please actualize this cell by pressing the $(@bind new_rand Button("New random game")) button.
+	md"""If you choose to **start another random game**, please actualize this cell by pressing the $(@bind new_rand Button("New random game")) button and press "Start over" before tossing again.
 		"""
 #=	html"""<p>If you choose to start another game, please actualize this cell by pressing the 
 	
@@ -349,6 +349,17 @@ md"""
 """
 end
 
+# ╔═╡ e9a4142f-844e-40fd-ac74-1ecdbcc7db00
+begin
+	new_rand
+	steps = rand(rng2,[1, -1], 300)
+	
+	#click_counter = @bind first_coins_counter ClickCounterWithReset("Toss!", "Start over!")
+	
+	md"""
+	### Create new random variable"""
+end
+
 # ╔═╡ e17b3b1f-d481-41f8-8771-77f52847258e
 begin
 	n_max = 1000
@@ -392,16 +403,8 @@ div.value = count
 </script>
 """)
 
-# ╔═╡ e9a4142f-844e-40fd-ac74-1ecdbcc7db00
-begin
-	new_rand
-	steps = rand(rng2,[1, -1], 300)
-	
-	click_counter = @bind first_coins_counter ClickCounterWithReset("Toss!", "Start over!")
-	
-	md"""
-	### Create new random variable"""
-end
+# ╔═╡ 5235f397-50df-4b02-9a6d-0c00a10c8e61
+click_counter = @bind first_coins_counter ClickCounterWithReset("Toss!", "Start over!")
 
 # ╔═╡ 3ec4d098-6b7a-41aa-b875-34ff83065a94
 begin
@@ -756,6 +759,7 @@ end
 # ╟─9b359471-5be9-4fb3-9a50-6c9d45a3d79f
 # ╟─743ebc88-841e-11eb-0e1d-5f7984b0f276
 # ╟─e9a4142f-844e-40fd-ac74-1ecdbcc7db00
+# ╟─5235f397-50df-4b02-9a6d-0c00a10c8e61
 # ╟─24e84aa6-d0da-4232-b309-43b41fb187b8
 # ╟─e17b3b1f-d481-41f8-8771-77f52847258e
 # ╟─a0d87c4e-ff2c-4454-ab01-c07031ccc727
