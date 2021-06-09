@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.14.7
+# v0.14.8
 
 using Markdown
 using InteractiveUtils
@@ -793,11 +793,14 @@ div.value = count
 </script>
 """)
 
+# ╔═╡ 4c428e38-cf2f-430e-a44e-6c1d2ffa6f13
+click_count = @bind dial ClickCounterWithReset("Dial!", "Start over!")
+
 # ╔═╡ c6f9c954-54c4-48ce-8465-fc85202b79f4
 begin
 	
 	#md"""Switch to the next 8 days 📅 by clicking the up 🔼 button: 👉 $(@bind dial NumberField(0:8; default=0))"""
-	md"""$(@bind dial ClickCounterWithReset("Dial!", "Start over!"))"""
+	md"""$(click_count)"""
 end
 
 # ╔═╡ 38fd06d0-93cc-11eb-030e-a7888d7d7eee
@@ -959,4 +962,5 @@ end
 # ╟─49b1e2ad-2129-4562-911f-a81976a6bd55
 # ╟─69d1a4d0-96c6-11eb-002f-9138e617a1c2
 # ╟─073ac878-52dd-4112-9b42-ad08649fe927
+# ╠═4c428e38-cf2f-430e-a44e-6c1d2ffa6f13
 # ╟─8e804243-9123-497d-a4b2-552f04c1d9d5
