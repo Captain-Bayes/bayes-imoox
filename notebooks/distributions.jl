@@ -128,14 +128,14 @@ begin
 	#xlim = [0,60],
 	# series properties
 	# size of image, margins, font size, ...
-	size = (900,600),  
-	labelfontsize = 30,
-	legendfontsize = 20,
-	tickfontsize = 20,
+	size = (600,400),  
+	labelfontsize = 20,
+	legendfontsize = 15,
+	tickfontsize = 15,
 	bottom_margin =25mm,
 	left_margin = 5mm,
 	right_margin = 10mm,
-	titlefontsize = 25,	
+	titlefontsize = 15,	
 	background_color = :transparent,  
 	# this is really cool, transparent background :)
 	foreground_color = :black,
@@ -245,14 +245,14 @@ begin
 	#xlim = [0,60],
 	# series properties
 	# size of image, margins, font size, ...
-	size = (900,600),  
-	labelfontsize = 30,
-	legendfontsize = 20,
-	tickfontsize = 20,
+	size = (600,400),  
+	labelfontsize = 20,
+	legendfontsize = 15,
+	tickfontsize = 15,
 	bottom_margin =25mm,
 	left_margin = 5mm,
 	right_margin = 10mm,
-	titlefontsize = 25,	
+	titlefontsize = 20,	
 	background_color = :transparent,  
 	# this is really cool, transparent background :)
 	foreground_color = :black,
@@ -324,14 +324,14 @@ begin
 	#xlim = [0,60],
 	# series properties
 	# size of image, margins, font size, ...
-	size = (900,600),  
-	labelfontsize = 30,
-	legendfontsize = 20,
-	tickfontsize = 20,
+	size = (600,400),  
+	labelfontsize = 20,
+	legendfontsize = 15,
+	tickfontsize = 15,
 	bottom_margin =25mm,
 	left_margin = 5mm,
 	right_margin = 10mm,
-	titlefontsize = 25,	
+	titlefontsize = 20,	
 	background_color = :transparent,  
 	# this is really cool, transparent background :)
 	foreground_color = :black,
@@ -477,14 +477,14 @@ begin
 	# series properties
 	linewidth = 4,
 	# size of image, margins, font size, ...
-	size = (900,600),  
-	labelfontsize = 30,
-	legendfontsize = 20,
-	tickfontsize = 20,
+	size = (600,400),  
+	labelfontsize = 20,
+	legendfontsize = 15,
+	tickfontsize = 15,
 	bottom_margin =25mm,
 	left_margin = 5mm,
 	right_margin = 10mm,
-	titlefontsize = 25,	
+	titlefontsize = 20,	
 	background_color = :transparent,  
 	# this is really cool, transparent background :)
 	foreground_color = :black,
@@ -519,14 +519,14 @@ begin
 	# series properties
 	linewidth = 4,
 	# size of image, margins, font size, ...
-	size = (900,600),  
-	labelfontsize = 30,
-	legendfontsize = 20,
-	tickfontsize = 20,
+	size = (600,400),  
+	labelfontsize = 20,
+	legendfontsize = 15,
+	tickfontsize = 15,
 	bottom_margin =25mm,
 	left_margin = 5mm,
 	right_margin = 10mm,
-	titlefontsize = 25,	
+	titlefontsize = 20,	
 	background_color = :transparent,  
 	# this is really cool, transparent background :)
 	foreground_color = :black,
@@ -561,14 +561,14 @@ begin
 	# series properties
 	linewidth = 4,
 	# size of image, margins, font size, ...
-	size = (900,600),  
-	labelfontsize = 30,
-	legendfontsize = 18,
-	tickfontsize = 20,
+	size = (600,400),  
+	labelfontsize = 20,
+	legendfontsize = 15,
+	tickfontsize = 15,
 	bottom_margin =25mm,
 	left_margin = 5mm,
 	right_margin = 10mm,
-	titlefontsize = 25,	
+	titlefontsize = 20,		
 	background_color = :transparent,  
 	# this is really cool, transparent background :)
 	foreground_color = :black,

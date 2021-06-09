@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.14.5
+# v0.14.7
 
 using Markdown
 using InteractiveUtils
@@ -72,19 +72,26 @@ md"""
 * _The Bayesian crew approaches the shore of an island. They assume that this is one of the two islands on the treasure map._ 
 * _For these islands they know the percentage_ $Q_\alpha$ (with $\alpha \in \{1,2\}$ ) _of frogfish_ 🐸/🐟.
 
-* _They catch $(latexstring("\\mathcal{N}")) fish and observe_ $(latexstring("\\boldsymbol{K}")) _frogfish._
+* _They catch ``\mathcal{N}`` fish and observe_ ``\boldsymbol{K}`` _frogfish._
 
-* ❓ _The question is : What is the probability_  $(latexstring("P(I_\\alpha \\mid \\boldsymbol{K}, \\mathcal{N})"))
-  _that they discovered island_ $(latexstring("I_{\\alpha}"))
+* ❓ _The question is : What is the probability_  ``P(I_\alpha \mid \boldsymbol{K}, \mathcal{N})``
+  _that they discovered island_ ``I_{\alpha}``
 
  
 * 😟 _Here is the more worrying situation : Maybe it is a mysterious island for which they have no clue about the frog-fish percentage_ 
 
-* _Let's assume the prior probability that it is indeed a mysterious island is_ $(latexstring("P(I_3) = \\alpha"))
+* _Let's assume the prior probability that it is indeed a mysterious island is_ ``P(I_3) = \alpha``
 
-* _The first case is actually covered for_ $(latexstring("P(I_3) = \\alpha = 0"))
+* _The first case is actually covered for_ ``P(I_3) = \alpha = 0``
 
+Watch the episode of finding the treasure map below 👇 
 """
+
+# ╔═╡ 6b68f3d0-1012-46ef-91c1-f679eb69904c
+html"""<div style="display: flex; justify-content: center;">
+<div  notthestyle="position: relative; right: 0; top: 0; z-index: 300;">
+<iframe src="https://www.youtube.com/embed/cdpripupdMc?start=235" width=600 height=375  frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+</div>"""
 
 # ╔═╡ 3c3d53d6-715d-11eb-3c6d-1dcd6a5eda99
 md"""
@@ -93,34 +100,35 @@ md"""
 
 # ╔═╡ ca94159c-71e5-11eb-2d65-b72e0a5eeda6
 md"""
-**Prior probability for a mysterious island $(latexstring("P(I_3) = \\alpha")):** $(@bind Prior Slider(0:.001:1; default=.0,show_value=true))
+**Prior probability for a mysterious island ``P(I_3) = \alpha``:**  $(@bind Prior Slider(0:.001:1; default=.0,show_value=true))
 """
 
 # ╔═╡ c52ad006-715b-11eb-0112-f903af616279
 begin
 	md"""
- $(latexstring("\\mathcal{N}")): $(@bind N NumberField(10:100; default=20)),    
+ Number of cought frogfish to check frogfish ratio: ``\mathcal{N}``: $(@bind N NumberField(10:100; default=20)),    
 	
-Frogfish ratio 🐸/🐟 at treasure island $(latexstring("Q_1")):	$(@bind q1 Slider(0.05:.05:0.95; default=.2, show_value=true)),    
+Frogfish ratio 🐸/🐟 at treasure island ``Q_1``:	$(@bind q1 Slider(0.05:.05:0.95; default=.2, show_value=true)),    
 
-Frogfish ratio 🐸/🐟 at paradox island $(latexstring("Q_2")):	$(@bind q2 Slider(0.05:.05:0.95; default=.4, show_value=true))
+Frogfish ratio 🐸/🐟 at paradox island ``Q_2``:	$(@bind q2 Slider(0.05:.05:0.95; default=.4, show_value=true))
 	"""
 end
 
 # ╔═╡ 5b0d2077-05a2-4e36-a38f-19b038449fb5
-md"""The probabilities for the 3 islands with $(latexstring("P(I_3) = \\alpha = ")) $(Prior) for $(latexstring("\\boldsymbol{K}")) = $(@bind K Scrubbable(0:100, default = 8)) 
+md"""The probabilities for the 3 islands with ``P(I_3) = \alpha =`` $(Prior) for ``\boldsymbol{K} =`` $(@bind K Scrubbable(0:100, default = 8)) 
 is 
 """
 
-# ╔═╡ 8ca101d4-f1c1-4ec9-a344-afec8080d197
-function sr(variable, dig = 2)
-	# string and round - converts a variable into a string with the predifined precission - to be extended to scientific and other formats
-	if dig == 0
-		return string(round(Int, variable))
-	else
-		return string(round(variable, digits = dig))
-	end
-end
+# ╔═╡ 97495b0d-00a0-401c-bbe1-173df65b89bc
+md"""
+Learn how to derive the posterior in the lesson below 👇 or in the [`imoox course`](https://imoox.at/mooc/local/landingpage/course.php?shortname=bayes&lang=en) with lots of questions
+"""
+
+# ╔═╡ 94685308-0e02-4948-badb-702054731086
+html"""<div style="display: flex; justify-content: center;">
+<div  notthestyle="position: relative; right: 0; top: 0; z-index: 300;">
+<iframe src="https://www.youtube.com/embed/aDv7UiTotG4" width=600 height=375  frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+</div>"""
 
 # ╔═╡ dc0bd828-7159-11eb-349a-216bfcc0835c
 begin
@@ -153,7 +161,7 @@ begin
 		P[ng,:] = P[ng,:]./sum(P[ng,:])
 	end
 	md"
-### Program"
+# Program"
 end
 
 # ╔═╡ 1f6ec6d4-715a-11eb-1a01-3984eba81101
@@ -168,7 +176,7 @@ marker = :dot,
 label  = "island 1",
 color = col[1],
 xlabel = L"n_g",
-ylabel = L"P(I_\alpha |n_g)"
+ylabel = latexstring("\\textrm{Posterior}\\,\\,"*"P\\,(I_\\alpha |n_g)")
 )
 for i in 2: NN
     global plot1
@@ -197,6 +205,30 @@ plot(plot1)
 
 end
 
+# ╔═╡ c94251fe-adc8-4645-8d0e-cc0465ccdf78
+md"""
+## About the creators
+
+This notebook was created by **Prof. Wolfgang von der Linden** and **Gerhard Dorn** in the context of the course **Bayesian probability theory**.
+
+The course is a free massive open online course (MOOC) available on the platform [`IMOOX`](https://imoox.at/mooc/local/landingpage/course.php?shortname=bayes&lang=en)
+
+$(Resource("https://raw.githubusercontent.com/Captain-Bayes/images/main/adventure_map.gif"))
+"""
+
+# ╔═╡ ae9e1709-a77b-4130-b38f-e632f8d98438
+TableOfContents()
+
+# ╔═╡ 8ca101d4-f1c1-4ec9-a344-afec8080d197
+function sr(variable, dig = 2)
+	# string and round - converts a variable into a string with the predifined precission - to be extended to scientific and other formats
+	if dig == 0
+		return string(round(Int, variable))
+	else
+		return string(round(variable, digits = dig))
+	end
+end
+
 # ╔═╡ f1baf505-a90b-49bb-85e1-96d7e1b49889
 begin
 keep_working(text=md"The answer is not quite right.", title="Keep working on it!") = Markdown.MD(Markdown.Admonition("danger", title, [text]));
@@ -213,13 +245,13 @@ end
 begin
 	if K <= N
 	md"""
--  $(latexstring("I_1")) ... **treasure island**: $(sr.(T[K+1,2],3))
--  $(latexstring("I_2")) ... **paradox island**: $(sr.(T[K+1,3],3))
--  $(latexstring("I_3")) ... **misterious island:** $(sr.(T[K+1,4],3))
+-  ``I_1`` ... **treasure island**: $(sr.(T[K+1,2],3))
+-  ``I_2`` ... **paradox island**: $(sr.(T[K+1,3],3))
+-  ``I_3`` ... **misterious island:** $(sr.(T[K+1,4],3))
 
 	"""
 	else
-	keep_working(md"""Please choose a **smaller number** for $(latexstring("K")) than $(N).
+	keep_working(md"""Please choose a **smaller number** for ``\boldsymbol{K}`` than $(N).
 	""", "Wrong input!")
 	end
 	
@@ -228,13 +260,18 @@ end
 # ╔═╡ Cell order:
 # ╟─4c0002d6-7159-11eb-22f3-93820c6bed3b
 # ╟─00383ed0-71b9-11eb-15ed-af46eb2a90c2
+# ╟─6b68f3d0-1012-46ef-91c1-f679eb69904c
 # ╟─3c3d53d6-715d-11eb-3c6d-1dcd6a5eda99
 # ╟─ca94159c-71e5-11eb-2d65-b72e0a5eeda6
 # ╟─c52ad006-715b-11eb-0112-f903af616279
 # ╟─1f6ec6d4-715a-11eb-1a01-3984eba81101
 # ╟─5b0d2077-05a2-4e36-a38f-19b038449fb5
 # ╟─75454b67-3066-42c2-808b-8af621ad477f
-# ╟─8ca101d4-f1c1-4ec9-a344-afec8080d197
+# ╟─97495b0d-00a0-401c-bbe1-173df65b89bc
+# ╟─94685308-0e02-4948-badb-702054731086
 # ╟─dc0bd828-7159-11eb-349a-216bfcc0835c
+# ╟─c94251fe-adc8-4645-8d0e-cc0465ccdf78
+# ╟─ae9e1709-a77b-4130-b38f-e632f8d98438
+# ╟─8ca101d4-f1c1-4ec9-a344-afec8080d197
 # ╟─4ff8a6cc-7159-11eb-1fc5-0948835a1233
 # ╟─f1baf505-a90b-49bb-85e1-96d7e1b49889
