@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.14.7
+# v0.14.8
 
 using Markdown
 using InteractiveUtils
@@ -26,13 +26,13 @@ begin
 		using Distributions
 		using LaTeXStrings	
 		using Markdown
-		using HypertextLiteral
+		
 		md""" 
 		# Packages
 		
 		All needed Packages available :) """
 	catch
-		
+		import Pkg
 		Pkg.activate(mktempdir())
 		Pkg.add("PlutoUI")
 		Pkg.add("Plots")
@@ -40,7 +40,7 @@ begin
 		#Pkg.add("SparseArrays")
 		Pkg.add("SpecialFunctions")
 		#Pkg.add("StatsBase")
-		Pkg.add(["Distributions", "HypertextLiteral", "LaTeXStrings", "Markdown"])
+		Pkg.add(["Distributions", "LaTeXStrings", "Markdown"])
 		
 		using PlutoUI
 		using Plots, Plots.PlotMeasures
