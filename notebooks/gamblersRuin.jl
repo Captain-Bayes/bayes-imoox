@@ -27,20 +27,21 @@ try
 catch
 using Pkg
 Pkg.activate(mktempdir())
+Pkg.add("HypertextLiteral")
 Pkg.add("Plots")
 Pkg.add("Random")
 Pkg.add("StatsBase")
 Pkg.add("PlutoUI")
 Pkg.add("Statistics")
 Pkg.add("LaTeXStrings")
-Pkg.add("HypertextLiteral")
+	using HypertextLiteral
 	using Random
 	using Plots
     using PlutoUI
 	using LaTeXStrings
 	using Statistics
 	using StatsBase
-	using HypertextLiteral
+	
 
 	
 end
