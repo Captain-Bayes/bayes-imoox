@@ -85,6 +85,11 @@ md"""
 
 """
 
+# ╔═╡ c236b829-cf6e-4819-9a35-78421728ca58
+md"""
+initial coins $player: $(@bind a0 Slider(1 :1: 20,default = 10,show_value=true))
+"""
+
 # ╔═╡ aa6c0d3d-fd08-4a68-9a5d-9b4b57726981
 md""" The next interesting question would be to calculate the average time of such a game; to calculate it, let's choose 10 and 15 coins again!
 
@@ -341,23 +346,15 @@ The course is a free massive open online course (MOOC) available on the platform
 $(Resource("https://raw.githubusercontent.com/Captain-Bayes/images/main/adventure_map.gif"))
 """
 
+# ╔═╡ 5235f397-50df-4b02-9a6d-0c00a10c8e61
+#click_counter = @bind first_coins_counter ClickCounterWithReset("Toss!", "Start over!")
+
 # ╔═╡ 24e84aa6-d0da-4232-b309-43b41fb187b8
 begin
 rng2 = MersenneTwister(1)
 md"""
 ### initialize second random numbers
 """
-end
-
-# ╔═╡ e9a4142f-844e-40fd-ac74-1ecdbcc7db00
-begin
-	new_rand
-	steps = rand(rng2,[1, -1], 300)
-	
-	#click_counter = @bind first_coins_counter ClickCounterWithReset("Toss!", "Start over!")
-	
-	md"""
-	### Create new random variable"""
 end
 
 # ╔═╡ e17b3b1f-d481-41f8-8771-77f52847258e
@@ -369,6 +366,15 @@ md"""
 ### some parameters and sliders
 """
 end
+
+# ╔═╡ ce3d3d5e-d244-4960-bc08-e366154af9a7
+md"""
+enter seed:  $(@bind seed Slider(1:100,default=5,show_value=true)) 
+
+steps  : $(slider_sample_size)
+
+
+"""
 
 # ╔═╡ a0d87c4e-ff2c-4454-ab01-c07031ccc727
 ClickCounterWithReset(text="Click", reset_text="Reset") = HTML("""
@@ -403,8 +409,16 @@ div.value = count
 </script>
 """)
 
-# ╔═╡ 5235f397-50df-4b02-9a6d-0c00a10c8e61
-click_counter = @bind first_coins_counter ClickCounterWithReset("Toss!", "Start over!")
+# ╔═╡ e9a4142f-844e-40fd-ac74-1ecdbcc7db00
+begin
+	new_rand
+	steps = rand(rng2,[1, -1], 300)
+	
+	click_counter = @bind first_coins_counter ClickCounterWithReset("Toss!", "Start over!")
+	
+	md"""
+	### Create new random variable"""
+end
 
 # ╔═╡ 3ec4d098-6b7a-41aa-b875-34ff83065a94
 begin
@@ -543,14 +557,8 @@ The **rules of the game** are very simple.
 
 """
 
-# ╔═╡ ce3d3d5e-d244-4960-bc08-e366154af9a7
+# ╔═╡ 3fab65ba-da18-46d2-95e9-f41540dbfb32
 md"""
-enter seed:  $(@bind seed Slider(1:100,default=5,show_value=true)) 
-
-steps  : $(slider_sample_size)
-
-initial coins $player: $(@bind a0 Slider(1 :1: 20,default = 10,show_value=true))
-
 initial coins $notplayer: $(@bind b0 Slider(1 :1: 20,default = 10,show_value=true))
 """
 
@@ -739,6 +747,8 @@ end
 # ╟─5e652821-67ed-4f28-b377-e11bfec2c7d5
 # ╟─3568e317-bd51-46f7-abd0-7a583b6fbfa7
 # ╟─ce3d3d5e-d244-4960-bc08-e366154af9a7
+# ╟─c236b829-cf6e-4819-9a35-78421728ca58
+# ╟─3fab65ba-da18-46d2-95e9-f41540dbfb32
 # ╟─59eefc76-8432-11eb-398a-15c5a7294116
 # ╟─abcbfc9e-5d8f-444e-acc3-737d67f85394
 # ╟─46d93fe0-5dc6-42b1-8caf-2987cb907e64
@@ -758,8 +768,8 @@ end
 # ╟─fcc9ac0d-b79e-4f6c-a19f-481560747bca
 # ╟─9b359471-5be9-4fb3-9a50-6c9d45a3d79f
 # ╟─743ebc88-841e-11eb-0e1d-5f7984b0f276
-# ╟─e9a4142f-844e-40fd-ac74-1ecdbcc7db00
-# ╟─5235f397-50df-4b02-9a6d-0c00a10c8e61
+# ╠═e9a4142f-844e-40fd-ac74-1ecdbcc7db00
+# ╠═5235f397-50df-4b02-9a6d-0c00a10c8e61
 # ╟─24e84aa6-d0da-4232-b309-43b41fb187b8
 # ╟─e17b3b1f-d481-41f8-8771-77f52847258e
 # ╟─a0d87c4e-ff2c-4454-ab01-c07031ccc727

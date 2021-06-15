@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.14.7
+# v0.14.8
 
 using Markdown
 using InteractiveUtils
@@ -64,91 +64,34 @@ html"""<div style="display: flex; justify-content: center;">
 <iframe src="https://www.youtube.com/embed/ABbv9g5kTdI" width=600 height=375  frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
 </div>"""
 
+# ╔═╡ 8f919de1-356f-4e42-9f7e-5d29092ed80f
+md"""
+## Bayesian reasoning
+
+The lighttower located at the unknown coordinates $(a|b)$ randomly emits light in all polar directions $\varphi$ measured to the perpendicular to the beach. The light hits the beach if the angle $\varphi$ of emitted light is in the interval $\varphi \in [-\pi/2, \pi/2]$. See the sketch below for a detailed definition of the used variables.
+
+The location $x$ on the beach is given by 
+
+$x = \tan(\varphi)\cdot b + a$
+
+
+"""
+
 # ╔═╡ 7127d313-c9a3-4206-bae7-ac7fc9fbe514
 md"""
 # TO BE FINISHED! WORK IN PROGRESS 🚧
 """
 
-# ╔═╡ 6b2f6ea4-6d58-43f6-9527-e576422f1feb
-
-
-# ╔═╡ 1c0c7b6a-e4f2-4e28-a6d5-1daf194ecf32
-md"""
-*Well there is this **misfit function** that might help to evaluate the parameter choices*
-
-**Show quadratic misfit $(latexstring("\\chi^2"))**  of chosen parameters 👉 $(@bind show_misfit CheckBox())
-"""
-
-# ╔═╡ 8cdf76c3-263f-471b-8ac7-288ff669bca3
-md"""
-Well let's assume there might be a linear dependency for the azimuth  $(latexstring("a_{\\sphericalangle}")) and the height angle $(latexstring("h_{\\measuredangle}"))
-
-Our first model shall have the simple form:
- $(latexstring("y = a_1 \\cdot x + a_2"))
-
-So let's uns Bayes' theorem to derive the probability for the two parameters given the data of days $(latexstring("x")) and angles $(latexstring("\\boldsymbol a_{\\sphericalangle}")) and $(latexstring("\\boldsymbol h_{\\measuredangle}")).
-
- $(latexstring("p(\\vec a \\mid \\boldsymbol a_{\\sphericalangle}, \\boldsymbol x) = \\frac{1}{Z} p(\\boldsymbol a_{\\sphericalangle} \\mid \\vec a, \\boldsymbol x) \\cdot p(\\vec a) "))
-"""
-
-# ╔═╡ 70dd38b5-8447-428a-96a3-950fcecfcc91
+# ╔═╡ fd94fab8-c4c4-454e-9f5b-c0f1178143b3
 begin
-	h1 = heatmap(collect(P_a[1]), collect(P_a[2]), (T_a), 
-		xlabel = latexstring("a_1"), 
-		ylabel= latexstring("a_2"), 
-		title = "Joint probability density: azimuth angle ",
-	size = (600,400),
-	labelfontsize = 20,
-	tickfontsize = 15,
-	bottom_margin =5mm,
-	left_margin = 5mm,
-	linewidth = 3,
-	label = :none,
-	titlefontsize = 20,	
-	#foreground_color_grid = :black,
-	#foreground_color_xticks = :black,
-	background_color = :transparent,
-	#foreground_color_axis = :black,
-	#foreground_color_text = :black,
-	#foreground_color_border = :black,
-	foreground_color = :black,
-	fontfamily="Computer Modern"
-	)
+md"""
+``P(x| a,b,\varphi)``
 	
-	#savefig("C://Lehre//Bayes MOOC//Lesson 7//Images//joint_prob_azimuth")
+``P(a,b|\vec x) = \dfrac{P(\vec x| a,b) \cdot P(a,b)}{P(\vec x)}``
+	
+"""
 	
 	
-	
-
-	
-	plot(h1)
-end
-
-# ╔═╡ 75e89a64-94c0-4f95-b548-ecaf3e6587e9
-begin
-	h2 = heatmap(collect(P_h[1]), collect(P_h[2]), (T_h), 
-		xlabel = latexstring("b_1"), 
-		ylabel= latexstring("b_2"), title = "Joint probability density: height angle",	
-		size = (600,400),
-		labelfontsize = 20,
-		tickfontsize = 15,
-		bottom_margin =5mm,
-		left_margin = 5mm,
-		right_margin = 5mm,
-		linewidth = 3,
-		label = :none,
-		titlefontsize = 20,	
-		#foreground_color_grid = :black,
-		#foreground_color_xticks = :black,
-		background_color = :transparent,
-		#foreground_color_axis = :black,
-		#foreground_color_text = :black,
-		#foreground_color_border = :black,
-		foreground_color = :black,
-		fontfamily="Computer Modern")
-	
-	#savefig("C://Lehre//Bayes MOOC//Lesson 7//Images//joint_prob_height")
-	plot(h2)
 end
 
 # ╔═╡ 161bdcd4-55ac-4869-91bd-0141d0fc72db
@@ -166,6 +109,84 @@ begin
 	Cubic_4 = @bind cubic_4 Scrubbable(20:60, default=40, format="+")
 	
 	md"""Define Sliders for parameter trials of height angle"""
+end
+
+# ╔═╡ d3f023b1-8a57-4690-b8d6-afbe2ff50d5e
+begin
+	
+	a_slider = @bind a Scrubbable(-4:0.1:4, default= 1)
+	b_slider = @bind b Scrubbable(0.1:0.1:4, default= 3)
+	phi_slider = @bind φ Scrubbable(-pi/2:pi/60:pi/2, default= -3*pi/10)
+	md""" 
+	### Define sliders
+	"""
+end
+
+# ╔═╡ 3c1cc3af-11f9-44ac-b07f-69704c4841c4
+md"""
+``\varphi``: $(phi_slider)
+
+``a``: $(a_slider)
+
+``b``: $(b_slider)
+
+"""
+
+# ╔═╡ b8942536-020b-4c8e-a875-b5aba3034d42
+begin
+	#a = 1
+	
+	x = a+b*tan(φ)
+	beach_length = maximum([4, abs(x)])
+	a_dist = abs(a) > 0.10 ? 0.05 : 0
+	a_dist_y = 0.15
+	b_dist = beach_length/30
+	# plot light ray
+		plot([x,a], [0,b], linestyle = :solid, linewidth = 2, color = :yellow, label=false, 
+	size = (640,320),
+		labelfontsize = 15,
+		tickfontsize = 13,
+		legendfontsize = 11,
+		bottom_margin =5mm,
+		left_margin = 5mm,
+		right_margin = 5mm,
+		titlefontsize = 7,
+		#foreground_color_grid = :black,
+		#foreground_color_xticks = :black,
+		background_color = :transparent,
+		#foreground_color_axis = :black,
+		#foreground_color_text = :black,
+		#foreground_color_border = :black,
+		foreground_color = :black,
+		fontfamily="Computer Modern")
+	plot!([x,a], [0,b], linestyle = :dash, linewidth = 2, color = :yellow3, label="Light")
+	# plot beach
+	
+	plot!([-beach_length,beach_length], [0,0], color = :black, linewidth = 3, label=false, ylim=[0,4])
+	# plot perpendicular
+	plot!([a,a], [0,b], color=:black, linewidth = 2, linestyle = :dash,label = false)
+	# plot lighthouse
+	plot!([a], [b], markercolor=:red, marker=:o,linealpha = 0,markersize = 8, label="Lighttower")
+	# plot distance b
+	plot!(b_dist .+ [a,a,NaN,a,a], [a_dist_y,b-a_dist_y,NaN,b-a_dist_y,a_dist_y], color = :red, linewidth = 2.5, linestyle = :solid, label="\$b\$",arrow = true)
+	annotate!(a+2*b_dist, b/2,text("\${b}\$", :red))
+	#plot distance a
+	plot!([sign(a)*a_dist,a-sign(a)*a_dist, NaN,a-sign(a)*a_dist,sign(a)*a_dist], [a_dist_y,a_dist_y, NaN, a_dist_y,a_dist_y], color=:green, linewidth = 2.5, linestyle = :solid, label= "\$a\$", arrow = true)
+annotate!((a+b_dist/2)/2,2*a_dist_y,text("\${a}\$", :green, :center))
+
+ 	# plot varphi
+varphi = atan((x-a)/b)
+pl_angle =sign(varphi).* (0:0.01:abs(varphi))
+rad = 1
+
+	annotate!(a + sin(varphi/2)*2*rad/3, b-cos(varphi/2)*2*rad/3,"\$\\varphi\$")
+
+plot!([a .+ sin.(pl_angle)*rad], [b.-cos.(pl_angle)*rad], label =false)
+	
+	# plot x
+	annotate!(x,-2*a_dist_y, "\$x\$")
+	plot!([x,x], [-a_dist_y, a_dist_y]./2, linewidth = 3, color= :black, label = false)
+	
 end
 
 # ╔═╡ 16938d4f-6f25-4924-8bdf-b0eb638a6c4f
@@ -207,7 +228,7 @@ $(Resource(lyra, :width=>150))
 
 # ╔═╡ 5fc032bb-990d-424e-a256-ef2979980606
 begin 
-	x =  [4.73,  0.45, -1.73,  1.09,  2.19,  0.12,  1.31,  1.00,
+	xx =  [4.73,  0.45, -1.73,  1.09,  2.19,  0.12,  1.31,  1.00,
                      1.32,  1.07,  0.86, -0.49, -2.59,  1.73,  2.11,  1.61,
                      4.98,  1.71,  2.23,-57.20,  0.96,  1.25, -1.56,  2.45,
                      1.19,  2.17,-10.66,  1.91, -4.16,  1.92,  0.10,  1.98,
@@ -219,86 +240,45 @@ begin
 	
 	md"""
 	## The data: 
-	> *Unfortunately the weather was **cloudy** and **rainy** during the shortest nights of the year. I took measurements before and after the **21st of June** but I have such **strong errors**! Can you help me to **find out the angles** which will guide me to my treasure?*
-	$(Resource(image_of_data, :width=>600))
-	$(Resource(diagram_of_data, :width=>600))
+	$(Resource(lyra, :width=>140))
+	
+	> *So this is the data of the lightpoints which I collected, Captain Bayes, can you help me to find the position of the lighthouse?*
+	
 	
 	"""
 end
 
-# ╔═╡ 70eedefd-0a0d-454f-a15e-13d47db594bc
-begin 
-	plot(x,rand(1:2:30, length(x)), line = :scatter, label = :none,
-		title = "Light observations",
-		xlabel = latexstring("\\textrm{days } x"), 
-		ylabel = latexstring("h_{\\measuredangle}"),
-		xlim = [-7,7],
+# ╔═╡ 6b2f6ea4-6d58-43f6-9527-e576422f1feb
+begin
+	xmax = maximum(abs.(xx))
+	plot(xx, rand(length(xx)) .* -0.9 .- 0.1, markershape = :x, 
+	linewidths = 3,linealpha = 0,
+	markerstrokewidth = 4,
+	color = :blue,
+	xlim = [-xmax, xmax],
+	ylim = [-1, 4],
+	label = "Observations",
 	size = (640,320),
-		labelfontsize = 15,
-		tickfontsize = 13,
-		bottom_margin =5mm,
-		left_margin = 5mm,
-		right_margin = 5mm,
-		linewidth = 3,
-		markersize = 4,
-		titlefontsize = 7,	
-		#foreground_color_grid = :black,
-		#foreground_color_xticks = :black,
-		background_color = :transparent,
-		#foreground_color_axis = :black,
-		#foreground_color_text = :black,
-		#foreground_color_border = :black,
-		foreground_color = :black,
-		fontfamily="Computer Modern")
-	#savefig("C://Lehre//Bayes MOOC//Lesson 8//Images//lighthouse")
+	labelfontsize = 15,
+	tickfontsize = 13,
+	legendfontsize = 11,
+	bottom_margin =5mm,
+	left_margin = 5mm,
+	right_margin = 5mm,
+	titlefontsize = 7,
+	#foreground_color_grid = :black,
+	#foreground_color_xticks = :black,
+	background_color = :transparent,
+	#foreground_color_axis = :black,
+	#foreground_color_text = :black,
+	#foreground_color_border = :black,
+	foreground_color = :black,
+	fontfamily="Computer Modern"
 	
+	)
 	
-end
-
-# ╔═╡ 2630e21d-3f42-4d72-a2e7-b127b4ad09fe
-begin
-	histogram(x, bins = -15:1/3:15, ylim = [0,20])
+	plot!([-xmax, xmax], [0,0], linewidth = 3, color= :black, label = false)
 	
-	
-end
-
-# ╔═╡ b09f27cb-0461-4ead-9328-dd950c958f66
-begin
-	
-	xx_az = P_a[1]' .+ P_a[2].*0
-	yy_az = P_a[1]'.*0 .+ P_a[2]
-	
-	
-	# plot(x, azimuth, line= :scatter, label="azimuth", legend=:bottom)
-	plot(x,azimuth, line = :scatter, label = :none)
-
-	for i = 1:length(xx_az)
-		if T_a[i] > 0.7
-			plot!(t, xx_az[i] .* t .+ yy_az[i], linewidth = 2, opacity = T_a[i]/30., color = :blue, label = :none)
-		end
-	end
-	plot!(x,azimuth, line = :scatter, label = :none,
-		title = "linear solutions for azimuthal angle",
-		xlabel = latexstring("\\textrm{days } x"), 
-		ylabel = latexstring("a_{\\sphericalangle}"),
-	size = (600,400),
-		labelfontsize = 20,
-		tickfontsize = 15,
-		bottom_margin =5mm,
-		left_margin = 5mm,
-		right_margin = 5mm,
-		linewidth = 3,
-		titlefontsize = 20,	
-		#foreground_color_grid = :black,
-		#foreground_color_xticks = :black,
-		background_color = :transparent,
-		#foreground_color_axis = :black,
-		#foreground_color_text = :black,
-		#foreground_color_border = :black,
-		foreground_color = :black,
-		fontfamily="Computer Modern")
-	
-	#savefig("C://Lehre//Bayes MOOC//Lesson 7//Images//poss_sol_azimuth")
 end
 
 # ╔═╡ ac2f313d-1529-4366-ab58-00679e510f6a
@@ -313,28 +293,6 @@ $(Resource(bayes, :width=>140))
     *Well let's try if we can fit those data by hand*
 
 """
-
-# ╔═╡ 4c05708b-61d7-4b68-97e1-7fc155419460
-begin
-	if model_function == "Linear model"
-		
-		md"""
-		👉 **Choose the parameters** of the **Linear** model function:  $(latexstring("y = ")) $(Lin_1)   $(latexstring("\\cdot x ")) $(Lin_2)"""
-		
-	elseif model_function == "Quadratic model"
-		md"""
-		👉 **Choose the parameters** of the **Quadratic** model function:  $(latexstring("y = ")) $(Quad_1)  $(latexstring("\\cdot x^2 ")) $(Quad_2)  $(latexstring("\\cdot x ")) $(Quad_3)
-		"""
-		
-	elseif model_function == "Cubic model"
-		md"""
-👉 **Choose the parameters** of the **Cubic** model function:  $(latexstring("y = ")) $(Cubic_1) $(latexstring("\\cdot x^3")) $(Cubic_2) $(latexstring("\\cdot x^2 ")) $(Cubic_3) $(latexstring("\\cdot x  ")) $(Cubic_4)
-"""
-	end
-
-	
-	
-end
 
 # ╔═╡ 7bf32131-f749-41da-9923-2970f1487f7e
 begin
@@ -373,131 +331,20 @@ function sr(variable, dig = 2; add_sign = false)
 end
 
 
-# ╔═╡ 6b9ea181-a1c1-446c-88cc-d468dec2a60f
-begin 
-	plot(x,rand(1:2:20, length(x)), line = :scatter, label = :none,
-		title = "Measured height angle",
-		xlabel = latexstring("\\textrm{days } x"), 
-		ylabel = latexstring("h_{\\measuredangle}"),
-		xlim = [-7,7],
-	size = (320,180),
-		labelfontsize = 5,
-		tickfontsize = 1,
-		bottom_margin =1mm,
-		left_margin = 1mm,
-		right_margin = 1mm,
-		linewidth = 3,
-		markersize = 2,
-		titlefontsize = 7,	
-		#foreground_color_grid = :black,
-		#foreground_color_xticks = :black,
-		background_color = :transparent,
-		#foreground_color_axis = :black,
-		#foreground_color_text = :black,
-		#foreground_color_border = :black,
-		foreground_color = :black,
-		fontfamily="Computer Modern")
-	#savefig("C://Lehre//Bayes MOOC//Lesson 8//Images//lighthouse")
-	
-	days = 0:0.1:25
-	f_lin(x) = lin_1.*x .+ lin_2
-	f_quad(x) = quad_1.*x.^2 + quad_2.*x .+ quad_3
-	f_cubic(x) = cubic_1.*x.^3 + cubic_2.*x.^2 + cubic_3 .*x .+ cubic_4
-	
-	M_lin(x) = [x ones(length(x),1)]
-	M_quad(x) = [x.^2 x ones(length(x),1)]
-	M_cubic(x) = [x.^3 x.^2 x ones(length(x),1)]
-	
-	
-	if model_function == "Linear model"
-	 	M(x) = M_lin(x)
-		a_vec = [lin_1; lin_2]
-	#=plot!(days, lin_1 .* days .+ lin_2,
-		linewidth = 3,
-		label = latexstring("\\textrm{Linear model: y =}" * sr(lin_1,2) * "\\cdot x + " * sr(lin_2,1)),
-		legendfontsize = 12,
-		)=#
-		
-	elseif model_function == "Quadratic model"
-		M(x) = M_quad(x)
-		a_vec = [quad_1; quad_2; quad_3]
-		
-		plot!(days, quad_1 .* days.^2 .+ quad_2 .* days .+ quad_3,
-		linewidth = 3,
-		label = latexstring("\\textrm{Quadratic model: y =}" * sr(quad_1,4) * "\\cdot x^2  " * sr(quad_2,1, add_sign =  true) * " x  " * sr(quad_3,1, add_sign =  true)),
-		legendfontsize = 12,
-		)
-		
-		
-	elseif model_function == "Cubic model"
-		M(x) = M_cubic(x)
-		a_vec = [cubic_1; cubic_2; cubic_3; cubic_4]
-		
-		plot!(days, cubic_1 .* days.^3 .+ cubic_2 .* days.^2 .+ cubic_3 .* days .+ cubic_4,
-		linewidth = 3,
-		label = latexstring("\\textrm{Cubic model: y =}" * sr(cubic_1,4) * "\\cdot x^3  "  * sr(cubic_2,4, add_sign = true) * "\\cdot x^2  " * sr(cubic_3,1, add_sign =  true) * " x  " * sr(cubic_4,1, add_sign =  true)),
-		legendfontsize = 12,
-		)
-			
-			
-	end
-	
-	
-end
-
-# ╔═╡ b8d59753-d6c1-46c3-b40b-1bc858be8ca2
-begin 
-	if show_misfit
-		md""" The **quadratic misfit: $(latexstring("\\chi^2 = \\sum_\\nu \\frac{(\\textbf{d}_\\nu - f(\\textbf{x}_\\nu, \\vec a))^2}{\\sigma_\\nu^2} = "))
-		$(sr(sum( (height - M(x) * a_vec).^2 ./ delta_height.^2),2))**
-		
-		**🔍 Check how you can minimize this misfit value 👆 by varying the parameters by hand before checking the "best solution" in the blue box 🟦 below 👇**
-		"""
-	
-		
-	end
-end
-
-# ╔═╡ 103cd28d-347e-487f-a2ac-3a2f72d18456
-begin
-	
-	#if optimal_parameter
-	hint( md"""**The optimal parameters** according to orthodox regression can be obtained by solving the matrix equation $(latexstring("M(\\textrm{\\textbf{x}}) \\cdot \\vec a = \\textbf{h}_{\\measuredangle}"))
-		
- $(sr.(M(x)\height, 4))
-
- 		
-
-In this case we assume the uncertainties $(latexstring("\\sigma_\\nu")) of the height angle $(latexstring("h_{\\measuredangle}")) to be all the same for all data points.
-		
-		
-""", "Optimal parameters for the "* model_function)
-		
-		
-#	end
-	
-end
-
 # ╔═╡ Cell order:
 # ╟─6c070606-1411-40fc-b6cd-8f27f052136b
 # ╟─ec784992-f4af-4ece-bf72-555960a054ca
+# ╟─8f919de1-356f-4e42-9f7e-5d29092ed80f
+# ╟─3c1cc3af-11f9-44ac-b07f-69704c4841c4
+# ╟─b8942536-020b-4c8e-a875-b5aba3034d42
 # ╟─7127d313-c9a3-4206-bae7-ac7fc9fbe514
 # ╟─5fc032bb-990d-424e-a256-ef2979980606
-# ╟─70eedefd-0a0d-454f-a15e-13d47db594bc
-# ╠═6b2f6ea4-6d58-43f6-9527-e576422f1feb
-# ╟─ac2f313d-1529-4366-ab58-00679e510f6a
-# ╠═2630e21d-3f42-4d72-a2e7-b127b4ad09fe
-# ╟─4c05708b-61d7-4b68-97e1-7fc155419460
-# ╠═6b9ea181-a1c1-446c-88cc-d468dec2a60f
-# ╟─1c0c7b6a-e4f2-4e28-a6d5-1daf194ecf32
-# ╟─b8d59753-d6c1-46c3-b40b-1bc858be8ca2
-# ╟─103cd28d-347e-487f-a2ac-3a2f72d18456
-# ╟─8cdf76c3-263f-471b-8ac7-288ff669bca3
-# ╟─70dd38b5-8447-428a-96a3-950fcecfcc91
-# ╟─75e89a64-94c0-4f95-b548-ecaf3e6587e9
-# ╠═b09f27cb-0461-4ead-9328-dd950c958f66
-# ╟─161bdcd4-55ac-4869-91bd-0141d0fc72db
-# ╠═e7666210-a660-11eb-3e0d-7d9aec9a9f9e
-# ╠═16938d4f-6f25-4924-8bdf-b0eb638a6c4f
+# ╟─6b2f6ea4-6d58-43f6-9527-e576422f1feb
+# ╠═fd94fab8-c4c4-454e-9f5b-c0f1178143b3
+# ╠═ac2f313d-1529-4366-ab58-00679e510f6a
+# ╠═161bdcd4-55ac-4869-91bd-0141d0fc72db
+# ╟─d3f023b1-8a57-4690-b8d6-afbe2ff50d5e
+# ╟─e7666210-a660-11eb-3e0d-7d9aec9a9f9e
+# ╟─16938d4f-6f25-4924-8bdf-b0eb638a6c4f
 # ╠═7bf32131-f749-41da-9923-2970f1487f7e
 # ╟─5d349d39-c688-4431-b056-aa11d69376e9
