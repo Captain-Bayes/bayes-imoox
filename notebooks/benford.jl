@@ -87,7 +87,7 @@ html"""<div style="display: flex; justify-content: center;">
 # ╔═╡ 27811f40-08a7-4da7-9788-db4b0c47153b
 Markdown.MD(Markdown.Admonition("hint", string("Benford's law"), [md"""For a lot of naturally occurring datasets, the probability that the leading digit of a number in the set is the number  $(latexstring(" d \\in \\{1, 2, 3, .. 9\\}")) can be calculated with
 
-$(latexstring("P(d) = log_{10}(d + 1) - log_{10}(d)"))"""]))
+``P(d) = log_{10}(d + 1) - log_{10}(d)``"""]))
 
 # ╔═╡ 0527804c-68b7-42f9-8830-c41d6b9036f4
 md""" **Bayes:** 
@@ -534,7 +534,7 @@ end
 # ╟─7b74d968-8591-49ba-81d8-9d8485676e93
 # ╟─5dfa126f-754f-4d25-a191-6e5437df99da
 # ╟─05d42951-063d-45d6-87ce-4d15b0472b84
-# ╠═673b5f44-0db4-4848-95d7-24a31e7e86b1
+# ╟─673b5f44-0db4-4848-95d7-24a31e7e86b1
 # ╟─a491e298-7a49-4cef-b269-886455538348
 # ╟─ea7c16d9-dd13-41c6-9c03-431d068fd105
 # ╟─1f8c2dfc-1f42-41f9-b18d-3f04df20e527
