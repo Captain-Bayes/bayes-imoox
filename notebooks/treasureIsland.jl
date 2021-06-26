@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.14.7
+# v0.14.8
 
 using Markdown
 using InteractiveUtils
@@ -115,7 +115,7 @@ Frogfish ratio 🐸/🐟 at paradox island ``Q_2``:	$(@bind q2 Slider(0.05:.05:0
 end
 
 # ╔═╡ 5b0d2077-05a2-4e36-a38f-19b038449fb5
-md"""The probabilities for the 3 islands with ``P(I_3) = \alpha =`` $(Prior) for ``\boldsymbol{K} =`` $(@bind K Scrubbable(0:100, default = 8)) 
+md"""The probabilities for the 3 islands with the number of cought fish ``\boldsymbol{K} =`` $(@bind K Scrubbable(0:100, default = 8)) 
 is 
 """
 
@@ -247,7 +247,7 @@ begin
 	md"""
 -  ``I_1`` ... **treasure island**: $(sr.(T[K+1,2],3))
 -  ``I_2`` ... **paradox island**: $(sr.(T[K+1,3],3))
--  ``I_3`` ... **misterious island:** $(sr.(T[K+1,4],3))
+-  ``I_3`` ... **misterious island  (``\alpha = `` $(Prior)):** $(sr.(T[K+1,4],3)) 
 
 	"""
 	else
