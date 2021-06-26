@@ -346,15 +346,23 @@ The course is a free massive open online course (MOOC) available on the platform
 $(Resource("https://raw.githubusercontent.com/Captain-Bayes/images/main/adventure_map.gif"))
 """
 
-# ╔═╡ 5235f397-50df-4b02-9a6d-0c00a10c8e61
-#click_counter = @bind first_coins_counter ClickCounterWithReset("Toss!", "Start over!")
-
 # ╔═╡ 24e84aa6-d0da-4232-b309-43b41fb187b8
 begin
 rng2 = MersenneTwister(1)
 md"""
 ### initialize second random numbers
 """
+end
+
+# ╔═╡ e9a4142f-844e-40fd-ac74-1ecdbcc7db00
+begin
+	new_rand
+	steps = rand(rng2,[1, -1], 300)
+	
+	#click_counter = @bind first_coins_counter ClickCounterWithReset("Toss!", "Start over!")
+	
+	md"""
+	### Create new random variable"""
 end
 
 # ╔═╡ e17b3b1f-d481-41f8-8771-77f52847258e
@@ -409,16 +417,8 @@ div.value = count
 </script>
 """)
 
-# ╔═╡ e9a4142f-844e-40fd-ac74-1ecdbcc7db00
-begin
-	new_rand
-	steps = rand(rng2,[1, -1], 300)
-	
-	click_counter = @bind first_coins_counter ClickCounterWithReset("Toss!", "Start over!")
-	
-	md"""
-	### Create new random variable"""
-end
+# ╔═╡ 5235f397-50df-4b02-9a6d-0c00a10c8e61
+click_counter = @bind first_coins_counter ClickCounterWithReset("Toss!", "Start over!")
 
 # ╔═╡ 3ec4d098-6b7a-41aa-b875-34ff83065a94
 begin
