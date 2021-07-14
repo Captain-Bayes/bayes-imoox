@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.14.8
+# v0.15.1
 
 using Markdown
 using InteractiveUtils
@@ -26,7 +26,7 @@ begin
 		#using SparseArrays
 		#using SpecialFunctions
 		#using StatsBase
-		#using Random
+		using Random
 		#using Distributions
 		md""" 
 		### Packages
@@ -40,12 +40,13 @@ begin
 		Pkg.add("LaTeXStrings")
 		Pkg.add("Markdown")
 		Pkg.add("Images")
+		Pkg.add("Random")
 		#Pkg.add("LinearAlgebra")
 		#Pkg.add("SparseArrays")
 		#Pkg.add("SpecialFunctions")
 		#Pkg.add("StatsBase")
 		#Pkg.add("Distributions")
-		using PlutoUI, Plots, LaTeXStrings, Markdown, Images, Plots.PlotMeasures
+		using PlutoUI, Plots, LaTeXStrings, Markdown, Images, Plots.PlotMeasures, Random
 		#using LinearAlgebra
 		#using SparseArrays
 		#using StatsBase
@@ -77,38 +78,43 @@ $x = \tan(\varphi)\cdot b + a$
 
 """
 
-# ╔═╡ 7127d313-c9a3-4206-bae7-ac7fc9fbe514
-md"""
-# TO BE FINISHED! WORK IN PROGRESS 🚧
-"""
+# ╔═╡ 1ee37c65-9a9d-4826-874c-d620a8b5247d
+plotattr("colorbar_ticks")
 
 # ╔═╡ fd94fab8-c4c4-454e-9f5b-c0f1178143b3
 begin
 md"""
-``P(x| a,b,\varphi)``
+## Derivation of the Likelihood and Posterior
+So let's derive the Likelihood to spot a flash on the coastline position ``x``:
+
+We know, that the lightsource 🔦 of the lighthouse is constantly rotating so all angles are equally probable independent of the actual position of the lighthouse:
 	
-``P(a,b|\vec x) = \dfrac{P(\vec x| a,b) \cdot P(a,b)}{P(\vec x)}``
+``p(\varphi|a,b) = p(\varphi) = \frac{1}{2\pi}``
+	
+Then we know the relation between angle (``\varphi``), position of the lighthouse ``(a,b)`` and the coastline position ``x`` to spot a flash on the beach:
+	
+``x = a + b \cdot \tan(\varphi), \quad ``  for  ``\varphi \in [-\pi/2, \pi/2]``
+	
+So we are looking for the probability
+	``p(x|a,b)``
+	and can use the transformation law:
+	
+$p(x|a,b) = p\big(\varphi(x)|a,b\big) \cdot \left\lvert \frac{d\varphi(x)}{dx}\right\rvert$
+
+With ``\frac{d\varphi(x)}{dx} = \frac{b}{b+(x-a)^2}`` and ``p(\varphi(x)) = \frac{1}{\pi}`` (we have to restrict the angle of ``\varphi`` to the halfplane to hit the coastline) we obtain the following Likelihood:
+
+$p(x|a,b) = \frac{1}{\pi} \frac{b}{b^2 + (x-a)^2}$
+	
+
+For the posterior
+
+$p(a,b|x) = \frac{1}{Z} p(x|a,b) \cdot p(a,b)$
+	
+we can assume a flat prior ``p(a,b)``.
 	
 """
 	
 	
-end
-
-# ╔═╡ 161bdcd4-55ac-4869-91bd-0141d0fc72db
-begin 
-	Lin_1 = @bind lin_1 Scrubbable(-2:0.01:2, default=-1, format=".3")
-	Lin_2 = @bind lin_2 Scrubbable(40:1:60, default=50, format="+")
-	
-	Quad_1 = @bind quad_1 Scrubbable(-0.040:0.005:0.04, default=0.02, format=".4",)
-	Quad_2 = @bind quad_2 Scrubbable(-2:0.1:2, default=-1.2, format="+.1")
-	Quad_3 = @bind quad_3 Scrubbable(40:1:60, default=50, format="+")
-	
-	Cubic_1 = @bind cubic_1 Scrubbable(-0.01:0.001:0.01, default=0.008, format=".4")
-	Cubic_2 = @bind cubic_2 Scrubbable(-2:0.01:2, default=-0.35, format="+.4")
-	Cubic_3 = @bind cubic_3 Scrubbable(-5:0.1:5, default=3.6, format="+.4")
-	Cubic_4 = @bind cubic_4 Scrubbable(20:60, default=40, format="+")
-	
-	md"""Define Sliders for parameter trials of height angle"""
 end
 
 # ╔═╡ d3f023b1-8a57-4690-b8d6-afbe2ff50d5e
@@ -116,28 +122,99 @@ begin
 	
 	a_slider = @bind a Scrubbable(-4:0.1:4, default= 1)
 	b_slider = @bind b Scrubbable(0.1:0.1:4, default= 3)
-	phi_slider = @bind φ Scrubbable(-pi/2:pi/60:pi/2, default= -3*pi/10)
+	phi_slider = @bind φ Scrubbable(-pi/2:pi/120:pi/2, default= -3*pi/10)
+	
+	fix_beach_box = @bind fix_beach CheckBox()
+	
+	flashes = @bind generate_flash Button("Generate Flashes")
+	
 	md""" 
-	### Define sliders
+	## The program
+	### Define sliders and general checkboxes and buttons
 	"""
 end
 
 # ╔═╡ 3c1cc3af-11f9-44ac-b07f-69704c4841c4
 md"""
-``\varphi``: $(phi_slider)
+Angle of the emitted light ``\varphi``: $(phi_slider)
 
-``a``: $(a_slider)
+Horizontal distance of the lighthouse from the origin ``a``: $(a_slider)
 
-``b``: $(b_slider)
+Perpendicular distance of the lighthouse from the coastline ``b``: $(b_slider)
 
+Fix beach length 👉 $(fix_beach_box)
 """
+
+# ╔═╡ ed56b559-ea17-41c7-8fe5-6ae9440fd5b5
+begin
+	rng = MersenneTwister(42)
+	md" ### Define random number seed"
+	
+end
+
+# ╔═╡ b2dc9f9b-9f57-4ca8-82ef-9c6a3915d6d0
+begin
+	a
+	b
+	φ
+	show_flash_box = @bind show_flashes CheckBox()
+	md" ### CheckBox show flash (with reset)"
+end
+
+# ╔═╡ 656ac69b-4cf5-440b-a894-83a7a80f42f0
+begin
+	a
+	b
+	φ
+	show_calculation_box = @bind show_calculation CheckBox(default=false)
+	md" ### Define start calculation Checkbox"
+end
+
+# ╔═╡ a61337a8-e197-4a7b-817d-012a5c1c0f17
+begin
+	generate_flash
+	rand_phi = (rand(rng,100) .- 0.5) * pi
+	
+	x_new = tan.(rand_phi).*b .+ a
+	
+	md" ### Generate new sample of flash points"
+	
+end
+
+# ╔═╡ 51b1234a-9808-4dad-a588-f61db077767f
+begin 
+	range_a = -5:0.01:5
+	range_b = 0.1:0.01:5
+	
+	p = zeros(length(range_b), length(range_a))
+	lighttower = (0,0)
+	
+	if show_calculation
+		for i = 1:length(range_a), j=1:length(range_b)
+			a_temp = range_a[i]
+			b_temp = range_b[j]
+
+			p[j,i] = 1/pi * prod(b_temp ./(b_temp^2 .+ (x_new .- a_temp).^2))
+		end
+		p = p./sum(p);
+	end
+	
+	index = findall(p .== maximum(p))[1]
+	lighttower = (range_a[index[2]], range_b[index[1]])
+	
+	md""" ### Calculation of the Likelihood"""
+end
 
 # ╔═╡ b8942536-020b-4c8e-a875-b5aba3034d42
 begin
 	#a = 1
 	
 	x = a+b*tan(φ)
-	beach_length = maximum([4, abs(x)])
+	if fix_beach
+		beach_length = 10
+	else
+		beach_length = maximum([4, abs(x)])
+	end
 	a_dist = abs(a) > 0.10 ? 0.05 : 0
 	a_dist_y = 0.15
 	b_dist = beach_length/30
@@ -150,7 +227,7 @@ begin
 		bottom_margin =5mm,
 		left_margin = 5mm,
 		right_margin = 5mm,
-		titlefontsize = 7,
+		titlefontsize = 12,
 		#foreground_color_grid = :black,
 		#foreground_color_xticks = :black,
 		background_color = :transparent,
@@ -185,8 +262,26 @@ plot!([a .+ sin.(pl_angle)*rad], [b.-cos.(pl_angle)*rad], label =false)
 	
 	# plot x
 	annotate!(x,-2*a_dist_y, "\$x\$")
-	plot!([x,x], [-a_dist_y, a_dist_y]./2, linewidth = 3, color= :black, label = false)
 	
+	if show_flashes
+		plot!(x_new, zeros(size(x_new)), marker= :o, color = :orange,markeralpha = 0.4, linealpha = 0, label= "Flashes")
+	end
+	if show_calculation
+	heatmap!(range_a, range_b, p, alpha = 0.4,
+	title="The lighttower is most likely located at "*string(lighttower))
+	end
+	
+	plot!([x,x], [-a_dist_y, a_dist_y]./2, linewidth = 3, color= :black, label = false, xlim = [-beach_length, beach_length])
+	
+	
+	
+end
+
+# ╔═╡ ca076585-03b6-4381-b730-e32c7a30446e
+if show_calculation
+	heatmap(range_a, range_b, p, 
+	title="The lighttower is most likely located at "*string(lighttower),   colorbar_ticks = (0, "0"))
+	#clim=(0,0.00006)
 end
 
 # ╔═╡ 16938d4f-6f25-4924-8bdf-b0eb638a6c4f
@@ -238,61 +333,28 @@ begin
                    -18.53,  0.72,  0.94,  3.64,  1.94, -0.11,  1.57,  0.57]
 	
 	
-	md"""
-	## The data: 
-	$(Resource(lyra, :width=>140))
+md"""
+## The data: 
+$(Resource(lyra, :width=>140))
 	
-	> *So this is the data of the lightpoints which I collected, Captain Bayes, can you help me to find the position of the lighthouse?*
+*Click on the Checkbox 👉 $(show_flash_box) to see the position of the 100 flashes which I recorded. You can start a new observation by pressing the Button $(flashes)*.
 	
-	
+> *Captain Bayes, can you help me to find the position of the lighthouse?*	
 	"""
 end
 
-# ╔═╡ 6b2f6ea4-6d58-43f6-9527-e576422f1feb
-begin
-	xmax = maximum(abs.(xx))
-	plot(xx, rand(length(xx)) .* -0.9 .- 0.1, markershape = :x, 
-	linewidths = 3,linealpha = 0,
-	markerstrokewidth = 4,
-	color = :blue,
-	xlim = [-xmax, xmax],
-	ylim = [-1, 4],
-	label = "Observations",
-	size = (640,320),
-	labelfontsize = 15,
-	tickfontsize = 13,
-	legendfontsize = 11,
-	bottom_margin =5mm,
-	left_margin = 5mm,
-	right_margin = 5mm,
-	titlefontsize = 7,
-	#foreground_color_grid = :black,
-	#foreground_color_xticks = :black,
-	background_color = :transparent,
-	#foreground_color_axis = :black,
-	#foreground_color_text = :black,
-	#foreground_color_border = :black,
-	foreground_color = :black,
-	fontfamily="Computer Modern"
+# ╔═╡ 6dd8c883-dac4-4a31-b5ae-09ec067ba852
+begin 
 	
-	)
+	md"""
+	$(Resource(bayes, :width=>200))
+	*For sure Lyra, below you can find the __derivation__ how I perform this calculation.*
 	
-	plot!([-xmax, xmax], [0,0], linewidth = 3, color= :black, label = false)
+	*Just tick the checkbox to __start the calculation__ 👉 $(show_calculation_box)*
+	"""
+	
 	
 end
-
-# ╔═╡ ac2f313d-1529-4366-ab58-00679e510f6a
-md"""
-$(Resource(bayes, :width=>140))
- 
-   *Dear **Captain Venn**, so let's have a **look on the data**, and plot them, maybe we discuss the **height angle first**. What kind of **model function** do you think would be suited for the given data?*
-
-👉 $(@bind model_function Select(["Linear model", "Quadratic model", "Cubic model"]))
-
- $(Resource(venn, :width=>80)) 
-    *Well let's try if we can fit those data by hand*
-
-"""
 
 # ╔═╡ 7bf32131-f749-41da-9923-2970f1487f7e
 begin
@@ -331,20 +393,28 @@ function sr(variable, dig = 2; add_sign = false)
 end
 
 
+# ╔═╡ 1760c093-96c9-4ed9-8f4d-2c2ff3bfda5c
+TableOfContents()
+
 # ╔═╡ Cell order:
 # ╟─6c070606-1411-40fc-b6cd-8f27f052136b
 # ╟─ec784992-f4af-4ece-bf72-555960a054ca
 # ╟─8f919de1-356f-4e42-9f7e-5d29092ed80f
 # ╟─3c1cc3af-11f9-44ac-b07f-69704c4841c4
 # ╟─b8942536-020b-4c8e-a875-b5aba3034d42
-# ╟─7127d313-c9a3-4206-bae7-ac7fc9fbe514
 # ╟─5fc032bb-990d-424e-a256-ef2979980606
-# ╟─6b2f6ea4-6d58-43f6-9527-e576422f1feb
-# ╠═fd94fab8-c4c4-454e-9f5b-c0f1178143b3
-# ╠═ac2f313d-1529-4366-ab58-00679e510f6a
-# ╠═161bdcd4-55ac-4869-91bd-0141d0fc72db
+# ╟─6dd8c883-dac4-4a31-b5ae-09ec067ba852
+# ╠═1ee37c65-9a9d-4826-874c-d620a8b5247d
+# ╟─ca076585-03b6-4381-b730-e32c7a30446e
+# ╟─fd94fab8-c4c4-454e-9f5b-c0f1178143b3
 # ╟─d3f023b1-8a57-4690-b8d6-afbe2ff50d5e
+# ╟─ed56b559-ea17-41c7-8fe5-6ae9440fd5b5
+# ╟─b2dc9f9b-9f57-4ca8-82ef-9c6a3915d6d0
+# ╟─656ac69b-4cf5-440b-a894-83a7a80f42f0
+# ╟─a61337a8-e197-4a7b-817d-012a5c1c0f17
+# ╟─51b1234a-9808-4dad-a588-f61db077767f
 # ╟─e7666210-a660-11eb-3e0d-7d9aec9a9f9e
 # ╟─16938d4f-6f25-4924-8bdf-b0eb638a6c4f
-# ╠═7bf32131-f749-41da-9923-2970f1487f7e
+# ╟─7bf32131-f749-41da-9923-2970f1487f7e
 # ╟─5d349d39-c688-4431-b056-aa11d69376e9
+# ╟─1760c093-96c9-4ed9-8f4d-2c2ff3bfda5c
