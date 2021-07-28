@@ -1,6 +1,6 @@
 ‰ªcell_order‘Ù$08f70290-9dfb-11eb-31da-8d381c54dd70¥bonds€¬cell_resultsÙ$08f70290-9dfb-11eb-31da-8d381c54dd70†¦queuedÂ§runningÂ¦output…¤bodyÚ'<div class="markdown"><h1>Markov processes and the rat onboard</h1>
 <p>Unfortunately this notebook is not realized yet.  For encouraged students there is the possibility to join the creation process of such an interactive Pluto Notebook - just contact  <em>gerhard.dorn@tugraz.at</em></p>
-</div>°persist_js_stateÂ¤mime©text/html²last_run_timestampËAØ;« ;—¬rootassigneeÀ§cell_idÙ$08f70290-9dfb-11eb-31da-8d381c54dd70§runtimeÍ'Ø§erroredÂ«cell_inputsÙ$08f70290-9dfb-11eb-31da-8d381c54dd70ƒ§cell_idÙ$08f70290-9dfb-11eb-31da-8d381c54dd70¤codeÚbegin
+</div>°persist_js_stateÂ¤mime©text/html²last_run_timestampËAØ@h;Ö|g¬rootassigneeÀ§cell_idÙ$08f70290-9dfb-11eb-31da-8d381c54dd70§runtimeÍ3õ§erroredÂ«cell_inputsÙ$08f70290-9dfb-11eb-31da-8d381c54dd70ƒ§cell_idÙ$08f70290-9dfb-11eb-31da-8d381c54dd70¤codeÚbegin
 md"""
 # Markov processes and the rat onboard
 	
@@ -9,4 +9,4 @@ For encouraged students there is the possibility to join the creation process of
 	
 """
 	
-end«code_foldedÃ«notebook_idÙ$d02898ce-e484-11eb-0abc-932a828a1a55«in_temp_dirÂ©shortpath±markov_process.jl®process_status¥ready¤pathÙE/home/runner/work/bayes-imoox/bayes-imoox/notebooks/markov_process.jl
+end«code_foldedÃ«notebook_idÙ$16b0eb78-efd1-11eb-3ef5-9d6fd984ebeb«in_temp_dirÂ©shortpath±markov_process.jl®process_status¥ready¤pathÙE/home/runner/work/bayes-imoox/bayes-imoox/notebooks/markov_process.jl

@@ -78,9 +78,6 @@ $x = \tan(\varphi)\cdot b + a$
 
 """
 
-# ╔═╡ 1ee37c65-9a9d-4826-874c-d620a8b5247d
-plotattr("colorbar_ticks")
-
 # ╔═╡ fd94fab8-c4c4-454e-9f5b-c0f1178143b3
 begin
 md"""
@@ -404,7 +401,6 @@ TableOfContents()
 # ╟─b8942536-020b-4c8e-a875-b5aba3034d42
 # ╟─5fc032bb-990d-424e-a256-ef2979980606
 # ╟─6dd8c883-dac4-4a31-b5ae-09ec067ba852
-# ╠═1ee37c65-9a9d-4826-874c-d620a8b5247d
 # ╟─ca076585-03b6-4381-b730-e32c7a30446e
 # ╟─fd94fab8-c4c4-454e-9f5b-c0f1178143b3
 # ╟─d3f023b1-8a57-4690-b8d6-afbe2ff50d5e
