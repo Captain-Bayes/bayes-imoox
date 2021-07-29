@@ -27,8 +27,11 @@ jobs:
                 JULIA_PROJECT: "."
             - name: Run Pluto notebooks
               run: julia -e '
-                  import PlutoUtils;
-                  PlutoUtils.Export.github_action(; export_dir=".", baked_state=false, offer_binder=true,bind_server_url="https://pluto-bayes.tugraz.at/");'
+                  import Pkg;
+                  Pkg.instantiate();
+                  
+                  using PlutoSliderServer;
+                  github_action(; export_dir=".", baked_state=false, offer_binder=true,bind_server_url="https://pluto-bayes.tugraz.at/");'
               env:
                 JULIA_LOAD_PATH: ":."
                 JULIA_PROJECT: "./bind-server-environment"
