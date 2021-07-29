@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.14.7
+# v0.15.1
 
 using Markdown
 using InteractiveUtils
@@ -175,7 +175,7 @@ begin
 	histogram(X[:], nbins=20,
 	xlim=[0.06, 0.15], label=:none, xlabel="Sample mean", ylabel="Frequency"
 	)
-	
+	 
 	plot!([0.1, 0.1], [0, rep/6], line=(3.2, 1.0, :line), linestyle=:dash, color = :red, label="10% limit")
 	plot!([0.1056, 0.1056], [0, rep/6], line=(3.2, 1.0, :line), linestyle=:dash, color = :green, label="intrinsic mean")
 end
@@ -248,7 +248,7 @@ begin
 	bar_width = 0.6,
     marker = (6, 0.5, :none),
     markerstrokewidth = 5.,
-    color = [:steelblue],
+    color = :steelblue,
     fill = 0.9,
     orientation = :v,
     title = "Histogram with total sample size: " * string(n_size),
@@ -265,7 +265,7 @@ begin
     normalize = false,
     marker = (5, 1.0, :o),
     markerstrokewidth = 3.,
-    color = [:red],
+    color = :red,
     fill = 0.,
     orientation = :v,
 	label = "expected value",

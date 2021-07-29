@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.14.8
+# v0.15.1
 
 using Markdown
 using InteractiveUtils
@@ -99,7 +99,7 @@ md""" **Lyra:** I've collected data on different kinds of things - litter in the
 # ╔═╡ fb1b6ea0-330c-4744-b3b8-19730b55e7e5
 begin
 	md"""
-	Choose the **data** to compare 👉 $(@bind data_list Select(["Mass of marine litter in g🚯", "Mass of marine litter in lbs 🚯", "Pieces of litter on the beach", "Frogfish caught weekly", "Reef population", "Random data"]))
+	Choose the **data** to compare 👉 $(@bind data_list Select(["Mass of marine litter in g", "Mass of marine litter in lbs", "Pieces of litter on the beach", "Frogfish caught weekly", "Reef population", "Random data"]))
 	"""
 	
 end
@@ -425,11 +425,11 @@ begin
 		
 	
 		
-	elseif data_list == "Mass of marine litter in g🚯"
+	elseif data_list == "Mass of marine litter in g"
 		a1 = litter_mass
 		
 			
-	elseif data_list == "Mass of marine litter in lbs 🚯"
+	elseif data_list == "Mass of marine litter in lbs"
 		a1= litter_mass .* 0.00220462
 		
 	end

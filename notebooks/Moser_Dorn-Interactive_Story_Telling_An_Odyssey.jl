@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.14.7
+# v0.15.1
 
 using Markdown
 using InteractiveUtils
@@ -773,7 +773,7 @@ begin
 plot(compass, K_first_run[:,days]/days,
 		line = (1., 1., :bar), label = "simulation", title = "cardinal directions chosen")
 plot!(compass, weights, line = (1.0, 0.0, :bar), bar_width = 0.02,
-    marker = (:circle, 50, 1), color = [:red], label = :none, legend = :right)
+    marker = (:circle, 50, 1), color = :red, label = :none, legend = :right)
 	
 plot!(compass, weights,
 		line = (0., 0, :path),
@@ -782,7 +782,7 @@ plot!(compass, weights,
 	bar_width = 0.2,
     marker = (7, 1., :o),
     markerstrokewidth = 1,
-    color = [:red],
+    color = :red,
     fill = 1.,
     orientation = :v,
 	ylabel = "Relative frequency",
@@ -810,7 +810,7 @@ begin
 	
 	
 	if averaged_final
-	heatmap(-max_distance:1:max_distance, -max_distance:1:max_distance, Array(hist_data + hist_data_2)./2, seriestype = :bar, c=:dense, axis = :equal) 
+	heatmap(-max_distance:1:max_distance, -max_distance:1:max_distance, Array(hist_data + hist_data_2)./2, seriestype = :bar, c=:dense) 
 	else
 	heatmap(-max_distance:1:max_distance, -max_distance:1:max_distance, Array(hist_data), seriestype = :bar, c=:dense) 
 	end
@@ -892,7 +892,7 @@ end
 # ╟─f36826be-93cd-11eb-3cd4-278a16171c91
 # ╟─24d68cf0-7ed0-11eb-004b-7b2702a5de1a
 # ╟─b4dc3a2f-f407-4b8c-a448-4849a914be99
-# ╠═97565f62-8129-4515-852e-2a47748dacce
+# ╟─97565f62-8129-4515-852e-2a47748dacce
 # ╟─1aa40340-9382-11eb-1031-5fa5b0f133ee
 # ╟─c6f9c954-54c4-48ce-8465-fc85202b79f4
 # ╟─38fd06d0-93cc-11eb-030e-a7888d7d7eee
