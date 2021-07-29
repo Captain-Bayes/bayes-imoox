@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.14.8
+# v0.15.1
 
 using Markdown
 using InteractiveUtils
@@ -62,7 +62,7 @@ md" ## Welcome to Gauß Island!"
 # ╔═╡ b634c37d-ad76-4ee2-83f2-50ec1382da84
 begin
 
-md""" Please choose your Player: $(@bind player Select(["Captain Bayes 👩‍🦰", "Captain Venn 🧔"]))"""
+md""" Please choose your Player: $(@bind player Select(["Captain Bayes 👩", "Captain Venn 🧔"]))"""
 end
 
 # ╔═╡ 548170ab-6e70-4dbe-80ef-b6639ddeec19
@@ -154,7 +154,7 @@ t_av = t/s
 	histogram(L_res, bins = 20, label = :none)
 	
 plot!([t_av],[maximum(values(hist_data))*10], line = (1, 2.0, :bar), linecolor = "red", label = string("Average = ", avg) , legend=:top)
-	
+	 
 	
 plot!([n*m],[maximum(values(hist_data))*10], line = (1, 1.0, :bar), linecolor = "green", label = string("Theoretical average time =",n*m), legend=:top) 
 
@@ -165,7 +165,7 @@ end
 begin
 plot(["Bayes", "Venn"],[N_a/Nrep, (Nrep-N_a)/Nrep], line = (1., 1., :bar), label = "Simulation")
 plot!(["Bayes", "Venn"], [n/(n+m), m/(n+m)], line = (1.0, 0.0, :bar), bar_width = 0.02,
-    marker = (:circle, 50, 1), color = [:red], label = :none, legend = :right)
+    marker = (:circle, 50, 1), color = :red, label = :none, legend = :right)
 plot!(["Bayes", "Venn"], [n/(n+m), m/(n+m)],
 		line = (0., 0, :path),
     normalize = false,
@@ -173,7 +173,7 @@ plot!(["Bayes", "Venn"], [n/(n+m), m/(n+m)],
 	bar_width = 0.2,
     marker = (7, 1., :o),
     markerstrokewidth = 1,
-    color = [:red],
+    color = :red,
     fill = 1.,
     orientation = :v,
 	ylabel = "Relative frequency of wins",
@@ -533,11 +533,11 @@ end
 # ╔═╡ 3b8c2f10-4852-4f47-bc16-b07ace186847
 begin
 	#show gifs
-	if player == "Captain Bayes 👩‍🦰"
+	if player == "Captain Bayes 👩"
 		notplayer = "Captain Venn 🧔"
 		md"""$(Resource(bayes_small)) Let's do this! """
 	elseif player == "Captain Venn 🧔"
-		notplayer = "Captain Bayes 👩‍🦰"
+		notplayer = "Captain Bayes 👩"
 		md"""$(Resource(venn_small)) Let's do this! """
 	end
 	
@@ -593,7 +593,7 @@ begin
 	
 
 
-	plot(Lt,Lx,marker = :cross,label = "path of $player")
+	plot(Lt,Lx,marker = :cross,label = "path of $(player[1:13])")
 
 	plot!([0,tmax],[0,0],color = :red,linewidth = 2,label = false)
 	plot!([0,tmax],[NN,NN],color = :red,linewidth = 2,label = false)
@@ -603,7 +603,7 @@ begin
 		txt = "Gamblers ruin (a single run)"
 	end
 	
-	plot!(xlim=(0,tmax),ylim=(-1,NN+1),xlabel = "time", ylabel = "Coins of $player",title = txt,legend = :right)
+	plot!(xlim=(0,tmax),ylim=(-1,NN+1),xlabel = "time", ylabel = "Coins of $(player[1:13])",title = txt,legend = :right)
 
 
 
@@ -768,8 +768,8 @@ end
 # ╟─fcc9ac0d-b79e-4f6c-a19f-481560747bca
 # ╟─9b359471-5be9-4fb3-9a50-6c9d45a3d79f
 # ╟─743ebc88-841e-11eb-0e1d-5f7984b0f276
-# ╠═e9a4142f-844e-40fd-ac74-1ecdbcc7db00
-# ╠═5235f397-50df-4b02-9a6d-0c00a10c8e61
+# ╟─e9a4142f-844e-40fd-ac74-1ecdbcc7db00
+# ╟─5235f397-50df-4b02-9a6d-0c00a10c8e61
 # ╟─24e84aa6-d0da-4232-b309-43b41fb187b8
 # ╟─e17b3b1f-d481-41f8-8771-77f52847258e
 # ╟─a0d87c4e-ff2c-4454-ab01-c07031ccc727

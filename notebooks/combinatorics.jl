@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.14.8
+# v0.15.1
 
 using Markdown
 using InteractiveUtils
@@ -172,13 +172,13 @@ imresize(Bottles[1],300,300)
 # ╟─57d0509d-5b15-4fb6-976f-96b24d3ffa4c
 # ╠═958b8590-75b7-4a37-8661-5f230f6026a4
 # ╟─2f28ba0a-56be-443a-8250-a837fd25f601
-# ╠═ae23d612-0be7-4c69-ab11-9158a8b215b2
+# ╟─ae23d612-0be7-4c69-ab11-9158a8b215b2
 # ╟─f18c200e-bb37-4de2-8be9-26b8b4f28dc0
 # ╟─54177438-53b8-4a3a-94ed-70c64b607424
 # ╟─79cd1cb8-569f-4d24-aef5-76d841bb6c65
-# ╠═476521e1-fbdb-40f3-b133-2df5acca59bc
+# ╟─476521e1-fbdb-40f3-b133-2df5acca59bc
 # ╟─a3c995ff-b2e6-4b87-b801-347eaa07e72d
-# ╠═ca4d4e9f-5e7a-417f-944a-7f6a80ecd2ff
+# ╟─ca4d4e9f-5e7a-417f-944a-7f6a80ecd2ff
 # ╠═2faeccea-1e90-4eea-a1d7-7d644a6fa809
 # ╠═70bb4336-ce69-4e3f-ba86-6ccc9064c2ce
 # ╠═76b890f2-e995-440c-9470-5d8bbee5ddd9
