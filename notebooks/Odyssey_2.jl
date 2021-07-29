@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.14.1
+# v0.15.1
 
 using Markdown
 using InteractiveUtils
@@ -640,7 +640,7 @@ begin
 			marker = (:dot, 10, 1.0, :red),
 			label = "initial position"
 			)
-
+ 
 	plot!(
 			[pos_first_run[days,1]], [pos_first_run[days,2]],
 			marker = (:circle, 10, 1.0, :green),
@@ -653,7 +653,7 @@ begin
 plot(compass, K_first_run[:,days]/days,
 		line = (1., 1., :bar), label = "simulation", title = "cardinal directions chosen")
 plot!(compass, weights, line = (1.0, 0.0, :bar), bar_width = 0.02,
-    marker = (:circle, 50, 1), color = [:red], label = :none, legend = :right)
+    marker = (:circle, 50, 1), color = :red, label = :none, legend = :right)
 	
 plot!(compass, weights,
 		line = (0., 0, :path),
@@ -662,7 +662,7 @@ plot!(compass, weights,
 	bar_width = 0.2,
     marker = (7, 1., :o),
     markerstrokewidth = 1,
-    color = [:red],
+    color = :red,
     fill = 1.,
     orientation = :v,
 	ylabel = "Relative frequency",
@@ -690,7 +690,7 @@ begin
 	
 	
 	if averaged_final
-	heatmap(-max_distance:1:max_distance, -max_distance:1:max_distance, Array(hist_data + hist_data_2)./2, seriestype = :bar, c=:dense, axis = :equal) 
+	heatmap(-max_distance:1:max_distance, -max_distance:1:max_distance, Array(hist_data + hist_data_2)./2, seriestype = :bar, c=:dense) 
 	else
 	heatmap(-max_distance:1:max_distance, -max_distance:1:max_distance, Array(hist_data), seriestype = :bar, c=:dense) 
 	end

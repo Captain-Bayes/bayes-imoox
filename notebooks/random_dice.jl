@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.14.7
+# v0.15.1
 
 using Markdown
 using InteractiveUtils
@@ -113,7 +113,7 @@ begin
 	bar_width = 0.1,
     marker = (6, 0.5, :x),
     markerstrokewidth = 5.,
-    color = [:steelblue],
+    color = :steelblue,
     fill = 0.9,
     orientation = :v,
     title = "The strange dice distribution",
@@ -128,7 +128,7 @@ plot!( B[:,1], B[:,2],
 	bar_width = 0.2,
     marker = (4, 0.5, :o),
     markerstrokewidth = 5.,
-    color = [:steelblue],
+    color = :steelblue,
     fill = 0.9,
     orientation = :v,
     title = "The strange dice distribution",

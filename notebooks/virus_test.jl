@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.14.7
+# v0.15.1
 
 using Markdown
 using InteractiveUtils
@@ -80,9 +80,9 @@ The **percentage of infected people** is estimated to be $(@bind inf_rate_percen
 
 # ╔═╡ 31c61c6d-1a97-451f-b07c-864eca18bff2
 md"""
-The **sensitvity** of an antigen test 💉 is $(latexstring("P(B\\mid V) = ")) $(@bind sensi_percent Scrubbable(1:1:100, default = 95))%
+The **sensitvity** of an antigen test 💉 is ``P(B\mid V) = `` $(@bind sensi_percent Scrubbable(1:1:100, default = 95))%
 
-and the **specificity** of the test is $(latexstring("P(\\neg B\\mid \\neg V) = ")) $(@bind spec_percent Scrubbable(1:100, default = 90))%
+and the **specificity** of the test is ``P(\neg B\mid \neg V) = `` $(@bind spec_percent Scrubbable(1:100, default = 90))%
 
 """
 
@@ -178,11 +178,11 @@ end
 # ╔═╡ b70ab060-2117-4c24-adac-27982e5065f3
 md"""
 The probability to have the virus if the test is positive or negative is
--  $(latexstring("P(V|B) = ")) $(sr(P_V_B,5))
--  $(latexstring("P(V|\\neg B) = ")) $(sr(P_V_neg_B,5))
+-  ``P(V\mid B) = `` $(sr(P_V_B,5))
+-  ``P(V\mid \neg B) = `` $(sr(P_V_neg_B,5))
 
 The probability for a positive test is:
--  $(latexstring("P(B) = ")) $(sr(P_positive_test))
+-  ``P(B) = `` $(sr(P_positive_test))
 """
 
 # ╔═╡ Cell order:
@@ -193,4 +193,4 @@ The probability for a positive test is:
 # ╟─b70ab060-2117-4c24-adac-27982e5065f3
 # ╟─813ea500-a2ec-11eb-29cb-89ed915aa25a
 # ╟─d5e23d38-5a43-470d-846e-a05d8a56a726
-# ╠═8b39a33a-d7bd-45f2-91e9-173688ea1ec5
+# ╟─8b39a33a-d7bd-45f2-91e9-173688ea1ec5
