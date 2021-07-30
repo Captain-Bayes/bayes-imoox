@@ -1,0 +1,8 @@
+[Export]
+baked_state = false
+offer_binder = true
+slider_server_url="https://pluto-bayes.tugraz.at/"
+ignore_cache = [
+    "index.jl",
+]
+create_index = false
