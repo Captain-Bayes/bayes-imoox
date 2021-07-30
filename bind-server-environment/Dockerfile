@@ -35,5 +35,4 @@ RUN julia --project="./bind-server-environment" -e "import Pkg; Pkg.instantiate(
 RUN julia --project="." -e "import Pkg; Pkg.instantiate(); Pkg.precompile()"
 
 # The "default command" for this docker thing.
-CMD ["julia", "-e", "import PlutoSliderServer; PlutoSliderServer.run_directory(\"notebooks\"; SliderServer_port=1234 , SliderServer_host=\"0.0.0.0\")"]
-#, workspace_use_distributed=true
+CMD ["sh", "./start_pluto.sh"]
