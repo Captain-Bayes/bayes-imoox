@@ -35,4 +35,4 @@ RUN julia --project="./bind-server-environment" -e "import Pkg; Pkg.instantiate(
 RUN julia --project="." -e "import Pkg; Pkg.instantiate(); Pkg.precompile()"
 
 # The "default command" for this docker thing.
-CMD ["sh", "./start_pluto.sh"]
+CMD ["sh", "./bind-server-environment/start_pluto.sh"]
