@@ -1,313 +1,0 @@
-‹¥bonds€¬cell_resultsÙ$d71ed580-cdbc-11eb-08ab-11e87cff1cb9‡¦queuedÂ±published_objects€§runningÂ¦output…¤bodyÚ<script>const getParentCell = el => el.closest("pluto-cell")
-
-const getHeaders = () => {
-	const depth = Math.max(1, Math.min(6, 3)) // should be in range 1:6
-	const range = Array.from({length: depth}, (x, i) => i+1) // [1, ..., depth]
-	
-	const selector = range.map(i => `pluto-notebook pluto-cell h${i}`).join(",")
-	return Array.from(document.querySelectorAll(selector))
-}
-
-const indent = true
-const aside = true
-
-const render = (el) => html`${el.map(h => {
-	const parent_cell = getParentCell(h)
-
-	const a = html`<a 
-		class="${h.nodeName}" 
-		href="#${parent_cell.id}"
-	>${h.innerText}</a>`
-	/* a.onmouseover=()=>{
-		parent_cell.firstElementChild.classList.add(
-			'highlight-pluto-cell-shoulder'
-		)
-	}
-	a.onmouseout=() => {
-		parent_cell.firstElementChild.classList.remove(
-			'highlight-pluto-cell-shoulder'
-		)
-	} */
-	a.onclick=(e) => {
-		e.preventDefault();
-		h.scrollIntoView({
-			behavior: 'smooth', 
-			block: 'center'
-		})
-	}
-
-	return html`<div class="toc-row">${a}</div>`
-})}`
-
-const tocNode = html`<nav class="plutoui-toc">
-	<header>Table of Contents</header>
-	<section></section>
-</nav>`
-tocNode.classList.toggle("aside", aside)
-tocNode.classList.toggle("indent", aside)
-
-const updateCallback = () => {
-	tocNode.querySelector("section").replaceWith(
-		html`<section>${render(getHeaders())}</section>`
-	)
-}
-updateCallback()
-
-
-const notebook = document.querySelector("pluto-notebook")
-
-
-// We have a mutationobserver for each cell:
-const observers = {
-	current: [],
-}
-
-const createCellObservers = () => {
-	observers.current.forEach((o) => o.disconnect())
-	observers.current = Array.from(notebook.querySelectorAll("pluto-cell")).map(el => {
-		const o = new MutationObserver(updateCallback)
-		o.observe(el, {attributeFilter: ["class"]})
-		return o
-	})
-}
-createCellObservers()
-
-// And one for the notebook's child list, which updates our cell observers:
-const notebookObserver = new MutationObserver(() => {
-	updateCallback()
-	createCellObservers()
-})
-notebookObserver.observe(notebook, {childList: true})
-
-// And finally, an observer for the document.body classList, to make sure that the toc also works when if is loaded during notebook initialization
-const bodyClassObserver = new MutationObserver(updateCallback)
-bodyClassObserver.observe(document.body, {attributeFilter: ["class"]})
-
-invalidation.then(() => {
-	notebookObserver.disconnect()
-	bodyClassObserver.disconnect()
-	observers.current.forEach((o) => o.disconnect())
-})
-
-return tocNode
-</script><style>@media screen and (min-width: 1081px) {
-	.plutoui-toc.aside {
-		position:fixed; 
-		right: 1rem;
-		top: 5rem; 
-		width:25%; 
-		padding: 10px;
-		border: 3px solid rgba(0, 0, 0, 0.15);
-		border-radius: 10px;
-		box-shadow: 0 0 11px 0px #00000010;
-		/* That is, viewport minus top minus Live Docs */
-		max-height: calc(100vh - 5rem - 56px);
-		overflow: auto;
-		z-index: 50;
-		background: white;
-	}
-}
-
-.plutoui-toc header {
-	display: block;
-	font-size: 1.5em;
-	margin-top: 0.67em;
-	margin-bottom: 0.67em;
-	margin-left: 0;
-	margin-right: 0;
-	font-weight: bold;
-	border-bottom: 2px solid rgba(0, 0, 0, 0.15);
-}
-
-.plutoui-toc section .toc-row {
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	padding-bottom: 2px;
-}
-
-.highlight-pluto-cell-shoulder {
-	background: rgba(0, 0, 0, 0.05);
-	background-clip: padding-box;
-}
-
-.plutoui-toc section a {
-	text-decoration: none;
-	font-weight: normal;
-	color: gray;
-}
-.plutoui-toc section a:hover {
-	color: black;
-}
-
-.plutoui-toc.indent section a.H1 {
-	font-weight: 700;
-	line-height: 1em;
-}
-
-.plutoui-toc.indent section a.H1 {
-	padding-left: 0px;
-}
-.plutoui-toc.indent section a.H2 {
-	padding-left: 10px;
-}
-.plutoui-toc.indent section a.H3 {
-	padding-left: 20px;
-}
-.plutoui-toc.indent section a.H4 {
-	padding-left: 30px;
-}
-.plutoui-toc.indent section a.H5 {
-	padding-left: 40px;
-}
-.plutoui-toc.indent section a.H6 {
-	padding-left: 50px;
-}
-</style>°persist_js_stateÂ¤mime©text/html²last_run_timestampËAØ@ò<y>¬rootassigneeÀ§cell_idÙ$d71ed580-cdbc-11eb-08ab-11e87cff1cb9§runtimeÌÈ§erroredÂÙ$57d0509d-5b15-4fb6-976f-96b24d3ffa4c‡¦queuedÂ±published_objects€§runningÂ¦output…¤bodyÚ¥<table><tbody><tr><td style='text-align:center;vertical-align:middle; margin: 0.5em;border:1px #90999f solid;border-collapse:collapse'><img style='max-width: 100px; max-height:100px;display:inline' src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFQAAACECAYAAAAOVQzuAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAepJREFUeAHtwbFtFAEURdE75o6lTZAQgsDBBlTgImhgO6EUSiAidQMEFEANBBs4sERCYsmz9lDDlx4SSO8c931n4nS43hk4rgsT521n4rguTJy3nYm7x6eFAakoqSipKKkoqSipKKkoqSipKKkoqShPh+udgeO6MHHediaO68LEeduZOK4LE6fD9c6AVJRUlFSUVJRUlFSUVJRUlFSUVJRUlHePTwsDp8P1zsBxXZg4bzsTx3Vh4rztTNw9Pi0MSEVJRUlFSUVJRUlFSUVJRUlFSUVJRcnQ93dfmFgPt0w8b/dMvFwemHi+PPA3SUVJRUlFSUVJRUlFSUVJRUlFSUVJRfnm+HVnYD3cMnHlDf+z1zefdwakoqSipKKkoqSipKKkoqSipKKkoqSivPI9lSMVJRUlFSUVJRUlFSUVJRUlFSUVJRUlFSUVJRUlFSUVJRUlFSUVJRUlFSUVJRUlFSUVJRUlFSUVJRUlFSUVJRUlFSUVJRUlFSUVJRUlFSUVJRUlFSUVJRUlFSUVJRUlf9nL5Z6JK2+YeN7u+ZdIRUlFSUVJRUlFSUVJRUlFSUVJRUlF+evnx4WBtx++7Qy8Wm+Y2B5/MPFyeWDi+fLAxO/7TwsDUlFSUVJRUlFSUVJRUlFSUVJRUlFSUX8AYrxHvLqKsHwAAAAASUVORK5C"></td><td style='text-align:center;vertical-align:middle; margin: 0.5em;border:1px #90999f solid;border-collapse:collapse'><img style='max-width: 100px; max-height:100px;display:inline' src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFIAAACQCAYAAACbDDwkAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAb5JREFUeAHtwcFpnAcABtFZGLAxPmjXbQRShM8uwUWlBpeQszrxIQ14pYMJziV/CshFC59AQvOex3Fwi68f3x+8Id9+/jrxBJIJyYRkQjIhmZBMSCYkE5IJyYRkwq8f3x+8IY//Htziy4d3B08gmZBMSCYkE5IJyYRkQjIhmZBMSCb89vPXiRt8+fDu4A358+9/TjyBZEIyIZmQTEgmJBOSCcmEZEIyIZmQG/3x2+/k/yQTkgnJhGRCMiGZkExIJiQTkgnJhPfn88ENzp8+8ZzuLhducXe5cIu/vn/nFvfn88ETSCYkE5IJyYRkQjIhmZBMSCYkE5IJeeUer1deAsmEZEIyIZmQTEgmJBOSCcmEZEIyIa/c3eXCLR6vV56DZEIyIZmQTEgmJBOSCcmEZEIyIZmQTEgmJBOSCcmEZEIyIZmQTEgmJBOSCcmEZEIyIZmQTEgmJBOSCcmEZEIyIZmQTEgmJBOSCcmEZEIyIZmQTEgmJBOSCXnlHq9XXgLJhGRCMiGZkExIJiQTkgnJhGRCMuHnh4cTN7g/nw+e0cOPH7wknx8eTjyBZEIyIZmQTEgmJBOSCcmEZEIyIZn4D6Q2LupD71iPAAAAAElFTkSuQmCC"></td><td style='text-align:center;vertical-align:middle; margin: 0.5em;border:1px #90999f solid;border-collapse:collapse'><img style='max-width: 100px; max-height:100px;display:inline' src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKgAAADkCAYAAAAM0W+jAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAA9dJREFUeAHtwUFKZGcAhdGv8KakAsGBBGLTKjiqcaCzCce1SsduIr0BR0Kp6CiDnrR0tcXLCjrwQx65Fb9zMk0T+rE/Ln6aKPLnw/cF70iQigWpWJCKBalYkIoFqViQigWpWJCKBalYkIoFqViQigWpWJCKBalYkIoFqViQigWpWJCKBalYkIqFA7dZryZm9OvxEU0269XEgK+ve0bcbncLigSpWJCKBalYkIoFqViQigWpWJCKBalYkIoFqVjQP/rl5+802X9b8p4EqViQigWpWJCKBalYkIoFqViQigWpWJCKBalYOHA3d68LBmzWq4kBv/82Maf7lyNGPL7uGXG73S04YEEqFqRiQSoWpGJBKhakYkEqFqRiQSoWpGJBKhakYkEqFqRiQSoWpGJBKhakYkEqFqRiQSoWpGJBKhakYkEqFqRiQSoWpGJBKhakYkEqFqRiQSoWpGJBKhYO3Ga9mtD/VpCKBalYkIoFqViQigWpWJCKBalYkIoFqViQioUym/VqYkanyzcO2fnJxIjry+XEgNvtbkGRIBULUrEgFQtSsSAVC1KxIBULUrEgFQtSsSAVCzPbrFcTMzpdvjHi6mxPk6uzPSPuX44YcX4yMeL6cjkx4Ha7WzCjIBULUrEgFQtSsSAVC1KxIBULUrEgFQtSsSAVC4M269XEjE6Xb4y4Otvznlyd7Rlx/3LEIQtSsSAVC1KxIBULUrEgFQtSsSAVC1KxIBULUrEws9PlGyOuzvbov3N+MjHi+nI5MeB2u1swIEjFglQsSMWCVCxIxYJULEjFglQsSMWCVCxIxbJZryYGnC7fGHF1tmdOHz5eMOL56YH35Opsz4j7lyPmdH25nBgQpGJBKhakYkEqFqRiQSoWpGJBKhakYkEqFqRiocyHjxfocJyfTIx4/LJgRJCKBalYkIoFqViQigWpWJCKBalYkIoFqViQioUD9/z0gP6/glQsSMWCVCxIxYJULEjFglQsSMWCVCxIxYJULAz6axdGXLFnxPPTAyM+fLxgxPPTAzocQSoWpGJBKhakYkEqFqRiQSoWpGJBKhakYkEqlpu71wUDNuvVxIDP22NGfLr8xojnpwf0Y/cvR8zp8cuCOQWpWJCKBalYkIoFqViQigWpWJCKBalYkIoFqVgYdHP3umDAZr2aGPB5e8yIT5ffeE/uX46Y0+OXBXO63e4WDAhSsSAVC1KxIBULUrEgFQtSsSAVC1KxIBULUrEws5u71wUDNuvVxIDP22NGfH3do3/P7Xa3YEZBKhakYkEqFqRiQSoWpGJBKhakYkEqFqRiQSr2N76theaO/d3uAAAAAElFTkSuQmCC"></td><td style='text-align:center;vertical-align:middle; margin: 0.5em;border:1px #90999f solid;border-collapse:collapse'><img style='max-width: 100px; max-height:100px;display:inline' src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGwAAADkCAYAAAB9hcF4AAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAv1JREFUeAHtwbFtnYcBRtFL6kIUBTd25UaNOzZawZNoAtcawRXH0EZsOICadDaMGE+RIr5sEOAH8oB3ke8cz+cz1+T+48OZsNPj8w0XJJMikyKTIpMikyKTIpMikyKTIpMikyJX5vT4fMMB9x8fzlzQ6fH5hisikyKTIpMikyKTIpMikyKTIpMikyKTInHf//7GEd+//psymRSZFJkUmRSZFJkUmRSZFJkUmRSZFJkUmRSZFJkUmRSZFJkUmRSZFJkUmRSZFJkUmRSZFJkUmRSZFJkUmRSZFJkUmRSZFLkyr3775cwBr7jlkm4/vDtzwMunzzdckEyKTIpMikyKTIpMikyKTIpMikyKTIpcmddv7zji+9/fuKS7n3/gmsikyKTIpMikyKTIpMikyKTIpMikyKTIhd3+/nDmgDvmv5FJkUmRSZFJkUmRSZFJkUmRSZFJkUmRC7v7k/8rtx/enTng5dPnGw6QSZFJkUmRSZFJkUmRSZFJkUmRSZFJkYNuf384c8Adx3z948Qlvf7xnjKZFJkUmRSZFJkUmRSZFJkUmRSZFJkUOejuT9K+vL/niDdPJy7p9sO7MwfIpMikyKTIpMikyKTIpMikyKTIpMik+Oq3X84c8PrtHdfk5defuCZ3P//AEf/6xz85QiZFJkUmRSZFJkUmRSZFJkUmRSZFJsXzX9845O0dR3z948T878ikyKTIpMikyKTIpMikyKTIpMikyKTIlXn59SeuyZf39xzx5unEJcmkyKTIpMikyKTIpMikyKTIpMikyKTIpMikyKTIpMikyKTIpMikyKTIpMikyKTIpMikyKTIpMikyKTIpMikyKTIpMikyKTIpMikyKTIpMikyKTIpMikyKTIpMikyKT48unzDQfcf3w4c8DrH+855OnEEV/e33NJb55OXNLLp883HCCTIpMikyKTIpMikyKTIpMikyKTIpMiB50en2+4oPuPD2cOePN04pqcHp9vuCCZFJkUmRSZFJkUmRSZFJkUmRSZFJmU/wArG1RFECdKKwAAAABJRU5ErkJg"></td><td style='text-align:center;vertical-align:middle; margin: 0.5em;border:1px #90999f solid;border-collapse:collapse'><img style='max-width: 100px; max-height:100px;display:inline' src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIQAAADMCAYAAACyTwumAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAvtJREFUeAHtwTFLXGkAheF34MQijkUCsjKFk878rfT2S+xsXNLf3h+02+6SdImFCILCGi1Mcbc91cJXXBjxfZ7M88wu+f39HzOvyJe7zyt2SJBKkEqQSpBKkEqQSpBKkEqQSpBKkEqQSpBKkEqQSpBKkEqQSpBKkEqQSpBKkErYMV/uPq8YcL6eZgYcPm4Y8c9vfzFiurlY8YIFqQSpBKkEqQSpBKkEqQSpBKkEqQSpBKkEqQSpBKkEqQSpBKkEqQSpBKkEqQSpBKkEqQSpBKkEqQSpBKkEqQSpBKkEqQSpBKkEqQSpBKkEqQSpBKkEqQSpBKkEqQSpBKkEqQSpBKkEqQSpBKkEqQSpBKkEqQSphB1zvp5mdsjhzw0jTo/OZgZMNxcrdkiQSpBKkEqQSpBKkEqQSpBKkEqQSpBKeOGe9h4Y8oj+R5BKkEqQSpBKkEqQSpBKkEqQSpBKkEpY2Pl6mhnwtPfAiO39CUs6fNww4nZ9zUsWpBKkEqQSpBKkEqQSpBKkEqQSpBKkEnbM9v6EET/efWPE9v6EJR3+3DDi0/HpzIDLq2nFgoJUglSCVIJUglSCVIJUglSCVIJUglTCoPP1NDPg8HHDa7L/fMCID3cfGfHp+HRmwOXVtGJAkEqQSpBKkEqQSpBKkEqQSpBKkEqQSs7X08wLtr0/YcSPd98Ysb0/YcTbXweMeNx7YEmfjk9nBgSpBKkEqQSpBKkEqQSpBKkEqQSpBKnkdn3Nkg4fN+yS7f0Ju2T/+YARH+4+MuL7+6+MCFIJUglSCVIJUglSCVIJUglSCVIJUgkLu92/ZsT+8wFLevvrgCU9vXlgSd/ff2VJQSpBKkEqQSpBKkEqQSpBKkEqQSpBKpluLlYMOD06mxlwu75myM8NI/afDxjx9OaBXfL30Z8s6fJqWjEgSCVIJUglSCVIJUglSCVIJUglSCVIJQyabi5WDDg9OpsZcLu+ZsT3vX95TS6vphULClIJUglSCVIJUglSCVIJUglSCVIJUvkPwpxrMrRlaeEAAAAASUVORK5C"></td></tr></tbody></table>°persist_js_stateÂ¤mime©text/html²last_run_timestampËAØ@ò -¬rootassigneeÀ§cell_idÙ$57d0509d-5b15-4fb6-976f-96b24d3ffa4c§runtimeÍ»‚§erroredÂÙ$476521e1-fbdb-40f3-b133-2df5acca59bc‡¦queuedÂ±published_objects€§runningÂ¦output…¤bodyÙ[<div class="markdown"><h1>Packages</h1>
-<p>All needed Packages available :&#41; </p>
-</div>°persist_js_stateÂ¤mime©text/html²last_run_timestampËAØ@òã[´¬rootassigneeÀ§cell_idÙ$476521e1-fbdb-40f3-b133-2df5acca59bc§runtimeÏ   †»~d§erroredÂÙ$ca4d4e9f-5e7a-417f-944a-7f6a80ecd2ff‡¦queuedÂ±published_objects€§runningÂ¦output…¤bodyÙ*<div class="markdown"><p>Images</p>
-</div>°persist_js_stateÂ¤mime©text/html²last_run_timestampËAØ@ò’I€¬rootassigneeÀ§cell_idÙ$ca4d4e9f-5e7a-417f-944a-7f6a80ecd2ff§runtimeÎBÚß§erroredÂÙ$a3c995ff-b2e6-4b87-b801-347eaa07e72d‡¦queuedÂ±published_objects€§runningÂ¦output…¤bodyÙ=<div class="markdown"><p>Initialize random numbers</p>
-</div>°persist_js_stateÂ¤mime©text/html²last_run_timestampËAØ@ò‰?ò¬rootassigneeÀ§cell_idÙ$a3c995ff-b2e6-4b87-b801-347eaa07e72d§runtimeÎ§erroredÂÙ$958b8590-75b7-4a37-8661-5f230f6026a4‡¦queuedÂ±published_objects€§runningÂ¦output…¤bodyÙç<div class="markdown"><p>If you want to see <strong>all possible arrangements</strong> &#40;sometimes called permutations&#41;, tick the following box ğŸ‘‰ <bond def="show_all_permutations"><input type="checkbox"></bond></p>
-</div>°persist_js_stateÂ¤mime©text/html²last_run_timestampËAØ@òldV¬rootassigneeÀ§cell_idÙ$958b8590-75b7-4a37-8661-5f230f6026a4§runtimeÎ øX§erroredÂÙ$54177438-53b8-4a3a-94ed-70c64b607424‡¦queuedÂ±published_objects€§runningÂ¦output…¤bodyÙ2<div class="markdown"><h1>Distributing</h1>
-</div>°persist_js_stateÂ¤mime©text/html²last_run_timestampËAØ@òì»•¬rootassigneeÀ§cell_idÙ$54177438-53b8-4a3a-94ed-70c64b607424§runtimeÍ<§erroredÂÙ$79cd1cb8-569f-4d24-aef5-76d841bb6c65‡¦queuedÂ±published_objects€§runningÂ¦output…¤bodyÚ<div class="markdown"><h1>About the creators</h1>
-<p>This notebook was created by <strong>Gerhard Dorn</strong> in the context of the course <strong>Bayesian probability theory</strong>.</p>
-<p>The course is a free massive open online course &#40;MOOC&#41; available on the platform <a href="https://imoox.at/mooc/local/landingpage/course.php?shortname&#61;bayes&amp;lang&#61;en"><code>IMOOX</code></a></p>
-<img src="https://raw.githubusercontent.com/Captain-Bayes/images/main/adventure_map.gif" controls="" type="image/gif"></img>
-</div>°persist_js_stateÂ¤mime©text/html²last_run_timestampËAØ@ò‡ì¬rootassigneeÀ§cell_idÙ$79cd1cb8-569f-4d24-aef5-76d841bb6c65§runtimeÎ&k§erroredÂÙ$2faeccea-1e90-4eea-a1d7-7d644a6fa809‡¦queuedÂ±published_objects€§runningÂ¦output…¤bodyÚ=<table><tbody><tr><td style='text-align:center;vertical-align:middle; margin: 0.5em;border:1px #90999f solid;border-collapse:collapse'><img style='max-width: 100px; max-height:100px;display:inline' src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJAAAABICAYAAAAZK3z6AAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAO9JREFUeAHtwbFpHAEABdFZGLuBC30VOHcZbl8VKFZgBIcCeVWBos8iBPOef37+5Uq3436Sr3RwIUkGkgwkGUgykGQgyUCSgSQDSQaSDCQZSDKQZCDJQJKBJANJBpIMJBlIMpBkIMlAkoEP/p1c6Pl8Ip+7H7+52MmFJBlIMpBkIMlAkoEkA0kGkgwkGUgykGQgyUCSgSQDSQaSDCQZSDKQZCDJQJKBJANJBr79fxxc6PX95eQbu/34xTd3cCFJBpIMJBlIMpBkIMlAkoEkA0kGkgwkGUgykGQgyUCSgSQDSQaSDCQZSDKQZCDJQJLBB3iSEMH4QV9iAAAAAElFTkSuQmCC"></td></tr><tr><td style='text-align:center;vertical-align:middle; margin: 0.5em;border:1px #90999f solid;border-collapse:collapse'><img style='max-width: 100px; max-height:100px;display:inline' src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJAAAABICAYAAAAZK3z6AAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAOdJREFUeAHtwcFJQwEABcENbBliA8FUkbMV52gFgdTzrUAvj38I7Iw/33KygxNd7zfyrwsnkmQgyUCSgSQDSQaSDCQZSDKQZCDJQJKBJANJBpIMJBlIMpBkIMlAkoEkA0kGkgwkGQgcvLHX48k7u95vnOzgRJIMJBlIMpBkIMlAkoEkA0kGkgwkGUgykGQgyUCSgSQDSQaSDCQZSDKQZCDJQJKBJAOBC+c6yJ9ejydn+vj6vHAiSQaSDCQZSDKQZCDJQJKBJANJBpIMJBlIMpBkIMlAkoEkA0kGkgwkGUgykGQgyUCSwS+GDgydjJYeaAAAAABJRU5ErkJg"></td></tr><tr><td style='text-align:center;vertical-align:middle; margin: 0.5em;border:1px #90999f solid;border-collapse:collapse'><img style='max-width: 100px; max-height:100px;display:inline' src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJAAAABICAYAAAAZK3z6AAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAPZJREFUeAHtwTFNgwEABtFrciMqkAA+wAcDBnDBgJBqYC1qGJsUBbB8+QeSe8/PJznS5Xy9caAX8pfv94cTB5JkIMlAkoEkA0kGkgwkGUgykGQgyUCSgSQDSQaSDCQZSDKQZCDJQJKBJANJBpIMJBl4OV9v/GMf/G8vHOvu9evGgSQZSDKQZCDJQJKBJANJBpIMJBlIMpBkIMlAkoEkA0kGkgwkGUgykGQgyUCSgSQDSQY+PnniQJfz9UZ+9cGxnt/uTxxIkoEkA0kGkgwkGUgykGQgyUCSgSQDSQaSDCQZSDKQZCDJQJKBJANJBpIMJBlIMpBk8ANriBQY0ZPUBgAAAABJRU5ErkJg"></td></tr><tr><td style='text-align:center;vertical-align:middle; margin: 0.5em;border:1px #90999f solid;border-collapse:collapse'><img style='max-width: 100px; max-height:100px;display:inline' src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJAAAABICAYAAAAZK3z6AAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAQNJREFUeAHtwbFpmwEABtET3AIGbRJIpRmyhCEbqMkAaryAyTyuBN7BAxgygjKBq4+/MNx7vv2SI13utwdHOl/J1/79/nHiQJIMJBlIMpBkIMlAkoEkA0kGkgwkGUgykGQgyUCSgSQDSQaSDCQZSDKQZCDJQJKBJAMv99uD7+zzhW/tfOVIT3/fHxxIkoEkA0kGkgwkGUgykGQgyUCSgSQDSQaSDCQZSDKQZCDJQJKBJANJBpIMJBlIMpBk4NvPPycOdLnfHuRrny8c6eP59cSBJBlIMpBkIMlAkoEkA0kGkgwkGUgykGQgyUCSgSQDSQaSDCQZSDKQZCDJQJKBJANJBv8BUcMVKXgmmYQAAAAASUVORK5C"></td></tr><tr><td style='text-align:center;vertical-align:middle; margin: 0.5em;border:1px #90999f solid;border-collapse:collapse'><img style='max-width: 100px; max-height:100px;display:inline' src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJAAAABICAYAAAAZK3z6AAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAP9JREFUeAHtwbFpmwEABtET3CQaIEVqgzfwAp4hRSZRkT67CFS78ACaRCBPkDQff2G497y9yZGul8eTA72cyX/8+PPzxIEkGUgykGQgyUCSgSQDSQaSDCQZSDKQZCDJQJKBJANJBpIMJBlIMpBkIMlAkoEkA0kGXi+PJ9/Y7c639nLmUJ+/Pp4cSJKBJANJBpIMJBlIMpBkIMlAkoEkA0kGkgwkGUgykGQgyUCSgSQDSQaSDCQZSDKQZODrb08c6Hp5PMk/3e4c6v3v+cSBJBlIMpBkIMlAkoEkA0kGkgwkGUgykGQgyUCSgSQDSQaSDCQZSDKQZCDJQJKBJANJBl/S6RXp/WLRsQAAAABJRU5ErkJg"></td></tr></tbody></table>°persist_js_stateÂ¤mime©text/html²last_run_timestampËAØ@ò šA¬rootassigneeÀ§cell_idÙ$2faeccea-1e90-4eea-a1d7-7d644a6fa809§runtimeÎÈ”S½§erroredÂÙ$ae23d612-0be7-4c69-ab11-9158a8b215b2‡¦queuedÂ±published_objects€§runningÂ¦output…¤bodyÚÿ<div class="markdown"><h2>Factorial</h2>
-<p>The factorial is a function for integer numbers <span class="tex">$N$</span> that describes how many ways there are to arrange <span class="tex">$N$</span> different objects in a row. </p>
-<p>It is abbreviated by an <strong>exclamation mark</strong> and given by the formula</p>
-<blockquote>
-<p class="tex">$$N&#33; &#61; N\cdot &#40;N-1&#41; \cdot &#40;N-2&#41;  \cdots 2 \cdot 1$$</p>
-</blockquote>
-<p>Note, that <span class="tex">$0&#33; &#61; 1$</span></p>
-</div>°persist_js_stateÂ¤mime©text/html²last_run_timestampËAØ@òì¡ƒ¬rootassigneeÀ§cell_idÙ$ae23d612-0be7-4c69-ab11-9158a8b215b2§runtimeÍ6M§erroredÂÙ$f18c200e-bb37-4de2-8be9-26b8b4f28dc0‡¦queuedÂ±published_objects€§runningÂ¦output…¤bodyÙ-<div class="markdown"><h1>Drawing</h1>
-</div>°persist_js_stateÂ¤mime©text/html²last_run_timestampËAØ@òì¯:¬rootassigneeÀ§cell_idÙ$f18c200e-bb37-4de2-8be9-26b8b4f28dc0§runtimeÍØ§erroredÂÙ$70bb4336-ce69-4e3f-ba86-6ccc9064c2ce‡¦queuedÂ±published_objects€§runningÂ¦output…¤body °persist_js_stateÂ¤mimeªtext/plain²last_run_timestampËAØ@òí$l¬rootassigneeÀ§cell_idÙ$70bb4336-ce69-4e3f-ba86-6ccc9064c2ce§runtimed§erroredÂÙ$76b890f2-e995-440c-9470-5d8bbee5ddd9‡¦queuedÂ±published_objects€§runningÂ¦output…¤bodyÈß‰PNG
-
-   IHDR  ,  ,   y}u   gAMA  ±üa   sRGB ®Îé    cHRM  z&  €„  ú   €è  u0  ê`  :˜  pœºQ<  ]IDATxíÁ]]çyßáßı¬{í½g†3r$‘)J”(Q/–ƒXF\'±£¨ãã|€ ùdòr\Õ@İ ²İÆß$J¢(Q$ER’Ã™á¼í½×ZÏ]EÑƒ´@Ÿ ûÁş_—G²œ>ığ·ïıêŸşÓ_ÿê¿¼ÿÓßÿó?`Éœ¿xùÎ÷ô“÷ÿİ_ıõûßÿÑOşãdeõYhˆH%‘J8""•pDD*áˆˆTÂ©„#"R	GD¤ˆH%‘J8""•pDD*áˆˆTÂ©„#"R	GD¤ˆH%‘J8""•pDD*áˆˆTÂ©„#"R	GD¤ˆH%‘J8""•pDD*áˆˆTÂ‘¢òĞ{7Ÿún>î»ùˆv¸÷ôììøğTî»6Ë'ç¦›MWöOïï<~a¶²rB—š¦oG£¹·ãY;ÍYRut°úÑW·_İ¾÷å•G_İ~•¶ığşÅ»·n¾qòôÑùI2–MÌN=¾sóÚ'vüøÁ¥ÖÛr@DA	g¶vÎ]¾rëüKW¾<ùÊ-–”#Eìo~õù'oò/¿øÁ§¿ùÅX`ÓÙt|t|¼v||´6iKgz¼öèÎÍkG\ºóáo¾—Ì‚†ä99‚.\~í‹wşì/şkÛæç/_¹Å’r¤¨~>=Û=óôáıKnß|ƒ–`ˆ 1–N};=Ø?İ>;}`3Áƒ<9("¥f¸ôÚ7¦'Ç«,1GD¤ˆH%‘J8""•pDD*áˆˆTÂ©„#"R	GD¤ˆH%‘J8""•pdyXÉ –†a€!‹Ï‘¥e4$Â‚¥†TÀ‘¥e€¥ÀR€e–9A†CŸ#KËø_3–Oğ 0¤ˆH%‘J8""•pDD*áˆˆTÂ©„#"R	GD¤ˆH%‘J8""•pDD*áHQ£•Õã­óï½|íİ?vóÙ˜ršÃıİ³‡û»g÷éæ³	¤Ş@ëĞ4,´œ!ä9("€! rJY;}æéÚú™§«g&«ÇğÂÅËw/¼òÚçë›gvYbµ¶~zïÒÕ·?^]ßÜ{éõ·?¢€®›ï~vıİ»7>z÷îg×ßíæ³	¸Áj+#˜´Á"ëzcŞÃ¼7ú"r0A? Agñşåkßúğåkï|xö…(`mıôşÙs/>Ø:ÿâ}–˜#E­®ŸŞ_]?½éµ7?¦ÙÉñêï?øÙO»ÙlüèŞí+{;[à	&cX³Ğ¦s8Æ8`†QÂĞgˆÃDPÄæó\}÷½_¿÷£Ÿ¼ÿÒÕ7?AŠqDD*áˆˆTÂ©„#"R	GD¤ˆH%‘J8""•pDD*áˆˆTÂ©„#"R	GD¤ˆH%‘J8""•pDD*áˆˆTÂ©„#"R	GD¤ˆH%‘J8""•pDD*áˆˆTÂ©„#"R	GD¤ˆH%‘J8""•pDD*áˆˆTÂ©„#"R	GD¤ˆH%‘J8""•pDD*áˆˆTÂ©„#"R	GŠúŞ»ùt2ŸM'İl6¡€ùìdå`ogkvr´6½#²¤)êø`óáİ[¯muëµ‡wo½FCßµ_ßùâõ‡w>¿:=>ZCdI9RÔÑÁşé{ŸüÎÇ¿ùà‡ÿúƒR@DØ|z²2Ÿ¬Î§'+ˆ,)GŠºùèøğÙÆŞãíóîİ¾‚ˆãˆˆTÂ©„#"R	GD¤ˆH%‘J8""•pDD*áˆˆTÂ©„#"R	GD¤Î;9:Ø89<X?9:ØèfÓ1lß»}åéöƒ‹'Gëd€QF² ÁR2h<A›(f~|°¾·}ÿâ½/>}³›MÇĞ'³ÕSëÏVNm¬ZÆ’r–ØÓíï}ñé›÷oİxkÿÉö9
-8Üß=ûøÁİ—Ÿn?¸HAÉ‚ÆÀ-0Ê¥ÀSXN	ğf'Š9zrÿâ­ı½İ'ÛçW7Î<¥€ÍçÎm¿tõÍO^ºúæ§«Wß|Æ’r–ØÓíû?ÿão¾÷á¯şó¿ğåg×( çœò0ø0ô…Ğ´´)H”0JàÉXJfàxÀ¸¡˜Ã'÷/î>Ù>ßıñ·ß"e
-¸ôêµ'y°±zjıà¥«o~Â’r–Ø0M7Ÿ§'Çk'G‡ë,:#0Ê0‚eg|Ã(*†Şû~ğYÇ¸Ë1=9Zëæ³ñ0KÌ©„#"R	GD¤ˆH%‘J8""•pDD*áˆˆTÂ©„#"R	GD¤ˆH%œ
-ÌgÓÉáŞÎs»O·öv¶r
-øòãßçÉƒ»—gÇGkb€$3Š0`Ü£&5Ğ¤ „¶Öƒ”Xx)AëAÎFJA	³1d2Å$OÁÈ&SDÌÖvŞ½üåõß}'¥”) 5Í°qfkgıÌÖÎÆ™­'£ñdÊ‚s*0;>:õàË›oÜ¾ñáŸÜùôÃo÷İlL»^Ø}üğÂñÁş&…˜Ac[ĞXPB2˜´Á¤&mĞ$ŠH	<A“‚E×¤`ìF“‚œ)bÈ0ïaŞA#‚"š# IAEä“½Í¯¿øøÃ½İ³·>ıè]
-hGãÙ•·¾ıÇ+o½û‡Ñ›ßÆ“)Î©Àôähíáİ/®~ú›_üåï?øÙOg'Ç«,(#h,h-hSP‚L<X«ãÀ–N“ IÁˆrúl9óbƒ¦¡¨núlãÑígw?ÿìÚ´§ˆñÊêññÁ³ÉÊêÑ…—_ûbƒ­',8GD¤ˆH%‘J8""•pDD*áˆˆTÂ©„#"R	GD¤ˆH%‘J8""•pDD*áöìéãçw?¼°ûøá…Ã½İ³p°÷ä¹;Ÿ~ø';ï½4}C!É $£OÁÈƒqŒ=(Á€Q´fH!fĞ6£ eôÙÈä¶÷äÑù[×÷Şıö»_ßşüu
-èfÓÉÁŞÎs{;[¹œB[à	A	­Ã¤&£`¥Š0hR
-’!…$ƒÖƒ&£6 (bÖÁ¬ƒYy@
-r
-;z¶·ùğî­«7ÿğÏß»uıwï±ÀÌ 1pJhŒ=˜´ÁÊ8ÅeŞ MPR`æ=R˜#"R	GD¤ˆH%‘J8""•pDD*áˆˆTÂ©„#"R	GD¤ˆH%‘J81Ê2À’É("Y`†H9˜˜Q„ä¡÷n>LÖN×) ¥4¤Æ‡¦iúÔ490 YĞ$Œ"ÆŒ=˜47Ñ¤ uğ&)ÅÚxĞ˜Q‚§Ş÷Şyùæï~õç‡û»gÖ6ÎìRÀæs/<záâå;Ï_¼|gëÜ‹(È©€4nA›‚RV<X+£ m(Â,0ƒ”)&´4	FMP‚YïÏ¶ï¾|ôl÷ì­O®Ë¼í(àòÕ·>~ë½ïÿ²g[ç^|@AN%AcAcQF›‚¶	F´ÈÂ2À’QLDNÓÃ½ÍéŞşæIC¦ˆ”šáÜK¯Ü­Q˜#"R	GD¤ˆH%‘J8""•pDD*áˆˆTÂ©„#"R	GD¤ˆH%‘Jø£{·¯PĞŞã¯/œìmæn>N”Ğ4	¼6QL“ `cf`†™afDYlÉ ¥Àˆ0JÉÁBëæóñÑ³½Í§¾¾ğğ«/¯Pÿüÿáï(èé×w/?şêÖk³gO¶&)(¡I0ö`ÒcÌ‚ÚZ‡dcf¸·¸;;¥ô}Gß÷}OÎY\MLZ£IÁƒr6ººÁèzÚÁîÎÖ—Ÿ|øí“ã£µ;7®‹‚üçÿøGAÑÍÆt'“è¦ãqÊ”à¬Œ‚•Q°2
-Ì(ÂÌÀŒbRJxÛ2'”ÌgS`Fd±y‚¦F-DPD7Àtfä:ŒEölwgkz|xêŞ­Ï®µ£ÑŒ‚|çáıKÔZĞ¦ ME$ƒÆ Ià˜±À3#¥†¦i(!"H)af€!‹ÍÌ(*"H	’‹®ïæ£¾›8<X§0GD¤ˆH%‘J8""•pDD*áˆˆTÂ©„#"R	GD¤ˆH%‘J8""•p–XJ	³DJf”àÓ¸cÉYhÉ IÁ¨1£ˆ r@ˆ (g‰¥¦¡õo[RÓPB²DãMãˆ,2šcÀSƒ"†ltºú (g‰5MC;1Lpo)ÅŒo"‹Î4‰¢º!°r6zÊr–œ™af˜"ËÈø7bçˆˆTÂ©„#"R	GD¤ˆH%‘J8""•pDD*áˆˆTÂ©„#"R	GD¤äa çÌŠˆ ëæÃ@D ²¬)*çL×wtó¾›SB yò@DFdY9RTDfè{æó)³é)Ç©„#"R	GD¤ˆH%‘J8""•pDD*áˆˆTÂ©„#"R	GD¤ˆH%‘J8…e ƒƒQD6hÆ`”‘‡ù|NDš9%DrÎ´ŞÒ¬6”@†¡g"‘eä–Ã‚†™QBX0Î1 (e"fô}G2şßüo)54îxÛÒ¸ó2ş§àÿÎ€€€ù|F77r1ˆ,#§° "ŒÌ7‚",ÁAŠÊ9“s¦$÷–Ô443O(!"ˆÈÃ€u†È²rDD*áˆˆTÂ©„#"R	GD¤ˆH%‘J8""•pDD*áˆˆTÂ©„#"R	?uúÌS
-úŞ‡¾kû¾kó08%Ãè³‘,(Á 30£”€rdrÎ”äˆ YlÁ7‚oEä0" (+øF@PNDç?ş›¿ı{
-ÚÙ¾éñı;¯<ºwç•ıGç(`cÚÿjŞ'Ì(bìÁØƒ‘ƒ§ „œƒ®ïˆ)}O)}×Ñ÷=,¶a€n0úr¦ˆ!óúÁ(%€!CŸaÈƒ"†0ºrPœÿøoşöï)èÖõß½÷éoù'G‡ëû;ÎQ@˜v‰ùÅœgÖ'A“2(""ÓwC?0OF)‘3AD ‹­ŒÙ¦Ñ÷9CEõæÌzcŠˆ€È”ç/½şöu
-:Üß=ûàöÍk£ñä„B"  %Üè‡ ‚b"‚ˆ 2ÈÊC6ºŞèzW@Ùè2™…çˆˆTÂ©„#"R	GD¤ˆH%‘J8""•pDD*áˆˆTÂ©„#"R	GD¤Na£ÉÊÉú™­'Ï¿xùÎôèp†¡÷éñÑÚìäxmvr´‰r†.³Ş(Åƒ”‚dÈ 2D@ŠÈŠ	 " (#†€Õ'ÓÉÊêñduíh4Y9¡ §°Íç^Ø~õí?ı—S›»Wßıî¯)àè`oóÁíÏßøúöÍ7¾¾}ó¾ëÌãhığ†"<“6˜8LÚ@Wdè£ë¡ë Œ¾‡n€]†~€>%Ğgè3DPÌÆ™­‹W^ÿìâ«¯vîÒ+·)È)ìôÖ¹íµÍİË¯¿ıÑ0ô-ì<¼é£ÿşO?îç³ñöW_¾J×µ0Œ>ÇóÀŒ"ÆlL‚d™IÈâÊ]'sãdfDPD A19 `Ö³b ‚b6Îlí\yëİ?~ûÏÿêçoşéŸı7
-r
-ó¶{ÛÎY¥˜ùl:Y=µş¬§fCğ£”&ÁAR3"XXD@‚…Ö¸w“Õµ£õÓgn>wn›‚‘J8""•pDD*áˆˆTÂ©„#"R	GD¤ˆH%‘J8""•pDD*áˆˆTÂ©@;ÏNoÛ~ñÕk7öOÏç³	=Û;sôloóèÙŞ™ùôd…" Œ“ÎhR¢”ˆ øF …ôÌ:cÖÁ¬‡`q†lä ˜”R^;½¹{jãÌŞ©Ó›»íh<£€K¯¾qã…‹—ï¬ÚxFaN&«k‡/^yıÆduõèÅW^¿1½SÀW7¯ë«›ë«›¿3Ÿ¬P@Ÿ“991í‚ˆ9‚œùF ÿÿr6úÃ ı`‹+úCPLj¼áâËw^~ãë/_{û£õÍ³;púìs;[ç/ŞÛ|şÜ6…9˜¬:|ñÊ7^¼òúgü+£€?|ğ³ŸD`;ï_Ú}üğN²qÒFCs0A„!eË«qï_¸xùÎÛßış/¿óÃÿğşó/ß¥ ƒÀ,ŒòœJ˜Y€…ÅXJÙÌ³àß@PV "e˜Y˜Y¶”rJi`Á9""•pDD*áˆˆTÂ©„#"R	GD¤ˆH%‘J8""•pDD*áˆˆTÂ©„#"R‰ÿ³ƒì*}RÇ    IEND®B`‚°persist_js_stateÂ¤mime©image/png²last_run_timestampËAØ@ò ¤–¬rootassigneeÀ§cell_idÙ$76b890f2-e995-440c-9470-5d8bbee5ddd9§runtimeÎ 0»ò§erroredÂÙ$d2b8ddf9-4761-4f05-a19e-59db50ec5694‡¦queuedÂ±published_objects€§runningÂ¦output…¤bodyÚ­<div class="markdown"><h1>Arranging</h1>
-<img src="https://raw.githubusercontent.com/Captain-Bayes/images/main/pascal-100px.gif" controls="" type="image/gif" width="200"></img>
-<p>The question is, how many ways are there to arrange 5 different objects in a row?</p>
-<p>Try out some examples and reshuffle the bottles and jars by pressing the button ğŸ‘‰ <bond def="arrange"><input type="button" value="Arrange"></bond></p>
-</div>°persist_js_stateÂ¤mime©text/html²last_run_timestampËAØ@ò˜M¶¬rootassigneeÀ§cell_idÙ$d2b8ddf9-4761-4f05-a19e-59db50ec5694§runtimeÎ0îD§erroredÂÙ$2f28ba0a-56be-443a-8250-a837fd25f601‡¦queuedÂ±published_objects€§runningÂ¦output…¤body °persist_js_stateÂ¤mimeªtext/plain²last_run_timestampËAØ@ò N<h¬rootassigneeÀ§cell_idÙ$2f28ba0a-56be-443a-8250-a837fd25f601§runtimeÌÈ§erroredÂ±cell_dependenciesÙ$d71ed580-cdbc-11eb-08ab-11e87cff1cb9„´precedence_heuristic§cell_idÙ$d71ed580-cdbc-11eb-08ab-11e87cff1cb9´downstream_cells_map€²upstream_cells_map¯TableOfContentsÙ$57d0509d-5b15-4fb6-976f-96b24d3ffa4c„´precedence_heuristic§cell_idÙ$57d0509d-5b15-4fb6-976f-96b24d3ffa4c´downstream_cells_map€²upstream_cells_map„§Bottles‘Ù$2faeccea-1e90-4eea-a1d7-7d644a6fa809£rng‘Ù$a3c995ff-b2e6-4b87-b801-347eaa07e72d§arrange‘Ù$d2b8ddf9-4761-4f05-a19e-59db50ec5694§shuffleÙ$476521e1-fbdb-40f3-b133-2df5acca59bc„´precedence_heuristic§cell_idÙ$476521e1-fbdb-40f3-b133-2df5acca59bc´downstream_cells_map‹­Combinatorics£Pkg‘Ù$476521e1-fbdb-40f3-b133-2df5acca59bc¦Images­Distributions¥Plots§PlutoUI¦Random¬PlotMeasures°SpecialFunctions¨Markdown¬LaTeXStrings²upstream_cells_map†§@md_str§Pkg.add£Pkg‘Ù$476521e1-fbdb-40f3-b133-2df5acca59bc¬Pkg.activate©mktempdir¨getindexÙ$ca4d4e9f-5e7a-417f-944a-7f6a80ecd2ff„´precedence_heuristic§cell_idÙ$ca4d4e9f-5e7a-417f-944a-7f6a80ecd2ff´downstream_cells_map„¥fruit‘Ù$2faeccea-1e90-4eea-a1d7-7d644a6fa809¦bottle‘Ù$2faeccea-1e90-4eea-a1d7-7d644a6fa809¥bayes¦pascal‘Ù$d2b8ddf9-4761-4f05-a19e-59db50ec5694²upstream_cells_mapƒ§@md_str¦repeat¨getindexÙ$a3c995ff-b2e6-4b87-b801-347eaa07e72d„´precedence_heuristic§cell_idÙ$a3c995ff-b2e6-4b87-b801-347eaa07e72d´downstream_cells_map£rng‘Ù$57d0509d-5b15-4fb6-976f-96b24d3ffa4c²upstream_cells_mapƒ§@md_str¯MersenneTwister¨getindexÙ$958b8590-75b7-4a37-8661-5f230f6026a4„´precedence_heuristic§cell_idÙ$958b8590-75b7-4a37-8661-5f230f6026a4´downstream_cells_mapµshow_all_permutations‘Ù$2f28ba0a-56be-443a-8250-a837fd25f601²upstream_cells_mapŠ¤Core§@md_str¤Base«PlutoRunner¨CheckBox°PlutoRunner.Bond¯Core.applicable¥@bind¨Base.get¨getindexÙ$54177438-53b8-4a3a-94ed-70c64b607424„´precedence_heuristic§cell_idÙ$54177438-53b8-4a3a-94ed-70c64b607424´downstream_cells_map€²upstream_cells_map‚§@md_str¨getindexÙ$79cd1cb8-569f-4d24-aef5-76d841bb6c65„´precedence_heuristic§cell_idÙ$79cd1cb8-569f-4d24-aef5-76d841bb6c65´downstream_cells_map€²upstream_cells_mapƒ§@md_str¨Resource¨getindexÙ$2faeccea-1e90-4eea-a1d7-7d644a6fa809„´precedence_heuristic§cell_idÙ$2faeccea-1e90-4eea-a1d7-7d644a6fa809´downstream_cells_map‚§Bottles“Ù$57d0509d-5b15-4fb6-976f-96b24d3ffa4cÙ$2f28ba0a-56be-443a-8250-a837fd25f601Ù$76b890f2-e995-440c-9470-5d8bbee5ddd9¦Fruits²upstream_cells_map…¥fruit‘Ù$ca4d4e9f-5e7a-417f-944a-7f6a80ecd2ff¦bottle‘Ù$ca4d4e9f-5e7a-417f-944a-7f6a80ecd2ff©transpose¨download¤loadÙ$ae23d612-0be7-4c69-ab11-9158a8b215b2„´precedence_heuristic§cell_idÙ$ae23d612-0be7-4c69-ab11-9158a8b215b2´downstream_cells_map€²upstream_cells_map‚§@md_str¨getindexÙ$f18c200e-bb37-4de2-8be9-26b8b4f28dc0„´precedence_heuristic§cell_idÙ$f18c200e-bb37-4de2-8be9-26b8b4f28dc0´downstream_cells_map€²upstream_cells_map‚§@md_str¨getindexÙ$70bb4336-ce69-4e3f-ba86-6ccc9064c2ce„´precedence_heuristic§cell_idÙ$70bb4336-ce69-4e3f-ba86-6ccc9064c2ce´downstream_cells_map€²upstream_cells_map€Ù$76b890f2-e995-440c-9470-5d8bbee5ddd9„´precedence_heuristic§cell_idÙ$76b890f2-e995-440c-9470-5d8bbee5ddd9´downstream_cells_map€²upstream_cells_map‚§Bottles‘Ù$2faeccea-1e90-4eea-a1d7-7d644a6fa809¨imresizeÙ$d2b8ddf9-4761-4f05-a19e-59db50ec5694„´precedence_heuristic§cell_idÙ$d2b8ddf9-4761-4f05-a19e-59db50ec5694´downstream_cells_map§arrange‘Ù$57d0509d-5b15-4fb6-976f-96b24d3ffa4c²upstream_cells_map§@md_str¤Core¨Base.get¦pascal‘Ù$ca4d4e9f-5e7a-417f-944a-7f6a80ecd2ff¢=>¥@bind¤Base«PlutoRunner°PlutoRunner.Bond¨Resource¯Core.applicable¦Button¨getindexÙ$2f28ba0a-56be-443a-8250-a837fd25f601„´precedence_heuristic§cell_idÙ$2f28ba0a-56be-443a-8250-a837fd25f601´downstream_cells_map€²upstream_cells_map„§Bottles‘Ù$2faeccea-1e90-4eea-a1d7-7d644a6fa809§collectµshow_all_permutations‘Ù$958b8590-75b7-4a37-8661-5f230f6026a4¬permutations´cell_execution_orderŸÙ$476521e1-fbdb-40f3-b133-2df5acca59bcÙ$d71ed580-cdbc-11eb-08ab-11e87cff1cb9Ù$958b8590-75b7-4a37-8661-5f230f6026a4Ù$ae23d612-0be7-4c69-ab11-9158a8b215b2Ù$f18c200e-bb37-4de2-8be9-26b8b4f28dc0Ù$54177438-53b8-4a3a-94ed-70c64b607424Ù$79cd1cb8-569f-4d24-aef5-76d841bb6c65Ù$a3c995ff-b2e6-4b87-b801-347eaa07e72dÙ$ca4d4e9f-5e7a-417f-944a-7f6a80ecd2ffÙ$d2b8ddf9-4761-4f05-a19e-59db50ec5694Ù$2faeccea-1e90-4eea-a1d7-7d644a6fa809Ù$57d0509d-5b15-4fb6-976f-96b24d3ffa4cÙ$2f28ba0a-56be-443a-8250-a837fd25f601Ù$70bb4336-ce69-4e3f-ba86-6ccc9064c2ceÙ$76b890f2-e995-440c-9470-5d8bbee5ddd9©shortpath°combinatorics.jl®process_status¥ready¤pathÙD/home/runner/work/bayes-imoox/bayes-imoox/notebooks/combinatorics.jlªcell_orderŸÙ$d71ed580-cdbc-11eb-08ab-11e87cff1cb9Ù$d2b8ddf9-4761-4f05-a19e-59db50ec5694Ù$57d0509d-5b15-4fb6-976f-96b24d3ffa4cÙ$958b8590-75b7-4a37-8661-5f230f6026a4Ù$2f28ba0a-56be-443a-8250-a837fd25f601Ù$ae23d612-0be7-4c69-ab11-9158a8b215b2Ù$f18c200e-bb37-4de2-8be9-26b8b4f28dc0Ù$54177438-53b8-4a3a-94ed-70c64b607424Ù$79cd1cb8-569f-4d24-aef5-76d841bb6c65Ù$476521e1-fbdb-40f3-b133-2df5acca59bcÙ$a3c995ff-b2e6-4b87-b801-347eaa07e72dÙ$ca4d4e9f-5e7a-417f-944a-7f6a80ecd2ffÙ$2faeccea-1e90-4eea-a1d7-7d644a6fa809Ù$70bb4336-ce69-4e3f-ba86-6ccc9064c2ceÙ$76b890f2-e995-440c-9470-5d8bbee5ddd9«cell_inputsÙ$d71ed580-cdbc-11eb-08ab-11e87cff1cb9ƒ§cell_idÙ$d71ed580-cdbc-11eb-08ab-11e87cff1cb9¤code±TableOfContents()«code_foldedÂÙ$57d0509d-5b15-4fb6-976f-96b24d3ffa4cƒ§cell_idÙ$57d0509d-5b15-4fb6-976f-96b24d3ffa4c¤codeÙ-begin
-	arrange
-	
-	shuffle(rng, Bottles)
-	
-end«code_foldedÃÙ$476521e1-fbdb-40f3-b133-2df5acca59bcƒ§cell_idÙ$476521e1-fbdb-40f3-b133-2df5acca59bc¤codeÚÂbegin
-	try
-		using PlutoUI
-		using Plots, Plots.PlotMeasures
-		#using LinearAlgebra
-		#using SparseArrays
-		using SpecialFunctions
-		#using StatsBase
-		using Random
-		using Distributions
-		using LaTeXStrings	
-		using Markdown
-		using Combinatorics
-		using Images
-		
-		md""" 
-		# Packages
-		
-		All needed Packages available :) """
-	catch
-		import Pkg
-		Pkg.activate(mktempdir())
-		Pkg.add("PlutoUI")
-		Pkg.add("Plots")
-		#Pkg.add("LinearAlgebra")
-		#Pkg.add("SparseArrays")
-		Pkg.add("SpecialFunctions")
-		#Pkg.add("StatsBase")
-		Pkg.add(["Distributions","Random", "LaTeXStrings", "Markdown", "Combinatorics", "Images"])
-		
-		using PlutoUI
-		using Plots, Plots.PlotMeasures
-		#using LinearAlgebra
-		#using SparseArrays
-		using SpecialFunctions
-		#using StatsBase
-		using Random
-		using Distributions
-		using LaTeXStrings
-		using Combinatorics
-		using Images
-		md""" 
-		# Packages
-		
-		Some Package sources not added, this will take approx. 3 minutes"""
-	end
-	
-end«code_foldedÃÙ$ca4d4e9f-5e7a-417f-944a-7f6a80ecd2ffƒ§cell_idÙ$ca4d4e9f-5e7a-417f-944a-7f6a80ecd2ff¤codeÚ¹begin
-	bayes = "https://raw.githubusercontent.com/Captain-Bayes/images/main/bayes_100px.gif"
-	pascal = "https://raw.githubusercontent.com/Captain-Bayes/images/main/pascal-100px.gif"
-	fruit = repeat([""],5,1)
-	fruit[1] = "https://raw.githubusercontent.com/Captain-Bayes/images/main/Plum-export.png"
-	fruit[2] = "https://raw.githubusercontent.com/Captain-Bayes/images/main/Apricot-export.png"
-	fruit[3] = "https://raw.githubusercontent.com/Captain-Bayes/images/main/Strawberry_export.png" 
-	fruit[4] = "https://raw.githubusercontent.com/Captain-Bayes/images/main/blue_berry-export.png"
-	fruit[5] = "https://raw.githubusercontent.com/Captain-Bayes/images/main/lemon-export.png"
-	bottle = repeat([""],5,1)
-	bottle[1] = "https://raw.githubusercontent.com/Captain-Bayes/images/main/brown_jar-export.png"
-	bottle[2] = "https://raw.githubusercontent.com/Captain-Bayes/images/main/red_jar-export.png" 
-	bottle[3] = "https://raw.githubusercontent.com/Captain-Bayes/images/main/blue_jar-export.png"
-	bottle[4] = "https://raw.githubusercontent.com/Captain-Bayes/images/main/green_bottle-export.png"
-	bottle[5] = "https://raw.githubusercontent.com/Captain-Bayes/images/main/purple_bottle-export.png"
-	
-	md""" Images"""
-end«code_foldedÃÙ$a3c995ff-b2e6-4b87-b801-347eaa07e72dƒ§cell_idÙ$a3c995ff-b2e6-4b87-b801-347eaa07e72d¤codeÙGbegin
-	rng = MersenneTwister(3)
-	md""" Initialize random numbers"""
-end«code_foldedÃÙ$958b8590-75b7-4a37-8661-5f230f6026a4ƒ§cell_idÙ$958b8590-75b7-4a37-8661-5f230f6026a4¤codeÙ¡md"""
-If you want to see **all possible arrangements** (sometimes called permutations),
-tick the following box ğŸ‘‰ $(@bind show_all_permutations CheckBox())
-"""«code_foldedÂÙ$54177438-53b8-4a3a-94ed-70c64b607424ƒ§cell_idÙ$54177438-53b8-4a3a-94ed-70c64b607424¤code¸md"""
-# Distributing
-"""«code_foldedÃÙ$79cd1cb8-569f-4d24-aef5-76d841bb6c65ƒ§cell_idÙ$79cd1cb8-569f-4d24-aef5-76d841bb6c65¤codeÚ‘md"""
-# About the creators
-
-This notebook was created by **Gerhard Dorn** in the context of the course **Bayesian probability theory**.
-
-The course is a free massive open online course (MOOC) available on the platform [`IMOOX`](https://imoox.at/mooc/local/landingpage/course.php?shortname=bayes&lang=en)
-
-$(Resource("https://raw.githubusercontent.com/Captain-Bayes/images/main/adventure_map.gif"))
-"""«code_foldedÃÙ$2faeccea-1e90-4eea-a1d7-7d644a6fa809ƒ§cell_idÙ$2faeccea-1e90-4eea-a1d7-7d644a6fa809¤codeÙfbegin
-	Bottles = transpose(transpose.(load.(download.(bottle))))
-	Fruits = load.(download.(fruit))
-end«code_foldedÂÙ$ae23d612-0be7-4c69-ab11-9158a8b215b2ƒ§cell_idÙ$ae23d612-0be7-4c69-ab11-9158a8b215b2¤codeÚ4md"""
-## Factorial
-The factorial is a function for integer numbers ``N`` that describes how many ways there are to arrange ``N`` different objects in a row. 
-
-It is abbreviated by an **exclamation mark** and given by the formula
-
-> $N! = N\cdot (N-1) \cdot (N-2)  \cdots 2 \cdot 1$
-
-Note, that ``0! = 1``
-"""«code_foldedÃÙ$f18c200e-bb37-4de2-8be9-26b8b4f28dc0ƒ§cell_idÙ$f18c200e-bb37-4de2-8be9-26b8b4f28dc0¤code³md"""
-# Drawing
-"""«code_foldedÃÙ$70bb4336-ce69-4e3f-ba86-6ccc9064c2ceƒ§cell_idÙ$70bb4336-ce69-4e3f-ba86-6ccc9064c2ce¤code «code_foldedÂÙ$76b890f2-e995-440c-9470-5d8bbee5ddd9ƒ§cell_idÙ$76b890f2-e995-440c-9470-5d8bbee5ddd9¤code¼imresize(Bottles[1],300,300)«code_foldedÂÙ$d2b8ddf9-4761-4f05-a19e-59db50ec5694ƒ§cell_idÙ$d2b8ddf9-4761-4f05-a19e-59db50ec5694¤codeÚmd"""
-# Arranging
-$(Resource(pascal, :width => 200))
-The question is, how many ways are there to arrange 5 different objects in a row?
-
-Try out some examples and reshuffle the bottles and jars by pressing the button ğŸ‘‰ $(@bind arrange Button("Arrange"))
-
-"""«code_foldedÃÙ$2f28ba0a-56be-443a-8250-a837fd25f601ƒ§cell_idÙ$2f28ba0a-56be-443a-8250-a837fd25f601¤codeÙ<if show_all_permutations
-	collect(permutations(Bottles))
-end«code_foldedÃ«notebook_idÙ$c5928aac-f119-11eb-0169-e536c59a0167«in_temp_dirÂ
