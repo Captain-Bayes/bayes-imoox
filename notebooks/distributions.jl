@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.16.1
+# v0.15.1
 
 using Markdown
 using InteractiveUtils
@@ -577,21 +577,25 @@ begin
 )
 end
 
+# ╔═╡ 2fd9b8e0-8450-11eb-3bb3-47a5129b79d4
+hint(text) = Markdown.MD(Markdown.Admonition("hint", "Hint", [text]));
+#blue
+
 # ╔═╡ 3554f46b-3a86-4e97-8c02-4911f8f0776a
 	TableOfContents()
 
 
-# ╔═╡ 1bf9a33d-da46-4dec-8c17-75243c3b84a9
-begin
-keep_working(text=md"The answer is not quite right.", title="Keep working on it!") = Markdown.MD(Markdown.Admonition("danger", title, [text]));
+# ╔═╡ 4dee8720-8450-11eb-2c00-ff79035aeddb
+keep_working(text=md"The answer is not quite right.") = Markdown.MD(Markdown.Admonition("danger", "Keep working on it!", [text]));
+#red
 
-almost(text, title="Almost there!") = Markdown.MD(Markdown.Admonition("warning", title, [text]));
+# ╔═╡ 5768fb00-8450-11eb-0960-b3f6ca4b4bb8
+almost(text) = Markdown.MD(Markdown.Admonition("warning", "Almost there!", [text]));
+#brown
 
-hint(text, title ="Hint") = Markdown.MD(Markdown.Admonition("hint", title, [text]));
-	
-correct(text=md"Great! You got the right answer! Let's move on to the next section.", title="Got it!") = Markdown.MD(Markdown.Admonition("correct", title, [text]));
-md" Definition of Boxes"
-end
+# ╔═╡ 4027c390-8450-11eb-2bb2-c7f245b545e6
+correct(text=md"Great! You got the right answer!") = Markdown.MD(Markdown.Admonition("correct", "Got it!", [text]));
+#green
 
 # ╔═╡ 92552af0-844f-11eb-23fa-5711044ae250
 if !(is_num & !is_discontinuous & !is_no_problem)
@@ -629,5 +633,8 @@ end
 # ╟─44d4d19e-b0d2-4768-bc6b-eb63affc3898
 # ╟─73555af0-8353-11eb-215d-d3578a6f1e2e
 # ╟─02f9fccb-594a-4594-b3f1-900f0847e01e
+# ╟─2fd9b8e0-8450-11eb-3bb3-47a5129b79d4
 # ╟─3554f46b-3a86-4e97-8c02-4911f8f0776a
-# ╟─1bf9a33d-da46-4dec-8c17-75243c3b84a9
+# ╟─4dee8720-8450-11eb-2c00-ff79035aeddb
+# ╟─5768fb00-8450-11eb-0960-b3f6ca4b4bb8
+# ╟─4027c390-8450-11eb-2bb2-c7f245b545e6
