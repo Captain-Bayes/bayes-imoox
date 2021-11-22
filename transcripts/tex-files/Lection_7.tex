@@ -10,10 +10,11 @@
 \usepackage{float}
 \usepackage{authblk}
 \renewcommand\Authfont{\fontsize{12}{14.4}\selectfont}
-\title{Bayesian probability theory - Lesson 7}
+\title{Bayesian probability theory - Lesson 7:\\
+Parameter and model estimation and classification}
 
-\author{Wolfgang von der Linden}
-\date{Transscript}
+\author{Wolfgang von der Linden, Gerhard Dorn, Johanna Moser}
+\date{Transcript}
 
 \begin{document}
 \setlength{\parindent}{0pt}
@@ -40,7 +41,7 @@ Let there be a \textit{set of measured data $d_{\nu}$} that depend on some \text
 	\centering
 	\includegraphics[width=0.75\textwidth]{7_1.png}
 \end{figure}
-These data points can be represented in an x-y diagram. 
+These data points can be represented in an $x$-$y$ diagram. 
 The measurements are in general not exact but have some uncertainty that obey a certain distribution.
 In most cases like in the situation of Captain Venn these
 are additive \textbf{Gaussian uncertainties}.
@@ -57,7 +58,7 @@ Now the goals of regression are twofold:\\
 
 Firstly \textbf{Parameter estimation}: We would like to investigate the relation between 
 measurement values $d_{\nu}$ and pivot points $x_{\nu}$ and therefore \textit{determine
-the model and its parameters $\vec{a}$, their uncertainty $\sigma_{\vec{a}}$ and covariance $CoV(a_i,a_j)$}. 
+the model and its parameters $\vec{a}$, their uncertainty $\sigma_{\vec{a}}$ and covariance $\text{CoV}(a_i,a_j)$}. 
 In the case of Captain Venn and his starpath problem the goal is to find 
 the laws of how the stars or rather the earth move. The model could
 include the rotation of the earth around a tilted axis with respect to
@@ -83,7 +84,7 @@ laws or is obvious due to a visible trend of the data.
 A very prominent choice are \textbf{linear models} in which
 one uses a linear combination of suitable ansatz functions $\phi_i (x)$ with
 the coefficients being the parameters. 
-\[f(x,\vec{a})=\sum_i \Phi_i(x)a_i\]
+\[f(x,\vec{a})=\sum_i \phi_i(x)a_i\]
 
 Based on the model function, a \textbf{cost function $\chi^2_{\vec{a}}$} is introduced that \textit{quantifies deviation between 
 model function and data}. A very common cost
@@ -97,7 +98,7 @@ Outliers thus have a very strong impact on the cost function.\\
 In the next step the cost function is \textit{minimized} with respect to the model parameters. This 
 is the so-called \textbf{least squares approach}. In the case of linear regression in combination 
 with a quadratic cost function the
-minimization leads to a matrix equation where the columns of the matrix M are given by the ansatz
+minimization leads to a matrix equation where the columns of the matrix $M$ are given by the ansatz
 functions evaluated at the pivot points.\\%7_2
 \begin{figure}[H]
 	\centering
@@ -124,21 +125,21 @@ Finally, we compute the corresponding probabilities.
 We will see at the end of this section when and under which conditions the previously presented statistical procedure is justified. \\
 
 \section*{Probability density of the parameters}
-The \textbf{probability density of the parameters} in the light of the measured data is the \textbf{posterior probability} that can
+The \textbf{probability density of the parameters} $\vec{a}$ in the light of the measured data $\boldsymbol{D}$ is the \textbf{posterior probability} that can
 be simplified by Bayes theorem.
-\begin{equation*}\boxed{p(\vec{a}|D,X)=\frac 1Z p(D|\vec{a},X)p(\vec{a})
+\begin{equation*}\boxed{p(\vec{a}|\boldsymbol{D},X)=\frac 1Z p(\boldsymbol{D}|\vec{a},X)p(\vec{a})
 }\end{equation*}\\
- The normalization Z is independent of the parameters and can be determined in the end.
+ The normalization $Z$ is independent of the parameters and can be determined in the end.
 The prior probability $p(\vec{a})$ encodes our \textit{knowledge about the parameters before we take into account the experimental data}.
 If nothing is known at all, the most ignorant prior is the \textbf{uniform prior}; maybe within
 certain parameter ranges. We will discuss in the next unit how ignorant
 priors can be determined purely based on considerations of symmetries and
 invariances.\\
-A crucial element in Bayes theorem is the \textbf{likelihood} $p(D|\vec{a},X)$.
+A crucial element in Bayes theorem is the \textbf{likelihood} $p(\boldsymbol{D}|\vec{a},X)$.
 If the measurement errors are uncorrelated the likelihood factorizes.
-\[ p(D|\vec{a},X)=\prod_{\nu} p(d_{\nu}|\vec{a},x_{\nu})\]
+\[ p(\boldsymbol{D}|\vec{a},X)=\prod_{\nu} p(\boldsymbol{d}_{\nu}|\vec{a},x_{\nu})\]
 In the case of additive Gaussian noise with noise level $\sigma_v$ we can express the
-likelihood of one data point given by the model function f and the parameters $\vec{a}$.%7_3
+likelihood of one data point given by the model function $f$ and the parameters $\vec{a}$.%7_3
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.75\textwidth]{7_3.png}
@@ -146,13 +147,13 @@ likelihood of one data point given by the model function f and the parameters $\
 Since we are interested in the probability density of the parameters $\vec{a}$,%%
 we only need the terms that depend on them. We can replace the product
 of the exponential by the exponential of the sum.
-\begin{equation*}\boxed{ p(D|\vec{a},X)\propto \exp\left[-\sum_{\nu}\frac{d_{\nu}-f(x_{\nu}.\vec{a})^2}{2\sigma_{\nu}^2}\right]=\exp\left[-\frac 12 \chi_{\vec{a}}^2\right]}\end{equation*}\\
+\begin{equation*}\boxed{ p(\boldsymbol{D}|\vec{a},X)\propto \exp\left[-\sum_{\nu}\frac{\boldsymbol{d}_{\nu}-f(x_{\nu},\vec{a})^2}{2\sigma_{\nu}^2}\right]=\exp\left[-\frac 12 \chi_{\vec{a}}^2\right]}\end{equation*}\\
 
 This misfit term $\chi_{\vec{a}}^2$ corresponds to the \textbf{least squares cost function} which we
 saw in the classical regression procedure. 
 If there are uncertainties $\sigma_{x,\nu}, \sigma_{y,\nu}$ in both coordinates and if the regression
-function is linear in x $f(x,\vec{a})=a_1x+a_2$ then the misfit is given by the following expression:
-\[\chi_{\vec{a}}^2=\sum_{\nu}\frac{(d_{\nu}-a_2-a_1x_{\nu})^2}{\sigma_{y,\nu}^2+a_1^2\sigma_{x,\nu}^2}\]
+function is linear in $x$ $f(x,\vec{a})=a_1x+a_2$ then the misfit is given by the following expression:
+\[\chi_{\vec{a}}^2=\sum_{\nu}\frac{(\boldsymbol{d}_{\nu}-a_2-a_1x_{\nu})^2}{\sigma_{y,\nu}^2+a_1^2\sigma_{x,\nu}^2}\]
 
 In summary we find the following probability density function for the parameters:
 %7_4
@@ -202,7 +203,7 @@ values are not. This can be seen in the covariance.\\
 
 \section*{Predicting values}
 Now we turn to the predictive aspect of regression. We are interested in the
-function value $y^*$ at a new position $x^*$, given the data $D$. If the pivot point
+function value $y^*$ at a new position $x^*$, given the data $\boldsymbol{D}$. If the pivot point
 $x^*$ lies \textit{within the set of given pivot points}, we call this type of prediction an
 \textbf{interpolation}, otherwise \textbf{extrapolation}. The naive and inconsistent approach
 would be to replace the unknown parameters by the estimated obtained before 
@@ -213,13 +214,13 @@ at the desired position. \\%7_8
 	\includegraphics[width=0.75\textwidth]{7_8.png}
 \end{figure}
 The correct approach, however, is to \textit{determine the probability for the function 
-value $y^*$ given the data, so $P(y^*|D,X)$}.
-We can compute $p(y^*|\vec{a},D,X)=\delta(y^*-f(x^*,\vec{a}))$ if we know the parameters. So we introduce
+value $y^*$ given the data, so $P(y^*|\boldsymbol{D},X)$}.
+We can compute $p(y^*|\vec{a},\boldsymbol{D},X)=\delta(y^*-f(x^*,\vec{a}))$ if we know the parameters. So we introduce
 them via the marginalization rule.%
-\begin{equation*}\boxed{p(y^*|D,X)=\int dV_{\vec{a}}p(y^*|\vec{a},D,X)p(\vec{a}|D,X)
+\begin{equation*}\boxed{p(y^*|\boldsymbol{D},X)=\int \text{d}V_{\vec{a}}p(y^*|\vec{a},\boldsymbol{D},X) \cdot p(\vec{a}|\boldsymbol{D},X)
 }\end{equation*}\\
  Then the moments of $y^*$ are 
- \begin{equation*}\boxed{\langle (y^*)^n\rangle=\int dV_{\vec{a}}(f(x^*,\vec{a}))^np(\vec{a}|D,X)
+ \begin{equation*}\boxed{\langle (y^*)^n\rangle=\int \text{d}V_{\vec{a}}(f(x^*,\vec{a}))^n \cdot p(\vec{a}|\boldsymbol{D},X)
 }\end{equation*}\\
 The result becomes particularly simple if the model function depends
 linearly of the parameters, so $f(x,\vec{a})=M(x)\vec{a}$, where $M(x)$ is a row-vector containing the ansatz functions $M=(\Phi_1(x),\Phi_2(x),...)$
@@ -229,7 +230,7 @@ of the ansatz functions with the mean of the parameters}.
 So in the linear case, this is in agreement with the naive approach, with the
 parameters replaced by the posterior mean.
 For the variance of the regression value we obtain
-\[\langle (\Delta y^*)^2\langle = M(x^*)CM^T(x^*)\]
+\[\langle (\Delta y^*)^2\rangle = M(x^*)CM^T(x^*)\]
 The square root of the variance quantifies the uncertainty of the regression
 value.\\%
 
@@ -278,14 +279,14 @@ a linear function.\\%7_12
 
 The function depends on some parameters $\vec{a}$. 
 \[y_{border}=f(x,\vec{a})=M(x)\vec{a}\]
-Here $M_{ij}(x)=\Phi_j(x_i)$ defines the model, or rather
+Here $M_{ij}(x)=\phi_j(x_i)$ defines the model, or rather
 the \textit{set of ansatz functions that are linearly combined weighted by the parameters}. For instance we can have a linear model or a quadratic model. We can also construct an implicit function. \[f(x,y,\vec{a})=M(x,y)\vec{a}=0\]
 When we insert the position $(x_i|y_i)$ of the fish, the implicit function yields 0 if the fish resides exactly on the boundary. Otherwise the sign of the function tells us on which side of the boundary the fish is located. 
-In order to derive the probability density for the model $p(\vec{a}|X,M,C)$
-parameters given positions $X$ and labels $C$ of all fish and the model $M$, we proceed in a similar manner as in the regression case. Bayes’ theorem yields a proportionality to the product of likelihood and prior.\[p(\vec{a}|X,M,C)\propto p(X|\vec{a},M,C)p(\vec{a}|M)\]
+In order to derive the probability density for the model $p(\vec{a}|\boldsymbol{X},M,\boldsymbol{C})$
+parameters given positions $\boldsymbol{X}$ and labels $\boldsymbol{C}$ of all fish and the model $M$, we proceed in a similar manner as in the regression case. Bayes’ theorem yields a proportionality to the product of likelihood and prior.\[p(\vec{a}|\boldsymbol{X},M,\boldsymbol{C})\propto p(\boldsymbol{X}|\vec{a},M,\boldsymbol{C})p(\vec{a}|M)\]
 
-The classification label $C$ has been omitted in the conditional part of the prior as it has no implications. 
-Moreover we assume that the likelihood terms are \textit{uncorrelated} resulting in a product form. \[p(X|\vec{a},M,C)=\prod_{\nu}p(x_{\nu}|\vec{a},M,C_{\nu}\]
+The classification label $\boldsymbol{C}$ has been omitted in the conditional part of the prior as it has no implications. 
+Moreover we assume that the likelihood terms are \textit{uncorrelated} resulting in a product form. \[p(\boldsymbol{X}|\vec{a},M,\boldsymbol{C})=\prod_{\nu}p(\boldsymbol{x}_{\nu}|\vec{a},M,\boldsymbol{C}_{\nu}\]
 The individual likelihood factors are the \textit{probability to find a fish of a certain species at a specific position}.
 Here, the model and the corresponding parameters are important because they define the boundary of the fish reserves.
 The likelihood is a \textit{property of the fish} and is related to why and how they stick to their reserve. 
@@ -311,8 +312,8 @@ The likelihood then reads%7_14
 where $\frac {1}{\beta}$ defines the width of the ``No Fish’s Land'' in which the probability
 drops continuously to zero. 
 Its area is assumed to be \textit{very small} and the logistic function is almost a step function. 
-Hence the meaning of the \textbf{normalization} Z is the \textit{size of the area of the two reserves}. For simplicity, we assume that the dependence of these areas on the parameters $\vec{a}$ and on the fish label $C_i$ can be ignored.
-Then Z is an unimportant constant.\\
+Hence the meaning of the \textbf{normalization} $Z$ is the \textit{size of the area of the two reserves}. For simplicity, we assume that the dependence of these areas on the parameters $\vec{a}$ and on the fish label $C_i$ can be ignored.
+Then $Z$ is an unimportant constant.\\
 It happens that not all fish abide by the rules. $\epsilon$ is the proportion of such fish and is related to the \textbf{slack variable}
 in optimization problems. 
 $\epsilon$ makes the classification \textbf{outlier tolerant}.
@@ -347,7 +348,7 @@ other data sets.}\\
 Another important question is the \textbf{model selection}, which answers the question ``\textit{What is the
 probability that the correct form of the border is given by the model b, if we
 know the position of all fish and their labels?}'' Here, Bayes theorem gives the following expression 
-\[P(M|X,C)=\frac{1}{Z'}p(X|M,C)P(M,C)\]
+\[P(M|\boldsymbol{X},\boldsymbol{C})=\frac{1}{Z'}p(\boldsymbol{X}|M,\boldsymbol{C}) \cdot P(M,\boldsymbol{C})\]
 where the normalization can easily be computed in the end.
 Now we use the marginalization rule to introduce the model parameters.
 As long as we do not know better, we assume a uniform prior within certain
@@ -376,4 +377,17 @@ notebooks where you can also work on the boundary issue of Claire and
 Makabe.
 Please feel free to ask questions in the forum and feel encouraged to test your
 knowledge in the quiz!
+
+
+\vspace{2cm}
+\begin{minipage}[t]{1\textwidth}
+	\raggedleft
+	\centering
+	\includegraphics[width = 0.20\textwidth]{CC-BY_icon}
+	\vspace{0.2cm}
+	
+	\centering
+	{\large ITPCP, TU Graz} \\
+	https://creativecommons.org/licenses/by/4.0/legalcode
+\end{minipage}
 \end{document}
