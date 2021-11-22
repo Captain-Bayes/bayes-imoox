@@ -10,11 +10,10 @@
 \usepackage{float}
 \usepackage{authblk}
 \renewcommand\Authfont{\fontsize{12}{14.4}\selectfont}
-\title{Bayesian probability theory - Lesson 2:\\
-Discrete probability distributions and samples}
+\title{Bayesian probability theory - Lesson 2}
 
-\author{Wolfgang von der Linden, Gerhard Dorn, Johanna Moser}
-\date{Transcript}
+\author{Wolfgang von der Linden}
+\date{Transscript}
 
 \begin{document}
 \setlength{\parindent}{0pt}
@@ -41,23 +40,23 @@ d) Just take a random number.
 }}\\
 
 In principle you have to assign a number to each outcome. The number that is natural in this example is the number of pennies, which is rewarded for each task of the day. 
-So, the range of the random variable in this example is $\{1,3,4,6\}$  is one three four and six. %%
+So, the range of the random variable in this example is $\{1,3,4,6\}$  is one three four and six.%%
 Now the outcomes are represented on the abscissa and we can plot the corresponding probabilities derived by Bernoulli on the ordinate. Remember that probabilities add up to one.
-The diagram, depicting probabilities over the random variable is called \textbf{``probability mass function"} and is one way to illustrate a discrete probability distribution.
+The diagram, depicting probabilities over the random variable is called \textbf{"probability mass function"} and is one way to illustrate a discrete probability distribution.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.75\textwidth]{2_2.png}
 \end{figure}
 Depending on the order in which we assign the outcomes to real numbers, we obtain different probability distributions!
 To complete the review of the last unit, remember the generalization of outcomes to \textbf{events} which allows us to formulate questions like 
-``What is the probability for Sailing OR Fishing".\\
+"What is the probability for Sailing OR Fishing".\\
 
 \fbox{\parbox{\linewidth}{\textbf{Question 2.} What is the probability for ``Sailing'' or ``Fishing''?\\
-a) $P$(Sailing)+$P$(Fishing)\\
-b) $P$(Sailing)$\cdot$ $P$(Fishing)\\
-c) 1- ($P$(Free Day)+$P$(Shrubbing))\\
-d) $P$(Sailing) + (1 - $P$(Fishing))\\
-e) $P$(Sailing) - $P$(Fishing)
+a) P(Sailing)+P(Fishing)\\
+b) P(Sailing)*P(Fishing)\\
+c) 1- (P(Free Day)+P(Shrubbing))\\
+d) P(Sailing) + (1 - P(Fishing))\\
+e) P(Sailing) - P(Fishing)
 }}\\
 
 The new concept in this unit is \textbf{sampling}.
@@ -71,7 +70,7 @@ Note that different samples lead to different histograms, which can vary signifi
 For a large sample size, for instance 1000, the inter-sample variation is less, and the individual diagrams resemble more the intrinsic probability mass function, that we discussed before.\\
 
 \fbox{\parbox{\linewidth}{\textbf{Question 3.} Which of the following statements is true?\\
-a) We call the function that maps probabilities over the random variable $P(X)$ the probability mass function (for discrete problems).\\
+a) We call the function that maps probabilities over the random variable P(X) the probability mass function (for discrete problems).\\
 b) The probabilities of the probability mass function always add up to one.\\
 c) The frequencies of the outcomes of a sample are plotted in histograms.\\
 d) You can directly extract the true intrinsic probabilities from histograms.\\
@@ -80,13 +79,13 @@ e) A histogram counts the probabilities of each random variable.
 
 This brings us to the Frequentist approach of how to define the probability of an outcome, namely by the \textit{relative frequency of its occurrence in the limit of an infinite sample size}.\\
 
-\begin{equation*}\boxed{P_i:= \lim_{N\rightarrow \infty}\frac{N_i(X)}{N}}\end{equation*}\\
-An interesting question, which will be partly answered by the \textbf{law of large numbers}, is the following: \textit{How well is the intrinsic probability approximated by the relative frequency of a finite size sample?}\\
+\begin{equation*}\boxed{P_i:= lim_{N\rightarrow \infty}\frac{N_i(X)}{N}}\end{equation*}\\
+An interesting question, which will be partly answered by the \textbf{law of large numbers}, is the following: \textit{how well is the intrinsic probability approximated by the relative frequency of a finite size sample?}\\
 
 Before discussing the law of large numbers, we enhance our language in probability theory and introduce parameters that are suited to characterize probability distributions.
 The aim is to specify the form of the distribution by a few parameters that help us to make statements about the random experiment, like the average wages on Captain Venn's ship.
 To be more specific, we first introduce two different distributions which we encounter again in the next units:
-The \textbf{binomial distribution} that describes the probability for the number $K$ of successes in a binary experiment repeated independently $N$ times. The binomial distribution depends on two parameters: the \textbf{number of repetitions $N$} and the \textbf{success probability $Q$} in a single experiment.
+The \textbf{binomial distribution} that describes the probability for the number K of successes in a binary experiment repeated independently N times. The binomial distribution depends on two parameters: the \textbf{number of repetitions N} and the \textbf{success probability Q} in a single experiment.
 Depending on these parameters, the peak centers, also called \textbf{locations}, change and so does the \textbf{width} of the peak. Note that this distribution is symmetric around its center.
 \begin{figure}[H]
 	\centering
@@ -99,9 +98,9 @@ The Poisson distribution occurs very often in nature, especially in the context 
 	\includegraphics[width=0.75\textwidth]{2_5.png}
 \end{figure}
 
-\fbox{\parbox{\linewidth}{\textbf{Question 4.} Complete the sentences with the correct words. ($K$, Poisson, $\lambda$, Binomial, $Q$, $N$, Bernoulli)\\
+\fbox{\parbox{\linewidth}{\textbf{Question 4.} Complete the sentences with the correct words. (K, Poisson, $\lambda$, Binomial, Q, N, Bernoulli)\\
 The ..... distribution describes counting experiments and is characterized by the parameter ...... that describes the average counts per interval.\\
-The ..... distribution gives the probability for having ...... successes when performing ........ repeated ....... experiments with a success probability ........ .
+The ..... distribution gives the probability for having ...... siccesses when performing ........ repeated ....... experiments with a success probability ........ .
 }}\\
 
 We will now learn about the characteristic parameters, that will give us important information about the distribution. We will introduce them from two points of view, namely Bernoulli’s view, of \textbf{intrinsic features}, and Venn’s perspective of \textbf{repeated experiments}.
@@ -119,24 +118,24 @@ From the frequentist perspective, based on a sample of size N, the sample mean i
 \begin{equation*}\boxed{\bar{X} := \frac{1}{N}\sum_{\nu=1}^N X_\nu}\end{equation*}
 
 Note that the sample mean varies depending on the sample and describes a random variable. The sample mean will be denoted by an overline. 
-Now we turn to the first part of the law of large numbers. It states that \\[0.2cm]
+Now we turn to the first part of the law of large numbers. It states that \\
 \fbox{\parbox{\linewidth}{\begin{centering}
-\textit{The sample mean converges to the intrinsic mean when the sample size N approaches infinity.}\end{centering}}}\\[0.2cm]
+\textit{The sample mean converges to the intrinsic mean when the sample size N approaches infinity.}\end{centering}}}\\
 \fbox{\parbox{\linewidth}{\textbf{Question 5.} Complete the sentences with the correct words. (angle brackets, overlines)\\
 The intrinsic mean is denoted by ...... whereas the sample mean uses ........ .
 }}\\
 
 From this relation we can also derive the frequentist definition of probabilities, namely as \textit{relative frequencies in the limit of infinitely large sample size.}\\
-\begin{equation*}\boxed{\langle X \rangle = \sum_i \lim_{N\rightarrow \infty} \frac{n_i(X)}{N}X_i}\end{equation*}
+\begin{equation*}\boxed{\langle X \rangle = \sum_i lim_{N\rightarrow \infty} \frac{n_i(X)}{N}X_i}\end{equation*}
 
 
 Another parameter characterizing the location of a distribution is the \textbf{median}. It is the value of the random variable or the ordered sample set that \textit{splits them into two halfs}, each containing at least 50 percent of the probability masses or number of elements.
-Let us illustrate the intrinsic median for the golden nautilus wheel. We need to add up the probabilities in the order of the random variables and stop when we reach or exceed the 50 percent mark for the first time. We see 11+17 is still below the 50 percent threshold but 11+17+28 exceeds it and so the third value of $X$, namely four pennies, is the median.
+Let us illustrate the intrinsic median for the golden nautilus wheel. We need to add up the probabilities in the order of the random variables and stop when we reach or exceed the 50 percent mark for the first time. We see 11+17 is still below the 50 percent threshold but 11+17+28 exceeds it and so the third value of x, namely four pennies, is the median.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.75\textwidth]{2_6.png}
 \end{figure}
-In the precise definition we also have to \textit{sum up the probabilities from right to left}. For the Nautilus wheel we obtain 45+28, which is greater than 50; so the median is again the third value of $X$. The median is not unique if the cumulative probability reaches precisely 50 percent.
+In the precise definition we also have to \textit{sum up the probabilities from right to left}. For the Nautilus wheel we obtain 45+28, which is greater than 50; so the median is again the third value of x. The median is not unique if the cumulative probability reaches precisely 50 percent.
 For the sample median, one has to \textit{order the sample first and then take the central value}. If the sample size is even, one takes either both central values or the average of both, which in our example is four pennies.
 In contrast to the mean, the median is \textit{resilient against outliers}. A single erroneous measurement can severely distort the sample mean, while the sample median remains unchanged.\\
 \begin{figure}[H]
@@ -152,14 +151,14 @@ d) The mean value is resilient against outliers whereas the median can vary stro
 
 Besides the location of a distribution the width is also of great importance. It is characterized by the \textbf{variance}, which is the \textit{mean squared deviation of the random variable from its mean}.\\
 
-\begin{equation*}\boxed{\text{Var}(X):=\sum_iP_i(X_i-\langle X \rangle)^2}\end{equation*}
+\begin{equation*}\boxed{Var(X):=\sum_iP_i(X_i-\langle X \rangle)^2}\end{equation*}
 
 This definition may fall from the sky, but we will discuss fascinating properties of the variance that makes it so powerful.
 We see from the definition that the variance has squared units. In order to characterize the width of a distribution we therefore use the \textit{square root} of the variance, which is called \textbf{standard deviation}, and which is denoted by $\sigma$. 
 The variance therefore is often labeled with $\sigma^2$. Note that not all values of the distribution have to lie inside the so-called \textbf{1-sigma interval} given by the mean value plus or minus the standard deviation.
 Let us now consider the frequentist approach. Given a sample of size $N$ we can pursue the very same strategy and characterize the width of the sample by the mean squared deviation.\\
 
-\begin{equation*}\boxed{\text{Var}(X)=\frac 1N\sum_{\nu = 1}^N(X_\nu-\bar{X})^2}\end{equation*}
+\begin{equation*}\boxed{Var(X)=\frac 1N\sum_{\nu = 1}^N(X_\nu-\bar{X})^2}\end{equation*}
 
 
 The question is: \textit{how does the "sample variance" relate to the true variance?}
@@ -167,21 +166,21 @@ There are two things to take into account:
 First, we assume that the individual samples are \textbf{uncorrelated}, meaning that the repeated experiments do not influence each other. For a counter example just think of a random wheel that is pushed so weakly that it barely moves, then you get correlated samples, in which in most cases successive elements are identical.
 The second point to be accounted for is, that we actually \textit{don't know the true mean}, but only an estimate given by the sample mean.
 Therefore, the \textbf{unbiased sample variance} that estimates the true variance is given by the \textit{sum of the squared deviations from the sample mean divided by $N - 1$}.\\
-\begin{equation*}\boxed{\text{Var}(X)=\frac{1}{N-1}\sum_{\nu = 1}^N(X_\nu-\bar{X})^2}\end{equation*}
+\begin{equation*}\boxed{Var(X)=\frac{1}{N-1}\sum_{\nu = 1}^N(X_\nu-\bar{X})^2}\end{equation*}
 The meaning of the notion ``unbiased'' will be discussed in a later unit.
 The $-1$ in the prefactor can be understood qualitatively as we have used the sample already to compute the sample mean. By doing so, the number of independent deviations ($x_i$ – sample mean) is reduced by one.\\
 
 \fbox{\parbox{\linewidth}{\textbf{Question 7.} Which statements are true?\\
 a) The sample variance is biased since the mean value is approxiated with the very same sample set.\\
 b)The sample variance converges to the intrinsic variance for large sample size due to the law of large numbers.\\
-c) The intrinsic variance can be approximated by the sample variance using the correction factor $N$/$(N-1)$.\\
+c) The intrinsic variance can be approximated by the sample variance using the correction factor N/(N-1).\\
 d) The variance is given in the squared units of the random variable.
 }}\\
 
 By now we have learned the two most important characteristics of probability distributions, namely mean and variance.
 To deepen our understanding, let's now look at how to use these quantities.
-The \textit{weighted average of the k-th power of a random variable }$X$, where the weights are given by the probabilities is a recurring structure and it is named: the \textbf{$k$-th moment} and is denoted by $m_k$.
-The $k$-th moment is equivalent to mean of $X^k$.
+The \textit{weighted average of the k-th power of a random variable }X, where the weights are given by the probabilities is a recurring structure and it is named: the \textbf{k-th moment} and is denoted by $m_k$.
+The k-th moment is equivalent to mean of $X^k$.
 We can now readily identify the mean as the first moment. 
 But what is the 0-th moment? It is the sum of all probabilities and therefore always one.
 Finally, the second moment can be calculated directly by substituting $X^2$ into the expression for the mean.\\
@@ -204,13 +203,13 @@ We use the fact that already averaged quantities such as the mean are scalar fac
 	\includegraphics[width=0.75\textwidth]{2_9.png}
 \end{figure}
 Finally, we obtain the elegant relationship that the variance is the difference between the second moment and the squared first moment.
-Similarly, it is straight forward to compute the $k$-th moment based on a sample.
+Similarly, it is straight forward to compute the k-th moment based on a sample.
 By the same proof we also obtain the useful relation that the sample variance is given by the second sample moment minus the first moment squared.\\
 
-\begin{equation*}\boxed{\text{Var}(X) = \langle X^2 \rangle \qquad \text{Var}(X) = \bar{X^2} - \bar{X}^2}\end{equation*}
+\begin{equation*}\boxed{Var(X) = \langle X^2 \rangle \qquad Var(X) = \bar{X^2} - \bar{X}^2}\end{equation*}
 
 \fbox{\parbox{\linewidth}{\textbf{Question 9.} Calculate the requested value.\\
-Knowing that the mean value of a probability distribution is $\langle X \rangle = 4$ and the second moment is $\langle X^2\rangle = 25$, the standard deviation is given by StD($X$)= .......... .
+Knowing that the mean value of a probability distribution is $\langle X \rangle = 4$ and the second moment is $\langle X^2\rangle = 25$, the standard deviation is given by StD(X)= .......... .
 }}\\
 
 How can we apply what we learned to help Captain Bayes to answer the questions concerning the wages and the free-days-ratio, both based on the outcome of the golden spiral experiment?
@@ -224,7 +223,7 @@ A rule of thumb for most distributions is that you can find about \textit{two-th
 \end{figure}
 Captain Venn, on the other hand, determines the mean wages based on a sample. Clearly, these results differ from sample to sample.
 Note that the variation of the sample mean \textit{depends on the sample size N} and it is quantified by the standard deviation of the sample mean, which is also called \textbf{standard error}.
-If the underlying probability distribution has a finite variance, then the standard error of a sample of size $N$ is given by the intrinsic standard deviation divided by $\sqrt{N}$.\\%%formel
+If the underlying probability distribution has a finite variance, then the standard error of a sample of size N is given by the intrinsic standard deviation divided by $\sqrt{N}$.\\%%formel
 
 This brings us to the second part of the law of large numbers, which according to the standard error states that \\
 
@@ -240,12 +239,12 @@ Imagine you are monitoring a production line of E-bikes, and take a sample to ch
 From a sample of 24 bikes, 3 had a broken battery (0 years lifetime), 6 had a weak battery (1 year lifetime) and 15 bikes had the expected lifetime of 2 years. This yields a sample mean value of  $\bar{X}=$...... years.  
 
 What can you say from this sample about the intrinsic mean lifetime $\langle X \rangle$ of the batteries of the E-bikes of that production line?
-\textit{Hint: Recall that the sample mean is a random variable $\rightarrow$ Standard error.}
+\textit{Hint: Recall that the sample mean is a random variable -> Standard error.}
 With approximately 66\% the intrinsic mean value lies within the interval of the sample mean value  $\pm$ ....
  years
 }}\\
 
-Let's use this insight to answer the second question about the free-days-ratio in a period of $N$ days.
+Let's use this insight to answer the second question about the free-days-ratio in a period of N days.
 Bernoulli determines the probability of having a day off by using the golden ratio to be 0.106. 
 As you can easily see, this is also the average value of the free-days-ratio.
 A similar calculation yields for the standard deviation of the free-days-ratio a value of 0.307.
@@ -266,16 +265,5 @@ Get to know the frequentist approach with the interactive simulation.
 Feel free to ask questions in the forum and feel encouraged to test your knowledge in the quiz!
 
 
-\vspace{2cm}
-\begin{minipage}[t]{1\textwidth}
-	\raggedleft
-	\centering
-	\includegraphics[width = 0.20\textwidth]{CC-BY_icon}
-	\vspace{0.2cm}
-	
-	\centering
-	{\large ITPCP, TU Graz} \\
-	https://creativecommons.org/licenses/by/4.0/legalcode
-\end{minipage}
 
 \end{document}

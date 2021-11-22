@@ -7,9 +7,8 @@ using InteractiveUtils
 # This Pluto notebook uses @bind for interactivity. When running this notebook outside of Pluto, the following 'mock version' of @bind gives bound variables a default value (instead of an error).
 macro bind(def, element)
     quote
-        local iv = try Base.loaded_modules[Base.PkgId(Base.UUID("6e696c72-6542-2067-7265-42206c756150"), "AbstractPlutoDingetjes")].Bonds.initial_value catch; b -> missing; end
         local el = $(esc(element))
-        global $(esc(def)) = Core.applicable(Base.get, el) ? Base.get(el) : iv(el)
+        global $(esc(def)) = Core.applicable(Base.get, el) ? Base.get(el) : missing
         el
     end
 end
@@ -1304,9 +1303,9 @@ version = "0.9.1+5"
 # ╟─a61337a8-e197-4a7b-817d-012a5c1c0f17
 # ╟─51b1234a-9808-4dad-a588-f61db077767f
 # ╟─e7666210-a660-11eb-3e0d-7d9aec9a9f9e
-# ╠═16938d4f-6f25-4924-8bdf-b0eb638a6c4f
-# ╠═7bf32131-f749-41da-9923-2970f1487f7e
-# ╠═5d349d39-c688-4431-b056-aa11d69376e9
-# ╠═1760c093-96c9-4ed9-8f4d-2c2ff3bfda5c
+# ╟─16938d4f-6f25-4924-8bdf-b0eb638a6c4f
+# ╟─7bf32131-f749-41da-9923-2970f1487f7e
+# ╟─5d349d39-c688-4431-b056-aa11d69376e9
+# ╟─1760c093-96c9-4ed9-8f4d-2c2ff3bfda5c
 # ╟─00000000-0000-0000-0000-000000000001
 # ╟─00000000-0000-0000-0000-000000000002
