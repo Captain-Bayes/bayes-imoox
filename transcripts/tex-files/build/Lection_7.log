@@ -1,0 +1,713 @@
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 21.1) (preloaded format=pdflatex 2021.2.16)  22 NOV 2021 13:32
+entering extended mode
+**./Lection_7.tex
+(Lection_7.tex
+LaTeX2e <2020-10-01> patch level 4
+L3 programming layer <2021-01-09> xparse <2020-03-03>
+("C:\Program Files\MiKTeX 2.9\tex/latex/koma-script\scrartcl.cls"
+Document Class: scrartcl 2020/09/21 v3.32 KOMA-Script document class (article)
+("C:\Program Files\MiKTeX 2.9\tex/latex/koma-script\scrkbase.sty"
+Package: scrkbase 2020/09/21 v3.32 KOMA-Script package (KOMA-Script-dependent b
+asics and keyval usage)
+
+("C:\Program Files\MiKTeX 2.9\tex/latex/koma-script\scrbase.sty"
+Package: scrbase 2020/09/21 v3.32 KOMA-Script package (KOMA-Script-independent 
+basics and keyval usage)
+
+("C:\Program Files\MiKTeX 2.9\tex/latex/koma-script\scrlfile.sty"
+Package: scrlfile 2020/09/21 v3.32 KOMA-Script package (file load hooks)
+
+("C:\Program Files\MiKTeX 2.9\tex/latex/koma-script\scrlfile-hook.sty"
+Package: scrlfile-hook 2020/09/21 v3.32 KOMA-Script package (using LaTeX hooks)
+
+
+LaTeX3 Info: Defining command \BeforeFile with sig. 'm' on line 61.
+
+
+LaTeX3 Info: Defining command \AfterFile with sig. 'm' on line 65.
+
+
+LaTeX3 Info: Defining command \BeforeClass with sig. 'm' on line 69.
+
+
+LaTeX3 Info: Defining command \BeforePackage with sig. 'm' on line 73.
+
+
+LaTeX3 Info: Defining command \AfterAtEndOfClass with sig. 'smo+m' on line 83.
+
+
+LaTeX3 Info: Defining command \AfterAtEndOfPackage with sig. 'smo+m' on line
+(LaTeX3)     93.
+
+
+LaTeX3 Info: Defining command \scrlfile@AfterClass with sig. 'smo+m' on line
+(LaTeX3)     173.
+
+
+LaTeX3 Info: Defining command \AfterClass with sig. '' on line 174.
+
+
+LaTeX3 Info: Defining command \scrlfile@AfterPackage with sig. 'smo+m' on line
+(LaTeX3)     191.
+
+
+LaTeX3 Info: Defining command \AfterPackage with sig. '' on line 192.
+
+
+LaTeX3 Info: Defining command \ReplaceInput with sig. '' on line 193.
+
+
+LaTeX3 Info: Defining command \ReplaceClass with sig. 'mm' on line 196.
+
+
+LaTeX3 Info: Defining command \ReplacePackage with sig. 'mm' on line 199.
+
+
+LaTeX3 Info: Defining command \UnReplaceInput with sig. '' on line 200.
+
+
+LaTeX3 Info: Defining command \UnReplaceClass with sig. 'm' on line 203.
+
+
+LaTeX3 Info: Defining command \UnReplacePackage with sig. 'mm' on line 206.
+
+
+LaTeX3 Info: Defining command \PreventPackageFromLoading with sig. 's+om' on
+(LaTeX3)     line 234.
+
+
+LaTeX3 Info: Defining command \StorePreventPackageFromLoading with sig. 'm' on
+(LaTeX3)     line 242.
+
+
+LaTeX3 Info: Defining command \ResetPreventPackageFromLoading with sig. '' on
+(LaTeX3)     line 247.
+
+
+LaTeX3 Info: Defining command \UnPreventPackageFromLoading with sig. 'sm' on
+(LaTeX3)     line 261.
+
+
+LaTeX3 Info: Defining command \BeforeClosingMainAux with sig. 'om' on line
+(LaTeX3)     274.
+
+
+LaTeX3 Info: Defining command \AfterReadingMainAux with sig. 'om' on line 287.
+
+
+LaTeX3 Info: Defining command \protected@immediate@write with sig. 'm+m+m' on
+(LaTeX3)     line 298.
+
+
+("C:\Program Files\MiKTeX 2.9\tex/latex/koma-script\scrlogo.sty"
+Package: scrlogo 2020/09/21 v3.32 KOMA-Script package (logo)
+)))
+("C:\Program Files\MiKTeX 2.9\tex/latex/graphics\keyval.sty"
+Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
+\KV@toks@=\toks15
+)))
+("C:\Program Files\MiKTeX 2.9\tex/latex/koma-script\tocbasic.sty"
+Package: tocbasic 2020/09/21 v3.32 KOMA-Script package (handling toc-files)
+\scr@dte@tocline@numberwidth=\skip47
+\scr@dte@tocline@numbox=\box47
+)
+Package tocbasic Info: babel extension for `toc' omitted
+(tocbasic)             because of missing \bbl@set@language on input line 135.
+Package scrartcl Info: You've used standard option `12pt'.
+(scrartcl)             This is correct!
+(scrartcl)             Internally I'm using `fontsize=12pt'.
+(scrartcl)             If you'd like to set the option with \KOMAoptions,
+(scrartcl)             you'd have to use `fontsize=12pt' there
+(scrartcl)             instead of `12pt', too.
+Class scrartcl Info: File `scrsize12pt.clo' used to setup font sizes on input l
+ine 2222.
+
+("C:\Program Files\MiKTeX 2.9\tex/latex/koma-script\scrsize12pt.clo"
+File: scrsize12pt.clo 2020/09/21 v3.32 KOMA-Script font size class option (12pt
+)
+)
+("C:\Program Files\MiKTeX 2.9\tex/latex/koma-script\typearea.sty"
+Package: typearea 2020/09/21 v3.32 KOMA-Script package (type area)
+\ta@bcor=\skip48
+\ta@div=\count177
+Package typearea Info: You've used standard option `a4paper'.
+(typearea)             This is correct!
+(typearea)             Internally I'm using `paper=a4'.
+(typearea)             If you'd like to set the option with \KOMAoptions,
+(typearea)             you'd have to use `paper=a4' there
+(typearea)             instead of `a4paper', too.
+\ta@hblk=\skip49
+\ta@vblk=\skip50
+\ta@temp=\skip51
+\footheight=\skip52
+Package typearea Info: These are the values describing the layout:
+(typearea)             DIV  = 12
+(typearea)             BCOR = 0.0pt
+(typearea)             \paperwidth      = 597.50793pt
+(typearea)              \textwidth      = 448.13095pt
+(typearea)              DIV departure   = -6%
+(typearea)              \evensidemargin = 2.4185pt
+(typearea)              \oddsidemargin  = 2.4185pt
+(typearea)             \paperheight     = 845.04694pt
+(typearea)              \textheight     = 635.5pt
+(typearea)              \topmargin      = -41.72441pt
+(typearea)              \headheight     = 18.125pt
+(typearea)              \headsep        = 21.75pt
+(typearea)              \topskip        = 12.0pt
+(typearea)              \footskip       = 50.75pt
+(typearea)              \baselineskip   = 14.5pt
+(typearea)              on input line 1740.
+)
+\c@part=\count178
+\c@section=\count179
+\c@subsection=\count180
+\c@subsubsection=\count181
+\c@paragraph=\count182
+\c@subparagraph=\count183
+\scr@dte@section@maxnumwidth=\skip53
+Class scrartcl Info: using compatibility default `runin=bysign'
+(scrartcl)           for `\section on input line 4795.
+Class scrartcl Info: using compatibility default `afterindent=bysign'
+(scrartcl)           for `\section on input line 4795.
+\scr@dte@part@maxnumwidth=\skip54
+Class scrartcl Info: using compatibility default `afterindent=false'
+(scrartcl)           for `\part on input line 4803.
+\scr@dte@subsection@maxnumwidth=\skip55
+Class scrartcl Info: using compatibility default `runin=bysign'
+(scrartcl)           for `\subsection on input line 4813.
+Class scrartcl Info: using compatibility default `afterindent=bysign'
+(scrartcl)           for `\subsection on input line 4813.
+\scr@dte@subsubsection@maxnumwidth=\skip56
+Class scrartcl Info: using compatibility default `runin=bysign'
+(scrartcl)           for `\subsubsection on input line 4823.
+Class scrartcl Info: using compatibility default `afterindent=bysign'
+(scrartcl)           for `\subsubsection on input line 4823.
+\scr@dte@paragraph@maxnumwidth=\skip57
+Class scrartcl Info: using compatibility default `runin=bysign'
+(scrartcl)           for `\paragraph on input line 4834.
+Class scrartcl Info: using compatibility default `afterindent=bysign'
+(scrartcl)           for `\paragraph on input line 4834.
+\scr@dte@subparagraph@maxnumwidth=\skip58
+Class scrartcl Info: using compatibility default `runin=bysign'
+(scrartcl)           for `\subparagraph on input line 4844.
+Class scrartcl Info: using compatibility default `afterindent=bysign'
+(scrartcl)           for `\subparagraph on input line 4844.
+\abovecaptionskip=\skip59
+\belowcaptionskip=\skip60
+\c@pti@nb@sid@b@x=\box48
+Package tocbasic Info: babel extension for `lof' omitted
+(tocbasic)             because of missing \bbl@set@language on input line 6076.
+
+\scr@dte@figure@maxnumwidth=\skip61
+\c@figure=\count184
+Package tocbasic Info: babel extension for `lot' omitted
+(tocbasic)             because of missing \bbl@set@language on input line 6088.
+
+\scr@dte@table@maxnumwidth=\skip62
+\c@table=\count185
+Class scrartcl Info: Redefining `\numberline' on input line 6252.
+\bibindent=\dimen138
+)
+("C:\Program Files\MiKTeX 2.9\tex/latex/base\inputenc.sty"
+Package: inputenc 2020/08/01 v1.3d Input encoding file
+\inpenc@prehook=\toks16
+\inpenc@posthook=\toks17
+)
+("C:\Program Files\MiKTeX 2.9\tex/latex/graphics\graphicx.sty"
+Package: graphicx 2020/09/09 v1.2b Enhanced LaTeX Graphics (DPC,SPQR)
+
+("C:\Program Files\MiKTeX 2.9\tex/latex/graphics\graphics.sty"
+Package: graphics 2020/08/30 v1.4c Standard LaTeX Graphics (DPC,SPQR)
+
+("C:\Program Files\MiKTeX 2.9\tex/latex/graphics\trig.sty"
+Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
+)
+("C:\Program Files\MiKTeX 2.9\tex/latex/graphics-cfg\graphics.cfg"
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: pdftex.def on input line 105.
+
+("C:\Program Files\MiKTeX 2.9\tex/latex/graphics-def\pdftex.def"
+File: pdftex.def 2020/10/05 v1.2a Graphics/color driver for pdftex
+))
+\Gin@req@height=\dimen139
+\Gin@req@width=\dimen140
+)
+("C:\Program Files\MiKTeX 2.9\tex/latex/amsmath\amsmath.sty"
+Package: amsmath 2020/09/23 v2.17i AMS math features
+\@mathmargin=\skip63
+
+For additional information on amsmath, use the `?' option.
+("C:\Program Files\MiKTeX 2.9\tex/latex/amsmath\amstext.sty"
+Package: amstext 2000/06/29 v2.01 AMS text
+
+("C:\Program Files\MiKTeX 2.9\tex/latex/amsmath\amsgen.sty"
+File: amsgen.sty 1999/11/30 v2.0 generic functions
+\@emptytoks=\toks18
+\ex@=\dimen141
+))
+("C:\Program Files\MiKTeX 2.9\tex/latex/amsmath\amsbsy.sty"
+Package: amsbsy 1999/11/29 v1.2d Bold Symbols
+\pmbraise@=\dimen142
+)
+("C:\Program Files\MiKTeX 2.9\tex/latex/amsmath\amsopn.sty"
+Package: amsopn 2016/03/08 v2.02 operator names
+)
+\inf@bad=\count186
+LaTeX Info: Redefining \frac on input line 234.
+\uproot@=\count187
+\leftroot@=\count188
+LaTeX Info: Redefining \overline on input line 399.
+\classnum@=\count189
+\DOTSCASE@=\count190
+LaTeX Info: Redefining \ldots on input line 496.
+LaTeX Info: Redefining \dots on input line 499.
+LaTeX Info: Redefining \cdots on input line 620.
+\Mathstrutbox@=\box49
+\strutbox@=\box50
+\big@size=\dimen143
+LaTeX Font Info:    Redeclaring font encoding OML on input line 743.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 744.
+\macc@depth=\count191
+\c@MaxMatrixCols=\count192
+\dotsspace@=\muskip16
+\c@parentequation=\count193
+\dspbrk@lvl=\count194
+\tag@help=\toks19
+\row@=\count195
+\column@=\count196
+\maxfields@=\count197
+\andhelp@=\toks20
+\eqnshift@=\dimen144
+\alignsep@=\dimen145
+\tagshift@=\dimen146
+\tagwidth@=\dimen147
+\totwidth@=\dimen148
+\lineht@=\dimen149
+\@envbody=\toks21
+\multlinegap=\skip64
+\multlinetaggap=\skip65
+\mathdisplay@stack=\toks22
+LaTeX Info: Redefining \[ on input line 2923.
+LaTeX Info: Redefining \] on input line 2924.
+)
+(C:\Users\Gerhard\AppData\Roaming\MiKTeX\2.9\tex/latex/amscls\amsthm.sty
+Package: amsthm 2020/05/29 v2.20.6
+\thm@style=\toks23
+\thm@bodyfont=\toks24
+\thm@headfont=\toks25
+\thm@notefont=\toks26
+\thm@headpunct=\toks27
+\thm@preskip=\skip66
+\thm@postskip=\skip67
+\thm@headsep=\skip68
+\dth@everypar=\toks28
+)
+("C:\Program Files\MiKTeX 2.9\tex/latex/xpatch\xpatch.sty"
+("C:\Program Files\MiKTeX 2.9\tex/latex/l3kernel\expl3.sty"
+Package: expl3 2021-01-09 L3 programming layer (loader) 
+
+("C:\Program Files\MiKTeX 2.9\tex/latex/l3backend\l3backend-pdftex.def"
+File: l3backend-pdftex.def 2020-01-29 L3 backend support: PDF output (pdfTeX)
+\l__color_backend_stack_int=\count198
+\l__pdf_internal_box=\box51
+))
+Package: xpatch 2020/03/25 v0.3a Extending etoolbox patching commands
+
+("C:\Program Files\MiKTeX 2.9\tex/latex/l3packages/xparse\xparse.sty"
+Package: xparse 2020-10-27 L3 Experimental document command parser
+
+("C:\Program Files\MiKTeX 2.9\tex/latex/l3packages/xparse\xparse-generic.tex"))
+("C:\Program Files\MiKTeX 2.9\tex/latex/etoolbox\etoolbox.sty"
+Package: etoolbox 2020/10/05 v2.5k e-TeX tools for LaTeX (JAW)
+\etb@tempcnta=\count199
+))
+Class scrartcl Info: amsthm's \deferred@thm@head patched.
+
+("C:\Program Files\MiKTeX 2.9\tex/latex/amsfonts\amssymb.sty"
+Package: amssymb 2013/01/14 v3.01 AMS font symbols
+
+("C:\Program Files\MiKTeX 2.9\tex/latex/amsfonts\amsfonts.sty"
+Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
+\symAMSa=\mathgroup4
+\symAMSb=\mathgroup5
+LaTeX Font Info:    Redeclaring math symbol \hbar on input line 98.
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
+))
+("C:\Program Files\MiKTeX 2.9\tex/latex/base\textcomp.sty"
+Package: textcomp 2020/02/02 v2.0n Standard LaTeX package
+)
+("C:\Program Files\MiKTeX 2.9\tex/latex/setspace\setspace.sty"
+Package: setspace 2011/12/19 v6.7a set line spacing
+)
+("C:\Program Files\MiKTeX 2.9\tex/latex/paralist\paralist.sty"
+Package: paralist 2017/01/22 v2.7 Extended list environments
+\pltopsep=\skip69
+\plpartopsep=\skip70
+\plitemsep=\skip71
+\plparsep=\skip72
+\pl@lab=\toks29
+)
+("C:\Program Files\MiKTeX 2.9\tex/latex/caption\caption.sty"
+Package: caption 2020/10/26 v3.5g Customizing captions (AR)
+
+("C:\Program Files\MiKTeX 2.9\tex/latex/caption\caption3.sty"
+Package: caption3 2020/10/21 v2.2e caption3 kernel (AR)
+\captionmargin=\dimen150
+\captionmargin@=\dimen151
+\captionwidth=\dimen152
+\caption@tempdima=\dimen153
+\caption@indent=\dimen154
+\caption@parindent=\dimen155
+\caption@hangindent=\dimen156
+Package caption Info: KOMA-Script document class detected.
+
+("C:\Program Files\MiKTeX 2.9\tex/latex/caption\caption-koma.sto"
+File: caption-koma.sto 2020/09/21 v2.0b Adaption of the caption package to the 
+KOMA-Script document classes (AR)
+))
+\c@caption@flags=\count266
+\c@continuedfloat=\count267
+)
+("C:\Program Files\MiKTeX 2.9\tex/latex/float\float.sty"
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count268
+\float@exts=\toks30
+\float@box=\box52
+\@float@everytoks=\toks31
+\@floatcapt=\box53
+)
+("C:\Program Files\MiKTeX 2.9\tex/latex/preprint\authblk.sty"
+Package: authblk 2001/02/27 1.3 (PWD)
+\affilsep=\skip73
+\@affilsep=\skip74
+\c@Maxaffil=\count269
+\c@authors=\count270
+\c@affil=\count271
+)
+("C:\Lehre\Bayes MOOC\Interactive Simulation\BAYES_IMOOX\transcripts\tex-files\
+build\Lection_7.aux")
+\openout1 = `Lection_7.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+Package scrbase Info: activating english \contentsname on input line 19.
+Package scrbase Info: activating english \listfigurename on input line 19.
+Package scrbase Info: activating english \listtablename on input line 19.
+
+("C:\Program Files\MiKTeX 2.9\tex/context/base/mkii\supp-pdf.mkii"
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count272
+\scratchdimen=\dimen157
+\scratchbox=\box54
+\nofMPsegments=\count273
+\nofMParguments=\count274
+\everyMPshowfont=\toks32
+\MPscratchCnt=\count275
+\MPscratchDim=\dimen158
+\MPnumerator=\count276
+\makeMPintoPDFobject=\count277
+\everyMPtoPDFconversion=\toks33
+) ("C:\Program Files\MiKTeX 2.9\tex/latex/epstopdf-pkg\epstopdf-base.sty"
+Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
+85.
+)
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: float package is loaded.
+Package caption Info: End \AtBeginDocument code.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 39.
+
+
+("C:\Program Files\MiKTeX 2.9\tex/latex/amsfonts\umsa.fd"
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Trying to load font information for U+msb on input line 39.
+
+
+("C:\Program Files\MiKTeX 2.9\tex/latex/amsfonts\umsb.fd"
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+)
+<WSK_im//7_1.png, id=1, 1006.35976pt x 534.19576pt>
+File: WSK_im//7_1.png Graphic file (type png)
+<use WSK_im//7_1.png>
+Package pdftex.def Info: WSK_im//7_1.png  used on input line 42.
+(pdftex.def)             Requested size: 336.0982pt x 178.40445pt.
+ [1
+
+
+{C:/Users/Gerhard/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}]
+Underfull \hbox (badness 10000) in paragraph at lines 44--51
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 57--58
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 59--67
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 68--74
+
+ []
+
+[2 <./WSK_im//7_1.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 75--77
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 89--92
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 93--97
+
+ []
+
+<WSK_im//7_2.png, id=18, 997.92825pt x 501.67426pt>
+File: WSK_im//7_2.png Graphic file (type png)
+<use WSK_im//7_2.png>
+Package pdftex.def Info: WSK_im//7_2.png  used on input line 105.
+(pdftex.def)             Requested size: 336.0982pt x 168.95944pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 98--106
+
+ []
+
+[3]
+Underfull \hbox (badness 10000) in paragraph at lines 108--111
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 113--116
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 117--123
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 124--126
+
+ []
+
+[4 <./WSK_im//7_2.png>]
+<WSK_im//7_3.png, id=28, 888.31876pt x 525.76425pt>
+File: WSK_im//7_3.png Graphic file (type png)
+<use WSK_im//7_3.png>
+Package pdftex.def Info: WSK_im//7_3.png  used on input line 145.
+(pdftex.def)             Requested size: 336.0982pt x 198.91803pt.
+ [5 <./WSK_im//7_3.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 150--151
+
+ []
+
+<WSK_im//7_4.png, id=33, 923.24925pt x 451.08525pt>
+File: WSK_im//7_4.png Graphic file (type png)
+<use WSK_im//7_4.png>
+Package pdftex.def Info: WSK_im//7_4.png  used on input line 162.
+(pdftex.def)             Requested size: 336.0982pt x 164.21455pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 164--165
+
+ []
+
+<WSK_im//7_5.png, id=34, 993.11024pt x 526.96875pt>
+File: WSK_im//7_5.png Graphic file (type png)
+<use WSK_im//7_5.png>
+Package pdftex.def Info: WSK_im//7_5.png  used on input line 175.
+(pdftex.def)             Requested size: 336.0982pt x 178.33879pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 166--176
+
+ []
+
+[6 <./WSK_im//7_4.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 178--179
+
+ []
+
+<WSK_im//7_6.png, id=38, 1007.56425pt x 528.17325pt>
+File: WSK_im//7_6.png Graphic file (type png)
+<use WSK_im//7_6.png>
+Package pdftex.def Info: WSK_im//7_6.png  used on input line 188.
+(pdftex.def)             Requested size: 336.0982pt x 176.18358pt.
+<WSK_im//7_7.png, id=39, 1076.22075pt x 499.26524pt>
+File: WSK_im//7_7.png Graphic file (type png)
+<use WSK_im//7_7.png>
+Package pdftex.def Info: WSK_im//7_7.png  used on input line 197.
+(pdftex.def)             Requested size: 336.0982pt x 155.92096pt.
+[7 <./WSK_im//7_5.png> <./WSK_im//7_6.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 200--203
+
+ []
+
+<WSK_im//7_8.png, id=45, 938.90775pt x 545.03625pt>
+File: WSK_im//7_8.png Graphic file (type png)
+<use WSK_im//7_8.png>
+Package pdftex.def Info: WSK_im//7_8.png  used on input line 214.
+(pdftex.def)             Requested size: 336.0982pt x 195.1068pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 205--215
+
+ []
+
+[8 <./WSK_im//7_7.png> <./WSK_im//7_8.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 233--236
+
+ []
+
+<WSK_im//7_9.png, id=49, 1067.78925pt x 443.85825pt>
+File: WSK_im//7_9.png Graphic file (type png)
+<use WSK_im//7_9.png>
+Package pdftex.def Info: WSK_im//7_9.png  used on input line 250.
+(pdftex.def)             Requested size: 336.0982pt x 139.70772pt.
+[9]
+<WSK_im//7_10.png, id=53, 1005.15524pt x 511.31026pt>
+File: WSK_im//7_10.png Graphic file (type png)
+<use WSK_im//7_10.png>
+Package pdftex.def Info: WSK_im//7_10.png  used on input line 255.
+(pdftex.def)             Requested size: 336.0982pt x 170.97206pt.
+<WSK_im//7_11.png, id=54, 1035.26775pt x 519.74174pt>
+File: WSK_im//7_11.png Graphic file (type png)
+<use WSK_im//7_11.png>
+Package pdftex.def Info: WSK_im//7_11.png  used on input line 261.
+(pdftex.def)             Requested size: 336.0982pt x 168.73166pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 268--269
+
+ []
+
+[10 <./WSK_im//7_9.png> <./WSK_im//7_10.png> <./WSK_im//7_11.png>]
+<WSK_im//7_12.png, id=58, 1066.58475pt x 531.78674pt>
+File: WSK_im//7_12.png Graphic file (type png)
+<use WSK_im//7_12.png>
+Package pdftex.def Info: WSK_im//7_12.png  used on input line 277.
+(pdftex.def)             Requested size: 336.0982pt x 167.57051pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 271--278
+
+ []
+
+[11 <./WSK_im//7_12.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 289--297
+
+ []
+
+<WSK_im//7_13.png, id=62, 760.64175pt x 100.57574pt>
+File: WSK_im//7_13.png Graphic file (type png)
+<use WSK_im//7_13.png>
+Package pdftex.def Info: WSK_im//7_13.png  used on input line 301.
+(pdftex.def)             Requested size: 336.0982pt x 44.44067pt.
+<WSK_im//7_14.png, id=63, 1039.4835pt x 554.07pt>
+File: WSK_im//7_14.png Graphic file (type png)
+<use WSK_im//7_14.png>
+Package pdftex.def Info: WSK_im//7_14.png  used on input line 310.
+(pdftex.def)             Requested size: 336.0982pt x 179.14908pt.
+[12 <./WSK_im//7_13.png>]
+<WSK_im//7_15.png, id=67, 1065.38025pt x 535.40025pt>
+File: WSK_im//7_15.png Graphic file (type png)
+<use WSK_im//7_15.png>
+Package pdftex.def Info: WSK_im//7_15.png  used on input line 324.
+(pdftex.def)             Requested size: 336.0982pt x 168.89705pt.
+<WSK_im//7_16.png, id=68, 1041.29025pt x 536.60475pt>
+File: WSK_im//7_16.png Graphic file (type png)
+<use WSK_im//7_16.png>
+Package pdftex.def Info: WSK_im//7_16.png  used on input line 336.
+(pdftex.def)             Requested size: 336.0982pt x 173.19904pt.
+ [13 <./WSK_im//7_14.png> <./WSK_im//7_15.png>]
+<WSK_im//7_17.png, id=73, 1011.17775pt x 472.76625pt>
+File: WSK_im//7_17.png Graphic file (type png)
+<use WSK_im//7_17.png>
+Package pdftex.def Info: WSK_im//7_17.png  used on input line 341.
+(pdftex.def)             Requested size: 336.0982pt x 157.13869pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 338--342
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 345--346
+
+ []
+
+[14 <./WSK_im//7_16.png> <./WSK_im//7_17.png>]
+<WSK_im//7_18.png, id=77, 979.86075pt x 484.81125pt>
+File: WSK_im//7_18.png Graphic file (type png)
+<use WSK_im//7_18.png>
+Package pdftex.def Info: WSK_im//7_18.png  used on input line 358.
+(pdftex.def)             Requested size: 336.0982pt x 166.29097pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 351--359
+
+ []
+
+<WSK_im//7_19.png, id=78, 769.07326pt x 563.10374pt>
+File: WSK_im//7_19.png Graphic file (type png)
+<use WSK_im//7_19.png>
+Package pdftex.def Info: WSK_im//7_19.png  used on input line 365.
+(pdftex.def)             Requested size: 336.0982pt x 246.08232pt.
+[15 <./WSK_im//7_18.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 367--370
+
+ []
+
+<WSK_im//CC-BY_icon.png, id=82, 66.32094pt x 23.35555pt>
+File: WSK_im//CC-BY_icon.png Graphic file (type png)
+<use WSK_im//CC-BY_icon.png>
+Package pdftex.def Info: WSK_im//CC-BY_icon.png  used on input line 386.
+(pdftex.def)             Requested size: 89.62482pt x 31.56209pt.
+[16 <./WSK_im//7_19.png> <./WSK_im//CC-BY_icon.png>]
+("C:\Lehre\Bayes MOOC\Interactive Simulation\BAYES_IMOOX\transcripts\tex-files\
+build\Lection_7.aux") ) 
+Here is how much of TeX's memory you used:
+ 7399 strings out of 479618
+ 138838 string characters out of 2872996
+ 535143 words of memory out of 3000000
+ 24467 multiletter control sequences out of 15000+200000
+ 414374 words of font info for 65 fonts, out of 3000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 111i,9n,116p,10633b,270s stack positions out of 5000i,500n,10000p,200000b,50000s
+{C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/cm-super/cm
+-super-ts1.enc}<C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx
+12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbxti10.pfb
+><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Pro
+gram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Program Fil
+es/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Program Files/MiKTeX
+ 2.9/fonts/type1/public/amsfonts/cm/cmmib10.pfb><C:/Program Files/MiKTeX 2.9/fo
+nts/type1/public/amsfonts/cm/cmr12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1
+/public/amsfonts/cm/cmr17.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/a
+msfonts/cm/cmr8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm
+/cmssbx10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy1
+0.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:
+/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/Program
+ Files/MiKTeX 2.9/fonts/type1/public/cm-super/sfrm1200.pfb>
+Output written on Lection_7.pdf (16 pages, 7848601 bytes).
+PDF statistics:
+ 133 PDF objects out of 1000 (max. 8388607)
+ 0 named destinations out of 1000 (max. 500000)
+ 101 words of extra memory for PDF output out of 10000 (max. 10000000)
+

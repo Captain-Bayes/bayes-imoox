@@ -10,10 +10,11 @@
 \usepackage{float}
 \usepackage{authblk}
 \renewcommand\Authfont{\fontsize{12}{14.4}\selectfont}
-\title{Bayesian probability theory - Lesson 1}
+\title{Bayesian probability theory - Lesson 1:\\
+Bayesics of probability theory}
 
-\author{Wolfgang von der Linden}
-\date{Transscript}
+\author{Wolfgang von der Linden, Gerhard Dorn, Johanna Moser}
+\date{Transcript}
 
 \begin{document}
 \setlength{\parindent}{0pt}
@@ -25,19 +26,19 @@ The first episode helps us to enter the discussion of Bayesian probability theor
 The aim of this unit is to provide you with the language to describe probabilistic problems, have a first glimpse on the different concepts of probability theory and to enable you to solve elementary problems.\\
 
 Let us start with some definitions that will help us to find a language to formulate problems and solutions.
-Problems with uncertain outcome can also be formulated as \textbf{questions}. For example, the "question" may concern a random experiment, as for instance, the random compass. A possible question could be: "In which direction will the compass needle point?". 
-Another famous experiment is performed with a dice, where we can ask the question: "How many pips will the dice show at the next throw? 
-But the question does not necessarily have to do with random events, like: "What’s for lunch tomorrow?". The uncertainty may just be due to lack of information. It doesn’t even have to have anything to do with future events, which outcome is uncertain for everyone, for instance: “Where is Captain Bayes?” At least Captain Bayes herself will know the answer. All these problems have one aspect in common: the answer is uncertain for whatever reason.
-Each "question" has a well-defined set of results which we call \textbf{"outcomes"}. Like the four compass directions: North, East, West, South, or the number of pips on a dice, all the possible dishes for lunch, like "Roast" or "Potatoes", or the whereabouts of Captains Bayes, like in the ship’s galley or on deck and so on ...
+Problems with uncertain outcome can also be formulated as \textbf{questions}. For example, the ``question" may concern a random experiment, as for instance, the random compass. A possible question could be: ``In which direction will the compass needle point?". 
+Another famous experiment is performed with a dice, where we can ask the question: ``How many pips will the dice show at the next throw? 
+But the question does not necessarily have to do with random events, like: ``What’s for lunch tomorrow?". The uncertainty may just be due to lack of information. It doesn’t even have to have anything to do with future events, which outcome is uncertain for everyone, for instance: ``Where is Captain Bayes?" At least Captain Bayes herself will know the answer. All these problems have one aspect in common: the answer is uncertain for whatever reason.
+Each ``question" has a well-defined set of results which we call \textbf{``outcomes"}. Like the four compass directions: North, East, West, South, or the number of pips on a dice, all the possible dishes for lunch, like ``Roast" or ``Potatoes", or the whereabouts of Captains Bayes, like in the ship’s galley or on deck and so on ...
 We call the total set of possible outcomes the \textbf{sample space} and we denote it by \textbf{$\Omega$}. A question can be associated with a \textbf{random variable} that assigns a real unique number to each outcome. This is especially useful for measurable results, like the number of pips on a dice or the weight of a fish. 
 For the directions of the random compass, we can assign an angle. For a question that favors one particular result one can use one for the result itself and zero for all remaining outcomes.\\
 
 Random variables can be \textbf{discrete} or \textbf{continuous}. 
 Discrete variables have \textbf{distinct values}, which in many cases are natural numbers, like the pips of the dice. The sample space Omega of a discrete variable is \textbf{countable}. We will focus on discrete variables throughout the first seven units.
 Continuous variables, on the other hand have uncountably many values, as for example real number in a certain interval, or the weight of fish, or the angle of a direction, or the time that something happens.
-Continuous variables are in some aspects special. Counting of all possible or favorable outcomes is not possible and a different principle of measuring, called \textbf{"measure theory"} has to be used. Interesting phenomena like \textbf{scale invariance} or the \textbf{Bertrand paradox} will await us at the end of this course when continuous variables will be discussed.\\
+Continuous variables are in some aspects special. Counting of all possible or favorable outcomes is not possible and a different principle of measuring, called \textbf{``measure theory"} has to be used. Interesting phenomena like \textbf{scale invariance} or the \textbf{Bertrand paradox} will await us at the end of this course when continuous variables will be discussed.\\
 
-Now we continue with the formulation of probabilistic "questions" and generalize the result of a random experiment, which so far was called outcome. We want to ask not only the question: "Will the dice show five pips?" but also questions like "Will the dice show an odd number of pips?" which includes the three outcomes "one", "three" and "five".
+Now we continue with the formulation of probabilistic ``questions" and generalize the result of a random experiment, which so far was called outcome. We want to ask not only the question: ``Will the dice show five pips?" but also questions like ``Will the dice show an odd number of pips?" which includes the three outcomes ``one", ``three" and ``five".
 The generalized result of a random experiment is now formed by a subset of the sample space, which we call an \textbf{event}. Note that we use curly brackets - the set brackets - to indicate a set of elements. There is no order in a set of outcomes in contrast to later discussed tuples of outcomes, where the order is important.
 Let us analyze how many events can be formed by the subsets of the sample space. To this end we take a look at the event space, denoted by $\Sigma$, which is the space of all possible subsets of the sample space $\Omega$. We call this also the \textbf{power set of $\Omega$}. 
 The smallest event containing no outcome is called the \textbf{empty set} and is never realized. It is therefore also called the \textbf{impossible outcome}.
@@ -45,7 +46,7 @@ Events containing only one outcome are called \textbf{elementary events}.
 The event that covers the entire sample space is the \textbf{certain event} or \textbf{the one element}. As for the complexity of the questions, there are no restrictions.  We could also consider multiple dice or repeated throws of a single dice. Or we could even combine a dice experiment with the random compass. I leave it up to you to think about the corresponding sample space and the elements of the $\Sigma$ space.\\
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.75\textwidth]{1_1.png}
+	\includegraphics[width=0.75\textwidth]{WSK_im/1_1.png}
 \end{figure}
 \fbox{\parbox{\linewidth}{\textbf{Question 1.} What are elements of the event space of the combined experiment ``compass and dice''?\\
 a) \{(N,1),(E,2), (not S, 2)\}\\
@@ -61,7 +62,7 @@ c) \{S, 1\}
 \\
 
 In addition to outcome and event, another term plays a crucial role in probability theory: the \textbf{proposition}. A proposition is a statement that can either be true or false, nothing in between, like the coin will land heads up, or Caesar was a roman. Propositions are particularly obvious in binary experiments. These are experiments with only two outcomes. Such an experiment is called \textbf{Bernoulli trial}. One of the most famous examples is tossing a coin which has the two outcomes heads and tails. 
-Every event A can be rephrased as a proposition by stating "The experiment will have event A as its’ result." This proposition can be true or false. The opposite of proposition B can be addressed using the negation operator "NOT" B. We will discuss propositions and their usage in Bayesian Probability Theory in more detail in unit three.
+Every event $A$ can be rephrased as a proposition by stating ``The experiment will have event $A$ as its result." This proposition can be true or false. The opposite of proposition $B$ can be addressed using the negation operator ``NOT" $B$. We will discuss propositions and their usage in Bayesian Probability Theory in more detail in unit three.
 \fbox{\parbox{\linewidth}{\textbf{Question 3.} Which of the following statements is a proposition?\\
 a) It was a bad advice.\\
 b) Time travel is possible.\\
@@ -80,17 +81,17 @@ c) The dice will show 1,  2, 3, 4, 5, or 6 pips on the top face.
 }}
 \\
 
- The zero event and his set will always be mapped to probability zero. It should be noted that there can be more events that have a zero probability. The one event is the set of all possible outcomes, or rather, the entire sample space and it has the probability one. An example for a certain event is "The dice will show any number of pips. Anything between one and six.” 
+ The zero event and his set will always be mapped to probability zero. It should be noted that there can be more events that have a zero probability. The one event is the set of all possible outcomes, or rather, the entire sample space and it has the probability one. An example for a certain event is ``The dice will show any number of pips. Anything between one and six.” 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.75\textwidth]{1_2.png}
 \end{figure}
 To be able to work with probabilities we need the rules of probability theory. There are two basic rules in probability theory, which can be explained most easily by set algebra.
 Since events are sets, we will use \textbf{Venn diagrams} to illustrate them.
-A set, or a subset, is depicted by ellipses. Since each event is a subset of the sample space $\Omega$ it can be drawn as an ellipse inside $\Omega$. The first rule of probability theory concerns the logical or of two events A and B say, which corresponds to the union of two subsets. The probability for A or B is treated in the \textbf{sum rule}. To begin with, we consider exclusive events A and B, which have no overlap. For those, the sum rule states, that the probability for A or B is the sum of the individual probabilities. It is particularly obvious if we identify the probabilities with the area of the ellipses. In that case the union of the two sets is equal to the sum of both areas.
-A special case applies to the \textbf{complement} of the set A, or the corresponding event, and can be depicted as the area inside $\Omega$, that is NOT A.
-In this case the sample space $\Omega$ contains both, A and NOT A. Remember, that we have defined the probability of the sample space $\Omega$ to be equal to one. Therefore, we get for the probability of the complement of an event: one minus the probability of that event.
-For non-exclusive events there might be an overlap which corresponds to the intersection of two sets. If we sum the probabilities for the events A and B. We count the elements contained in the intersection of the sets A and B twice. Therefore, we have to subtract the probability for the event (A and B). That brings us to the generally valid form of the sum rule. 
+A set, or a subset, is depicted by ellipses. Since each event is a subset of the sample space $\Omega$ it can be drawn as an ellipse inside $\Omega$. The first rule of probability theory concerns the logical or of two events $A$ and $B$ say, which corresponds to the union of two subsets. The probability for $A$ or $B$ is treated in the \textbf{sum rule}. To begin with, we consider exclusive events $A$ and $B$, which have no overlap. For those, the sum rule states, that the probability for $A$ or $B$ is the sum of the individual probabilities. It is particularly obvious if we identify the probabilities with the area of the ellipses. In that case the union of the two sets is equal to the sum of both areas.
+A special case applies to the \textbf{complement} of the set $A$, or the corresponding event, and can be depicted as the area inside $\Omega$, that is NOT $A$.
+In this case the sample space $\Omega$ contains both, $A$ and NOT $A$. Remember, that we have defined the probability of the sample space $\Omega$ to be equal to one. Therefore, we get for the probability of the complement of an event: one minus the probability of that event.
+For non-exclusive events there might be an overlap which corresponds to the intersection of two sets. If we sum the probabilities for the events $A$ and $B$. We count the elements contained in the intersection of the sets $A$ and $B$ twice. Therefore, we have to subtract the probability for the event ($A$ and $B$). That brings us to the generally valid form of the sum rule. 
 \fbox{\parbox{\linewidth}{
 \begin{centering}
 \textbf{Sum rule}
@@ -108,28 +109,28 @@ The second rule of probability theory, the so called \textbf{product rule}, tell
 \fbox{\parbox{\linewidth}{\textbf{Question 4.} What is the probability that your birthday falls on the weekend?\\
 a) 1/7 + 1/7\\
 b) It's not possible to answer this question.\\
-c) P(your birthday is on Saturday) + P(your birthday is on Sunday)\\
-\textbf{Question 5.} What is the probability that my birthday (B) is not on a Friday (we use the notation: ``B is on X'' means ``my birthday is on x''?\\
-a) P(B is on Monday) + P(B is on Tuesday) + P(B is on Wednesday) + P(B is on Thursday) + P(B is on Saturday) + P(B is on Sunday)\\
-b) P(B is on Friday)\\
-c) 1 - P(B is on Friday)\\
+c) $P$(your birthday is on Saturday) + $P$(your birthday is on Sunday)\\
+\textbf{Question 5.} What is the probability that my birthday ($B$) is not on a Friday (we use the notation: ``$B$ is on X'' means ``my birthday is on X''?\\
+a) $P$($B$ is on Monday) + $P$($B$ is on Tuesday) + $P$($B$ is on Wednesday) + $P$($B$ is on Thursday) + $P$($B$ is on Saturday) + $P$($B$ is on Sunday)\\
+b) $P$($B$ is on Friday)\\
+c) 1 - $P$($B$ is on Friday)\\
 d) 6/7\\
-\textbf{Question 6.} What is the probability that my birthday (B) is not on a Friday (we use the notation: ``B is on X'' means ``my birthday is on x''?\\
-a) P(B is on Monday) + P(B is on Tuesday) + P(B is on Wednesday) + P(B is on Thursday) + P(B is on Saturday) + P(B is on Sunday)\\
-b) P(B is on Friday)\\
-c) 1 - P(B is on Friday)\\
-d) 6/7
+\textbf{Question 6.} What is the probability that my birthday ($B$) is not on a Friday (we use the notation: ``$B$ is on X'' means ``my birthday is on X''?\\
+a) $P$($B$ is on Monday) + $P$($B$ is on Tuesday) + $P$($B$ is on Wednesday) + $P$($B$ is on Thursday) + $P$($B$ is on Saturday) + $P$($B$ is on Sunday)\\
+b) $P$($B$ is on Friday)\\
+c) 1 - $P$($B$ is on Friday)\\
+d) 6/7\\
 \textbf{Question 7.} What is the sum rule for having an odd number of pips or a prime number of pips when rolling a dice?\\
-a) P(odd) + P(prime) - P(odd or prime)\\
-b) P(odd) + P(prime)\\
-c) P(odd) + P(prime) - P(odd and prime)\\
-d) P(\{1,3,5\}) + P(\{2, 3, 5\}) - P(\{3, 5\})
+a) $P$(odd) + $P$(prime) - $P$(odd or prime)\\
+b) $P$(odd) + $P$(prime)\\
+c) $P$(odd) + $P$(prime) - $P$(odd and prime)\\
+d) $P$(\{1,3,5\}) + $P$(\{2, 3, 5\}) - $P$(\{3, 5\})
 }}
 \\
 
 There is also an alternative way to express probability, which is called \textbf{odds}. 
 Odds map events not to the interval zero to one but to any positive number and they are commonly used in sport bets and some applications of statistics.
-The odds of an event A can be directly calculated from its probability by the ratio of P for A divided by the probability for its negation (P for not A). 
+The odds of an event $A$ can be directly calculated from its probability by the ratio of $P$ for $A$ divided by the probability for its negation ($P$ for NOT $A$). 
 Odds represent the chance that an event will occur, compared to the chances, that the opposite will happen. For example: the Odds of two to three for an event states that on average you can expect two times the desired event and three times its negation, which corresponds to a probability of two divided by five or zero point four.
 In many cases a colon  (:) is used to distinguish odds from probabilities.
 Note however, that the sum rule and product rule do not apply to odds. Nevertheless, odds will become useful in a later chapter when we discuss Bayesian update rules of knowledge. \\
@@ -153,11 +154,12 @@ Now let’s see how our friends Bernoulli and Laplace solved probabilistic probl
 	\centering
 	\includegraphics[width=0.75\textwidth]{1_4.png}
 \end{figure}
-They formulated the \textbf{principle of insufficient reason}, also known as the \textbf{principle of indifference}, which states the following:\\
+They formulated the \textbf{principle of insufficient reason}, also known as the \textbf{principle of indifference}, which states the following:\\[0.2cm]
 \fbox{\parbox{\linewidth}{
 \begin{centering}
 \textit{If the elementary events – the outcomes – of an experiment can be regarded as equal in the sense that none of them is preferred in any way, then we can assign the same probability to all of them.}\\
 \end{centering} }}
+\\[0.2cm]
 This is often true in the case of symmetric objects, like a dice or a disk as we have seen with the random compass, and it can also be due to missing information.
 For a perfectly symmetric dice with six outcomes this leads to an equal probability for each of the six outcomes of one sixth, or which is approx. 17\%. 
 For the coin, the probability for each side is one half.\\
@@ -174,7 +176,7 @@ The total number of outcomes is six, so the probability of the event of having a
 \textbf{Question 9.} Complete the text: ``due to performing lots of experiments/experience'', ``the perfect symmetric shape'', ``new information''\\
 We know that the probability for 6 pips on a dice is due to .......... \\
 Laplace Might be able to quantify the probability for having roast for dinner due to .............. \\
-Bernulli knows the probability for sailing deviations ..........
+Bernoulli knows the probability for sailing deviations ..........
 }}
 \\
 
@@ -191,12 +193,22 @@ The probability for the free day event is thus given by four divided by 16, whic
 a) 50\%\\
 b) 75\%\\
 c) 40\%\\
-d)12/16\\
+d) 12/16\\
 e) 25\%
 }}
 \\
 
 This concludes the first unit. Please have a look at the bonus material, feel free to ask questions in our forum and be encouraged to test your knowledge in the quiz.\\
 
-
+\vspace{2cm}
+\begin{minipage}[t]{1\textwidth}
+	\raggedleft
+	\centering
+	\includegraphics[width = 0.20\textwidth]{CC-BY_icon}
+	\vspace{0.2cm}
+	
+	\centering
+	{\large ITPCP, TU Graz} \\
+	https://creativecommons.org/licenses/by/4.0/legalcode
+\end{minipage}
 \end{document}
