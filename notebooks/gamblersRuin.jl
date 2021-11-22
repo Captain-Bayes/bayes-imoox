@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.16.1
+# v0.15.1
 
 using Markdown
 using InteractiveUtils
@@ -479,13 +479,13 @@ end
 
 # ╔═╡ 69ee3ead-c1c8-4671-b9bd-b23fa56396d9
 begin
-keep_working(text=md"The answer is not quite right.", title="Keep working on it!") = Markdown.MD(Markdown.Admonition("danger", title, [text]));
+keep_working(text=md"The answer is not quite right.") = Markdown.MD(Markdown.Admonition("danger", "Keep working on it!", [text]));
 
-almost(text, title="Almost there!") = Markdown.MD(Markdown.Admonition("warning", title, [text]));
+almost(text) = Markdown.MD(Markdown.Admonition("warning", "Almost there!", [text]));
 
-hint(text, title ="Hint") = Markdown.MD(Markdown.Admonition("hint", title, [text]));
+hint(text) = Markdown.MD(Markdown.Admonition("hint", "Hint", [text]));
 	
-correct(text=md"Great! You got the right answer! Let's move on to the next section.", title="Got it!") = Markdown.MD(Markdown.Admonition("correct", title, [text]));
+correct(text=md"Great! You got the right answer! Let's move on to the next section.") = Markdown.MD(Markdown.Admonition("correct", "Got it!", [text]));
 md" Definition of Boxes"
 end
 
@@ -758,7 +758,7 @@ end
 # ╟─65c66c12-3faa-4545-8173-bf2d6990c65e
 # ╟─275fdf1d-f6ef-43fd-a75d-13ba121b9cbd
 # ╟─f454f7b4-e4fb-4ce0-b2fe-a25d86ffe35e
-# ╠═8138c730-841e-11eb-362a-eff54174a0c3
+# ╟─8138c730-841e-11eb-362a-eff54174a0c3
 # ╟─6da5deec-8426-11eb-31f3-6b0db5369c5e
 # ╟─a97886eb-4762-4db7-ae13-6cbb0fb7abb0
 # ╟─c771b1b3-9d8e-45f3-8f0d-486e454e950e
