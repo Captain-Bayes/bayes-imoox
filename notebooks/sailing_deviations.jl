@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.15.1
+# v0.17.2
 
 using Markdown
 using InteractiveUtils
@@ -7,15 +7,16 @@ using InteractiveUtils
 # This Pluto notebook uses @bind for interactivity. When running this notebook outside of Pluto, the following 'mock version' of @bind gives bound variables a default value (instead of an error).
 macro bind(def, element)
     quote
+        local iv = try Base.loaded_modules[Base.PkgId(Base.UUID("6e696c72-6542-2067-7265-42206c756150"), "AbstractPlutoDingetjes")].Bonds.initial_value catch; b -> missing; end
         local el = $(esc(element))
-        global $(esc(def)) = Core.applicable(Base.get, el) ? Base.get(el) : missing
+        global $(esc(def)) = Core.applicable(Base.get, el) ? Base.get(el) : iv(el)
         el
     end
 end
 
 # ╔═╡ a38a9620-6bea-11eb-2293-c5469f2d5bdc
 begin
-	try
+	#try
 		using PlutoUI
 		using Plots
 		using LinearAlgebra
@@ -26,6 +27,7 @@ begin
 		#### Packages
 		
 		All needed Packages available :) """
+	#=
 	catch
 		using Pkg;
 		Pkg.activate(mktempdir())
@@ -47,7 +49,7 @@ begin
 		
 		Some Package sources not added, this will take approx. 3 minutes"""
 	end
-	
+	=#
 end
 
 # ╔═╡ 5f9b8270-79c4-11eb-0780-03bde90c8d2b
@@ -302,7 +304,7 @@ $\textrm{CoV}(X, Y) \approx \frac{N}{N-1}\sum_{ij} \frac{\boldsymbol{N}_{ij}}{N}
 # ╟─f6ed4510-79d2-11eb-16b9-87007281ed31
 # ╟─1ae179d4-7a6a-11eb-317b-09994dba67d1
 # ╟─0a2a4d9c-7a89-11eb-23ce-dfd7d38b0ab8
-# ╟─a38a9620-6bea-11eb-2293-c5469f2d5bdc
+# ╠═a38a9620-6bea-11eb-2293-c5469f2d5bdc
 # ╟─da7a4c84-7a77-11eb-3e98-ff115e06df23
 # ╟─0a0abad2-86b5-11eb-1d3f-4d7e79c32419
 # ╟─c4582980-6bef-11eb-18e9-0b1732c8d932

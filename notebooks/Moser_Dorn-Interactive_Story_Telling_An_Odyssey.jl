@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.15.1
+# v0.17.2
 
 using Markdown
 using InteractiveUtils
@@ -7,8 +7,9 @@ using InteractiveUtils
 # This Pluto notebook uses @bind for interactivity. When running this notebook outside of Pluto, the following 'mock version' of @bind gives bound variables a default value (instead of an error).
 macro bind(def, element)
     quote
+        local iv = try Base.loaded_modules[Base.PkgId(Base.UUID("6e696c72-6542-2067-7265-42206c756150"), "AbstractPlutoDingetjes")].Bonds.initial_value catch; b -> missing; end
         local el = $(esc(element))
-        global $(esc(def)) = Core.applicable(Base.get, el) ? Base.get(el) : missing
+        global $(esc(def)) = Core.applicable(Base.get, el) ? Base.get(el) : iv(el)
         el
     end
 end
@@ -16,7 +17,7 @@ end
 # ╔═╡ 438caa30-66e8-11eb-31e9-917e458e4d33
 #add packages
 begin
-	try
+#	try
 using Plots
 using Random
 using StatsBase
@@ -26,7 +27,7 @@ using SparseArrays
 using Markdown
 using InteractiveUtils
 using HypertextLiteral
-		
+#=		
 catch 
 using Pkg
 Pkg.activate(mktempdir())
@@ -52,6 +53,8 @@ using HypertextLiteral
 #plotly()
 	end
 	md"Packages"
+
+=#
 end
 
 # ╔═╡ f36826be-93cd-11eb-3cd4-278a16171c91
@@ -96,6 +99,30 @@ end
 md" Here again you can see our compass 🧭! Now you can change the probabilities by increasing the number next to the directions ⬅⬆➡⬇ and thus simulate wind or currents. Let's see how this might affect our journey!
 "
 
+# ╔═╡ 8510bdd0-96c6-11eb-3a9a-bd311edac8f4
+@htl("""
+<table class="compasstable">
+	
+    <tbody>
+        <tr>
+            <td></td>
+            <td style="text-align:center">	$(N1)</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>$(W1)</td>
+            <td><img src="https://raw.githubusercontent.com/Captain-Bayes/images/main/Kompass_empty.png" width=200></td>
+            <td>$(E1)</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td style="text-align:center">	$(S1)</td>
+            <td></td>
+        </tr>
+    </tbody>
+</table>
+""")
+
 # ╔═╡ 66966ea0-96d4-11eb-1c5c-2b06dfd9313b
 begin
 	hint(text, headline=md"Law of large numbers") = Markdown.MD(Markdown.Admonition("hint", string(headline), [text]));
@@ -122,6 +149,30 @@ md"**Question:** But before you manipulate the compass 🧭, what do you think, 
 👉 Increase West to the maximum? $(@bind answer_4 CheckBox()) 
 
 "
+
+# ╔═╡ 76380dec-000c-43d6-957f-4fb156846ff9
+@htl("""
+<table class="compasstable">
+	
+    <tbody>
+        <tr>
+            <td></td>
+            <td style="text-align:center">	$(N1)</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>$(W1)</td>
+            <td><img src="https://raw.githubusercontent.com/Captain-Bayes/images/main/Kompass_empty.png" width=200></td>
+            <td>$(E1)</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td style="text-align:center">	$(S1)</td>
+            <td></td>
+        </tr>
+    </tbody>
+</table>
+""")
 
 # ╔═╡ 4e52d0f9-c2fd-4de4-b0c8-05a6b332c9bd
 md"""Click here if you want to see the analytic solution using a Markov process 👉 $(@bind plot_exact CheckBox())"""
@@ -528,30 +579,6 @@ begin
 	md"define tablestyle"
 end
 
-# ╔═╡ 8510bdd0-96c6-11eb-3a9a-bd311edac8f4
-@htl("""
-<table class="compasstable">
-	
-    <tbody>
-        <tr>
-            <td></td>
-            <td style="text-align:center">	$(N1)</td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>$(W1)</td>
-            <td><img src="https://raw.githubusercontent.com/Captain-Bayes/images/main/Kompass_empty.png" width=200></td>
-            <td>$(E1)</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td style="text-align:center">	$(S1)</td>
-            <td></td>
-        </tr>
-    </tbody>
-</table>
-""")
-
 # ╔═╡ 815094e0-93ce-11eb-3878-3be919148949
 begin
 	angles = [0.0, pi/2, pi, 3*pi/2, 0.0]
@@ -677,30 +704,6 @@ md"$(Resource(bernoulli, :width=>180)) The simulation is finished, Captain! Here
 
 # ╔═╡ 10b945c9-4946-49bf-9e16-62b27b3766d7
 md"""If you are still not happy with the expected time to reach turtle island, you could say our simulation was just bad luck, we only use **$(max_runs) runs** and **$(overfl) days** for each run to get the average return statistic, so maybe the true value is different 🤔."""
-
-# ╔═╡ 76380dec-000c-43d6-957f-4fb156846ff9
-@htl("""
-<table class="compasstable">
-	
-    <tbody>
-        <tr>
-            <td></td>
-            <td style="text-align:center">	$(N1)</td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>$(W1)</td>
-            <td><img src="https://raw.githubusercontent.com/Captain-Bayes/images/main/Kompass_empty.png" width=200></td>
-            <td>$(E1)</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td style="text-align:center">	$(S1)</td>
-            <td></td>
-        </tr>
-    </tbody>
-</table>
-""")
 
 # ╔═╡ 55e65cf6-7f5c-4faa-b271-cb78761300aa
 begin
@@ -942,7 +945,7 @@ end
 # ╟─55e65cf6-7f5c-4faa-b271-cb78761300aa
 # ╟─e130ac04-e3eb-4be5-ae6c-c87eaf7064a5
 # ╟─c3a505f0-66e8-11eb-3540-69ce34959d64
-# ╟─438caa30-66e8-11eb-31e9-917e458e4d33
+# ╠═438caa30-66e8-11eb-31e9-917e458e4d33
 # ╟─ae845910-8109-11eb-39a8-0182f17e791e
 # ╟─49b1e2ad-2129-4562-911f-a81976a6bd55
 # ╟─69d1a4d0-96c6-11eb-002f-9138e617a1c2

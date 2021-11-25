@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.15.1
+# v0.17.2
 
 using Markdown
 using InteractiveUtils
@@ -7,15 +7,16 @@ using InteractiveUtils
 # This Pluto notebook uses @bind for interactivity. When running this notebook outside of Pluto, the following 'mock version' of @bind gives bound variables a default value (instead of an error).
 macro bind(def, element)
     quote
+        local iv = try Base.loaded_modules[Base.PkgId(Base.UUID("6e696c72-6542-2067-7265-42206c756150"), "AbstractPlutoDingetjes")].Bonds.initial_value catch; b -> missing; end
         local el = $(esc(element))
-        global $(esc(def)) = Core.applicable(Base.get, el) ? Base.get(el) : missing
+        global $(esc(def)) = Core.applicable(Base.get, el) ? Base.get(el) : iv(el)
         el
     end
 end
 
 # ╔═╡ 476521e1-fbdb-40f3-b133-2df5acca59bc
 begin
-	try
+	#try
 		using PlutoUI
 		using Plots, Plots.PlotMeasures
 		#using LinearAlgebra
@@ -33,7 +34,7 @@ begin
 		# Packages
 		
 		All needed Packages available :) """
-	catch
+	#=catch
 		import Pkg
 		Pkg.activate(mktempdir())
 		Pkg.add("PlutoUI")
@@ -60,7 +61,7 @@ begin
 		
 		Some Package sources not added, this will take approx. 3 minutes"""
 	end
-	
+	=#
 end
 
 # ╔═╡ d71ed580-cdbc-11eb-08ab-11e87cff1cb9
@@ -176,8 +177,8 @@ imresize(Bottles[1],300,300)
 # ╟─f18c200e-bb37-4de2-8be9-26b8b4f28dc0
 # ╟─54177438-53b8-4a3a-94ed-70c64b607424
 # ╟─79cd1cb8-569f-4d24-aef5-76d841bb6c65
-# ╟─476521e1-fbdb-40f3-b133-2df5acca59bc
-# ╟─a3c995ff-b2e6-4b87-b801-347eaa07e72d
+# ╠═476521e1-fbdb-40f3-b133-2df5acca59bc
+# ╠═a3c995ff-b2e6-4b87-b801-347eaa07e72d
 # ╟─ca4d4e9f-5e7a-417f-944a-7f6a80ecd2ff
 # ╠═2faeccea-1e90-4eea-a1d7-7d644a6fa809
 # ╠═70bb4336-ce69-4e3f-ba86-6ccc9064c2ce

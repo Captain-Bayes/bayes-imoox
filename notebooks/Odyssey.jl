@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.16.1
+# v0.17.2
 
 using Markdown
 using InteractiveUtils
@@ -7,8 +7,9 @@ using InteractiveUtils
 # This Pluto notebook uses @bind for interactivity. When running this notebook outside of Pluto, the following 'mock version' of @bind gives bound variables a default value (instead of an error).
 macro bind(def, element)
     quote
+        local iv = try Base.loaded_modules[Base.PkgId(Base.UUID("6e696c72-6542-2067-7265-42206c756150"), "AbstractPlutoDingetjes")].Bonds.initial_value catch; b -> missing; end
         local el = $(esc(element))
-        global $(esc(def)) = Core.applicable(Base.get, el) ? Base.get(el) : missing
+        global $(esc(def)) = Core.applicable(Base.get, el) ? Base.get(el) : iv(el)
         el
     end
 end
@@ -16,7 +17,7 @@ end
 # ╔═╡ 438caa30-66e8-11eb-31e9-917e458e4d33
 #add packages
 begin
-	try
+	#try
 using HypertextLiteral
 using Plots
 using Random
@@ -26,7 +27,7 @@ using LinearAlgebra
 using SparseArrays
 using Markdown
 using InteractiveUtils
-
+#=
 catch 
 using Pkg
 Pkg.activate(mktempdir())
@@ -51,6 +52,7 @@ using InteractiveUtils
 #plotly()
 	end
 	md"Packages"
+=#
 end
 
 # ╔═╡ f36826be-93cd-11eb-3cd4-278a16171c91
@@ -66,6 +68,46 @@ md"
 # ╔═╡ 89c46920-7ed0-11eb-3c5f-574d525a9f1f
 md" Here again you can see our compass 🧭! Now you can change the probabilities by increasing the number next to the directions ⬅⬆➡⬇ and thus simulate wind or currents. Let's see how this might affect our journey!
 "
+
+# ╔═╡ 8510bdd0-96c6-11eb-3a9a-bd311edac8f4
+begin
+#=md"""
+$(Resource("https://raw.githubusercontent.com/Captain-Bayes/images/main/Kompass_empty.png", :width => 200))
+
+
+North: $(N1)
+	
+West: $(W1)
+ East: $(E1)
+	
+South: $(S1)
+
+	"""
+	=#
+	
+	@htl("""
+<table class="compasstable">
+	
+    <tbody>
+        <tr>
+            <td></td>
+            <td style="text-align:center">	$(N1)</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>$(W1)</td>
+            <td><img src="https://raw.githubusercontent.com/Captain-Bayes/images/main/Kompass_empty.png" width=200></td>
+            <td>$(E1)</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td style="text-align:center">	$(S1)</td>
+            <td></td>
+        </tr>
+    </tbody>
+</table>
+""")
+end
 
 # ╔═╡ 66966ea0-96d4-11eb-1c5c-2b06dfd9313b
 begin
@@ -93,6 +135,46 @@ md"**Question:** But before you manipulate the compass 🧭, what do you think, 
 👉 Increase West to the maximum? $(@bind answer_4 CheckBox()) 
 
 "
+
+# ╔═╡ 76380dec-000c-43d6-957f-4fb156846ff9
+begin
+#=md"""
+$(Resource("https://raw.githubusercontent.com/Captain-Bayes/images/main/Kompass_empty.png", :width => 200))
+
+
+North: $(N1)
+	
+West: $(W1)
+ East: $(E1)
+	
+South: $(S1)
+
+	"""
+=#	
+	
+	@htl("""
+<table class="compasstable">
+	
+    <tbody>
+        <tr>
+            <td></td>
+            <td style="text-align:center">	$(N1)</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>$(W1)</td>
+            <td><img src="https://raw.githubusercontent.com/Captain-Bayes/images/main/Kompass_empty.png" width=200></td>
+            <td>$(E1)</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td style="text-align:center">	$(S1)</td>
+            <td></td>
+        </tr>
+    </tbody>
+</table>
+""")
+end
 
 # ╔═╡ 4e52d0f9-c2fd-4de4-b0c8-05a6b332c9bd
 md"""Click here if you want to see the analytic solution using a Markov process 👉 $(@bind plot_exact CheckBox())"""
@@ -459,86 +541,6 @@ begin
 	S1 = @bind South Scrubbable(0:1:3, default=1)
 	
 	md"direction sliders"
-end
-
-# ╔═╡ 8510bdd0-96c6-11eb-3a9a-bd311edac8f4
-begin
-#=md"""
-$(Resource("https://raw.githubusercontent.com/Captain-Bayes/images/main/Kompass_empty.png", :width => 200))
-
-
-North: $(N1)
-	
-West: $(W1)
- East: $(E1)
-	
-South: $(S1)
-
-	"""
-	=#
-	
-	@htl("""
-<table class="compasstable">
-	
-    <tbody>
-        <tr>
-            <td></td>
-            <td style="text-align:center">	$(N1)</td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>$(W1)</td>
-            <td><img src="https://raw.githubusercontent.com/Captain-Bayes/images/main/Kompass_empty.png" width=200></td>
-            <td>$(E1)</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td style="text-align:center">	$(S1)</td>
-            <td></td>
-        </tr>
-    </tbody>
-</table>
-""")
-end
-
-# ╔═╡ 76380dec-000c-43d6-957f-4fb156846ff9
-begin
-#=md"""
-$(Resource("https://raw.githubusercontent.com/Captain-Bayes/images/main/Kompass_empty.png", :width => 200))
-
-
-North: $(N1)
-	
-West: $(W1)
- East: $(E1)
-	
-South: $(S1)
-
-	"""
-=#	
-	
-	@htl("""
-<table class="compasstable">
-	
-    <tbody>
-        <tr>
-            <td></td>
-            <td style="text-align:center">	$(N1)</td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>$(W1)</td>
-            <td><img src="https://raw.githubusercontent.com/Captain-Bayes/images/main/Kompass_empty.png" width=200></td>
-            <td>$(E1)</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td style="text-align:center">	$(S1)</td>
-            <td></td>
-        </tr>
-    </tbody>
-</table>
-""")
 end
 
 # ╔═╡ 254669e2-764f-4b77-a7eb-37dea55bed2f
