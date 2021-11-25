@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.15.1
+# v0.17.2
 
 using Markdown
 using InteractiveUtils
@@ -7,15 +7,16 @@ using InteractiveUtils
 # This Pluto notebook uses @bind for interactivity. When running this notebook outside of Pluto, the following 'mock version' of @bind gives bound variables a default value (instead of an error).
 macro bind(def, element)
     quote
+        local iv = try Base.loaded_modules[Base.PkgId(Base.UUID("6e696c72-6542-2067-7265-42206c756150"), "AbstractPlutoDingetjes")].Bonds.initial_value catch; b -> missing; end
         local el = $(esc(element))
-        global $(esc(def)) = Core.applicable(Base.get, el) ? Base.get(el) : missing
+        global $(esc(def)) = Core.applicable(Base.get, el) ? Base.get(el) : iv(el)
         el
     end
 end
 
 # ╔═╡ 53cbed91-a234-4e33-95c0-9b4a750c39ba
 begin
-	try
+	#try
 		using Random
 		using PlutoUI
 		using Plots
@@ -29,6 +30,7 @@ begin
 		### - Packages
 		
 		All needed Packages available :) """
+	#=
 	catch
 		using Pkg;
 		Pkg.activate(mktempdir())
@@ -60,6 +62,7 @@ begin
 		
 		Some Package sources not added, this will take approx. 3 minutes"""
 	end
+	=#
 	
 end
 
@@ -261,6 +264,12 @@ end
 # ╔═╡ 026c059e-eaf9-479b-a8a4-ca44c3b60b1e
 if counter > Nclim && flag_integral
 md"number of walkers N   $(N_wi_slider)"
+end
+
+# ╔═╡ 38257648-8beb-49c1-9c7c-11204cb6cd08
+if counter > Nclim && flag_integral
+	txt = @sprintf("int_nesa/int_exact = %8.3f ± %8.3f (2σ)" ,mean(L_int),std(L_int)/sqrt(N_repi))
+	md"The numerical result yields:     $txt"
 end
 
 # ╔═╡ d1dbd77c-caaf-4e1c-b691-5f1ba201e21d
@@ -618,12 +627,6 @@ txtx = @sprintf("N walker = %3.0d",N_wi)
 
 end
 
-end
-
-# ╔═╡ 38257648-8beb-49c1-9c7c-11204cb6cd08
-if counter > Nclim && flag_integral
-	txt = @sprintf("int_nesa/int_exact = %8.3f ± %8.3f (2σ)" ,mean(L_int),std(L_int)/sqrt(N_repi))
-	md"The numerical result yields:     $txt"
 end
 
 # ╔═╡ Cell order:
