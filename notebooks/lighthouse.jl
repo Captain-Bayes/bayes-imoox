@@ -22,6 +22,7 @@ begin
 		using Plots.PlotMeasures
 		using LaTeXStrings
 		using Markdown
+		using HypertextLiteral
 		#using Images
 		#using LinearAlgebra
 		#using SparseArrays
@@ -124,7 +125,7 @@ begin
 	
 	fix_beach_box = @bind fix_beach CheckBox()
 	
-	flashes = @bind generate_flash Button("Generate Flashes")
+	flashes = @bind generate_flash CounterButton("Generate Flashes")
 	
 	md""" 
 	## The program
@@ -133,6 +134,8 @@ begin
 end
 
 # ╔═╡ 3c1cc3af-11f9-44ac-b07f-69704c4841c4
+@htl("""<div class="hide-me">
+$(
 md"""
 Angle of the emitted light ``\varphi``: $(phi_slider)
 
@@ -142,35 +145,66 @@ Perpendicular distance of the lighthouse from the coastline ``b``: $(b_slider)
 
 Fix beach length 👉 $(fix_beach_box)
 """
+)
+
+</div>""")
+
+
 
 # ╔═╡ ed56b559-ea17-41c7-8fe5-6ae9440fd5b5
 begin
-	rng = MersenneTwister(42)
+	rng = MersenneTwister(1 + (generate_flash % 10 )  + Int(round((φ+2) * 100)))
 	md" ### Define random number seed"
 	
 end
 
 # ╔═╡ b2dc9f9b-9f57-4ca8-82ef-9c6a3915d6d0
 begin
-	a
-	b
-	φ
+	
 	show_flash_box = @bind show_flashes CheckBox()
-	md" ### CheckBox show flash (with reset)"
+	md" ### CheckBox show flash"
 end
 
 # ╔═╡ 656ac69b-4cf5-440b-a894-83a7a80f42f0
 begin
-	a
-	b
-	φ
+	
 	show_calculation_box = @bind show_calculation CheckBox(default=false)
 	md" ### Define start calculation Checkbox"
 end
 
+# ╔═╡ 936ccc78-8720-46b5-91eb-8d23f8699c99
+@htl("""<div class="hide-me-not">
+$(
+md"""
+Deactivate Calcuation to change position of the lighthouse: 👉 $(show_calculation_box)
+"""
+)
+
+</div>""")
+
+# ╔═╡ bbb80420-ccae-48e7-a943-8aae332cb254
+if show_calculation
+	html"""
+	<style>
+	.hide-me {
+		display: none;
+	}
+	</style>
+	
+	"""
+else
+html"""
+	<style>
+	.hide-me-not {
+		display: none;
+	}
+	</style>
+	"""
+end
+	
+
 # ╔═╡ a61337a8-e197-4a7b-817d-012a5c1c0f17
 begin
-	generate_flash
 	rand_phi = (rand(rng,100) .- 0.5) * pi
 	
 	x_new = tan.(rand_phi).*b .+ a
@@ -397,6 +431,7 @@ TableOfContents()
 # ╔═╡ 00000000-0000-0000-0000-000000000001
 PLUTO_PROJECT_TOML_CONTENTS = """
 [deps]
+HypertextLiteral = "ac1192a8-f4b3-4bfe-ba22-af5b92cd3ab2"
 LaTeXStrings = "b964fa9f-0449-5b57-a5c2-d3ea65f4040f"
 Markdown = "d6f4376e-aef5-505a-96c1-9c027394607a"
 Plots = "91a5bcdd-55d7-5caf-9e0b-520d859cae80"
@@ -404,6 +439,7 @@ PlutoUI = "7f904dfe-b85e-4ff6-b463-dae2292396a8"
 Random = "9a3f8284-a2c9-5f02-9a11-845980a1fd5c"
 
 [compat]
+HypertextLiteral = "~0.9.3"
 LaTeXStrings = "~1.3.0"
 Plots = "~1.23.6"
 PlutoUI = "~0.7.20"
@@ -1292,21 +1328,23 @@ version = "0.9.1+5"
 # ╟─ec784992-f4af-4ece-bf72-555960a054ca
 # ╟─8f919de1-356f-4e42-9f7e-5d29092ed80f
 # ╟─3c1cc3af-11f9-44ac-b07f-69704c4841c4
+# ╟─936ccc78-8720-46b5-91eb-8d23f8699c99
 # ╟─b8942536-020b-4c8e-a875-b5aba3034d42
 # ╟─5fc032bb-990d-424e-a256-ef2979980606
 # ╟─6dd8c883-dac4-4a31-b5ae-09ec067ba852
 # ╟─ca076585-03b6-4381-b730-e32c7a30446e
 # ╟─fd94fab8-c4c4-454e-9f5b-c0f1178143b3
 # ╟─d3f023b1-8a57-4690-b8d6-afbe2ff50d5e
+# ╟─bbb80420-ccae-48e7-a943-8aae332cb254
 # ╟─ed56b559-ea17-41c7-8fe5-6ae9440fd5b5
 # ╟─b2dc9f9b-9f57-4ca8-82ef-9c6a3915d6d0
 # ╟─656ac69b-4cf5-440b-a894-83a7a80f42f0
 # ╟─a61337a8-e197-4a7b-817d-012a5c1c0f17
 # ╟─51b1234a-9808-4dad-a588-f61db077767f
 # ╟─e7666210-a660-11eb-3e0d-7d9aec9a9f9e
-# ╠═16938d4f-6f25-4924-8bdf-b0eb638a6c4f
-# ╠═7bf32131-f749-41da-9923-2970f1487f7e
-# ╠═5d349d39-c688-4431-b056-aa11d69376e9
+# ╟─16938d4f-6f25-4924-8bdf-b0eb638a6c4f
+# ╟─7bf32131-f749-41da-9923-2970f1487f7e
+# ╟─5d349d39-c688-4431-b056-aa11d69376e9
 # ╠═1760c093-96c9-4ed9-8f4d-2c2ff3bfda5c
 # ╟─00000000-0000-0000-0000-000000000001
 # ╟─00000000-0000-0000-0000-000000000002

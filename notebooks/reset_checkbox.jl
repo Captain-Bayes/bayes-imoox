@@ -18,6 +18,7 @@ end
 begin
 using Plots
 using PlutoUI
+using HypertextLiteral
 end
 
 # ╔═╡ 08f70290-9dfb-11eb-31da-8d381c54dd70
@@ -155,16 +156,18 @@ end
 # ╔═╡ a260cd58-1986-4456-9fd9-f6be7dfb67a6
 if show_results
 	x = -10:0.01:10
-	plot(x, y.(x), size = (200,100))
+	plot(x, y.(x), size = (300,200))
 end
 
 # ╔═╡ 00000000-0000-0000-0000-000000000001
 PLUTO_PROJECT_TOML_CONTENTS = """
 [deps]
+HypertextLiteral = "ac1192a8-f4b3-4bfe-ba22-af5b92cd3ab2"
 Plots = "91a5bcdd-55d7-5caf-9e0b-520d859cae80"
 PlutoUI = "7f904dfe-b85e-4ff6-b463-dae2292396a8"
 
 [compat]
+HypertextLiteral = "~0.9.3"
 Plots = "~1.19.4"
 PlutoUI = "~0.7.9"
 """
@@ -366,6 +369,11 @@ deps = ["Base64", "Dates", "IniFile", "Logging", "MbedTLS", "NetworkOptions", "S
 git-tree-sha1 = "c6a1fff2fd4b1da29d3dccaffb1e1001244d844e"
 uuid = "cd3eb016-35fb-5094-929b-558a96fad6f3"
 version = "0.9.12"
+
+[[HypertextLiteral]]
+git-tree-sha1 = "2b078b5a615c6c0396c77810d92ee8c6f470d238"
+uuid = "ac1192a8-f4b3-4bfe-ba22-af5b92cd3ab2"
+version = "0.9.3"
 
 [[IniFile]]
 deps = ["Test"]
