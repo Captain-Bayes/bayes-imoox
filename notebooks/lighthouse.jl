@@ -367,7 +367,7 @@ begin
 	
 md"""
 ## The data: 
-$(Resource(lyra, :width=>140))
+$(Resource(lyra, :width=>100))
 	
 *Click on the Checkbox 👉 $(show_flash_box) to see the position of the 100 flashes which I recorded. You can start a new observation by pressing the Button $(flashes)*.
 	
@@ -379,10 +379,13 @@ end
 begin 
 	
 	md"""
-	$(Resource(bayes, :width=>200))
+	
 	*For sure Lyra, below you can find the __derivation__ how I perform this calculation.*
 	
 	*Just tick the checkbox to __start the calculation__ 👉 $(show_calculation_box)*
+	
+	$(Resource(bayes, :width=>100))
+	
 	"""
 	
 	
