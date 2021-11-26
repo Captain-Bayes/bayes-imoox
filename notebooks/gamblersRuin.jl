@@ -184,7 +184,7 @@ end
 
 # ╔═╡ 6da5deec-8426-11eb-31f3-6b0db5369c5e
 md""" Let's compare the results:
-- simulation   <t> =      $(round(avg,digits=2)) ±  $(round(delta,digits=2)) 
+- simulation   ``\langle t \rangle = ``     $(round(avg,digits=2)) ±  $(round(delta,digits=2)) 
 
 - exact mean  =  $(round(n*m,digits=2)),
 
@@ -1657,7 +1657,7 @@ version = "0.9.1+5"
 # ╟─65c66c12-3faa-4545-8173-bf2d6990c65e
 # ╟─275fdf1d-f6ef-43fd-a75d-13ba121b9cbd
 # ╟─f454f7b4-e4fb-4ce0-b2fe-a25d86ffe35e
-# ╠═8138c730-841e-11eb-362a-eff54174a0c3
+# ╟─8138c730-841e-11eb-362a-eff54174a0c3
 # ╟─6da5deec-8426-11eb-31f3-6b0db5369c5e
 # ╟─a97886eb-4762-4db7-ae13-6cbb0fb7abb0
 # ╟─c771b1b3-9d8e-45f3-8f0d-486e454e950e
