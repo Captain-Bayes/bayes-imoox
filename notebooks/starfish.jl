@@ -173,10 +173,10 @@ begin
 	The pot ratings of Claire's pottery store
 	 were the following:
 	
-	- Tin pot: $(L"\overline{\boldsymbol{R}} = 3.9,\, \mathcal{N} = 250")
-	- Brass pot: $(L"\overline{\boldsymbol{R}} = 4.2,\, \mathcal{N} = 80")
-	- Iron pot: $(L"\overline{\boldsymbol{R}} = 5,\, \mathcal{N} = 2")
-	- Copper pot: $(L"\overline{\boldsymbol{R}} = 4.5,\, \mathcal{N} = 15")
+	- Tin pot: ``\overline{\boldsymbol{R}} = 3.9,\, \mathcal{N} = 250``
+	- Brass pot: ``\overline{\boldsymbol{R}} = 4.2,\, \mathcal{N} = 80``
+	- Iron pot: ``\overline{\boldsymbol{R}} = 5,\, \mathcal{N} = 2``
+	- Copper pot: ``\overline{\boldsymbol{R}} = 4.5,\, \mathcal{N} = 15``
 	$(Resource(image_claire, :width=> 200))
 	$(Resource(tin_pot, :width=> 80)) 
 	$(Resource(brass_pot, :width=> 100)) 
@@ -410,10 +410,10 @@ rating $\overline{\boldsymbol{R}}$:    $(@bind 	mean_r Scrubbable(1.0:0.05:5, de
 number of votes $\mathcal{N}$: $(@bind 	N Slider(1:250, show_value=true,default=80)) 
 
 
-Parameters for prior probability (flat prior: $(L"\alpha = \beta = 1")):
+Parameters for prior probability (flat prior: ``\alpha = \beta = 1``):
 
- $(L"\alpha"):    $slider_α     
- $(L"\beta"):    $slider_β     
+ ``\alpha``:    $slider_α     
+ ``\beta``:    $slider_β     
       (_to change the values, click and pull the numbers_) 
 """
 

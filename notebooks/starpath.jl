@@ -484,6 +484,7 @@ begin
 		right_margin = 5mm,
 		linewidth = 3,
 		titlefontsize = 20,	
+		ylim = [25,60],
 		#foreground_color_grid = :black,
 		#foreground_color_xticks = :black,
 		background_color = :transparent,
@@ -542,7 +543,7 @@ end
 # ╔═╡ b8d59753-d6c1-46c3-b40b-1bc858be8ca2
 begin 
 	if show_misfit
-		md""" The **quadratic misfit: $(latexstring("\\chi^2 = \\sum_\\nu \\frac{(\\textbf{d}_\\nu - f(\\textbf{x}_\\nu, \\vec a))^2}{\\sigma_\\nu^2} = "))
+		md""" The **quadratic misfit: ``\chi^2 = \sum_\nu \frac{(\textbf{d}_\nu - f(\textbf{x}_\nu, \vec a))^2}{\sigma_\nu^2} = ``
 		$(sr(sum( (height - M(x) * a_vec).^2 ./ delta_height.^2),2))**
 		
 		**🔍 Check how you can minimize this misfit value 👆 by varying the parameters by hand before checking the "best solution" in the blue box 🟦 below 👇**
