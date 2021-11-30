@@ -74,7 +74,7 @@ md"""
 
 We will now use the techniques learned in lesson 7 to find a solution to this problem and solve this classification problem.
 
-So given are the data points of fish observations $(latexstring("(x_\\nu|y_\\nu)")) Bernoulli collected with the classifier $(latexstring("C_\\nu \\in [-1,1]")) to identify whether he spotted a frogfish (1) or a normal fish (-1).
+So given are the data points of fish observations ``(x_\nu|y_\nu)`` Bernoulli collected with the classifier ``C_\nu \in [-1,1]`` to identify whether he spotted a frogfish (1) or a normal fish (-1).
 
 To see all data points click here 👉 $(@bind show_data CheckBox()) (show data)
 
@@ -82,20 +82,20 @@ Our aim will be not only to find **a** solution but the probability density for 
 
 But let's do this step by step. Here are the steps we will perform:
 
-- **Define a model function** $(latexstring("f(x,y) = 0")) that will define a possible boundary. When inserting coordinates of a fish spot that do not lie on the boundary the function will either be positive or negative marking the side on which the fish spot is located. We will use that in order to "count" the correct and wrong fish counts.
+- **Define a model function** ``f(x,y) = 0`` that will define a possible boundary. When inserting coordinates of a fish spot that do not lie on the boundary the function will either be positive or negative marking the side on which the fish spot is located. We will use that in order to "count" the correct and wrong fish counts.
 
-We will use a linear model of the following form $(latexstring("f(x,y) = 1+ a_1 \\cdot x + a_2 \\cdot y = 0")) and rewrite it in a matrix form $(latexstring("M(\\boldsymbol x, \\boldsymbol{y}) = [1 \\quad\\boldsymbol{x} \\quad\\boldsymbol{y}]")) with the parameter vector $(latexstring("\\vec a = \\begin{pmatrix} 1 \\\\ a_1 \\\\ a_2 \\end{pmatrix}")). So the model function can be evaluated by the matrix multiplication 
-$(latexstring("f(x,y) = M(x,y) \\cdot \\vec{a}"))
+We will use a linear model of the following form ``f(x,y) = 1+ a_1 \cdot x + a_2 \cdot y = 0`` and rewrite it in a matrix form ``M(\boldsymbol x, \boldsymbol{y}) = [1 \quad\boldsymbol{x} \quad\boldsymbol{y}]`` with the parameter vector ``\vec a = \begin{pmatrix} 1 \ a_1 \ a_2 \end{pmatrix}``. So the model function can be evaluated by the matrix multiplication 
+``f(x,y) = M(x,y) \cdot \vec{a}``
 
-$(latexstring(" f(1,2) = [1 \\quad 1 \\quad 2] \\cdot \\begin{pmatrix} 1 \\\\ a_1 \\\\ a_2 \\end{pmatrix} = 1 + a_1 + 2\\cdot a_2"))
+`` f(1,2) = [1 \quad 1 \quad 2] \cdot \begin{pmatrix} 1 \\ a_1 \\ a_2 \end{pmatrix} = 1 + a_1 + 2\cdot a_2``
 
 
 - **Define a Likelihood function** that evaluates the probability for a given parameter set to reproduce Bernoulli's data. The Likelihood function will be such, that if a fish species is on the right side of the boundary it will be assigned a high constant probability and a low one if it is on the wrong side. This is because the data given is such, that the sets are not completly separable in a linear way. No matter how we draw a line, there will always be fish on the wrong side. We allow for these "outliers"
 
-To do so we will use the so-called **logistic function** that basically turns a positive value into a one and a negative value into a zero and add a hinge constant $(latexstring("\\varepsilon")) to allow for outliers. Normalization has to be done in the end.
-$(latexstring("p(\\boldsymbol{x} \\mid \\vec{a}, M) = \\frac{1}{Z} \\prod_{\\nu=1}^{\\mathcal{N}} (\\dfrac{1}{\\exp(\\beta C_\\nu \\,M(\\boldsymbol{x}_\\nu) \\cdot \\vec{a}) +1} + \\varepsilon)")). 
-$(latexstring("\\beta")) defines how fast the logistic function drops from one to zero. One can interprete it as a temperature in the context of the Fermifunction.
-The higher $(latexstring("\\beta")) the more the Likelihood function resembles a step function.
+To do so we will use the so-called **logistic function** that basically turns a positive value into a one and a negative value into a zero and add a hinge constant ``\varepsilon``to allow for outliers. Normalization has to be done in the end.
+``p(\boldsymbol{x} \mid \vec{a}, M) = \frac{1}{Z} \prod_{\nu=1}^{\mathcal{N}} (\dfrac{1}{\exp(\beta C_\nu \,M(\boldsymbol{x}_\nu) \cdot \vec{a}) +1} + \varepsilon)``. 
+``\beta`` defines how fast the logistic function drops from one to zero. One can interprete it as a temperature in the context of the Fermifunction.
+The higher ``\beta`` the more the Likelihood function resembles a step function.
 
 ### Bayes theorem
 
