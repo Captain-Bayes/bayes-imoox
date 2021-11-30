@@ -69,7 +69,7 @@ TableOfContents()
 
 # ╔═╡ 958b8590-75b7-4a37-8661-5f230f6026a4
 md"""
-If you want to see **all possible arrangements** (sometimes called permutations),
+If you want to see **all possible arrangements**  (sometimes called permutations),
 tick the following box 👉 $(@bind show_all_permutations CheckBox())
 """
 
