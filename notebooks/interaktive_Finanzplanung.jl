@@ -20,26 +20,12 @@ using PlutoUI, Plots, Dates
 # ╔═╡ aae1714d-358d-4cf9-ad13-189bea325cb7
 md"""
 # Finanzplan Konomondo
-"""
-
-# ╔═╡ ba7c07e6-22e7-4ad9-973a-5e2d78a897d1
-md"""
-
-- Startdatum 📆 Finanzplan: $(@bind datum PlutoUI.DateField(default = Date(2022, 11, 1)))
-- Enddatum Finanzplan: $(@bind datum_end PlutoUI.DateField(default = Date(2027, 11, 1)))
-"""
-
-# ╔═╡ 33b50157-2f64-498e-a972-fc3d63156a89
-time_axis = Date(datum) : Month(1):Date(datum_end)
-
-# ╔═╡ 67247c36-e703-4461-abef-a0d69221dd15
-md"""
-👩‍💼👨‍💼 Einstellungsrate:  $(@bind months_to_new_employee Slider(1:10, default = 4, show_value = true)) (nach wie vielen Monaten kommt neueR MitarbeiterIn)
-"""
-
-# ╔═╡ e4054547-3109-4c48-b61b-0b75314df669
-md"""
-Erschließen des deutschen Marktes $(@bind deutschland_markt CheckBox()) nach $(@bind eintritt_deutschland Scrubbable(1:100, default = 26, suffix = " Monate"))
+- Ausgaben 🧾 = Angestellte 👩‍💼👨‍💼
+- Einnahmen 💰 = Preis 💶 ⋅ Spieler 👥
+- Preis 💶: abhängig von Inhalt 🎲
+- Spieler 👥: abhängig von Marktkapazität, Spielqualität ✔, Marktdynamik
+- Spielequalität ✔: abhängig vom Inhalt 🎲, Systemintelligenz, Lessons Learned
+- Inhalt 🎲: abhängig von Angestellten 👩‍💼👨‍💼
 """
 
 # ╔═╡ 97f7178d-2182-4ae8-b869-785c5a99730b
@@ -73,11 +59,6 @@ students_österreich = 1140000 # students
 # ╔═╡ 467803c3-dead-4d43-ac50-8a7b74141cb6
 potenzial_österreich = students_österreich * 0.11
 
-# ╔═╡ 9fb4ab30-389d-47ec-ab1e-be05472fc3d6
-md"""
-Mittelfristig erreichbarer Marktanteil: $(@bind marktanteil_max_österreich Slider(0:0.001:1, default = 0.05, show_value = true))
-"""
-
 # ╔═╡ a1b20863-cd85-481f-9939-7b8de0019670
 md"""
 ### Markt Deutschland
@@ -98,27 +79,8 @@ md"""
 # 👩‍💼👨‍💼 Angestellte
 """
 
-# ╔═╡ 464213f4-89e5-49fa-9c66-9f17b7514367
-employees(t) = t ÷ months_to_new_employee + 2
-
-# ╔═╡ f854bec3-ec05-4be0-b0a9-fb9faa04b686
-employees.(1:10)
-
 # ╔═╡ 763b7bc0-cae5-48a8-a21a-514d382b70e2
-cost_per_employee = 6000
-
-# ╔═╡ d3fdf901-3952-46fa-a78b-243c9cb27e62
-ausgaben_pro_monat(t) = employees(t) * cost_per_employee
-
-# ╔═╡ 879fd8fe-5654-4a0d-823e-f7d95c96436c
-ausgaben(t) = sum(ausgaben_pro_monat.(1:t))
-
-# ╔═╡ 4fb58452-3864-4c92-ba40-39ab9dfbe2fa
-md"""
-**Produktivität**: Kampagnen pro Angestellter/m: $(@bind prod_range PlutoUI.RangeSlider(0.5:0.1:3, default = 1:0.1:2))
-
-effizientere Produktion ab Monat: $(@bind prod_twist Scrubbable(1:30, default = 10))
-"""
+cost_per_employee = 5000
 
 # ╔═╡ 8e21a4e8-c843-4e45-a00a-9cefb4319c30
 md"""
@@ -179,10 +141,84 @@ Halbzeit Lessons learned: $(@bind half_time_lessons_learned Scrubbable(1:100, de
 f_log(t, tip = 10, start_val = 1, end_val = 2, slope = 1) = (end_val - start_val) * (atan(slope * (t-tip)) + pi/2)/pi + start_val
 
 # ╔═╡ a088a5da-3113-4146-839f-6b586b5dac53
-marketing_dynamik(t) = f_log(t, 30, 0, 1, 0.2)
+markt_dynamik(t) = f_log(t, 30, 0, 1, 0.15)
 
 # ╔═╡ 5cfb59a8-86a0-4683-ad00-b3263ce91416
-plot(marketing_dynamik.(1:100))
+plot(markt_dynamik.(1:100))
+
+# ╔═╡ 7fbb99cd-5ec5-4852-a017-e7748b7b5ceb
+sys_intelligence(t) = f_log(t, half_time_sys_intelligence, 0, 1, dev_speed_sys_intelligence)
+
+# ╔═╡ 37ffea46-d636-4d0a-a579-5349a920d925
+lessons_learned(t) = f_log(t, half_time_lessons_learned, 0, 1, dev_speed_lessons_learned)
+
+# ╔═╡ 4d7bb9c4-b32f-4697-80b3-bc252c530f74
+f_l(t, tip = 10, start_val = 1, end_val = 2, slope = 1) = start_val + (end_val - start_val) ./(1 + exp(- slope * (t - tip)))
+
+# ╔═╡ 40966def-ae1f-4ee8-b331-70c544901cbc
+begin
+	plot(f_l.(1:100))
+	plot!(f_log.(1:100) )
+end
+
+# ╔═╡ 97a29d85-33d1-4368-822a-5737a4566b07
+TableOfContents()
+
+# ╔═╡ 568d711f-40c1-465e-b927-3c6f2ac3dd24
+begin
+slider_marktanteil = @bind marktanteil_max_österreich Scrubbable(0.02:0.001:0.1, default = 0.05, format = "0.1%")
+slider_prod_range = @bind prod_range PlutoUI.RangeSlider(0.5:0.1:3, default = 1:0.1:2)
+slider_prod_twist = @bind prod_twist Scrubbable(1:30, default = 10)
+end
+
+# ╔═╡ f1382903-a1f5-4c3e-8d44-deca5f3ba41e
+md"""
+- Startdatum 📆 Finanzplan: $(@bind datum PlutoUI.DateField(default = Date(2022, 11, 1)))
+- Enddatum Finanzplan: $(@bind datum_end PlutoUI.DateField(default = Date(2027, 11, 1)))
+---
+- 👩‍💼👨‍💼 Einstellungsrate:  $(@bind months_to_new_employee Slider(1:10, default = 4, show_value = true)) (nach wie vielen Monaten kommt neueR MitarbeiterIn)
+- **Produktivität**: Kampagnen pro Angestellter/m: $(slider_prod_range)
+- effizientere Produktion ab Monat: $(slider_prod_twist)
+---
+- Mittelfristig erreichbarer Marktanteil: $(slider_marktanteil)
+- Erschließen des deutschen Marktes $(@bind deutschland_markt CheckBox()) nach $(@bind eintritt_deutschland Scrubbable(1:100, default = 26, suffix = " Monate"))
+"""
+
+# ╔═╡ 464213f4-89e5-49fa-9c66-9f17b7514367
+employees(t) = t ÷ months_to_new_employee + 2
+
+# ╔═╡ d3fdf901-3952-46fa-a78b-243c9cb27e62
+ausgaben_pro_monat(t) = employees(t) * cost_per_employee
+
+# ╔═╡ 879fd8fe-5654-4a0d-823e-f7d95c96436c
+ausgaben(t) = sum(ausgaben_pro_monat.(1:t))
+
+# ╔═╡ f854bec3-ec05-4be0-b0a9-fb9faa04b686
+employees.(1:10)
+
+# ╔═╡ 33b50157-2f64-498e-a972-fc3d63156a89
+time_axis = Date(datum) : Month(1):Date(datum_end)
+
+# ╔═╡ aad8ad1e-b3c7-44dd-9e80-0d25e28f3df1
+plot(time_axis, ausgaben.(1:length(time_axis)), size = (600, 200), label= :none, title = "Einnahmen kummuliert")
+
+# ╔═╡ f1abc127-4e1c-48aa-ad54-d8115327c451
+plot(time_axis, sys_intelligence.(1:length(time_axis)), size = (600, 200), label= :none, title = "System Intelligenz")
+
+# ╔═╡ 71d513b4-3bf1-4b2f-943a-8868bf99cde2
+plot(time_axis, lessons_learned.(1:length(time_axis)), size = (600, 200), label= :none, title = "Lessons learned")
+
+# ╔═╡ 9fb4ab30-389d-47ec-ab1e-be05472fc3d6
+md"""
+Mittelfristig erreichbarer Marktanteil: $(slider_marktanteil)
+"""
+
+# ╔═╡ 4fb58452-3864-4c92-ba40-39ab9dfbe2fa
+md"""
+**Produktivität**: Kampagnen pro Angestellter/m: $(slider_prod_range)
+
+effizientere Produktion ab Monat: $(slider_prod_twist)
+"""
 
 # ╔═╡ 42462032-736d-449b-bcd7-7bf3810629c2
 producability(t) = f_log(t, prod_twist,  prod_range[1],  prod_range[end]) 
@@ -206,21 +242,16 @@ begin
 	plot(p1,p2, layout = (2,1))
 end
 
-# ╔═╡ 7fbb99cd-5ec5-4852-a017-e7748b7b5ceb
-sys_intelligence(t) = f_log(t, half_time_sys_intelligence, 0, 1, dev_speed_sys_intelligence)
-
-# ╔═╡ f1abc127-4e1c-48aa-ad54-d8115327c451
-plot(time_axis, sys_intelligence.(1:length(time_axis)), size = (600, 200), label= :none, title = "System Intelligenz")
-
-# ╔═╡ 37ffea46-d636-4d0a-a579-5349a920d925
-lessons_learned(t) = f_log(t, half_time_lessons_learned, 0, 1, dev_speed_lessons_learned)
-
 # ╔═╡ 7310d3e0-7aa3-4af8-b6d3-989398d7e560
 spiel_qualität(t) = p_content * min(1, content(t) / max_content) + p_system_intelligence * sys_intelligence(t) + p_lessons_learned * lessons_learned(t)
 
 # ╔═╡ c7377570-680d-44d5-967b-e6e8f4ea1179
-spieler(t)=  potenzial_österreich * marktanteil_max_österreich * spiel_qualität(t) * marketing_dynamik(t) + deutschland_markt * 
-potenzial_deutschland * marktanteil_max_österreich * spiel_qualität(t) * marketing_dynamik(t - eintritt_deutschland)
+spieler(t)=  potenzial_österreich * marktanteil_max_österreich * spiel_qualität(t) * markt_dynamik(t) + 
+deutschland_markt * 
+potenzial_deutschland * marktanteil_max_österreich * spiel_qualität(t) * markt_dynamik(t - eintritt_deutschland)
+
+# ╔═╡ c428aa68-b457-4665-aefe-fcbd8c92136e
+plot(time_axis, spieler.(1:length(time_axis)), size = (600, 200), label= :none, title = "Spieler", linewidth = 3, formatter = :plain)
 
 # ╔═╡ dce871dc-5b78-4067-ab00-9e9b4597461d
 einnahmen_pro_monat(t) = spieler(t) * preis(t)
@@ -234,8 +265,13 @@ plot(time_axis, einnahmen.(1:length(time_axis)), size = (600, 200), label= :none
 # ╔═╡ 01c4d517-b351-4011-a3ba-11c56f16167f
 ergebnis(t) = einnahmen(t) - ausgaben(t)
 
-# ╔═╡ 3f33e734-d3f6-4be4-b5f0-ddc92dfd2275
-plot(time_axis, ergebnis.(1:length(time_axis)), size = (600, 200), label= :none, title = "kummuliertes Ergebnis")
+# ╔═╡ f035fb9b-3729-40aa-bab1-8948cce9a868
+max_liqu_bedarf =  Int(round(-minimum(ergebnis.(1:length(time_axis))) /1000))
+
+# ╔═╡ b9c96a14-b60b-4ddc-9e7f-5f160501677f
+md"""
+maximaler Liquiditätsbedarf: **$(max_liqu_bedarf) k€**
+"""
 
 # ╔═╡ fa8f41b4-15d8-4bcd-b6f1-e63771c18576
 plot(time_axis, einnahmen_pro_monat.(1:length(time_axis)), size = (600, 200), label= :none, title = "Einnahmen pro Monat")
@@ -246,7 +282,7 @@ ergebnis_pro_monat(t) = einnahmen_pro_monat(t) - ausgaben_pro_monat(t)
 # ╔═╡ 968a8caf-ad21-416c-9acd-740a53eb8ffc
 begin
 	#p_ein = plot(time_axis, einnahmen_pro_monat.(1:length(time_axis)), size = (600, 200), label= :none,  formatter = :plain)
-	p_erg = plot(time_axis, ergebnis_pro_monat.(1:length(time_axis)), size = (600, 400), label= :none, title = "monatliches Ergebnis", linewidth = 3, formatter = :plain, ylabel =" Ergebnis | €", xlabel = "Datum")
+	p_erg = plot(time_axis, ergebnis_pro_monat.(1:length(time_axis)) ./ 1000, size = (600, 400), label= :none, title = "monatliches Ergebnis", linewidth = 3, formatter = :plain, ylabel =" Ergebnis | k€", xlabel = "Datum")
 	plot!(p_erg, time_axis, zeros(size(time_axis)), linecolor = :green, linewidth = 2, label = :none, alpha = 0.3)
 #	plot(p_ein, p_erg, layout = (2,1), size = (600, 400))
 end
@@ -257,20 +293,14 @@ plot(time_axis, spieler.(1:length(time_axis)), size = (600, 200), label= :none, 
 # ╔═╡ f16922cf-58cb-445f-9fe9-1886e14d2b12
 plot(time_axis, spiel_qualität.(1:length(time_axis)), size = (600, 200), label= :none, title = "Spiel Qualität")
 
-# ╔═╡ 71d513b4-3bf1-4b2f-943a-8868bf99cde2
-plot(time_axis, lessons_learned.(1:length(time_axis)), size = (600, 200), label= :none, title = "Lessons learned")
-
-# ╔═╡ 4d7bb9c4-b32f-4697-80b3-bc252c530f74
-f_l(t, tip = 10, start_val = 1, end_val = 2, slope = 1) = start_val + (end_val - start_val) ./(1 + exp(- slope * (t - tip)))
-
-# ╔═╡ 40966def-ae1f-4ee8-b331-70c544901cbc
-begin
-	plot(f_l.(1:100))
-	plot!(f_log.(1:100) )
-end
-
-# ╔═╡ 97a29d85-33d1-4368-822a-5737a4566b07
-TableOfContents()
+# ╔═╡ 89f3fbf6-dae7-4a91-a368-54c47aede5b5
+html"""
+<style>
+	body, main, pluto-notebook, nav.plutoui-toc.aside.indent {
+		background-color: white
+	}
+</style>
+"""
 
 # ╔═╡ 00000000-0000-0000-0000-000000000001
 PLUTO_PROJECT_TOML_CONTENTS = """
@@ -1192,11 +1222,10 @@ version = "0.9.1+5"
 
 # ╔═╡ Cell order:
 # ╟─aae1714d-358d-4cf9-ad13-189bea325cb7
-# ╟─ba7c07e6-22e7-4ad9-973a-5e2d78a897d1
-# ╠═33b50157-2f64-498e-a972-fc3d63156a89
-# ╟─67247c36-e703-4461-abef-a0d69221dd15
-# ╟─e4054547-3109-4c48-b61b-0b75314df669
+# ╟─f1382903-a1f5-4c3e-8d44-deca5f3ba41e
 # ╟─968a8caf-ad21-416c-9acd-740a53eb8ffc
+# ╟─b9c96a14-b60b-4ddc-9e7f-5f160501677f
+# ╟─c428aa68-b457-4665-aefe-fcbd8c92136e
 # ╟─97f7178d-2182-4ae8-b869-785c5a99730b
 # ╠═dce871dc-5b78-4067-ab00-9e9b4597461d
 # ╠═af5f7d1c-e6b0-49bd-a8f9-921491df41de
@@ -1208,7 +1237,8 @@ version = "0.9.1+5"
 # ╠═d3fdf901-3952-46fa-a78b-243c9cb27e62
 # ╠═f3ebd7d3-536e-4da1-a334-4cad88855b5b
 # ╠═01c4d517-b351-4011-a3ba-11c56f16167f
-# ╟─3f33e734-d3f6-4be4-b5f0-ddc92dfd2275
+# ╠═aad8ad1e-b3c7-44dd-9e80-0d25e28f3df1
+# ╠═f035fb9b-3729-40aa-bab1-8948cce9a868
 # ╟─adef630e-6ca6-48c9-afbc-977d31d5c788
 # ╠═d63b4ef6-e0fa-42f1-a0b3-6bb61fd5fd6b
 # ╠═c7377570-680d-44d5-967b-e6e8f4ea1179
@@ -1247,8 +1277,11 @@ version = "0.9.1+5"
 # ╟─71d513b4-3bf1-4b2f-943a-8868bf99cde2
 # ╠═34826510-9602-4a49-8dfd-c34368cc8e7d
 # ╠═4d7bb9c4-b32f-4697-80b3-bc252c530f74
+# ╠═33b50157-2f64-498e-a972-fc3d63156a89
 # ╠═40966def-ae1f-4ee8-b331-70c544901cbc
 # ╠═97a29d85-33d1-4368-822a-5737a4566b07
 # ╠═8133a630-c47b-11ec-2b78-571c076a8c9a
+# ╠═568d711f-40c1-465e-b927-3c6f2ac3dd24
+# ╠═89f3fbf6-dae7-4a91-a368-54c47aede5b5
 # ╟─00000000-0000-0000-0000-000000000001
 # ╟─00000000-0000-0000-0000-000000000002
