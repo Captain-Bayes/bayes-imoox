@@ -17,9 +17,14 @@ end
 # ╔═╡ 8133a630-c47b-11ec-2b78-571c076a8c9a
 using PlutoUI, Plots, Dates
 
-# ╔═╡ aae1714d-358d-4cf9-ad13-189bea325cb7
+# ╔═╡ ae5f29fc-fff3-4bbb-81da-9fd616be93ad
 md"""
 # Finanzplan Konomondo
+"""
+
+# ╔═╡ aae1714d-358d-4cf9-ad13-189bea325cb7
+md"""
+## Modellierung
 - Ausgaben 🧾 = Angestellte 👩‍💼👨‍💼
 - Einnahmen 💰 = Preis 💶 ⋅ Spieler 👥
 - Preis 💶: abhängig von Inhalt 🎲
@@ -64,8 +69,8 @@ md"""
 ### Markt Deutschland
 - SchülerInnen: 11 000 000
 - Nachhilfe: ~ 28%
-- beazhlte Nachhilfe: ~17%
-- bezahlte Matehmatiknachhilfe: ~10%
+- bezahlte Nachhilfe: ~17%
+- bezahlte Mathematiknachhilfe: ~10%
 """
 
 # ╔═╡ c9d2b981-938c-4f1d-b5d1-b3f4a1cf2f2c
@@ -251,7 +256,7 @@ deutschland_markt *
 potenzial_deutschland * marktanteil_max_österreich * spiel_qualität(t) * markt_dynamik(t - eintritt_deutschland)
 
 # ╔═╡ c428aa68-b457-4665-aefe-fcbd8c92136e
-plot(time_axis, spieler.(1:length(time_axis)), size = (600, 200), label= :none, title = "Spieler", linewidth = 3, formatter = :plain)
+plot(time_axis, spieler.(1:length(time_axis)), size = (600, 200), label= :none, title = deutschland_markt ? "Spieler (mit deutschem Markt)" : "Spieler (ohne deutschen Markt)", linewidth = 3, formatter = :plain)
 
 # ╔═╡ dce871dc-5b78-4067-ab00-9e9b4597461d
 einnahmen_pro_monat(t) = spieler(t) * preis(t)
@@ -282,7 +287,7 @@ ergebnis_pro_monat(t) = einnahmen_pro_monat(t) - ausgaben_pro_monat(t)
 # ╔═╡ 968a8caf-ad21-416c-9acd-740a53eb8ffc
 begin
 	#p_ein = plot(time_axis, einnahmen_pro_monat.(1:length(time_axis)), size = (600, 200), label= :none,  formatter = :plain)
-	p_erg = plot(time_axis, ergebnis_pro_monat.(1:length(time_axis)) ./ 1000, size = (600, 400), label= :none, title = "monatliches Ergebnis", linewidth = 3, formatter = :plain, ylabel =" Ergebnis | k€", xlabel = "Datum")
+	p_erg = plot(time_axis, ergebnis_pro_monat.(1:length(time_axis)) ./ 1000, size = (600, 400), label= :none, title = "monatliches Ergebnis", linewidth =5, formatter = :plain, ylabel =" Ergebnis | k€", xlabel = "Zeit")
 	plot!(p_erg, time_axis, zeros(size(time_axis)), linecolor = :green, linewidth = 2, label = :none, alpha = 0.3)
 #	plot(p_ein, p_erg, layout = (2,1), size = (600, 400))
 end
@@ -1221,10 +1226,11 @@ version = "0.9.1+5"
 """
 
 # ╔═╡ Cell order:
-# ╟─aae1714d-358d-4cf9-ad13-189bea325cb7
-# ╟─f1382903-a1f5-4c3e-8d44-deca5f3ba41e
+# ╟─ae5f29fc-fff3-4bbb-81da-9fd616be93ad
 # ╟─968a8caf-ad21-416c-9acd-740a53eb8ffc
 # ╟─b9c96a14-b60b-4ddc-9e7f-5f160501677f
+# ╟─f1382903-a1f5-4c3e-8d44-deca5f3ba41e
+# ╟─aae1714d-358d-4cf9-ad13-189bea325cb7
 # ╟─c428aa68-b457-4665-aefe-fcbd8c92136e
 # ╟─97f7178d-2182-4ae8-b869-785c5a99730b
 # ╠═dce871dc-5b78-4067-ab00-9e9b4597461d
