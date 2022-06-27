@@ -174,9 +174,6 @@ html"""
 # ╔═╡ f83abf5e-a2d4-41df-afce-2b5be908e1c7
 reset_all = @bind res_all Button("Reset all")
 
-# ╔═╡ a599fe75-67f4-4801-9cb0-356fe3d77c8e
-reset_all
-
 # ╔═╡ 14e293a1-9e56-42ea-95bf-f31711c493a9
 begin
 	res_all, res2
@@ -590,7 +587,6 @@ uuid = "3f19e933-33d8-53b3-aaab-bd5110c3b7a0"
 """
 
 # ╔═╡ Cell order:
-# ╠═a599fe75-67f4-4801-9cb0-356fe3d77c8e
 # ╟─44e1a3da-f563-11ec-2063-59169b0d3f06
 # ╟─6e5c011b-89ae-4aff-aceb-d2ee253ab0a9
 # ╟─57057a91-685b-4ec8-ab6c-761a282579ea
