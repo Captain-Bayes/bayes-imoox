@@ -88,17 +88,6 @@ correct(text=md"Great! You got the right answer! Let's move on to the next secti
 md" Definition of Boxes"
 end
 
-# ╔═╡ 8d4aef88-7f44-428b-8f91-7bacce6258c3
-begin
-	
-	annehmen_button = @bind annehmen CounterButton("Ich bin bereit! 💪")
-end
-
-# ╔═╡ f42b12a9-c98a-4b80-8c8c-377bc67710aa
-begin
-	annehmen_button
-end
-
 # ╔═╡ 13195864-0787-4a0a-8149-85967708fa57
 reset_button = @bind res Button("Reset")
 
@@ -149,11 +138,6 @@ hide_everything_below =
 md"definition hide everything below"
 end
 
-# ╔═╡ 5c584f4e-684d-4220-8e9f-fce2ef18d82f
-if annehmen == 0
-	hide_everything_below
-end
-
 # ╔═╡ 0e750e27-4d31-4777-97e8-afaf0894f23f
 if true
 	
@@ -172,12 +156,31 @@ html"""
 # ╔═╡ f83abf5e-a2d4-41df-afce-2b5be908e1c7
 reset_all = @bind res_all Button("Reset all")
 
+# ╔═╡ 94f85833-07a9-44a3-9f17-5554d46d5e01
+reset_all
+
 # ╔═╡ 14e293a1-9e56-42ea-95bf-f31711c493a9
 begin
 	res_all, res2
 	select_a = @bind sel_1 Select(["Wähle 👇"; answers_2[randperm(3)]])
 	select_b = @bind sel_2 Select(["Wähle 👇"; answers_2[randperm(3)]])
 	select_c = @bind sel_3 Select(["Wähle 👇"; answers_2[randperm(3)]])
+end
+
+# ╔═╡ 8d4aef88-7f44-428b-8f91-7bacce6258c3
+begin
+	res_all
+	annehmen_button = @bind annehmen CounterButton("Ich bin bereit! 💪")
+end
+
+# ╔═╡ f42b12a9-c98a-4b80-8c8c-377bc67710aa
+begin
+	annehmen_button
+end
+
+# ╔═╡ 5c584f4e-684d-4220-8e9f-fce2ef18d82f
+if annehmen == 0
+	hide_everything_below
 end
 
 # ╔═╡ 1e07760a-8da0-4377-9f54-416eccb76d6f
@@ -279,7 +282,8 @@ md"""
 else
 md"""
 Deine Wahl:
-- `Gamification: ` $(a ? "✔" : "❌") - `Story basiertes Lernen: ` $(b ? "✔" : "❌")
+- `Gamification: ` $(a ? "✔" : "❌") 
+- `Story basiertes Lernen: ` $(b ? "✔" : "❌")
 - `Multiplayer Modus: ` $(c ? "✔" : "❌")
 - `individualisiertes Lernen: ` $(d ? "✔" : "❌")
 """
@@ -310,6 +314,51 @@ begin
 	elseif (Lösung3 > 0) & (!antwort3)
 		reset_button3
 	end
+end
+
+# ╔═╡ 7c524072-f80a-498b-be92-50b97c877a15
+begin
+	test_ref = [0]
+	@bind test PlutoUI.CounterButton("Lösung")
+
+end
+
+# ╔═╡ c2ff01a5-a346-4722-a3ff-f7af5e9a2c2e
+begin
+	set_ref = [0]
+
+	@bind set CounterButton("Reset")
+end
+
+# ╔═╡ cd7817d9-7495-406e-b990-55938153189c
+h = [1]
+
+# ╔═╡ 687598c0-3096-4f66-b594-18c1220722c4
+if set > set_ref[1]
+	h[1] = 3
+	set_ref[1] += 1
+end
+
+# ╔═╡ c250a595-016b-4036-a9cc-6eb8acfbdf94
+if test > test_ref[1]
+	h[1] = 1
+	test_ref[1] += 1
+end
+
+# ╔═╡ 1993bbe6-f791-45c4-8a3f-ad36fb2e1ade
+h[1] = 2
+
+# ╔═╡ 2673b9c3-444e-47b5-959c-a4134b556d02
+h[1] = 1
+
+# ╔═╡ 784f068b-8b25-4dae-82ba-e44511a59c17
+begin
+	set, test
+if h[1] == 3
+	md"#asdf"
+elseif h[1] == 1
+	md"yes"
+end
 end
 
 # ╔═╡ 00000000-0000-0000-0000-000000000001
@@ -535,6 +584,7 @@ uuid = "3f19e933-33d8-53b3-aaab-bd5110c3b7a0"
 """
 
 # ╔═╡ Cell order:
+# ╠═94f85833-07a9-44a3-9f17-5554d46d5e01
 # ╟─44e1a3da-f563-11ec-2063-59169b0d3f06
 # ╟─6e5c011b-89ae-4aff-aceb-d2ee253ab0a9
 # ╟─57057a91-685b-4ec8-ab6c-761a282579ea
@@ -575,5 +625,13 @@ uuid = "3f19e933-33d8-53b3-aaab-bd5110c3b7a0"
 # ╠═e07dd248-3f53-401c-9b42-a370193c94fa
 # ╠═6fb87691-58c1-498a-9563-6b92ee59b119
 # ╠═f83abf5e-a2d4-41df-afce-2b5be908e1c7
+# ╠═687598c0-3096-4f66-b594-18c1220722c4
+# ╠═c250a595-016b-4036-a9cc-6eb8acfbdf94
+# ╠═7c524072-f80a-498b-be92-50b97c877a15
+# ╠═c2ff01a5-a346-4722-a3ff-f7af5e9a2c2e
+# ╠═cd7817d9-7495-406e-b990-55938153189c
+# ╠═1993bbe6-f791-45c4-8a3f-ad36fb2e1ade
+# ╠═2673b9c3-444e-47b5-959c-a4134b556d02
+# ╠═784f068b-8b25-4dae-82ba-e44511a59c17
 # ╟─00000000-0000-0000-0000-000000000001
 # ╟─00000000-0000-0000-0000-000000000002

@@ -6,11 +6,28 @@ using InteractiveUtils
 
 # ╔═╡ 846d334a-e5ab-484a-832f-731c1290356f
 begin
-	using PlutoUI
+	using PlutoUI, HypertextLiteral
 end
+
+# ╔═╡ c06b5842-f0fb-4f6e-b3dd-c2afebb7961c
+md"""
+# [https://tinyurl.com/Konomondo](https://tinyurl.com/Konomondo)
+"""
 
 # ╔═╡ 4ea4fc64-b2f4-40a6-8b51-03a84f54f113
 qr_code = "https://github.com/dorn-gerhard/workAdventure/raw/master/src/assets/Proto-QR.png"
+
+# ╔═╡ e6f067e1-c377-4885-9eab-a1a0403f7bf0
+@htl("""
+<table class="compasstable">
+	
+    <tbody>
+        <tr> $(Resource(qr_code)) </tr>
+		<td style="text-align:right">$(md"""# [https://tinyurl.com/Konomondo](https://tinyurl.com/Konomondo)
+""") </td>
+</tbody>
+</table>
+""")
 
 # ╔═╡ 952acb68-4518-48c9-84a7-3f816ec55591
 begin
@@ -28,10 +45,6 @@ md"""
 $([Resource(michael, :width => 150), Resource(annika, :width => 150), Resource(gihan, :width => 150), Resource(gerhard, :width => 150)])
 ### Bewaffnet mit unserem Protoptyp gehen wir jetzt mit Schüler*innen in eine **Testphase** über
 ### **Testen Sie selbst** 🤠
-
-$(Resource(qr_code))
-
-
 """
 
 # ╔═╡ 036a235a-c318-4270-a883-ea8164cdfdd9
@@ -95,9 +108,11 @@ $([Resource(michael, :width => 150), Resource(annika, :width => 150), Resource(g
 # ╔═╡ 00000000-0000-0000-0000-000000000001
 PLUTO_PROJECT_TOML_CONTENTS = """
 [deps]
+HypertextLiteral = "ac1192a8-f4b3-4bfe-ba22-af5b92cd3ab2"
 PlutoUI = "7f904dfe-b85e-4ff6-b463-dae2292396a8"
 
 [compat]
+HypertextLiteral = "~0.9.4"
 PlutoUI = "~0.7.39"
 """
 
@@ -315,7 +330,9 @@ uuid = "3f19e933-33d8-53b3-aaab-bd5110c3b7a0"
 
 # ╔═╡ Cell order:
 # ╟─744c848b-15ac-415d-aef6-5244be5ed981
+# ╟─e6f067e1-c377-4885-9eab-a1a0403f7bf0
 # ╟─4f94136c-6dd3-4bb8-8a20-4a5a8162a74b
+# ╠═c06b5842-f0fb-4f6e-b3dd-c2afebb7961c
 # ╠═4ea4fc64-b2f4-40a6-8b51-03a84f54f113
 # ╟─952acb68-4518-48c9-84a7-3f816ec55591
 # ╠═036a235a-c318-4270-a883-ea8164cdfdd9
