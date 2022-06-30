@@ -102,6 +102,46 @@ reset_button2 = @bind res2 Button("Reset")
 # ╔═╡ 0004f7fa-673c-4b4d-aecc-17c0d8eb6327
 reset_button3 = @bind res3 Button("Reset")
 
+# ╔═╡ 6357c149-4454-4bdd-958b-96b87e3b6d95
+qu2_answered = [false]
+
+# ╔═╡ fa5ab3c0-f33e-41cf-a61e-112a33e9fafe
+qu2_answered
+
+# ╔═╡ 24b49644-bf61-4c6d-b841-0bedc6ded76e
+begin
+	test_ref2 = [0]
+	lsg_button2 = @bind test PlutoUI.CounterButton("Lösung")
+
+end
+
+# ╔═╡ 08b7388e-3ec1-49af-978d-d259c72c214d
+if test > test_ref2[1]
+	qu2_answered[1] = true
+	test_ref2[1] += 1
+end
+
+
+# ╔═╡ e5a4ba65-531e-4b88-b921-35850cad9dcb
+begin
+	set_ref2 = [0]
+
+	res_button2 = @bind set CounterButton("Reset")
+end
+
+# ╔═╡ e3ea38ae-3898-4652-85ac-573ff15e8117
+test, test_ref2, set, set_ref2, qu2_answered[1]
+
+# ╔═╡ 445acd08-6c5d-48a4-8791-ab0743b52b80
+
+if set > set_ref2[1]
+	qu2_answered[1] = false
+	set_ref2[1] += 1
+end
+
+# ╔═╡ 77f9bfc2-bb66-4a31-b1dd-54208cb406b1
+test, test_ref2, set, set_ref2, qu2_answered[1]
+
 # ╔═╡ a11fde72-5deb-440f-96c8-dcef5de4f6ab
 begin
 hide_everything_below =
@@ -138,8 +178,18 @@ hide_everything_below =
 md"definition hide everything below"
 end
 
+# ╔═╡ cc5c99ba-8760-4dfa-bab3-f7a3b0eaabab
+if  false#!antwort_2
+	hide_everything_below
+end
+
+# ╔═╡ 87dd5a0e-c048-49a6-a533-3840af16b417
+if false #!antwort3
+	hide_everything_below
+end
+
 # ╔═╡ 0e750e27-4d31-4777-97e8-afaf0894f23f
-if true
+if false
 	
 	hide_everything_below
 end
@@ -162,6 +212,34 @@ begin
 	select_a = @bind sel_1 Select(["Wähle 👇"; answers_2[randperm(3)]])
 	select_b = @bind sel_2 Select(["Wähle 👇"; answers_2[randperm(3)]])
 	select_c = @bind sel_3 Select(["Wähle 👇"; answers_2[randperm(3)]])
+end
+
+# ╔═╡ 3ec9d0f5-d09a-4ef2-82d3-2c075789274a
+begin
+	antwort_2 = false
+	if qu2_answered[1] == false
+		md"Wähle die richtige Antwort aus und klicke auf **Lösung**"
+	elseif((sel_1 ==  nachhilfe_institut) & 
+			(sel_2 == lernspiel) &
+			(sel_3 == kursplattform))
+		antwort_2 = true
+		correct(md"**Richtig** 🎉, Zu Belohnung erhältst du ein 🦄!", "Korrekt!")
+	else
+		almost(md"Versuche es noch einmal", "Noch nicht ganz...")
+	end
+end
+
+# ╔═╡ 64098720-fb58-427e-8307-d9f2a1f32b72
+res_button2, lsg_button2, antwort_2
+
+# ╔═╡ 0ae9d071-013c-4df5-9882-20318e5de1f6
+begin
+	
+	if qu2_answered[1] == false
+		lsg_button2
+	elseif (qu2_answered[1]) & (!antwort_2)
+		res_button2
+	end
 end
 
 # ╔═╡ 8d4aef88-7f44-428b-8f91-7bacce6258c3
@@ -231,35 +309,6 @@ Deine Wahl:
 """
 end
 
-# ╔═╡ 3ec9d0f5-d09a-4ef2-82d3-2c075789274a
-begin
-	antwort_2 = false
-	if Lösung2 == 0
-		md"Wähle die richtige Antwort aus und klicke auf **Lösung**"
-	elseif((sel_1 ==  nachhilfe_institut) & 
-			(sel_2 == lernspiel) &
-			(sel_3 == kursplattform))
-		antwort_2 = true
-		correct(md"**Richtig** 🎉, Zu Belohnung erhältst du ein 🦄!", "Korrekt!")
-	else
-		almost(md"Versuche es noch einmal", "Noch nicht ganz...")
-	end
-end
-
-# ╔═╡ cc5c99ba-8760-4dfa-bab3-f7a3b0eaabab
-if  !antwort_2
-	hide_everything_below
-end
-
-# ╔═╡ 0ae9d071-013c-4df5-9882-20318e5de1f6
-begin
-	if Lösung2 == 0
-		md"$(lösung_button2) $(reset_button2)"
-	elseif (Lösung2 > 0) & (!antwort_2)
-		reset_button2
-	end
-end
-
 # ╔═╡ f1011ea7-d8fb-49f7-87ad-d7476e346463
 begin
 res3
@@ -297,11 +346,6 @@ begin
 	else
 		almost(md"Versuche es noch einmal", "Noch nicht ganz...")
 	end
-end
-
-# ╔═╡ 87dd5a0e-c048-49a6-a533-3840af16b417
-if !antwort3
-	hide_everything_below
 end
 
 # ╔═╡ e9a2626a-a10e-455f-8961-253454f63f54
@@ -546,18 +590,20 @@ uuid = "3f19e933-33d8-53b3-aaab-bd5110c3b7a0"
 # ╟─f42b12a9-c98a-4b80-8c8c-377bc67710aa
 # ╟─5c584f4e-684d-4220-8e9f-fce2ef18d82f
 # ╟─b69c4db2-12ac-4ce0-ac02-ab44aa030359
-# ╟─cdaceef8-f222-4b79-98c9-ae7314213782
-# ╟─3ec9d0f5-d09a-4ef2-82d3-2c075789274a
-# ╟─0ae9d071-013c-4df5-9882-20318e5de1f6
-# ╟─cc5c99ba-8760-4dfa-bab3-f7a3b0eaabab
+# ╠═cdaceef8-f222-4b79-98c9-ae7314213782
+# ╠═3ec9d0f5-d09a-4ef2-82d3-2c075789274a
+# ╠═e3ea38ae-3898-4652-85ac-573ff15e8117
+# ╠═64098720-fb58-427e-8307-d9f2a1f32b72
+# ╠═0ae9d071-013c-4df5-9882-20318e5de1f6
+# ╠═cc5c99ba-8760-4dfa-bab3-f7a3b0eaabab
 # ╟─61c88bd8-5f87-4fc7-80c2-6f0206591641
 # ╟─485bec09-b32f-4c88-845f-8bf7f71c41e5
 # ╟─1e463b74-ae8b-4f1a-8e03-47f76cff4269
-# ╟─e9a2626a-a10e-455f-8961-253454f63f54
-# ╟─48e123db-c154-4e3f-b698-cda7d212c41e
-# ╟─87dd5a0e-c048-49a6-a533-3840af16b417
+# ╠═e9a2626a-a10e-455f-8961-253454f63f54
+# ╠═48e123db-c154-4e3f-b698-cda7d212c41e
+# ╠═87dd5a0e-c048-49a6-a533-3840af16b417
 # ╟─fd4e7e37-fd2c-4566-a0df-2945f705a8f7
-# ╟─0e750e27-4d31-4777-97e8-afaf0894f23f
+# ╠═0e750e27-4d31-4777-97e8-afaf0894f23f
 # ╟─f54cc3bd-f1e9-4191-8cd1-653dee77fc5b
 # ╠═48fd8063-abba-472b-9bbe-ab801166fdb1
 # ╠═d029e415-ef80-437b-91c2-131065bbe923
@@ -575,6 +621,13 @@ uuid = "3f19e933-33d8-53b3-aaab-bd5110c3b7a0"
 # ╠═f9302f25-890a-42ed-9fe4-7c3305d1572c
 # ╠═73392c04-4ce6-4bbc-859d-18b29219376c
 # ╠═f1011ea7-d8fb-49f7-87ad-d7476e346463
+# ╠═445acd08-6c5d-48a4-8791-ab0743b52b80
+# ╠═6357c149-4454-4bdd-958b-96b87e3b6d95
+# ╠═fa5ab3c0-f33e-41cf-a61e-112a33e9fafe
+# ╠═08b7388e-3ec1-49af-978d-d259c72c214d
+# ╠═77f9bfc2-bb66-4a31-b1dd-54208cb406b1
+# ╠═24b49644-bf61-4c6d-b841-0bedc6ded76e
+# ╠═e5a4ba65-531e-4b88-b921-35850cad9dcb
 # ╠═9d404ed6-a347-4166-8007-2843abefca6b
 # ╠═a11fde72-5deb-440f-96c8-dcef5de4f6ab
 # ╠═e07dd248-3f53-401c-9b42-a370193c94fa
