@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.19.9
+# v0.19.14
 
 using Markdown
 using InteractiveUtils
@@ -15,7 +15,11 @@ macro bind(def, element)
 end
 
 # ╔═╡ 9d404ed6-a347-4166-8007-2843abefca6b
-using PlutoUI
+begin
+	using PlutoUI
+	using HypertextLiteral
+end
+
 
 # ╔═╡ 6fb87691-58c1-498a-9563-6b92ee59b119
 using Random
@@ -32,6 +36,12 @@ md"
 md"""
 ---
 """
+
+# ╔═╡ 0e750e27-4d31-4777-97e8-afaf0894f23f
+if true
+	
+	#hide_everything_below
+end
 
 # ╔═╡ f54cc3bd-f1e9-4191-8cd1-653dee77fc5b
 waechter = "https://github.com/dorn-gerhard/workAdventure/raw/master/Characters/W%C3%A4chter/ritter_waechter_gif_large.gif"
@@ -60,7 +70,7 @@ $(Resource(waechter))
 """
 
 # ╔═╡ 48fd8063-abba-472b-9bbe-ab801166fdb1
-
+checkstates = Dict(true => html"<input type = checkbox checked disabled>", false => html"<input type = checkbox  disabled>")
 
 # ╔═╡ d029e415-ef80-437b-91c2-131065bbe923
 
@@ -102,6 +112,26 @@ reset_button2 = @bind res2 Button("Reset")
 # ╔═╡ 0004f7fa-673c-4b4d-aecc-17c0d8eb6327
 reset_button3 = @bind res3 Button("Reset")
 
+# ╔═╡ f9302f25-890a-42ed-9fe4-7c3305d1572c
+begin
+
+		lösung_button = @bind Lösung CounterButton("Überprüfen")
+
+end
+
+# ╔═╡ 73392c04-4ce6-4bbc-859d-18b29219376c
+begin
+
+		lösung_button2 = @bind Lösung2 CounterButton("Überprüfen")
+
+end
+
+# ╔═╡ f1011ea7-d8fb-49f7-87ad-d7476e346463
+lösung_button3 = @bind Lösung3 CounterButton("Überprüfen")
+
+# ╔═╡ d0585f00-6832-4631-86d3-e0d90bf05dd7
+Lösung3,lösung_button3
+
 # ╔═╡ a11fde72-5deb-440f-96c8-dcef5de4f6ab
 begin
 hide_everything_below =
@@ -138,12 +168,6 @@ hide_everything_below =
 md"definition hide everything below"
 end
 
-# ╔═╡ 0e750e27-4d31-4777-97e8-afaf0894f23f
-if true
-	
-	hide_everything_below
-end
-
 # ╔═╡ e07dd248-3f53-401c-9b42-a370193c94fa
 html"""
 <style>
@@ -156,66 +180,12 @@ html"""
 # ╔═╡ f83abf5e-a2d4-41df-afce-2b5be908e1c7
 reset_all = @bind res_all Button("Reset all")
 
-# ╔═╡ 94f85833-07a9-44a3-9f17-5554d46d5e01
-reset_all
-
 # ╔═╡ 14e293a1-9e56-42ea-95bf-f31711c493a9
 begin
 	res_all, res2
 	select_a = @bind sel_1 Select(["Wähle 👇"; answers_2[randperm(3)]])
 	select_b = @bind sel_2 Select(["Wähle 👇"; answers_2[randperm(3)]])
 	select_c = @bind sel_3 Select(["Wähle 👇"; answers_2[randperm(3)]])
-end
-
-# ╔═╡ 8d4aef88-7f44-428b-8f91-7bacce6258c3
-begin
-	res_all
-	annehmen_button = @bind annehmen CounterButton("Ich bin bereit! 💪")
-end
-
-# ╔═╡ f42b12a9-c98a-4b80-8c8c-377bc67710aa
-begin
-	annehmen_button
-end
-
-# ╔═╡ 5c584f4e-684d-4220-8e9f-fce2ef18d82f
-if annehmen == 0
-	hide_everything_below
-end
-
-# ╔═╡ 1e07760a-8da0-4377-9f54-416eccb76d6f
-begin
-	res, res_all
-	radio_1 = @bind answer_1 Radio(["100 k€", "1 Mio €", "10 Mio €"])
-end
-
-# ╔═╡ e3b04b90-ca36-4c85-9d24-e90cb93b1222
-begin
-	res
-	res_all
-	checkbox_a = @bind a CheckBox()
-	checkbox_b = @bind b CheckBox()
-	checkbox_c = @bind c CheckBox()
-	checkbox_d = @bind d CheckBox()
-	
-
-
-end
-
-# ╔═╡ f9302f25-890a-42ed-9fe4-7c3305d1572c
-begin
-res
-	res_all
-		lösung_button = @bind Lösung CounterButton("Überprüfen")
-
-end
-
-# ╔═╡ 73392c04-4ce6-4bbc-859d-18b29219376c
-begin
-res2
-	res_all
-		lösung_button2 = @bind Lösung2 CounterButton("Überprüfen")
-
 end
 
 # ╔═╡ cdaceef8-f222-4b79-98c9-ae7314213782
@@ -254,20 +224,38 @@ if !antwort_2
 	hide_everything_below
 end
 
-# ╔═╡ 0ae9d071-013c-4df5-9882-20318e5de1f6
+# ╔═╡ 8d4aef88-7f44-428b-8f91-7bacce6258c3
 begin
-	if Lösung2 == 0
-		lösung_button2
-	elseif (Lösung2 > 0) & (!antwort_2)
-		reset_button2
-	end
+	res_all
+	annehmen_button = @bind annehmen CounterButton("Ich bin bereit! 💪")
 end
 
-# ╔═╡ f1011ea7-d8fb-49f7-87ad-d7476e346463
+# ╔═╡ f42b12a9-c98a-4b80-8c8c-377bc67710aa
 begin
-res3
+	annehmen_button
+end
+
+# ╔═╡ 5c584f4e-684d-4220-8e9f-fce2ef18d82f
+if annehmen == 0
+	hide_everything_below
+end
+
+# ╔═╡ 1e07760a-8da0-4377-9f54-416eccb76d6f
+begin
+	res, res_all
+	radio_1 = @bind answer_1 Radio(["100 k€", "1 Mio €", "10 Mio €"])
+end
+
+# ╔═╡ e3b04b90-ca36-4c85-9d24-e90cb93b1222
+begin
+	res
 	res_all
-		lösung_button3 = @bind Lösung3 CounterButton("Überprüfen")
+	checkbox_a = @bind a CheckBox()
+	checkbox_b = @bind b CheckBox()
+	checkbox_c = @bind c CheckBox()
+	checkbox_d = @bind d CheckBox()
+	
+
 
 end
 
@@ -305,15 +293,6 @@ end
 # ╔═╡ 87dd5a0e-c048-49a6-a533-3840af16b417
 if !antwort3
 	hide_everything_below
-end
-
-# ╔═╡ e9a2626a-a10e-455f-8961-253454f63f54
-begin
-	if Lösung3 == 0
-		lösung_button3
-	elseif (Lösung3 > 0) & (!antwort3)
-		reset_button3
-	end
 end
 
 # ╔═╡ 7c524072-f80a-498b-be92-50b97c877a15
@@ -361,14 +340,55 @@ elseif h[1] == 1
 end
 end
 
+# ╔═╡ 6d53ee08-affe-486f-a4c1-b31f860dc8c6
+
+
+# ╔═╡ 8e6648bd-91b1-47e8-b834-4204075f4b39
+reset(bond, with=0) = @htl("""
+<bond def="$(string(bond.defines))" unique_id="$(string(bond.unique_id))">
+<div>
+	<input type="submit" value="Reset" onclick="this.parentNode.value = $(with); this.parentNode.dispatchEvent(new CustomEvent('input'))">
+</div>
+</bond>
+	""")
+
+# ╔═╡ 94f85833-07a9-44a3-9f17-5554d46d5e01
+reset_all, reset(lösung_button), reset(lösung_button2), reset(lösung_button3)
+
+# ╔═╡ 0ae9d071-013c-4df5-9882-20318e5de1f6
+begin
+	if Lösung2 == 0
+		lösung_button2
+	elseif (Lösung2 > 0) & (!antwort_2)
+		reset(lösung_button2)
+	end
+end
+
+# ╔═╡ e9a2626a-a10e-455f-8961-253454f63f54
+begin
+	if Lösung3 == 0
+		lösung_button3
+	elseif (Lösung3 > 0) & (!antwort3)
+		reset(lösungs_button3)
+	end
+end
+
+# ╔═╡ 2d191756-f265-4fc7-9027-fb03ec3be019
+
+
+# ╔═╡ 077dfb5c-33f8-4638-b77f-f26a013b34a6
+PlutoUI.WebcamInput()
+
 # ╔═╡ 00000000-0000-0000-0000-000000000001
 PLUTO_PROJECT_TOML_CONTENTS = """
 [deps]
+HypertextLiteral = "ac1192a8-f4b3-4bfe-ba22-af5b92cd3ab2"
 PlutoUI = "7f904dfe-b85e-4ff6-b463-dae2292396a8"
 Random = "9a3f8284-a2c9-5f02-9a11-845980a1fd5c"
 
 [compat]
-PlutoUI = "~0.7.39"
+HypertextLiteral = "~0.9.4"
+PlutoUI = "~0.7.46"
 """
 
 # ╔═╡ 00000000-0000-0000-0000-000000000002
@@ -471,6 +491,11 @@ uuid = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
 [[deps.Logging]]
 uuid = "56ddb016-857b-54e1-b83d-db4d58db5568"
 
+[[deps.MIMEs]]
+git-tree-sha1 = "65f28ad4b594aebe22157d6fac869786a255b7eb"
+uuid = "6c6e2e6c-3030-632d-7369-2d6c69616d65"
+version = "0.1.4"
+
 [[deps.Markdown]]
 deps = ["Base64"]
 uuid = "d6f4376e-aef5-505a-96c1-9c027394607a"
@@ -494,19 +519,19 @@ uuid = "4536629a-c528-5b80-bd46-f80d51c5b363"
 
 [[deps.Parsers]]
 deps = ["Dates"]
-git-tree-sha1 = "0044b23da09b5608b4ecacb4e5e6c6332f833a7e"
+git-tree-sha1 = "6c01a9b494f6d2a9fc180a08b182fcb06f0958a0"
 uuid = "69de0a69-1ddd-5017-9359-2bf0b02dc9f0"
-version = "2.3.2"
+version = "2.4.2"
 
 [[deps.Pkg]]
 deps = ["Artifacts", "Dates", "Downloads", "LibGit2", "Libdl", "Logging", "Markdown", "Printf", "REPL", "Random", "SHA", "Serialization", "TOML", "Tar", "UUIDs", "p7zip_jll"]
 uuid = "44cfe95a-1eb2-52ea-b672-e2afdf69b78f"
 
 [[deps.PlutoUI]]
-deps = ["AbstractPlutoDingetjes", "Base64", "ColorTypes", "Dates", "Hyperscript", "HypertextLiteral", "IOCapture", "InteractiveUtils", "JSON", "Logging", "Markdown", "Random", "Reexport", "UUIDs"]
-git-tree-sha1 = "8d1f54886b9037091edf146b517989fc4a09efec"
+deps = ["AbstractPlutoDingetjes", "Base64", "ColorTypes", "Dates", "FixedPointNumbers", "Hyperscript", "HypertextLiteral", "IOCapture", "InteractiveUtils", "JSON", "Logging", "MIMEs", "Markdown", "Random", "Reexport", "URIs", "UUIDs"]
+git-tree-sha1 = "47a31ed1dd7d30173cb78f5066860eea2d4eaf7b"
 uuid = "7f904dfe-b85e-4ff6-b463-dae2292396a8"
-version = "0.7.39"
+version = "0.7.46"
 
 [[deps.Printf]]
 deps = ["Unicode"]
@@ -559,6 +584,11 @@ git-tree-sha1 = "6bac775f2d42a611cdfcd1fb217ee719630c4175"
 uuid = "410a4b4d-49e4-4fbc-ab6d-cb71b17b3775"
 version = "0.1.6"
 
+[[deps.URIs]]
+git-tree-sha1 = "e59ecc5a41b000fa94423a578d29290c7266fc10"
+uuid = "5c2747f8-b7ea-4ff2-ba2e-563bfd36b1d4"
+version = "1.4.0"
+
 [[deps.UUIDs]]
 deps = ["Random", "SHA"]
 uuid = "cf7118a7-6976-5b1a-9a39-7adc72f591a4"
@@ -602,7 +632,7 @@ uuid = "3f19e933-33d8-53b3-aaab-bd5110c3b7a0"
 # ╟─e9a2626a-a10e-455f-8961-253454f63f54
 # ╟─87dd5a0e-c048-49a6-a533-3840af16b417
 # ╟─fd4e7e37-fd2c-4566-a0df-2945f705a8f7
-# ╟─0e750e27-4d31-4777-97e8-afaf0894f23f
+# ╠═0e750e27-4d31-4777-97e8-afaf0894f23f
 # ╟─f54cc3bd-f1e9-4191-8cd1-653dee77fc5b
 # ╠═48fd8063-abba-472b-9bbe-ab801166fdb1
 # ╠═d029e415-ef80-437b-91c2-131065bbe923
@@ -620,6 +650,7 @@ uuid = "3f19e933-33d8-53b3-aaab-bd5110c3b7a0"
 # ╠═f9302f25-890a-42ed-9fe4-7c3305d1572c
 # ╠═73392c04-4ce6-4bbc-859d-18b29219376c
 # ╠═f1011ea7-d8fb-49f7-87ad-d7476e346463
+# ╠═d0585f00-6832-4631-86d3-e0d90bf05dd7
 # ╠═9d404ed6-a347-4166-8007-2843abefca6b
 # ╠═a11fde72-5deb-440f-96c8-dcef5de4f6ab
 # ╠═e07dd248-3f53-401c-9b42-a370193c94fa
@@ -633,5 +664,9 @@ uuid = "3f19e933-33d8-53b3-aaab-bd5110c3b7a0"
 # ╠═1993bbe6-f791-45c4-8a3f-ad36fb2e1ade
 # ╠═2673b9c3-444e-47b5-959c-a4134b556d02
 # ╠═784f068b-8b25-4dae-82ba-e44511a59c17
+# ╠═6d53ee08-affe-486f-a4c1-b31f860dc8c6
+# ╠═8e6648bd-91b1-47e8-b834-4204075f4b39
+# ╠═2d191756-f265-4fc7-9027-fb03ec3be019
+# ╠═077dfb5c-33f8-4638-b77f-f26a013b34a6
 # ╟─00000000-0000-0000-0000-000000000001
 # ╟─00000000-0000-0000-0000-000000000002
