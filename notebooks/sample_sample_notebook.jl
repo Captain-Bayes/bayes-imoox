@@ -49,16 +49,6 @@ md"""
 # Markdown in Pluto
 """
 
-# ╔═╡ 02cf38ef-f4c6-4098-8f73-f9d9135ce99c
-md"""
-bad usage of dollar signs for latex:
-- spaces between dollar signs and latex code: $ x + 2 $
-- `$x + 2 $` will also break as `$x` is interpreted as interpolation
-"""
-
-# ╔═╡ 52f73ca8-0d4a-4e79-ba0e-42eef137d306
-x = 4.324908
-
 # ╔═╡ c0312ce7-813c-4fae-aa5e-df8bd9614aae
 md"""
 ## Latex within Markdown
@@ -68,6 +58,16 @@ You can:
 Dollar signs are also used for interpolation to get variables inside markdown: $x \
 Best practise is to use backticks to include latex in Markdown
 """
+
+# ╔═╡ 02cf38ef-f4c6-4098-8f73-f9d9135ce99c
+md"""
+bad usage of dollar signs for latex:
+- spaces between dollar signs and latex code: $ x + 2 $
+- `$x + 2 $` will also break as `$x` is interpreted as interpolation
+"""
+
+# ╔═╡ 52f73ca8-0d4a-4e79-ba0e-42eef137d306
+x = 4.324908
 
 # ╔═╡ 555a3e5c-81ca-4390-940a-7b72c3c015dc
 md"""
@@ -234,7 +234,7 @@ PlutoUI = "7f904dfe-b85e-4ff6-b463-dae2292396a8"
 HypertextLiteral = "~0.9.4"
 MarkdownLiteral = "~0.1.1"
 PlutoExtras = "~0.7.5"
-PlutoUI = "~0.7.51"
+PlutoUI = "~0.7.52"
 """
 
 # ╔═╡ 00000000-0000-0000-0000-000000000002
@@ -243,13 +243,13 @@ PLUTO_MANIFEST_TOML_CONTENTS = """
 
 julia_version = "1.9.2"
 manifest_format = "2.0"
-project_hash = "18ba2641fbc0d02377b492aa707d80ab6b984db5"
+project_hash = "6c1807a6331b78d1c91a000bc1eed080b0a815ef"
 
 [[deps.AbstractPlutoDingetjes]]
 deps = ["Pkg"]
-git-tree-sha1 = "8eaf9f1b4921132a4cff3f36a1d9ba923b14a481"
+git-tree-sha1 = "91bd53c39b9cbfb5ef4b015e8b582d344532bd0a"
 uuid = "6e696c72-6542-2067-7265-42206c756150"
-version = "1.1.4"
+version = "1.2.0"
 
 [[deps.ArgTools]]
 uuid = "0dad84c5-d112-42e6-8d28-ef12dabb789f"
@@ -430,9 +430,9 @@ version = "0.7.5"
 
 [[deps.PlutoUI]]
 deps = ["AbstractPlutoDingetjes", "Base64", "ColorTypes", "Dates", "FixedPointNumbers", "Hyperscript", "HypertextLiteral", "IOCapture", "InteractiveUtils", "JSON", "Logging", "MIMEs", "Markdown", "Random", "Reexport", "URIs", "UUIDs"]
-git-tree-sha1 = "b478a748be27bd2f2c73a7690da219d0844db305"
+git-tree-sha1 = "e47cd150dbe0443c3a3651bc5b9cbd5576ab75b7"
 uuid = "7f904dfe-b85e-4ff6-b463-dae2292396a8"
-version = "0.7.51"
+version = "0.7.52"
 
 [[deps.PrecompileTools]]
 deps = ["Preferences"]
