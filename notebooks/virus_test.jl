@@ -15,15 +15,15 @@ macro bind(def, element)
 end
 
 # ╔═╡ 813ea500-a2ec-11eb-29cb-89ed915aa25a
-
 begin
-	#try
+	
 		using PlutoUI
 		using Plots
 		using Plots.PlotMeasures
 		using LaTeXStrings
 		using Markdown
 		using Images
+		using PlutoExtras
 		#using LinearAlgebra
 		#using SparseArrays
 		#using SpecialFunctions
@@ -34,32 +34,6 @@ begin
 		### Packages
 		
 		All needed Packages available :) """
-
-	#=
-	catch
-		using Pkg;
-		Pkg.activate(mktempdir())
-		Pkg.add("PlutoUI")
-		Pkg.add("Plots")
-		Pkg.add("LaTeXStrings")
-		Pkg.add("Markdown")
-		Pkg.add("Images")
-		#Pkg.add("LinearAlgebra")
-		#Pkg.add("SparseArrays")
-		#Pkg.add("SpecialFunctions")
-		#Pkg.add("StatsBase")
-		#Pkg.add("Distributions")
-		using PlutoUI, Plots, LaTeXStrings, Markdown, Images, Plots.PlotMeasures
-		#using LinearAlgebra
-		#using SparseArrays
-		#using StatsBase
-		#using Random
-		md""" 
-		### Packages
-		
-		Some Package sources not added, this will take approx. 3 minutes"""
-	end
-	=#
 end
 
 # ╔═╡ b9f3e82b-0792-4c42-a7c4-04b11ac9a44e
@@ -218,6 +192,24 @@ begin
 	=#
 end
 
+# ╔═╡ 6dc5d648-6879-4b45-b78a-5fd6bc7cc7b8
+html"""
+<script>
+ if (!document.body.classList.contains("static_preview")) {
+  console.log("Do nothing in normal notebooks")
+  return
+ }
+ console.log("Override onclick")
+ for (const cell of document.querySelectorAll('pluto-cell')) {
+  const fold_btn = cell.querySelector('button.foldcode')
+  fold_btn.onclick = (e) => {
+   console.log("Toggling code folded of ", cell)
+   cell.classList.toggle("show_input")
+  }
+ }
+</script>
+"""
+
 # ╔═╡ 00000000-0000-0000-0000-000000000001
 PLUTO_PROJECT_TOML_CONTENTS = """
 [deps]
@@ -225,12 +217,14 @@ Images = "916415d5-f1e6-5110-898d-aaa5f9f070e0"
 LaTeXStrings = "b964fa9f-0449-5b57-a5c2-d3ea65f4040f"
 Markdown = "d6f4376e-aef5-505a-96c1-9c027394607a"
 Plots = "91a5bcdd-55d7-5caf-9e0b-520d859cae80"
+PlutoExtras = "ed5d0301-4775-4676-b788-cf71e66ff8ed"
 PlutoUI = "7f904dfe-b85e-4ff6-b463-dae2292396a8"
 
 [compat]
 Images = "~0.26.0"
 LaTeXStrings = "~1.3.0"
 Plots = "~1.38.16"
+PlutoExtras = "~0.7.5"
 PlutoUI = "~0.7.52"
 """
 
@@ -240,7 +234,7 @@ PLUTO_MANIFEST_TOML_CONTENTS = """
 
 julia_version = "1.9.2"
 manifest_format = "2.0"
-project_hash = "3ed3dc5ae8ab080a32aac312af42e6c38cb9a6be"
+project_hash = "801c2a1e5c70e46d4e6b6b609ca28c6a3a6bce8c"
 
 [[deps.AbstractFFTs]]
 deps = ["LinearAlgebra"]
@@ -1210,9 +1204,9 @@ uuid = "91d4177d-7536-5919-b921-800302f37372"
 version = "1.3.2+0"
 
 [[deps.OrderedCollections]]
-git-tree-sha1 = "2e73fe17cac3c62ad1aebe70d44c963c3cfdc3e3"
+git-tree-sha1 = "85f8e6578bf1f9ee0d11e7bb1b1456435479d47c"
 uuid = "bac558e1-5e72-5ebc-8fee-abe8a469f55d"
-version = "1.6.2"
+version = "1.4.1"
 
 [[deps.PCRE2_jll]]
 deps = ["Artifacts", "Libdl"]
@@ -1296,6 +1290,18 @@ version = "1.38.16"
     IJulia = "7073ff75-c697-5162-941a-fcdaad2a7d2a"
     ImageInTerminal = "d8c32880-2388-543b-8c61-d9f865259254"
     Unitful = "1986cc42-f94f-5a68-af5c-568840ba703d"
+
+[[deps.PlutoDevMacros]]
+deps = ["HypertextLiteral", "InteractiveUtils", "MacroTools", "Markdown", "Pkg", "Random", "TOML"]
+git-tree-sha1 = "44b59480bdd690eb31b32f4ba3418e0731145cea"
+uuid = "a0499f29-c39b-4c5c-807c-88074221b949"
+version = "0.5.5"
+
+[[deps.PlutoExtras]]
+deps = ["AbstractPlutoDingetjes", "HypertextLiteral", "InteractiveUtils", "Markdown", "OrderedCollections", "PlutoDevMacros", "PlutoUI", "REPL"]
+git-tree-sha1 = "4df3a485d53900720b052b3dc30225ed5ab4204b"
+uuid = "ed5d0301-4775-4676-b788-cf71e66ff8ed"
+version = "0.7.5"
 
 [[deps.PlutoUI]]
 deps = ["AbstractPlutoDingetjes", "Base64", "ColorTypes", "Dates", "FixedPointNumbers", "Hyperscript", "HypertextLiteral", "IOCapture", "InteractiveUtils", "JSON", "Logging", "MIMEs", "Markdown", "Random", "Reexport", "URIs", "UUIDs"]
@@ -1925,12 +1931,13 @@ version = "1.4.1+0"
 # ╟─b9f3e82b-0792-4c42-a7c4-04b11ac9a44e
 # ╟─325c3295-20b3-4f67-84d0-277e9b01ecd3
 # ╟─31c61c6d-1a97-451f-b07c-864eca18bff2
-# ╠═1b7fd8d9-daa2-4808-939a-44548569fcc5
+# ╟─1b7fd8d9-daa2-4808-939a-44548569fcc5
 # ╟─b70ab060-2117-4c24-adac-27982e5065f3
 # ╟─53d59d1d-f59e-4d67-a899-d24aeaaec084
 # ╟─813ea500-a2ec-11eb-29cb-89ed915aa25a
 # ╟─d5e23d38-5a43-470d-846e-a05d8a56a726
 # ╟─8b39a33a-d7bd-45f2-91e9-173688ea1ec5
 # ╟─3cf7bc40-2662-4923-a30c-b51a2eef6bfa
+# ╟─6dc5d648-6879-4b45-b78a-5fd6bc7cc7b8
 # ╟─00000000-0000-0000-0000-000000000001
 # ╟─00000000-0000-0000-0000-000000000002
