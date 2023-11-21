@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.19.27
+# v0.19.32
 
 using Markdown
 using InteractiveUtils
@@ -14,123 +14,6 @@ macro bind(def, element)
     end
 end
 
-# ╔═╡ e7666210-a660-11eb-3e0d-7d9aec9a9f9e
-begin
-	#try
-		using PlutoUI
-		using Plots
-		using Plots.PlotMeasures
-		using LaTeXStrings
-		using Markdown
-		using Images
-		#using LinearAlgebra
-		#using SparseArrays
-		#using SpecialFunctions
-		#using StatsBase
-		#using Random
-		#using Distributions
-		md""" 
-		### Packages
-		
-		All needed Packages available :) """
-	#=catch
-		using Pkg;
-		Pkg.activate(mktempdir())
-		Pkg.add("PlutoUI")
-		Pkg.add("Plots")
-		Pkg.add("LaTeXStrings")
-		Pkg.add("Markdown")
-		Pkg.add("Images")
-		#Pkg.add("LinearAlgebra")
-		#Pkg.add("SparseArrays")
-		#Pkg.add("SpecialFunctions")
-		#Pkg.add("StatsBase")
-		#Pkg.add("Distributions")
-		using PlutoUI, Plots, LaTeXStrings, Markdown, Images, Plots.PlotMeasures
-		#using LinearAlgebra
-		#using SparseArrays
-		#using StatsBase
-		#using Random
-		md""" 
-		### Packages
-		
-		Some Package sources not added, this will take approx. 3 minutes"""
-	end
-	=#
-end
-
-# ╔═╡ ec784992-f4af-4ece-bf72-555960a054ca
-html"""<div style="display: flex; justify-content: center;">
-<div  notthestyle="position: relative; right: 0; top: 0; z-index: 300;">
-<iframe src="https://www.youtube.com/embed/rFvR_sU3Sc4" width=600 height=375  frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
-</div>"""
-
-# ╔═╡ 1c0c7b6a-e4f2-4e28-a6d5-1daf194ecf32
-md"""
-*Well there is this **misfit function** that might help to evaluate the parameter choices*
-
-**Show quadratic misfit ``\chi^2``**  of chosen parameters 👉 $(@bind show_misfit CheckBox())
-"""
-
-# ╔═╡ 8cdf76c3-263f-471b-8ac7-288ff669bca3
-md"""
-Well let's assume there might be a linear dependency for the azimuth  ``a_{\sphericalangle}`` and the height angle ``h_{\measuredangle}``
-
-Our first model shall have the simple form:
- ``y = a_1 \cdot x + a_2``
-
-So let's uns Bayes' theorem to derive the probability for the two parameters given the data of days ``x`` and angles ``\boldsymbol a_{\sphericalangle}`` and ``\boldsymbol h_{\measuredangle}``.
-
- ``p(\vec a \mid \boldsymbol a_{\sphericalangle}, \boldsymbol x) = \frac{1}{Z} p(\boldsymbol a_{\sphericalangle} \mid \vec a, \boldsymbol x) \cdot p(\vec a) ``
-"""
-
-# ╔═╡ 34f7d953-6b27-4507-ac4c-706e1594d8ce
-md"""
-# About the creators
-
-This notebook was created by **[Gerhard Dorn](https://github.com/dorn-gerhard)** in the context of the course **Bayesian probability theory**.
-
-The course is a free massive open online course (MOOC) available on the platform [`IMOOX`](https://imoox.at/mooc/local/landingpage/course.php?shortname=bayes22&lang=en)
-
-$(Resource("https://raw.githubusercontent.com/Captain-Bayes/images/main/adventure_map.gif"))
-"""
-
-# ╔═╡ 161bdcd4-55ac-4869-91bd-0141d0fc72db
-begin 
-	Lin_1 = @bind lin_1 Scrubbable(-2:0.01:2, default=-1, format=".3")
-	Lin_2 = @bind lin_2 Scrubbable(40:1:60, default=50, format="+")
-	
-	Quad_1 = @bind quad_1 Scrubbable(-0.040:0.005:0.04, default=0.02, format=".4",)
-	Quad_2 = @bind quad_2 Scrubbable(-2:0.1:2, default=-1.2, format="+.1")
-	Quad_3 = @bind quad_3 Scrubbable(40:1:60, default=50, format="+")
-	
-	Cubic_1 = @bind cubic_1 Scrubbable(-0.01:0.001:0.01, default=0.008, format=".4")
-	Cubic_2 = @bind cubic_2 Scrubbable(-2:0.01:2, default=-0.35, format="+.4")
-	Cubic_3 = @bind cubic_3 Scrubbable(-5:0.1:5, default=3.6, format="+.4")
-	Cubic_4 = @bind cubic_4 Scrubbable(20:60, default=40, format="+")
-	
-	md"""Define Sliders for parameter trials of height angle"""
-end
-
-# ╔═╡ 16938d4f-6f25-4924-8bdf-b0eb638a6c4f
-begin
-	claire = "https://raw.githubusercontent.com/Captain-Bayes/images/main/claire_100px.gif"
-	makabe = "https://raw.githubusercontent.com/Captain-Bayes/images/main/makeba_100px.gif"
-	bayes = "https://raw.githubusercontent.com/Captain-Bayes/images/main/bayes_100px.gif"
-	bernoulli = "https://raw.githubusercontent.com/Captain-Bayes/images/main/Bernoulli_wet.gif"
-	island = "https://raw.githubusercontent.com/Captain-Bayes/images/main/Turtle_island_with_ship.png"
-	map = "https://raw.githubusercontent.com/Captain-Bayes/images/main/Fishground_map.png"
-	frogfish_image = "https://raw.githubusercontent.com/Captain-Bayes/images/main/frogfish_green_full.gif"
-	venn = "https://raw.githubusercontent.com/Captain-Bayes/images/main/venn_100px.gif"
-	angles_view = "https://raw.githubusercontent.com/Captain-Bayes/images/main/Gipfel_angles.png"
-	mountain_view = "https://raw.githubusercontent.com/Captain-Bayes/images/main/Gipfel_view.png"
-	image_of_data = "https://raw.githubusercontent.com/Captain-Bayes/images/main/Daten_brett.png"
-	diagram_of_data = "https://raw.githubusercontent.com/Captain-Bayes/images/main/Diagram.png"
-	treasure_map = "https://raw.githubusercontent.com/Captain-Bayes/images/main/Treasure_map_2.png"
-	
-	md"""Images"""
-end
-
 # ╔═╡ 6c070606-1411-40fc-b6cd-8f27f052136b
 md"""
 # Starpath prediction 🌠
@@ -142,6 +25,12 @@ $(Resource(treasure_map, :width=>500))
 > *Watch the **video** below for the full story:*
 
 """
+
+# ╔═╡ ec784992-f4af-4ece-bf72-555960a054ca
+html"""<div style="display: flex; justify-content: center;">
+<div  notthestyle="position: relative; right: 0; top: 0; z-index: 300;">
+<iframe src="https://www.youtube.com/embed/rFvR_sU3Sc4" width=600 height=375  frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+</div>"""
 
 # ╔═╡ 2a0955a7-e6a4-4f1c-a19d-e36e92171a70
 md"""
@@ -200,214 +89,6 @@ begin
 	"""
 end
 
-# ╔═╡ 70dd38b5-8447-428a-96a3-950fcecfcc91
-begin
-	h1 = heatmap(collect(P_a[1]), collect(P_a[2]), (T_a), 
-		xlabel = latexstring("a_1"), 
-		ylabel= latexstring("a_2"), 
-		title = "Joint probability density: azimuth angle ",
-	size = (600,400),
-	labelfontsize = 20,
-	tickfontsize = 15,
-	bottom_margin =5mm,
-	left_margin = 5mm,
-	linewidth = 3,
-	label = :none,
-	titlefontsize = 20,	
-	#foreground_color_grid = :black,
-	#foreground_color_xticks = :black,
-	background_color = :transparent,
-	#foreground_color_axis = :black,
-	#foreground_color_text = :black,
-	#foreground_color_border = :black,
-	foreground_color = :black,
-	fontfamily="Computer Modern"
-	)
-	
-	#savefig("C://Lehre//Bayes MOOC//Lesson 7//Images//joint_prob_azimuth")
-	
-	
-	
-
-	
-	plot(h1)
-end
-
-# ╔═╡ 75e89a64-94c0-4f95-b548-ecaf3e6587e9
-begin
-	h2 = heatmap(collect(P_h[1]), collect(P_h[2]), (T_h), 
-		xlabel = latexstring("b_1"), 
-		ylabel= latexstring("b_2"), title = "Joint probability density: height angle",	
-		size = (600,400),
-		labelfontsize = 20,
-		tickfontsize = 15,
-		bottom_margin =5mm,
-		left_margin = 5mm,
-		right_margin = 5mm,
-		linewidth = 3,
-		label = :none,
-		titlefontsize = 20,	
-		#foreground_color_grid = :black,
-		#foreground_color_xticks = :black,
-		background_color = :transparent,
-		#foreground_color_axis = :black,
-		#foreground_color_text = :black,
-		#foreground_color_border = :black,
-		foreground_color = :black,
-		fontfamily="Computer Modern")
-	
-	#savefig("C://Lehre//Bayes MOOC//Lesson 7//Images//joint_prob_height")
-	plot(h2)
-end
-
-# ╔═╡ 5ef19a3a-fcfc-4607-88e6-c28197a572f8
-begin
-	# show data points and also possible solutions using the model defined above.
-	# with a click one can choose to display these semitransparent lines (work in quantiles - the top % the second and so on (limit to a max of 500-1000 lines)
-	# a maximum of
-	xx_hz = P_h[1]' .+ P_h[2].*0
-	yy_hz = P_h[1]'.*0 .+ P_h[2]
-	
-	t = 4:26
-	# plot(x, azimuth, line= :scatter, label="azimuth", legend=:bottom)
-	plot(x,height, line = :scatter, label = :none)
-
-	for i = 1:length(xx_hz)
-		if T_h[i] > 0.7
-			plot!(t, xx_hz[i] .* t .+ yy_hz[i], linewidth = 2, opacity = T_h[i]/30., color = :blue, label = :none)
-		end
-	end
-	plot!(x,height, line = :scatter, label = :none,
-		title = "linear solutions for height angle",
-		xlabel = latexstring("\\textrm{days }\\,\\, x"), 
-		ylabel = latexstring("h_{\\measuredangle}"),
-	size = (600,400),
-		labelfontsize = 20,
-		tickfontsize = 15,
-		bottom_margin =5mm,
-		left_margin = 5mm,
-		right_margin = 5mm,
-		linewidth = 3,
-		titlefontsize = 20,	
-		#foreground_color_grid = :black,
-		#foreground_color_xticks = :black,
-		background_color = :transparent,
-		#foreground_color_axis = :black,
-		#foreground_color_text = :black,
-		#foreground_color_border = :black,
-		foreground_color = :black,
-		fontfamily="Computer Modern")
-	
-	#savefig("C://Lehre//Bayes MOOC//Lesson 7//Images//poss_sol_height")
-end
-
-# ╔═╡ b09f27cb-0461-4ead-9328-dd950c958f66
-begin
-	
-	xx_az = P_a[1]' .+ P_a[2].*0
-	yy_az = P_a[1]'.*0 .+ P_a[2]
-	
-	
-	# plot(x, azimuth, line= :scatter, label="azimuth", legend=:bottom)
-	plot(x,azimuth, line = :scatter, label = :none)
-
-	for i = 1:length(xx_az)
-		if T_a[i] > 0.7
-			plot!(t, xx_az[i] .* t .+ yy_az[i], linewidth = 2, opacity = T_a[i]/30., color = :blue, label = :none)
-		end
-	end
-	plot!(x,azimuth, line = :scatter, label = :none,
-		title = "linear solutions for azimuthal angle",
-		xlabel = latexstring("\\textrm{days  }\\,\\, x"), 
-		ylabel = latexstring("a_{\\sphericalangle}"),
-	size = (600,400),
-		labelfontsize = 20,
-		tickfontsize = 15,
-		bottom_margin =5mm,
-		left_margin = 5mm,
-		right_margin = 5mm,
-		linewidth = 3,
-		titlefontsize = 20,	
-		#foreground_color_grid = :black,
-		#foreground_color_xticks = :black,
-		background_color = :transparent,
-		#foreground_color_axis = :black,
-		#foreground_color_text = :black,
-		#foreground_color_border = :black,
-		foreground_color = :black,
-		fontfamily="Computer Modern")
-	
-	#savefig("C://Lehre//Bayes MOOC//Lesson 7//Images//poss_sol_azimuth")
-end
-
-# ╔═╡ 68854d41-0400-405c-948a-bb244f46ce4d
-begin 
-	f_eval = [[fa(21,[i,j]) for  j in P_a[2], i in P_a[1]][:] T_a[:]]
-	
-	a_range = range(minimum(f_eval[:,1]), maximum(f_eval[:,1]), length = 200)
-	
-	y_a_range = [sum(f_eval[a_range[i] .<= f_eval[:,1] .<= a_range[i+1],2]) for i in 1:(length(a_range)-1)].* Float64(P_a[1].step) .* Float64(P_a[2].step)./Float64(a_range.step)
-	
-	plot(a_range[1:end-1], y_a_range,
-		title = "Interpolation of azimuth angle at day 21",
-		xlabel = latexstring("a_{\\sphericalangle}"), 
-		ylabel = latexstring("p\\,(a_{\\sphericalangle})"),
-		label = :none,
-	size = (600,400),
-		labelfontsize = 20,
-		tickfontsize = 15,
-		bottom_margin =5mm,
-		left_margin = 5mm,
-		right_margin = 10mm,
-		linewidth = 3,
-		titlefontsize = 20,	
-		#foreground_color_grid = :black,
-		#foreground_color_xticks = :black,
-		background_color = :transparent,
-		#foreground_color_axis = :black,
-		#foreground_color_text = :black,
-		#foreground_color_border = :black,
-		foreground_color = :black,
-		fontfamily="Computer Modern")
-	
-	#savefig("C://Lehre//Bayes MOOC//Lesson 7//Images//sol_azimuth")
-	
-end
-
-# ╔═╡ 4ba5f3c7-6a68-46ba-ba45-9c0b3b685385
-begin 
-	f_eval_h = [[fh(21,[i,j]) for    j in P_h[2], i in P_h[1]][:] T_h[:]]
-	
-	h_range = range(minimum(f_eval_h[:,1]), maximum(f_eval_h[:,1]), length = 200)
-	
-	y_h_range = [sum(f_eval_h[h_range[i] .<= f_eval_h[:,1] .< h_range[i+1],2]) for i in 1:(length(h_range)-1)].* Float64(P_h[1].step) .* Float64(P_h[2].step)./Float64(h_range.step)
-	
-	plot(h_range[1:end-1], y_h_range ,
-		title = "Interpolation of height angle at day 21",
-		xlabel = latexstring("h_{\\measuredangle}"), 
-		ylabel = latexstring("p\\,(h_{\\measuredangle})"),
-		label = :none,
-	size = (600,400),
-		labelfontsize = 20,
-		tickfontsize = 15,
-		bottom_margin =5mm,
-		left_margin = 5mm,
-		right_margin = 10mm,
-		linewidth = 3,
-		titlefontsize = 20,	
-		#foreground_color_grid = :black,
-		#foreground_color_xticks = :black,
-		background_color = :transparent,
-		#foreground_color_axis = :black,
-		#foreground_color_text = :black,
-		#foreground_color_border = :black,
-		foreground_color = :black,
-		fontfamily="Computer Modern")
-	
-	#savefig("C://Lehre//Bayes MOOC//Lesson 7//Images//sol_height")
-	
-end
-
 # ╔═╡ ac2f313d-1529-4366-ab58-00679e510f6a
 md"""
 $(Resource(bayes, :width=>140))
@@ -442,43 +123,6 @@ begin
 	
 	
 end
-
-# ╔═╡ 7bf32131-f749-41da-9923-2970f1487f7e
-begin
-almost(text, headline=md"Almost there!") = Markdown.MD(Markdown.Admonition("warning", string(headline), [text]));
-#brown
-	
-correct(text=md"Great! You got the right answer!", headline=md"Got it!") = Markdown.MD(Markdown.Admonition("correct", string(headline), [text]));
-#green
-	
-	
-keep_working(text=md"The answer is not quite right.", headline=md"Keep working on it!") = Markdown.MD(Markdown.Admonition("danger", string(headline), [text]));
-#red
-	
-hint(text, headline=md"Hint") = Markdown.MD(Markdown.Admonition("hint", string(headline), [text]));
-#blue
-	
-md"definition of boxes"
-end
-
-# ╔═╡ 5d349d39-c688-4431-b056-aa11d69376e9
-function sr(variable, dig = 2; add_sign = false)
-	# string and round - converts a variable into a string with the predifined precission - to be extended to scientific and other formats
-	if dig == 0
-		st = string(round(Int, variable))
-	else
-		st =  string(round(variable, digits = dig))
-	end
-	
-	if add_sign
-		st = (variable < 0 ? "" : "+") * st
-	end
-	
-	return st
-	
-	
-end
-
 
 # ╔═╡ 6b9ea181-a1c1-446c-88cc-d468dec2a60f
 begin 
@@ -551,6 +195,13 @@ begin
 	
 end
 
+# ╔═╡ 1c0c7b6a-e4f2-4e28-a6d5-1daf194ecf32
+md"""
+*Well there is this **misfit function** that might help to evaluate the parameter choices*
+
+**Show quadratic misfit ``\chi^2``**  of chosen parameters 👉 $(@bind show_misfit CheckBox())
+"""
+
 # ╔═╡ b8d59753-d6c1-46c3-b40b-1bc858be8ca2
 begin 
 	if show_misfit
@@ -584,6 +235,355 @@ In this case we assume the uncertainties ``\sigma_\nu`` of the height angle ``h_
 	
 end
 
+# ╔═╡ 8cdf76c3-263f-471b-8ac7-288ff669bca3
+md"""
+Well let's assume there might be a linear dependency for the azimuth  ``a_{\sphericalangle}`` and the height angle ``h_{\measuredangle}``
+
+Our first model shall have the simple form:
+ ``y = a_1 \cdot x + a_2``
+
+So let's uns Bayes' theorem to derive the probability for the two parameters given the data of days ``x`` and angles ``\boldsymbol a_{\sphericalangle}`` and ``\boldsymbol h_{\measuredangle}``.
+
+ ``p(\vec a \mid \boldsymbol a_{\sphericalangle}, \boldsymbol x) = \frac{1}{Z} p(\boldsymbol a_{\sphericalangle} \mid \vec a, \boldsymbol x) \cdot p(\vec a) ``
+"""
+
+# ╔═╡ 70dd38b5-8447-428a-96a3-950fcecfcc91
+begin
+	h1 = heatmap(collect(P_a[1]), collect(P_a[2]), (T_a), 
+		xlabel = latexstring("a_1"), 
+		ylabel= latexstring("a_2"), 
+		title = "Joint probability density: azimuth angle ",
+	size = (600,400),
+	labelfontsize = 20,
+	tickfontsize = 15,
+	bottom_margin =5mm,
+	left_margin = 5mm,
+	linewidth = 3,
+	label = :none,
+	titlefontsize = 20,	
+	#foreground_color_grid = :black,
+	#foreground_color_xticks = :black,
+	background_color = :transparent,
+	#foreground_color_axis = :black,
+	#foreground_color_text = :black,
+	#foreground_color_border = :black,
+	foreground_color = :black,
+	fontfamily="Computer Modern"
+	)
+	
+	#savefig("C://Lehre//Bayes MOOC//Lesson 7//Images//joint_prob_azimuth")
+	
+	
+	
+
+	
+	plot(h1)
+end
+
+# ╔═╡ 75e89a64-94c0-4f95-b548-ecaf3e6587e9
+begin
+	h2 = heatmap(collect(P_h[1]), collect(P_h[2]), (T_h), 
+		xlabel = latexstring("b_1"), 
+		ylabel= latexstring("b_2"), title = "Joint probability density: height angle",	
+		size = (600,400),
+		labelfontsize = 20,
+		tickfontsize = 15,
+		bottom_margin =5mm,
+		left_margin = 5mm,
+		right_margin = 5mm,
+		linewidth = 3,
+		label = :none,
+		titlefontsize = 20,	
+		#foreground_color_grid = :black,
+		#foreground_color_xticks = :black,
+		background_color = :transparent,
+		#foreground_color_axis = :black,
+		#foreground_color_text = :black,
+		#foreground_color_border = :black,
+		foreground_color = :black,
+		fontfamily="Computer Modern")
+	
+	#savefig("C://Lehre//Bayes MOOC//Lesson 7//Images//joint_prob_height")
+	plot(h2)
+end
+
+# ╔═╡ b09f27cb-0461-4ead-9328-dd950c958f66
+begin
+	
+	xx_az = P_a[1]' .+ P_a[2].*0
+	yy_az = P_a[1]'.*0 .+ P_a[2]
+	
+	
+	# plot(x, azimuth, line= :scatter, label="azimuth", legend=:bottom)
+	plot(x,azimuth, line = :scatter, label = :none)
+
+	for i = 1:length(xx_az)
+		if T_a[i] > 0.7
+			plot!(t, xx_az[i] .* t .+ yy_az[i], linewidth = 2, opacity = T_a[i]/30., color = :blue, label = :none)
+		end
+	end
+	plot!(x,azimuth, line = :scatter, label = :none,
+		title = "linear solutions for azimuthal angle",
+		xlabel = latexstring("\\textrm{days  }\\,\\, x"), 
+		ylabel = latexstring("a_{\\sphericalangle}"),
+	size = (600,400),
+		labelfontsize = 20,
+		tickfontsize = 15,
+		bottom_margin =5mm,
+		left_margin = 5mm,
+		right_margin = 5mm,
+		linewidth = 3,
+		titlefontsize = 20,	
+		#foreground_color_grid = :black,
+		#foreground_color_xticks = :black,
+		background_color = :transparent,
+		#foreground_color_axis = :black,
+		#foreground_color_text = :black,
+		#foreground_color_border = :black,
+		foreground_color = :black,
+		fontfamily="Computer Modern")
+	
+	#savefig("C://Lehre//Bayes MOOC//Lesson 7//Images//poss_sol_azimuth")
+end
+
+# ╔═╡ 5ef19a3a-fcfc-4607-88e6-c28197a572f8
+begin
+	# show data points and also possible solutions using the model defined above.
+	# with a click one can choose to display these semitransparent lines (work in quantiles - the top % the second and so on (limit to a max of 500-1000 lines)
+	# a maximum of
+	xx_hz = P_h[1]' .+ P_h[2].*0
+	yy_hz = P_h[1]'.*0 .+ P_h[2]
+	
+	t = 4:26
+	# plot(x, azimuth, line= :scatter, label="azimuth", legend=:bottom)
+	plot(x,height, line = :scatter, label = :none)
+
+	for i = 1:length(xx_hz)
+		if T_h[i] > 0.7
+			plot!(t, xx_hz[i] .* t .+ yy_hz[i], linewidth = 2, opacity = T_h[i]/30., color = :blue, label = :none)
+		end
+	end
+	plot!(x,height, line = :scatter, label = :none,
+		title = "linear solutions for height angle",
+		xlabel = latexstring("\\textrm{days }\\,\\, x"), 
+		ylabel = latexstring("h_{\\measuredangle}"),
+	size = (600,400),
+		labelfontsize = 20,
+		tickfontsize = 15,
+		bottom_margin =5mm,
+		left_margin = 5mm,
+		right_margin = 5mm,
+		linewidth = 3,
+		titlefontsize = 20,	
+		#foreground_color_grid = :black,
+		#foreground_color_xticks = :black,
+		background_color = :transparent,
+		#foreground_color_axis = :black,
+		#foreground_color_text = :black,
+		#foreground_color_border = :black,
+		foreground_color = :black,
+		fontfamily="Computer Modern")
+	
+	#savefig("C://Lehre//Bayes MOOC//Lesson 7//Images//poss_sol_height")
+end
+
+# ╔═╡ 68854d41-0400-405c-948a-bb244f46ce4d
+begin 
+	f_eval = [[fa(21,[i,j]) for  j in P_a[2], i in P_a[1]][:] T_a[:]]
+	
+	a_range = range(minimum(f_eval[:,1]), maximum(f_eval[:,1]), length = 200)
+	
+	y_a_range = [sum(f_eval[a_range[i] .<= f_eval[:,1] .<= a_range[i+1],2]) for i in 1:(length(a_range)-1)].* Float64(P_a[1].step) .* Float64(P_a[2].step)./Float64(a_range.step)
+	
+	plot(a_range[1:end-1], y_a_range,
+		title = "Interpolation of azimuth angle at day 21",
+		xlabel = latexstring("a_{\\sphericalangle}"), 
+		ylabel = latexstring("p\\,(a_{\\sphericalangle})"),
+		label = :none,
+	size = (600,400),
+		labelfontsize = 20,
+		tickfontsize = 15,
+		bottom_margin =5mm,
+		left_margin = 5mm,
+		right_margin = 10mm,
+		linewidth = 3,
+		titlefontsize = 20,	
+		#foreground_color_grid = :black,
+		#foreground_color_xticks = :black,
+		background_color = :transparent,
+		#foreground_color_axis = :black,
+		#foreground_color_text = :black,
+		#foreground_color_border = :black,
+		foreground_color = :black,
+		fontfamily="Computer Modern")
+	
+	#savefig("C://Lehre//Bayes MOOC//Lesson 7//Images//sol_azimuth")
+	
+end
+
+# ╔═╡ 4ba5f3c7-6a68-46ba-ba45-9c0b3b685385
+begin 
+	f_eval_h = [[fh(21,[i,j]) for    j in P_h[2], i in P_h[1]][:] T_h[:]]
+	
+	h_range = range(minimum(f_eval_h[:,1]), maximum(f_eval_h[:,1]), length = 200)
+	
+	y_h_range = [sum(f_eval_h[h_range[i] .<= f_eval_h[:,1] .< h_range[i+1],2]) for i in 1:(length(h_range)-1)].* Float64(P_h[1].step) .* Float64(P_h[2].step)./Float64(h_range.step)
+	
+	plot(h_range[1:end-1], y_h_range ,
+		title = "Interpolation of height angle at day 21",
+		xlabel = latexstring("h_{\\measuredangle}"), 
+		ylabel = latexstring("p\\,(h_{\\measuredangle})"),
+		label = :none,
+	size = (600,400),
+		labelfontsize = 20,
+		tickfontsize = 15,
+		bottom_margin =5mm,
+		left_margin = 5mm,
+		right_margin = 10mm,
+		linewidth = 3,
+		titlefontsize = 20,	
+		#foreground_color_grid = :black,
+		#foreground_color_xticks = :black,
+		background_color = :transparent,
+		#foreground_color_axis = :black,
+		#foreground_color_text = :black,
+		#foreground_color_border = :black,
+		foreground_color = :black,
+		fontfamily="Computer Modern")
+	
+	#savefig("C://Lehre//Bayes MOOC//Lesson 7//Images//sol_height")
+	
+end
+
+# ╔═╡ 34f7d953-6b27-4507-ac4c-706e1594d8ce
+md"""
+# About the creators
+
+This notebook was created by **[Gerhard Dorn](https://github.com/dorn-gerhard)** in the context of the course **Bayesian probability theory**.
+
+The course is a free massive open online course (MOOC) available on the platform [`IMOOX`](https://imoox.at/mooc/local/landingpage/course.php?shortname=bayes22&lang=en)
+
+$(Resource("https://raw.githubusercontent.com/Captain-Bayes/images/main/adventure_map.gif"))
+"""
+
+# ╔═╡ 161bdcd4-55ac-4869-91bd-0141d0fc72db
+begin 
+	Lin_1 = @bind lin_1 Scrubbable(-2:0.01:2, default=-1, format=".3")
+	Lin_2 = @bind lin_2 Scrubbable(40:1:60, default=50, format="+")
+	
+	Quad_1 = @bind quad_1 Scrubbable(-0.040:0.005:0.04, default=0.02, format=".4",)
+	Quad_2 = @bind quad_2 Scrubbable(-2:0.1:2, default=-1.2, format="+.1")
+	Quad_3 = @bind quad_3 Scrubbable(40:1:60, default=50, format="+")
+	
+	Cubic_1 = @bind cubic_1 Scrubbable(-0.01:0.001:0.01, default=0.008, format=".4")
+	Cubic_2 = @bind cubic_2 Scrubbable(-2:0.01:2, default=-0.35, format="+.4")
+	Cubic_3 = @bind cubic_3 Scrubbable(-5:0.1:5, default=3.6, format="+.4")
+	Cubic_4 = @bind cubic_4 Scrubbable(20:60, default=40, format="+")
+	
+	md"""Define Sliders for parameter trials of height angle"""
+end
+
+# ╔═╡ e7666210-a660-11eb-3e0d-7d9aec9a9f9e
+begin
+	#try
+		using PlutoUI
+		using Plots
+		using Plots.PlotMeasures
+		using LaTeXStrings
+		using Markdown
+		using Images
+		#using LinearAlgebra
+		#using SparseArrays
+		#using SpecialFunctions
+		#using StatsBase
+		#using Random
+		#using Distributions
+		md""" 
+		### Packages
+		
+		All needed Packages available :) """
+	#=catch
+		using Pkg;
+		Pkg.activate(mktempdir())
+		Pkg.add("PlutoUI")
+		Pkg.add("Plots")
+		Pkg.add("LaTeXStrings")
+		Pkg.add("Markdown")
+		Pkg.add("Images")
+		#Pkg.add("LinearAlgebra")
+		#Pkg.add("SparseArrays")
+		#Pkg.add("SpecialFunctions")
+		#Pkg.add("StatsBase")
+		#Pkg.add("Distributions")
+		using PlutoUI, Plots, LaTeXStrings, Markdown, Images, Plots.PlotMeasures
+		#using LinearAlgebra
+		#using SparseArrays
+		#using StatsBase
+		#using Random
+		md""" 
+		### Packages
+		
+		Some Package sources not added, this will take approx. 3 minutes"""
+	end
+	=#
+end
+
+# ╔═╡ 16938d4f-6f25-4924-8bdf-b0eb638a6c4f
+begin
+	claire = "https://raw.githubusercontent.com/Captain-Bayes/images/main/claire_100px.gif"
+	makabe = "https://raw.githubusercontent.com/Captain-Bayes/images/main/makeba_100px.gif"
+	bayes = "https://raw.githubusercontent.com/Captain-Bayes/images/main/bayes_100px.gif"
+	bernoulli = "https://raw.githubusercontent.com/Captain-Bayes/images/main/Bernoulli_wet.gif"
+	island = "https://raw.githubusercontent.com/Captain-Bayes/images/main/Turtle_island_with_ship.png"
+	map = "https://raw.githubusercontent.com/Captain-Bayes/images/main/Fishground_map.png"
+	frogfish_image = "https://raw.githubusercontent.com/Captain-Bayes/images/main/frogfish_green_full.gif"
+	venn = "https://raw.githubusercontent.com/Captain-Bayes/images/main/venn_100px.gif"
+	angles_view = "https://raw.githubusercontent.com/Captain-Bayes/images/main/Gipfel_angles.png"
+	mountain_view = "https://raw.githubusercontent.com/Captain-Bayes/images/main/Gipfel_view.png"
+	image_of_data = "https://raw.githubusercontent.com/Captain-Bayes/images/main/Daten_brett.png"
+	diagram_of_data = "https://raw.githubusercontent.com/Captain-Bayes/images/main/Diagram.png"
+	treasure_map = "https://raw.githubusercontent.com/Captain-Bayes/images/main/Treasure_map_2.png"
+	
+	md"""Images"""
+end
+
+# ╔═╡ 7bf32131-f749-41da-9923-2970f1487f7e
+begin
+almost(text, headline=md"Almost there!") = Markdown.MD(Markdown.Admonition("warning", string(headline), [text]));
+#brown
+	
+correct(text=md"Great! You got the right answer!", headline=md"Got it!") = Markdown.MD(Markdown.Admonition("correct", string(headline), [text]));
+#green
+	
+	
+keep_working(text=md"The answer is not quite right.", headline=md"Keep working on it!") = Markdown.MD(Markdown.Admonition("danger", string(headline), [text]));
+#red
+	
+hint(text, headline=md"Hint") = Markdown.MD(Markdown.Admonition("hint", string(headline), [text]));
+#blue
+	
+md"definition of boxes"
+end
+
+# ╔═╡ 5d349d39-c688-4431-b056-aa11d69376e9
+function sr(variable, dig = 2; add_sign = false)
+	# string and round - converts a variable into a string with the predifined precission - to be extended to scientific and other formats
+	if dig == 0
+		st = string(round(Int, variable))
+	else
+		st =  string(round(variable, digits = dig))
+	end
+	
+	if add_sign
+		st = (variable < 0 ? "" : "+") * st
+	end
+	
+	return st
+	
+	
+end
+
+
 # ╔═╡ fd10aeba-3755-4c90-b0eb-41539ab7465d
 begin
 	
@@ -614,28 +614,29 @@ PlutoUI = "7f904dfe-b85e-4ff6-b463-dae2292396a8"
 
 [compat]
 Images = "~0.26.0"
-LaTeXStrings = "~1.3.0"
-Plots = "~1.38.16"
-PlutoUI = "~0.7.52"
+LaTeXStrings = "~1.3.1"
+Plots = "~1.39.0"
+PlutoUI = "~0.7.54"
 """
 
 # ╔═╡ 00000000-0000-0000-0000-000000000002
 PLUTO_MANIFEST_TOML_CONTENTS = """
 # This file is machine-generated - editing it directly is not advised
 
-julia_version = "1.9.2"
+julia_version = "1.9.4"
 manifest_format = "2.0"
-project_hash = "3ed3dc5ae8ab080a32aac312af42e6c38cb9a6be"
+project_hash = "5b49b0c4d089bcf40239ac5e2a7191b55a248b48"
 
 [[deps.AbstractFFTs]]
 deps = ["LinearAlgebra"]
-git-tree-sha1 = "cad4c758c0038eea30394b1b671526921ca85b21"
+git-tree-sha1 = "d92ad398961a3ed262d8bf04a1a2b8340f915fef"
 uuid = "621f4979-c628-5d54-868e-fcf4e3e8185c"
-version = "1.4.0"
-weakdeps = ["ChainRulesCore"]
+version = "1.5.0"
+weakdeps = ["ChainRulesCore", "Test"]
 
     [deps.AbstractFFTs.extensions]
     AbstractFFTsChainRulesCoreExt = "ChainRulesCore"
+    AbstractFFTsTestExt = "Test"
 
 [[deps.AbstractPlutoDingetjes]]
 deps = ["Pkg"]
@@ -645,9 +646,9 @@ version = "1.2.0"
 
 [[deps.Adapt]]
 deps = ["LinearAlgebra", "Requires"]
-git-tree-sha1 = "76289dc51920fdc6e0013c872ba9551d54961c24"
+git-tree-sha1 = "02f731463748db57cc2ebfbd9fbc9ce8280d3433"
 uuid = "79e6a3ab-5dfb-504d-930d-738a2a938a0e"
-version = "3.6.2"
+version = "3.7.1"
 weakdeps = ["StaticArrays"]
 
     [deps.Adapt.extensions]
@@ -665,9 +666,9 @@ version = "0.2.0"
 
 [[deps.ArrayInterface]]
 deps = ["Adapt", "LinearAlgebra", "Requires", "SparseArrays", "SuiteSparse"]
-git-tree-sha1 = "f83ec24f76d4c8f525099b2ac475fc098138ec31"
+git-tree-sha1 = "16267cf279190ca7c1b30d020758ced95db89cd0"
 uuid = "4fba245c-0d91-5ea0-9b3e-6abc04ee57a9"
-version = "7.4.11"
+version = "7.5.1"
 
     [deps.ArrayInterface.extensions]
     ArrayInterfaceBandedMatricesExt = "BandedMatrices"
@@ -684,12 +685,6 @@ version = "7.4.11"
     GPUArraysCore = "46192b85-c4d5-4398-a991-12ede77f4527"
     StaticArraysCore = "1e83bf80-4336-4d27-bf5d-d5a4f845583c"
     Tracker = "9f7883ad-71c0-57eb-9f7f-b5c9e6d3789c"
-
-[[deps.ArrayInterfaceCore]]
-deps = ["LinearAlgebra", "SnoopPrecompile", "SparseArrays", "SuiteSparse"]
-git-tree-sha1 = "e5f08b5689b1aad068e01751889f2f615c7db36d"
-uuid = "30b0a656-2188-435a-8636-2ec0e6a096e2"
-version = "0.1.29"
 
 [[deps.Artifacts]]
 uuid = "56f22d72-fd6d-98f1-02f0-08ddc0907c33"
@@ -710,9 +705,9 @@ version = "0.4.7"
 uuid = "2a0f44e3-6c83-55bd-87e4-b1978d98bd5f"
 
 [[deps.BitFlags]]
-git-tree-sha1 = "43b1a4a8f797c1cddadf60499a8a077d4af2cd2d"
+git-tree-sha1 = "2dc09997850d68179b69dafb58ae806167a32b1b"
 uuid = "d1d4a3ce-64b1-5f1a-9ba4-7e7e69966f35"
-version = "0.1.7"
+version = "0.1.8"
 
 [[deps.BitTwiddlingConvenienceFunctions]]
 deps = ["Static"]
@@ -733,9 +728,9 @@ version = "0.4.2"
 
 [[deps.CPUSummary]]
 deps = ["CpuId", "IfElse", "PrecompileTools", "Static"]
-git-tree-sha1 = "89e0654ed8c7aebad6d5ad235d6242c2d737a928"
+git-tree-sha1 = "601f7e7b3d36f18790e2caf83a882d88e9b71ff1"
 uuid = "2a0fbf3d-bb9c-48f3-b0a9-814d99fd7ab9"
-version = "0.2.3"
+version = "0.2.4"
 
 [[deps.Cairo_jll]]
 deps = ["Artifacts", "Bzip2_jll", "CompilerSupportLibraries_jll", "Fontconfig_jll", "FreeType2_jll", "Glib_jll", "JLLWrappers", "LZO_jll", "Libdl", "Pixman_jll", "Pkg", "Xorg_libXext_jll", "Xorg_libXrender_jll", "Zlib_jll", "libpng_jll"]
@@ -750,10 +745,14 @@ uuid = "aafaddc9-749c-510e-ac4f-586e18779b91"
 version = "0.2.2"
 
 [[deps.ChainRulesCore]]
-deps = ["Compat", "LinearAlgebra", "SparseArrays"]
-git-tree-sha1 = "e30f2f4e20f7f186dc36529910beaedc60cfa644"
+deps = ["Compat", "LinearAlgebra"]
+git-tree-sha1 = "e0af648f0692ec1691b5d094b8724ba1346281cf"
 uuid = "d360d2e6-b24c-11e9-a2a3-2a2ae2dbcce4"
-version = "1.16.0"
+version = "1.18.0"
+weakdeps = ["SparseArrays"]
+
+    [deps.ChainRulesCore.extensions]
+    ChainRulesCoreSparseArraysExt = "SparseArrays"
 
 [[deps.CloseOpenIntervals]]
 deps = ["Static", "StaticArrayInterface"]
@@ -763,21 +762,21 @@ version = "0.1.12"
 
 [[deps.Clustering]]
 deps = ["Distances", "LinearAlgebra", "NearestNeighbors", "Printf", "Random", "SparseArrays", "Statistics", "StatsBase"]
-git-tree-sha1 = "42fe66dbc8f1d09a44aa87f18d26926d06a35f84"
+git-tree-sha1 = "05f9816a77231b07e634ab8715ba50e5249d6f76"
 uuid = "aaaa29a8-35af-508c-8bc3-b662a17a0fe5"
-version = "0.15.3"
+version = "0.15.5"
 
 [[deps.CodecZlib]]
 deps = ["TranscodingStreams", "Zlib_jll"]
-git-tree-sha1 = "02aa26a4cf76381be7f66e020a3eddeb27b0a092"
+git-tree-sha1 = "cd67fc487743b2f0fd4380d4cbd3a24660d0eec8"
 uuid = "944b1d66-785c-5afd-91f1-9de20f533193"
-version = "0.7.2"
+version = "0.7.3"
 
 [[deps.ColorSchemes]]
 deps = ["ColorTypes", "ColorVectorSpace", "Colors", "FixedPointNumbers", "PrecompileTools", "Random"]
-git-tree-sha1 = "dd3000d954d483c1aad05fe1eb9e6a715c97013e"
+git-tree-sha1 = "67c1f244b991cad9b0aa4b7540fb758c2488b129"
 uuid = "35d6a980-a343-548e-a6ea-1d62b119f2f4"
-version = "3.22.0"
+version = "3.24.0"
 
 [[deps.ColorTypes]]
 deps = ["FixedPointNumbers", "Random"]
@@ -805,9 +804,9 @@ version = "0.12.10"
 
 [[deps.Compat]]
 deps = ["UUIDs"]
-git-tree-sha1 = "4e88377ae7ebeaf29a047aa1ee40826e0b708a5d"
+git-tree-sha1 = "8a62af3e248a8c4bad6b32cbbe663ae02275e32c"
 uuid = "34da2185-b29b-5c13-b0c7-acf172513d20"
-version = "4.7.0"
+version = "4.10.0"
 weakdeps = ["Dates", "LinearAlgebra"]
 
     [deps.Compat.extensions]
@@ -825,9 +824,9 @@ version = "0.3.2"
 
 [[deps.ConcurrentUtilities]]
 deps = ["Serialization", "Sockets"]
-git-tree-sha1 = "5372dbbf8f0bdb8c700db5367132925c0771ef7e"
+git-tree-sha1 = "8cfa272e8bdedfa88b6aefbbca7c19f1befac519"
 uuid = "f0e56b4a-5159-44fe-b623-3e5288b988bb"
-version = "2.2.1"
+version = "2.3.0"
 
 [[deps.Contour]]
 git-tree-sha1 = "d05d9e7b7aedff4e5b51a029dced05cfb6125781"
@@ -858,9 +857,9 @@ version = "1.15.0"
 
 [[deps.DataStructures]]
 deps = ["Compat", "InteractiveUtils", "OrderedCollections"]
-git-tree-sha1 = "cf25ccb972fec4e4817764d01c82386ae94f77b4"
+git-tree-sha1 = "3dbd312d370723b6bb43ba9d02fc36abade4518d"
 uuid = "864edb3b-99cc-5e75-8d2d-829cb0a9cfe8"
-version = "0.18.14"
+version = "0.18.15"
 
 [[deps.Dates]]
 deps = ["Printf"]
@@ -874,12 +873,13 @@ version = "1.9.1"
 
 [[deps.Distances]]
 deps = ["LinearAlgebra", "Statistics", "StatsAPI"]
-git-tree-sha1 = "b6def76ffad15143924a2199f72a5cd883a2e8a9"
+git-tree-sha1 = "5225c965635d8c21168e32a12954675e7bea1151"
 uuid = "b4f34e82-e78d-54a5-968a-f98e89d6e8f7"
-version = "0.10.9"
-weakdeps = ["SparseArrays"]
+version = "0.10.10"
+weakdeps = ["ChainRulesCore", "SparseArrays"]
 
     [deps.Distances.extensions]
+    DistancesChainRulesCoreExt = "ChainRulesCore"
     DistancesSparseArraysExt = "SparseArrays"
 
 [[deps.Distributed]]
@@ -896,6 +896,12 @@ version = "0.9.3"
 deps = ["ArgTools", "FileWatching", "LibCURL", "NetworkOptions"]
 uuid = "f43a241f-c20a-4ad4-852c-f6b1247861c6"
 version = "1.6.0"
+
+[[deps.EpollShim_jll]]
+deps = ["Artifacts", "JLLWrappers", "Libdl"]
+git-tree-sha1 = "8e9441ee83492030ace98f9789a654a6d0b1f643"
+uuid = "2702e6a9-849d-5ed8-8c21-79e8b8f9ee43"
+version = "0.0.20230411+0"
 
 [[deps.ExceptionUnwrapping]]
 deps = ["Test"]
@@ -1003,10 +1009,10 @@ uuid = "78b55507-aeef-58d4-861c-77aaff3498b1"
 version = "0.21.0+0"
 
 [[deps.Glib_jll]]
-deps = ["Artifacts", "Gettext_jll", "JLLWrappers", "Libdl", "Libffi_jll", "Libiconv_jll", "Libmount_jll", "PCRE2_jll", "Pkg", "Zlib_jll"]
-git-tree-sha1 = "d3b3624125c1474292d0d8ed0f65554ac37ddb23"
+deps = ["Artifacts", "Gettext_jll", "JLLWrappers", "Libdl", "Libffi_jll", "Libiconv_jll", "Libmount_jll", "PCRE2_jll", "Zlib_jll"]
+git-tree-sha1 = "e94c92c7bf4819685eb80186d51c43e71d4afa17"
 uuid = "7746bdde-850d-59dc-9ae8-88ece973131d"
-version = "2.74.0+2"
+version = "2.76.5+0"
 
 [[deps.Graphics]]
 deps = ["Colors", "LinearAlgebra", "NaNMath"]
@@ -1022,9 +1028,9 @@ version = "1.3.14+0"
 
 [[deps.Graphs]]
 deps = ["ArnoldiMethod", "Compat", "DataStructures", "Distributed", "Inflate", "LinearAlgebra", "Random", "SharedArrays", "SimpleTraits", "SparseArrays", "Statistics"]
-git-tree-sha1 = "1cf1d7dcb4bc32d7b4a5add4232db3750c27ecb4"
+git-tree-sha1 = "899050ace26649433ef1af25bc17a815b3db52b7"
 uuid = "86223c79-3864-5bf0-83f7-82e725a168b6"
-version = "1.8.0"
+version = "1.9.0"
 
 [[deps.Grisu]]
 git-tree-sha1 = "53bb909d1151e57e2484c3d1b53e19552b887fb2"
@@ -1033,9 +1039,9 @@ version = "1.0.2"
 
 [[deps.HTTP]]
 deps = ["Base64", "CodecZlib", "ConcurrentUtilities", "Dates", "ExceptionUnwrapping", "Logging", "LoggingExtras", "MbedTLS", "NetworkOptions", "OpenSSL", "Random", "SimpleBufferStream", "Sockets", "URIs", "UUIDs"]
-git-tree-sha1 = "cb56ccdd481c0dd7f975ad2b3b62d9eda088f7e2"
+git-tree-sha1 = "5eab648309e2e060198b45820af1a37182de3cce"
 uuid = "cd3eb016-35fb-5094-929b-558a96fad6f3"
-version = "1.9.14"
+version = "1.10.0"
 
 [[deps.HarfBuzz_jll]]
 deps = ["Artifacts", "Cairo_jll", "Fontconfig_jll", "FreeType2_jll", "Glib_jll", "Graphite2_jll", "JLLWrappers", "Libdl", "Libffi_jll", "Pkg"]
@@ -1051,9 +1057,9 @@ version = "0.3.1"
 
 [[deps.HostCPUFeatures]]
 deps = ["BitTwiddlingConvenienceFunctions", "IfElse", "Libdl", "Static"]
-git-tree-sha1 = "d38bd0d9759e3c6cfa19bdccc314eccf8ce596cc"
+git-tree-sha1 = "eb8fed28f4994600e29beef49744639d985a04b2"
 uuid = "3e5b6fbb-0976-4d2c-9146-d79de83f2fb0"
-version = "0.1.15"
+version = "0.1.16"
 
 [[deps.Hyperscript]]
 deps = ["Test"]
@@ -1063,9 +1069,9 @@ version = "0.0.4"
 
 [[deps.HypertextLiteral]]
 deps = ["Tricks"]
-git-tree-sha1 = "c47c5fa4c5308f27ccaac35504858d8914e102f9"
+git-tree-sha1 = "7134810b1afce04bbc1045ca1985fbe81ce17653"
 uuid = "ac1192a8-f4b3-4bfe-ba22-af5b92cd3ab2"
-version = "0.9.4"
+version = "0.9.5"
 
 [[deps.IOCapture]]
 deps = ["Logging", "Random"]
@@ -1122,9 +1128,9 @@ version = "0.2.17"
 
 [[deps.ImageFiltering]]
 deps = ["CatIndices", "ComputationalResources", "DataStructures", "FFTViews", "FFTW", "ImageBase", "ImageCore", "LinearAlgebra", "OffsetArrays", "PrecompileTools", "Reexport", "SparseArrays", "StaticArrays", "Statistics", "TiledIteration"]
-git-tree-sha1 = "c371a39622dc3b941ffd7c00e6b519d63b3f3f06"
+git-tree-sha1 = "432ae2b430a18c58eb7eca9ef8d0f2db90bc749c"
 uuid = "6a3955dd-da59-5b1f-98d4-e7296123deb5"
-version = "0.7.7"
+version = "0.7.8"
 
 [[deps.ImageIO]]
 deps = ["FileIO", "IndirectArrays", "JpegTurbo", "LazyModules", "Netpbm", "OpenEXR", "PNGFiles", "QOI", "Sixel", "TiffImages", "UUIDs"]
@@ -1198,9 +1204,9 @@ uuid = "9b13fd28-a010-5f03-acff-a1bbcff69959"
 version = "1.0.0"
 
 [[deps.Inflate]]
-git-tree-sha1 = "5cd07aab533df5170988219191dfad0519391428"
+git-tree-sha1 = "ea8031dea4aff6bd41f1df8f2fdfb25b33626381"
 uuid = "d25df0c9-e2be-5dd7-82c8-3ad0b3e990b9"
-version = "0.1.3"
+version = "0.1.4"
 
 [[deps.IntegralArrays]]
 deps = ["ColorTypes", "FixedPointNumbers", "IntervalSets"]
@@ -1210,9 +1216,9 @@ version = "0.1.5"
 
 [[deps.IntelOpenMP_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl", "Pkg"]
-git-tree-sha1 = "0cb9352ef2e01574eeebdb102948a58740dcaf83"
+git-tree-sha1 = "ad37c091f7d7daf900963171600d7c1c5c3ede32"
 uuid = "1d5cc7b8-4909-519e-a0f8-d0f5ad9712d0"
-version = "2023.1.0+0"
+version = "2023.2.0+0"
 
 [[deps.InteractiveUtils]]
 deps = ["Markdown"]
@@ -1225,10 +1231,14 @@ uuid = "a98d9a8b-a2ab-59e6-89dd-64a1c18fca59"
 version = "0.14.7"
 
 [[deps.IntervalSets]]
-deps = ["Dates", "Random", "Statistics"]
-git-tree-sha1 = "16c0cc91853084cb5f58a78bd209513900206ce6"
+deps = ["Dates", "Random"]
+git-tree-sha1 = "3d8866c029dd6b16e69e0d4a939c4dfcb98fac47"
 uuid = "8197267c-284f-5f27-9208-e0e47529a953"
-version = "0.7.4"
+version = "0.7.8"
+weakdeps = ["Statistics"]
+
+    [deps.IntervalSets.extensions]
+    IntervalSetsStatisticsExt = "Statistics"
 
 [[deps.IrrationalConstants]]
 git-tree-sha1 = "630b497eafcc20001bba38a4651b327dcfc491d2"
@@ -1241,22 +1251,22 @@ uuid = "c8e1da08-722c-5040-9ed9-7db0dc04731e"
 version = "1.8.0"
 
 [[deps.JLD2]]
-deps = ["FileIO", "MacroTools", "Mmap", "OrderedCollections", "Pkg", "Printf", "Reexport", "Requires", "TranscodingStreams", "UUIDs"]
-git-tree-sha1 = "5df8278ad24772c0c6dbbeb97b162ccf29ced2a9"
+deps = ["FileIO", "MacroTools", "Mmap", "OrderedCollections", "Pkg", "PrecompileTools", "Printf", "Reexport", "Requires", "TranscodingStreams", "UUIDs"]
+git-tree-sha1 = "9bbb5130d3b4fa52846546bca4791ecbdfb52730"
 uuid = "033835bb-8acc-5ee8-8aae-3f567f8a3819"
-version = "0.4.32"
+version = "0.4.38"
 
 [[deps.JLFzf]]
 deps = ["Pipe", "REPL", "Random", "fzf_jll"]
-git-tree-sha1 = "f377670cda23b6b7c1c0b3893e37451c5c1a2185"
+git-tree-sha1 = "9fb0b890adab1c0a4a475d4210d51f228bfc250d"
 uuid = "1019f520-868f-41f5-a6de-eb00f4b6a39c"
-version = "0.1.5"
+version = "0.1.6"
 
 [[deps.JLLWrappers]]
-deps = ["Preferences"]
-git-tree-sha1 = "abc9885a7ca2052a736a600f7fa66209f96506e1"
+deps = ["Artifacts", "Preferences"]
+git-tree-sha1 = "7e5d6779a1e09a36db2a7b6cff50942a0a7d0fca"
 uuid = "692b3bcd-3c85-4b1f-b108-f13ce0eb3210"
-version = "1.4.1"
+version = "1.5.0"
 
 [[deps.JSON]]
 deps = ["Dates", "Mmap", "Parsers", "Unicode"]
@@ -1266,9 +1276,9 @@ version = "0.21.4"
 
 [[deps.JpegTurbo]]
 deps = ["CEnum", "FileIO", "ImageCore", "JpegTurbo_jll", "TOML"]
-git-tree-sha1 = "327713faef2a3e5c80f96bf38d1fa26f7a6ae29e"
+git-tree-sha1 = "d65930fa2bc96b07d7691c652d701dcbe7d9cf0b"
 uuid = "b835a17e-a41a-41e7-81f0-2f016b05efe0"
-version = "0.1.3"
+version = "0.1.4"
 
 [[deps.JpegTurbo_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl"]
@@ -1301,9 +1311,9 @@ uuid = "dd4b983a-f0e5-5f8d-a1b7-129d4a5fb1ac"
 version = "2.10.1+0"
 
 [[deps.LaTeXStrings]]
-git-tree-sha1 = "f2355693d6778a178ade15952b7ac47a4ff97996"
+git-tree-sha1 = "50901ebc375ed41dbf8058da26f9de442febbbec"
 uuid = "b964fa9f-0449-5b57-a5c2-d3ea65f4040f"
-version = "1.3.0"
+version = "1.3.1"
 
 [[deps.Latexify]]
 deps = ["Formatting", "InteractiveUtils", "LaTeXStrings", "MacroTools", "Markdown", "OrderedCollections", "Printf", "Requires"]
@@ -1321,9 +1331,9 @@ version = "0.16.1"
 
 [[deps.LayoutPointers]]
 deps = ["ArrayInterface", "LinearAlgebra", "ManualMemory", "SIMDTypes", "Static", "StaticArrayInterface"]
-git-tree-sha1 = "88b8f66b604da079a627b6fb2860d3704a6729a1"
+git-tree-sha1 = "62edfee3211981241b57ff1cedf4d74d79519277"
 uuid = "10f19ff3-798f-405d-979b-55457f8fc047"
-version = "0.1.14"
+version = "0.1.15"
 
 [[deps.LazyArtifacts]]
 deps = ["Artifacts", "Pkg"]
@@ -1337,12 +1347,12 @@ version = "0.3.1"
 [[deps.LibCURL]]
 deps = ["LibCURL_jll", "MozillaCACerts_jll"]
 uuid = "b27032c2-a3e7-50c8-80cd-2d36dbcbfd21"
-version = "0.6.3"
+version = "0.6.4"
 
 [[deps.LibCURL_jll]]
 deps = ["Artifacts", "LibSSH2_jll", "Libdl", "MbedTLS_jll", "Zlib_jll", "nghttp2_jll"]
 uuid = "deac9b47-8bc7-5906-a0fe-35ac56dc84c0"
-version = "7.84.0+0"
+version = "8.4.0+0"
 
 [[deps.LibGit2]]
 deps = ["Base64", "NetworkOptions", "Printf", "SHA"]
@@ -1351,7 +1361,7 @@ uuid = "76f85450-5226-5b5a-8eaa-529ad045b433"
 [[deps.LibSSH2_jll]]
 deps = ["Artifacts", "Libdl", "MbedTLS_jll"]
 uuid = "29816b5a-b9ab-546f-933c-edad1886dfa8"
-version = "1.10.2+0"
+version = "1.11.0+1"
 
 [[deps.Libdl]]
 uuid = "8f399da3-3557-5675-b5ff-fb832c97cbdb"
@@ -1381,10 +1391,10 @@ uuid = "7add5ba3-2f88-524e-9cd5-f83b8a55f7b8"
 version = "1.42.0+0"
 
 [[deps.Libiconv_jll]]
-deps = ["Artifacts", "JLLWrappers", "Libdl", "Pkg"]
-git-tree-sha1 = "c7cb1f5d892775ba13767a87c7ada0b980ea0a71"
+deps = ["Artifacts", "JLLWrappers", "Libdl"]
+git-tree-sha1 = "f9557a255370125b405568f9767d6d195822a175"
 uuid = "94ce4f54-9a6c-5748-9c1c-f9c7231a4531"
-version = "1.16.1+2"
+version = "1.17.0+0"
 
 [[deps.Libmount_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl", "Pkg"]
@@ -1410,9 +1420,9 @@ uuid = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
 
 [[deps.LogExpFunctions]]
 deps = ["DocStringExtensions", "IrrationalConstants", "LinearAlgebra"]
-git-tree-sha1 = "c3ce8e7420b3a6e071e0fe4745f5d4300e37b13f"
+git-tree-sha1 = "7d6dd4e9212aebaeed356de34ccf262a3cd415aa"
 uuid = "2ab3a3ac-af41-5b50-aa03-7779005ae688"
-version = "0.3.24"
+version = "0.3.26"
 
     [deps.LogExpFunctions.extensions]
     LogExpFunctionsChainRulesCoreExt = "ChainRulesCore"
@@ -1429,15 +1439,15 @@ uuid = "56ddb016-857b-54e1-b83d-db4d58db5568"
 
 [[deps.LoggingExtras]]
 deps = ["Dates", "Logging"]
-git-tree-sha1 = "cedb76b37bc5a6c702ade66be44f831fa23c681e"
+git-tree-sha1 = "c1dd6d7978c12545b4179fb6153b9250c96b0075"
 uuid = "e6f89c97-d47a-5376-807f-9c37f3926c36"
-version = "1.0.0"
+version = "1.0.3"
 
 [[deps.LoopVectorization]]
-deps = ["ArrayInterface", "ArrayInterfaceCore", "CPUSummary", "CloseOpenIntervals", "DocStringExtensions", "HostCPUFeatures", "IfElse", "LayoutPointers", "LinearAlgebra", "OffsetArrays", "PolyesterWeave", "PrecompileTools", "SIMDTypes", "SLEEFPirates", "Static", "StaticArrayInterface", "ThreadingUtilities", "UnPack", "VectorizationBase"]
-git-tree-sha1 = "c88a4afe1703d731b1c4fdf4e3c7e77e3b176ea2"
+deps = ["ArrayInterface", "CPUSummary", "CloseOpenIntervals", "DocStringExtensions", "HostCPUFeatures", "IfElse", "LayoutPointers", "LinearAlgebra", "OffsetArrays", "PolyesterWeave", "PrecompileTools", "SIMDTypes", "SLEEFPirates", "Static", "StaticArrayInterface", "ThreadingUtilities", "UnPack", "VectorizationBase"]
+git-tree-sha1 = "0f5648fbae0d015e3abe5867bca2b362f67a5894"
 uuid = "bdcacae8-1622-11e9-2a5c-532679323890"
-version = "0.12.165"
+version = "0.12.166"
 
     [deps.LoopVectorization.extensions]
     ForwardDiffExt = ["ChainRulesCore", "ForwardDiff"]
@@ -1455,15 +1465,15 @@ version = "0.1.4"
 
 [[deps.MKL_jll]]
 deps = ["Artifacts", "IntelOpenMP_jll", "JLLWrappers", "LazyArtifacts", "Libdl", "Pkg"]
-git-tree-sha1 = "154d7aaa82d24db6d8f7e4ffcfe596f40bff214b"
+git-tree-sha1 = "eb006abbd7041c28e0d16260e50a24f8f9104913"
 uuid = "856f044c-d86e-5d09-b602-aeab76dc8ba7"
-version = "2023.1.0+0"
+version = "2023.2.0+0"
 
 [[deps.MacroTools]]
 deps = ["Markdown", "Random"]
-git-tree-sha1 = "42324d08725e200c23d4dfb549e0d5d89dede2d2"
+git-tree-sha1 = "9ee1618cbf5240e6d4e0371d6f24065083f60c48"
 uuid = "1914dd2f-81c6-5fcd-8719-6d5c9610ff09"
-version = "0.5.10"
+version = "0.5.11"
 
 [[deps.ManualMemory]]
 git-tree-sha1 = "bcaef4fc7a0cfe2cba636d84cda54b5e4e4ca3cd"
@@ -1480,10 +1490,10 @@ deps = ["Base64"]
 uuid = "d6f4376e-aef5-505a-96c1-9c027394607a"
 
 [[deps.MbedTLS]]
-deps = ["Dates", "MbedTLS_jll", "MozillaCACerts_jll", "Random", "Sockets"]
-git-tree-sha1 = "03a9b9718f5682ecb107ac9f7308991db4ce395b"
+deps = ["Dates", "MbedTLS_jll", "MozillaCACerts_jll", "NetworkOptions", "Random", "Sockets"]
+git-tree-sha1 = "f512dc13e64e96f703fd92ce617755ee6b5adf0f"
 uuid = "739be429-bea8-5141-9913-cc70e7f3736d"
-version = "1.1.7"
+version = "1.1.8"
 
 [[deps.MbedTLS_jll]]
 deps = ["Artifacts", "Libdl"]
@@ -1584,9 +1594,9 @@ version = "1.4.1"
 
 [[deps.OpenSSL_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl"]
-git-tree-sha1 = "1aa4b74f80b01c6bc2b89992b861b5f210e665b5"
+git-tree-sha1 = "a12e56c72edee3ce6b96667745e6cbbe5498f200"
 uuid = "458c3c95-2e84-50aa-8efc-19380b2a3a95"
-version = "1.1.21+0"
+version = "1.1.23+0"
 
 [[deps.Opus_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl", "Pkg"]
@@ -1606,9 +1616,9 @@ version = "10.42.0+0"
 
 [[deps.PNGFiles]]
 deps = ["Base64", "CEnum", "ImageCore", "IndirectArrays", "OffsetArrays", "libpng_jll"]
-git-tree-sha1 = "9b02b27ac477cad98114584ff964e3052f656a0f"
+git-tree-sha1 = "5ded86ccaf0647349231ed6c0822c10886d4a1ee"
 uuid = "f57f5aa1-a3ce-4bc8-8ab9-96f992907883"
-version = "0.4.0"
+version = "0.4.1"
 
 [[deps.PaddedViews]]
 deps = ["OffsetArrays"]
@@ -1624,9 +1634,9 @@ version = "0.12.3"
 
 [[deps.Parsers]]
 deps = ["Dates", "PrecompileTools", "UUIDs"]
-git-tree-sha1 = "4b2e829ee66d4218e0cef22c0a64ee37cf258c29"
+git-tree-sha1 = "a935806434c9d4c506ba941871b327b96d41f2bf"
 uuid = "69de0a69-1ddd-5017-9359-2bf0b02dc9f0"
-version = "2.7.1"
+version = "2.8.0"
 
 [[deps.Pipe]]
 git-tree-sha1 = "6842804e7867b115ca9de748a0cf6b364523c16d"
@@ -1646,9 +1656,9 @@ version = "1.9.2"
 
 [[deps.PkgVersion]]
 deps = ["Pkg"]
-git-tree-sha1 = "f6cf8e7944e50901594838951729a1861e668cb8"
+git-tree-sha1 = "f9501cc0430a26bc3d156ae1b5b0c1b47af4d6da"
 uuid = "eebad327-c553-4316-9ea0-9fa01ccd7688"
-version = "0.3.2"
+version = "0.3.3"
 
 [[deps.PlotThemes]]
 deps = ["PlotUtils", "Statistics"]
@@ -1664,9 +1674,9 @@ version = "1.3.5"
 
 [[deps.Plots]]
 deps = ["Base64", "Contour", "Dates", "Downloads", "FFMPEG", "FixedPointNumbers", "GR", "JLFzf", "JSON", "LaTeXStrings", "Latexify", "LinearAlgebra", "Measures", "NaNMath", "Pkg", "PlotThemes", "PlotUtils", "PrecompileTools", "Preferences", "Printf", "REPL", "Random", "RecipesBase", "RecipesPipeline", "Reexport", "RelocatableFolders", "Requires", "Scratch", "Showoff", "SparseArrays", "Statistics", "StatsBase", "UUIDs", "UnicodeFun", "UnitfulLatexify", "Unzip"]
-git-tree-sha1 = "75ca67b2c6512ad2d0c767a7cfc55e75075f8bbc"
+git-tree-sha1 = "ccee59c6e48e6f2edf8a5b64dc817b6729f99eb5"
 uuid = "91a5bcdd-55d7-5caf-9e0b-520d859cae80"
-version = "1.38.16"
+version = "1.39.0"
 
     [deps.Plots.extensions]
     FileIOExt = "FileIO"
@@ -1684,9 +1694,9 @@ version = "1.38.16"
 
 [[deps.PlutoUI]]
 deps = ["AbstractPlutoDingetjes", "Base64", "ColorTypes", "Dates", "FixedPointNumbers", "Hyperscript", "HypertextLiteral", "IOCapture", "InteractiveUtils", "JSON", "Logging", "MIMEs", "Markdown", "Random", "Reexport", "URIs", "UUIDs"]
-git-tree-sha1 = "e47cd150dbe0443c3a3651bc5b9cbd5576ab75b7"
+git-tree-sha1 = "bd7c69c7f7173097e7b5e1be07cee2b8b7447f51"
 uuid = "7f904dfe-b85e-4ff6-b463-dae2292396a8"
-version = "0.7.52"
+version = "0.7.54"
 
 [[deps.PolyesterWeave]]
 deps = ["BitTwiddlingConvenienceFunctions", "CPUSummary", "IfElse", "Static", "ThreadingUtilities"]
@@ -1712,15 +1722,15 @@ version = "3.2.13"
 
 [[deps.PrecompileTools]]
 deps = ["Preferences"]
-git-tree-sha1 = "9673d39decc5feece56ef3940e5dafba15ba0f81"
+git-tree-sha1 = "03b4c25b43cb84cee5c90aa9b5ea0a78fd848d2f"
 uuid = "aea7be01-6a6a-4083-8856-8a6e6704d82a"
-version = "1.1.2"
+version = "1.2.0"
 
 [[deps.Preferences]]
 deps = ["TOML"]
-git-tree-sha1 = "7eb1686b4f04b82f96ed7a4ea5890a4f0c7a09f1"
+git-tree-sha1 = "00805cd429dcb4870060ff49ef443486c262e38e"
 uuid = "21216c6a-2e73-6563-6e65-726566657250"
-version = "1.4.0"
+version = "1.4.1"
 
 [[deps.Printf]]
 deps = ["Unicode"]
@@ -1728,9 +1738,9 @@ uuid = "de0858da-6303-5e67-8744-51eddeeeb8d7"
 
 [[deps.ProgressMeter]]
 deps = ["Distributed", "Printf"]
-git-tree-sha1 = "d7a7aef8f8f2d537104f170139553b14dfe39fe9"
+git-tree-sha1 = "00099623ffee15972c16111bcf84c58a0051257c"
 uuid = "92933f4c-e287-5a05-a399-4b506db050ca"
-version = "1.7.2"
+version = "1.9.0"
 
 [[deps.QOI]]
 deps = ["ColorTypes", "FileIO", "FixedPointNumbers"]
@@ -1746,9 +1756,9 @@ version = "5.15.3+2"
 
 [[deps.Quaternions]]
 deps = ["LinearAlgebra", "Random", "RealDot"]
-git-tree-sha1 = "da095158bdc8eaccb7890f9884048555ab771019"
+git-tree-sha1 = "9a46862d248ea548e340e30e2894118749dc7f51"
 uuid = "94ee1d12-ae83-5a48-8b1c-48b8ff168ae0"
-version = "0.7.4"
+version = "0.7.5"
 
 [[deps.REPL]]
 deps = ["InteractiveUtils", "Markdown", "Sockets", "Unicode"]
@@ -1804,9 +1814,9 @@ version = "0.3.2"
 
 [[deps.RelocatableFolders]]
 deps = ["SHA", "Scratch"]
-git-tree-sha1 = "90bc7a7c96410424509e4263e277e43250c05691"
+git-tree-sha1 = "ffdaf70d81cf6ff22c2b6e733c900c3321cab864"
 uuid = "05181044-ff0b-4ac5-8273-598c1e38db00"
-version = "1.0.0"
+version = "1.0.1"
 
 [[deps.Requires]]
 deps = ["UUIDs"]
@@ -1816,9 +1826,9 @@ version = "1.3.0"
 
 [[deps.Rotations]]
 deps = ["LinearAlgebra", "Quaternions", "Random", "StaticArrays"]
-git-tree-sha1 = "54ccb4dbab4b1f69beb255a2c0ca5f65a9c82f08"
+git-tree-sha1 = "792d8fd4ad770b6d517a13ebb8dadfcac79405b8"
 uuid = "6038ab10-8711-5258-84ad-4b1120ba62dc"
-version = "1.5.1"
+version = "1.6.1"
 
 [[deps.SHA]]
 uuid = "ea8e919c-243c-51af-8825-aaa63cd721ce"
@@ -1831,15 +1841,15 @@ version = "0.1.0"
 
 [[deps.SLEEFPirates]]
 deps = ["IfElse", "Static", "VectorizationBase"]
-git-tree-sha1 = "4b8586aece42bee682399c4c4aee95446aa5cd19"
+git-tree-sha1 = "3aac6d68c5e57449f5b9b865c9ba50ac2970c4cf"
 uuid = "476501e8-09a2-5ece-8869-fb82de89a1fa"
-version = "0.6.39"
+version = "0.6.42"
 
 [[deps.Scratch]]
 deps = ["Dates"]
-git-tree-sha1 = "30449ee12237627992a99d5e30ae63e4d78cd24a"
+git-tree-sha1 = "3bac05bc7e74a75fd9cba4295cde4045d9fe2386"
 uuid = "6c6a2e73-6563-6170-7368-637461726353"
-version = "1.2.0"
+version = "1.2.1"
 
 [[deps.Serialization]]
 uuid = "9e88b42a-f829-5b0c-bbe9-9e923198166b"
@@ -1877,20 +1887,14 @@ git-tree-sha1 = "2da10356e31327c7096832eb9cd86307a50b1eb6"
 uuid = "45858cf5-a6b0-47a3-bbea-62219f50df47"
 version = "0.1.3"
 
-[[deps.SnoopPrecompile]]
-deps = ["Preferences"]
-git-tree-sha1 = "e760a70afdcd461cf01a575947738d359234665c"
-uuid = "66db9d55-30c0-4569-8b51-7e840670fc0c"
-version = "1.0.3"
-
 [[deps.Sockets]]
 uuid = "6462fe0b-24de-5631-8697-dd941f90decc"
 
 [[deps.SortingAlgorithms]]
 deps = ["DataStructures"]
-git-tree-sha1 = "c60ec5c62180f27efea3ba2908480f8055e17cee"
+git-tree-sha1 = "5165dfb9fd131cf0c6957a3a7605dede376e7b63"
 uuid = "a2af1166-a08f-5f64-846c-94a0d3cef48c"
-version = "1.1.1"
+version = "1.2.0"
 
 [[deps.SparseArrays]]
 deps = ["Libdl", "LinearAlgebra", "Random", "Serialization", "SuiteSparse_jll"]
@@ -1909,10 +1913,10 @@ uuid = "aedffcd0-7271-4cad-89d0-dc628f76c6d3"
 version = "0.8.8"
 
 [[deps.StaticArrayInterface]]
-deps = ["ArrayInterface", "Compat", "IfElse", "LinearAlgebra", "Requires", "SnoopPrecompile", "SparseArrays", "Static", "SuiteSparse"]
-git-tree-sha1 = "33040351d2403b84afce74dae2e22d3f5b18edcb"
+deps = ["ArrayInterface", "Compat", "IfElse", "LinearAlgebra", "PrecompileTools", "Requires", "SparseArrays", "Static", "SuiteSparse"]
+git-tree-sha1 = "03fec6800a986d191f64f5c0996b59ed526eda25"
 uuid = "0d7ed370-da01-4f52-bd93-41d350b8b718"
-version = "1.4.0"
+version = "1.4.1"
 weakdeps = ["OffsetArrays", "StaticArrays"]
 
     [deps.StaticArrayInterface.extensions]
@@ -1920,10 +1924,10 @@ weakdeps = ["OffsetArrays", "StaticArrays"]
     StaticArrayInterfaceStaticArraysExt = "StaticArrays"
 
 [[deps.StaticArrays]]
-deps = ["LinearAlgebra", "Random", "StaticArraysCore"]
-git-tree-sha1 = "9cabadf6e7cd2349b6cf49f1915ad2028d65e881"
+deps = ["LinearAlgebra", "PrecompileTools", "Random", "StaticArraysCore"]
+git-tree-sha1 = "5ef59aea6f18c25168842bded46b16662141ab87"
 uuid = "90137ffa-7385-5640-81b9-e52037218182"
-version = "1.6.2"
+version = "1.7.0"
 weakdeps = ["Statistics"]
 
     [deps.StaticArrays.extensions]
@@ -1941,15 +1945,15 @@ version = "1.9.0"
 
 [[deps.StatsAPI]]
 deps = ["LinearAlgebra"]
-git-tree-sha1 = "45a7769a04a3cf80da1c1c7c60caf932e6f4c9f7"
+git-tree-sha1 = "1ff449ad350c9c4cbc756624d6f8a8c3ef56d3ed"
 uuid = "82ae8749-77ed-4fe6-ae5f-f523153014b0"
-version = "1.6.0"
+version = "1.7.0"
 
 [[deps.StatsBase]]
 deps = ["DataAPI", "DataStructures", "LinearAlgebra", "LogExpFunctions", "Missings", "Printf", "Random", "SortingAlgorithms", "SparseArrays", "Statistics", "StatsAPI"]
-git-tree-sha1 = "75ebe04c5bed70b91614d684259b661c9e6274a4"
+git-tree-sha1 = "1d77abd07f617c4868c33d4f5b9e1dbb2643c9cf"
 uuid = "2913bbd2-ae8a-5f71-8c99-4fb6c76f3a91"
-version = "0.34.0"
+version = "0.34.2"
 
 [[deps.SuiteSparse]]
 deps = ["Libdl", "LinearAlgebra", "Serialization", "SparseArrays"]
@@ -1988,9 +1992,9 @@ version = "0.5.2"
 
 [[deps.TiffImages]]
 deps = ["ColorTypes", "DataStructures", "DocStringExtensions", "FileIO", "FixedPointNumbers", "IndirectArrays", "Inflate", "Mmap", "OffsetArrays", "PkgVersion", "ProgressMeter", "UUIDs"]
-git-tree-sha1 = "8621f5c499a8aa4aa970b1ae381aae0ef1576966"
+git-tree-sha1 = "34cc045dd0aaa59b8bbe86c644679bc57f1d5bd0"
 uuid = "731e570b-9d59-4bfa-96dc-6df516fadf69"
-version = "0.6.4"
+version = "0.6.8"
 
 [[deps.TiledIteration]]
 deps = ["OffsetArrays", "StaticArrayInterface"]
@@ -1999,20 +2003,23 @@ uuid = "06e1c1a7-607b-532d-9fad-de7d9aa2abac"
 version = "0.5.0"
 
 [[deps.TranscodingStreams]]
-deps = ["Random", "Test"]
-git-tree-sha1 = "9a6ae7ed916312b41236fcef7e0af564ef934769"
+git-tree-sha1 = "1fbeaaca45801b4ba17c251dd8603ef24801dd84"
 uuid = "3bb67fe8-82b1-5028-8e26-92a6c54297fa"
-version = "0.9.13"
+version = "0.10.2"
+weakdeps = ["Random", "Test"]
+
+    [deps.TranscodingStreams.extensions]
+    TestExt = ["Test", "Random"]
 
 [[deps.Tricks]]
-git-tree-sha1 = "aadb748be58b492045b4f56166b5188aa63ce549"
+git-tree-sha1 = "eae1bb484cd63b36999ee58be2de6c178105112f"
 uuid = "410a4b4d-49e4-4fbc-ab6d-cb71b17b3775"
-version = "0.1.7"
+version = "0.1.8"
 
 [[deps.URIs]]
-git-tree-sha1 = "074f993b0ca030848b897beff716d93aca60f06a"
+git-tree-sha1 = "67db6cc7b3821e19ebe75791a9dd19c9b1188f2b"
 uuid = "5c2747f8-b7ea-4ff2-ba2e-563bfd36b1d4"
-version = "1.4.2"
+version = "1.5.1"
 
 [[deps.UUIDs]]
 deps = ["Random", "SHA"]
@@ -2034,9 +2041,9 @@ version = "0.4.1"
 
 [[deps.Unitful]]
 deps = ["Dates", "LinearAlgebra", "Random"]
-git-tree-sha1 = "c4d2a349259c8eba66a00a540d550f122a3ab228"
+git-tree-sha1 = "242982d62ff0d1671e9029b52743062739255c7e"
 uuid = "1986cc42-f94f-5a68-af5c-568840ba703d"
-version = "1.15.0"
+version = "1.18.0"
 
     [deps.Unitful.extensions]
     ConstructionBaseUnitfulExt = "ConstructionBase"
@@ -2064,10 +2071,10 @@ uuid = "3d5dd08c-fd9d-11e8-17fa-ed2836048c2f"
 version = "0.21.64"
 
 [[deps.Wayland_jll]]
-deps = ["Artifacts", "Expat_jll", "JLLWrappers", "Libdl", "Libffi_jll", "Pkg", "XML2_jll"]
-git-tree-sha1 = "ed8d92d9774b077c53e1da50fd81a36af3744c1c"
+deps = ["Artifacts", "EpollShim_jll", "Expat_jll", "JLLWrappers", "Libdl", "Libffi_jll", "Pkg", "XML2_jll"]
+git-tree-sha1 = "7558e29847e99bc3f04d6569e82d0f5c54460703"
 uuid = "a2964d1f-97da-50d4-b82a-358c7fce9d89"
-version = "1.21.0+0"
+version = "1.21.0+1"
 
 [[deps.Wayland_protocols_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl", "Pkg"]
@@ -2077,15 +2084,15 @@ version = "1.25.0+0"
 
 [[deps.WoodburyMatrices]]
 deps = ["LinearAlgebra", "SparseArrays"]
-git-tree-sha1 = "de67fa59e33ad156a590055375a30b23c40299d3"
+git-tree-sha1 = "5f24e158cf4cee437052371455fe361f526da062"
 uuid = "efce3f68-66dc-5838-9240-27a6d6f5f9b6"
-version = "0.5.5"
+version = "0.5.6"
 
 [[deps.XML2_jll]]
-deps = ["Artifacts", "JLLWrappers", "Libdl", "Libiconv_jll", "Pkg", "Zlib_jll"]
-git-tree-sha1 = "93c41695bc1c08c46c5899f4fe06d6ead504bb73"
+deps = ["Artifacts", "JLLWrappers", "Libdl", "Libiconv_jll", "Zlib_jll"]
+git-tree-sha1 = "24b81b59bd35b3c42ab84fa589086e19be919916"
 uuid = "02c8fc9c-b97f-50b9-bbe4-9be30ff0a78a"
-version = "2.10.3+0"
+version = "2.11.5+0"
 
 [[deps.XSLT_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl", "Libgcrypt_jll", "Libgpg_error_jll", "Libiconv_jll", "Pkg", "XML2_jll", "Zlib_jll"]
@@ -2232,9 +2239,9 @@ version = "1.5.5+0"
 
 [[deps.fzf_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl", "Pkg"]
-git-tree-sha1 = "868e669ccb12ba16eaf50cb2957ee2ff61261c56"
+git-tree-sha1 = "47cf33e62e138b920039e8ff9f9841aafe1b733e"
 uuid = "214eeab7-80f7-51ab-84ad-2988db7cef09"
-version = "0.29.0+0"
+version = "0.35.1+0"
 
 [[deps.libaom_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl", "Pkg"]
@@ -2280,7 +2287,7 @@ version = "1.3.7+1"
 [[deps.nghttp2_jll]]
 deps = ["Artifacts", "Libdl"]
 uuid = "8e850ede-7688-5339-a07c-302acd2aaf8d"
-version = "1.48.0+0"
+version = "1.52.0+1"
 
 [[deps.p7zip_jll]]
 deps = ["Artifacts", "Libdl"]
@@ -2301,9 +2308,9 @@ version = "3.5.0+0"
 
 [[deps.xkbcommon_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl", "Pkg", "Wayland_jll", "Wayland_protocols_jll", "Xorg_libxcb_jll", "Xorg_xkeyboard_config_jll"]
-git-tree-sha1 = "9ebfc140cc56e8c2156a15ceac2f0302e327ac0a"
+git-tree-sha1 = "9c304562909ab2bab0262639bd4f444d7bc2be37"
 uuid = "d8fb68d0-12a3-5cfd-a85a-d49703b185fd"
-version = "1.4.1+0"
+version = "1.4.1+1"
 """
 
 # ╔═╡ Cell order:
