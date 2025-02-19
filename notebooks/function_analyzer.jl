@@ -17,7 +17,7 @@ end
 # ╔═╡ ce7a1670-b149-11ed-28d4-a1fc1ed88df8
 begin
 	import Pkg
-	Pkg.activate("C:/Users/Gerhard/.julia/environments/v1.10")
+	Pkg.activate("C:/Users/Gerhard/.julia/environments/v1.11")
 	using PlutoUI
 	using Plots
 	using PlutoTeachingTools
