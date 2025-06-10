@@ -336,6 +336,35 @@ Pkg.status()
 # ╔═╡ 693038eb-4ff7-449b-aa4a-f1cf09555a8f
 ENV["USERNAME"]
 
+# ╔═╡ 0ec57bb5-594b-446b-9278-817cd09ae9eb
+
+
+# ╔═╡ 3d54188d-293d-4a6a-92ae-a8107d332201
+function list_shared_environments()
+           println("Shared Environments")
+           println("-------------------")
+           for depot in DEPOT_PATH
+               envdir = joinpath(depot, "environments")
+               if isdir(envdir)
+                   for env in readdir(envdir)
+                       println("$envdir: @$env")
+                   end
+               end
+           end
+       end
+
+# ╔═╡ 9fb3bc54-39b0-4b57-83bc-6d880dcb7cbc
+list_shared_environments()
+
+# ╔═╡ 5c009338-e7d6-4250-8616-380d4cc5245d
+VERSION
+
+# ╔═╡ 5f44f8bd-81e8-4cfe-86bb-d5aad312330b
+pwd()
+
+# ╔═╡ 88e6248d-e286-4be6-8eb2-528c98e7150e
+
+
 # ╔═╡ 16938d4f-6f25-4924-8bdf-b0eb638a6c4f
 begin
 	claire = "https://raw.githubusercontent.com/Captain-Bayes/images/main/claire_100px.gif"
@@ -1639,6 +1668,12 @@ version = "1.8.1+0"
 # ╠═e7666210-a660-11eb-3e0d-7d9aec9a9f9e
 # ╠═dece5434-e985-479e-8571-33ba76d39332
 # ╠═693038eb-4ff7-449b-aa4a-f1cf09555a8f
+# ╠═0ec57bb5-594b-446b-9278-817cd09ae9eb
+# ╠═3d54188d-293d-4a6a-92ae-a8107d332201
+# ╠═9fb3bc54-39b0-4b57-83bc-6d880dcb7cbc
+# ╠═5c009338-e7d6-4250-8616-380d4cc5245d
+# ╠═5f44f8bd-81e8-4cfe-86bb-d5aad312330b
+# ╠═88e6248d-e286-4be6-8eb2-528c98e7150e
 # ╟─16938d4f-6f25-4924-8bdf-b0eb638a6c4f
 # ╟─7bf32131-f749-41da-9923-2970f1487f7e
 # ╟─5d349d39-c688-4431-b056-aa11d69376e9
