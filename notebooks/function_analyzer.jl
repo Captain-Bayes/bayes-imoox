@@ -1,23 +1,25 @@
 ### A Pluto.jl notebook ###
-# v0.19.42
+# v0.20.9
 
 using Markdown
 using InteractiveUtils
 
 # This Pluto notebook uses @bind for interactivity. When running this notebook outside of Pluto, the following 'mock version' of @bind gives bound variables a default value (instead of an error).
 macro bind(def, element)
-    quote
+    #! format: off
+    return quote
         local iv = try Base.loaded_modules[Base.PkgId(Base.UUID("6e696c72-6542-2067-7265-42206c756150"), "AbstractPlutoDingetjes")].Bonds.initial_value catch; b -> missing; end
         local el = $(esc(element))
         global $(esc(def)) = Core.applicable(Base.get, el) ? Base.get(el) : iv(el)
         el
     end
+    #! format: on
 end
 
 # ╔═╡ ce7a1670-b149-11ed-28d4-a1fc1ed88df8
 begin
-	import Pkg
-	Pkg.activate("C:/Users/Gerhard/.julia/environments/v1.11")
+	using Pkg
+	Pkg.activate(joinpath(DEPOT_PATH[1], "environments/v1.11"))
 	using PlutoUI
 	using Plots
 	using PlutoTeachingTools
@@ -57,8 +59,15 @@ Meta.parse(text_equation)
 # ╔═╡ f1683762-9f2d-44e2-a0b9-7f0458fcdb3e
 func = Meta.parse(text_equation)#:( x^3/100 + b * x^2/10 -3*x + 4)
 
+# ╔═╡ 8ed37ec8-60d9-4f95-bb6e-84c186979a5f
+	@bind confirm_flag confirm(CheckBox)
+
+
 # ╔═╡ 4e53ab3a-2d58-4337-9709-ff14cf64fcca
-eval(func)
+begin 
+	confirm_flag
+	eval(func)
+end
 
 # ╔═╡ 9188b13a-7f3a-4091-baa6-e37cedd65e64
 equation = (Symbolics.latexify(func))
@@ -215,6 +224,7 @@ end
 # ╠═09a37561-fd16-4d4c-8963-82d7de82cccb
 # ╠═f1683762-9f2d-44e2-a0b9-7f0458fcdb3e
 # ╠═4e53ab3a-2d58-4337-9709-ff14cf64fcca
+# ╠═8ed37ec8-60d9-4f95-bb6e-84c186979a5f
 # ╠═9188b13a-7f3a-4091-baa6-e37cedd65e64
 # ╠═6bf0389f-1570-436f-84d2-ef7e13b1ff77
 # ╠═a9374295-1653-49b5-9125-bb5735f40e15
