@@ -53,7 +53,7 @@ jobs:
             - name: Run & export Pluto notebooks
               run: |
                 julia -e 'using Pkg
-                  Pkg.activate(mktempdir())
+                  # Pkg.activate(mktempdir())
                   Pkg.add([
                     Pkg.PackageSpec(name="PlutoSliderServer"),
                   ])
