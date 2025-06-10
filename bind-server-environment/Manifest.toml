@@ -2,7 +2,7 @@
 
 julia_version = "1.11.5"
 manifest_format = "2.0"
-project_hash = "528ed8721d289dd49fc0b67dea0ec0752a450dff"
+project_hash = "9ba7c3888e3de008a24256015d428dd3161983f7"
 
 [[deps.AbstractFFTs]]
 deps = ["LinearAlgebra"]
@@ -1894,9 +1894,9 @@ version = "0.4.1"
 
 [[deps.Unitful]]
 deps = ["Dates", "LinearAlgebra", "Random"]
-git-tree-sha1 = "02c1ac8104c9cf941395db79c611483909c04c7d"
+git-tree-sha1 = "d2282232f8a4d71f79e85dc4dd45e5b12a6297fb"
 uuid = "1986cc42-f94f-5a68-af5c-568840ba703d"
-version = "1.23.0"
+version = "1.23.1"
 
     [deps.Unitful.extensions]
     ConstructionBaseUnitfulExt = "ConstructionBase"
