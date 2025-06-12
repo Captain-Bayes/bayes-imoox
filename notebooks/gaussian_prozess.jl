@@ -101,15 +101,6 @@ md"""
 # Approximation of measurement points
 """
 
-# ╔═╡ aaea3e3e-a462-4842-ad2a-82504f52a518
-begin
-	N = 10
-	tₖ = sort(rand(N) * 5) # random pivotal measurement points in the range (0, 5)
-	μ = sin.(tₖ) * 3 + rand(N)/5  # sinus like measurments in the range (-3,3) with noise
-	plot(tₖ, μ,  markers = :x, linetype = :scatter)
-	
-end
-
 # ╔═╡ 0dfff071-3c08-4801-b283-ff2464a82584
 begin
 	
@@ -131,9 +122,6 @@ md"""
 This is an estimation for the mean value of all measurements
 """
 
-# ╔═╡ a189ded8-649a-4bd9-b498-9b22d90ff75c
-μₜ= [eval(MacroTools.replace(Meta.parse(μ_text_equation), :t, i)) for i in tₖ]
-
 # ╔═╡ b03f178d-edff-4e1e-b751-ae0bf026bad8
 μ_func(t) = eval(MacroTools.replace(Meta.parse(μ_text_equation), :t, t))
 
@@ -141,8 +129,11 @@ This is an estimation for the mean value of all measurements
 md"
 **Specify the seed value of random number generator**  
 
-1 $(@bind seed Slider(1:200)) 200
+1 $(seed_Slider = @bind seed Slider(1:200)) 200
 "
+
+# ╔═╡ 8d0be4b7-e190-4c87-a4cb-05aee57f2297
+seed_Slider
 
 # ╔═╡ 03438229-9c31-42ba-935c-977ec37f6263
 round(pi, digits = 6)
@@ -158,40 +149,6 @@ begin
 		K(tᵢ, tⱼ, σₛₑ = 1, α = 1) = α * exp.(-1/2 * abs.(tᵢ - tⱼ)^2 / σₛₑ^2)
 	end
 end
-
-# ╔═╡ adf91301-81c9-43b6-be97-80e05a0ae3f5
-begin
-	tᵤ = 0:0.05:5 # unknown approximation pivot points (501) 
-	#σₛₑ = 0.2
-	#α = 10
-	Σᵤᵤ = round.([K(i,j, σₛₑ, α) for i in tᵤ, j in tᵤ], digits = 16)
-	Σₖₖ = round.([K(i,j, σₛₑ, α) for i in tₖ, j in tₖ], digits = 16)
-	Σₖᵤ = round.([K(i,j, σₛₑ, α) for i in tₖ, j in tᵤ], digits = 16)
-	Σᵤₖ = round.([K(i,j, σₛₑ, α) for i in tᵤ, j in tₖ], digits = 16)
-
-	# guess the mean value of μᵤ depending on tᵤ
-	μᵤ = μ_func.(tᵤ)
-	# guess the mean value of μₖ depending on tₖ
-	μₖ = μ_func.(tₖ)
-	
-	
-	
-		
-end
-
-# ╔═╡ 00229b6c-aa67-446e-ab15-fabc9114bc5b
-eigvals(Σₖₖ)
-
-# ╔═╡ 71711c7e-27cb-48f3-bddd-6c8ec77ec65f
-begin
-	# get the conditional μᵤ and Σᵤᵤ
-	μᶜᵤ = μᵤ + Σᵤₖ * (Σₖₖ \ (μ - μₖ))
-	Σᶜᵤᵤ = Σᵤᵤ - Σᵤₖ * inv(Σₖₖ + σ_data * I(length(μ))) * Σₖᵤ
-	sig_diag = diag(Σᶜᵤᵤ)
-end
-
-# ╔═╡ 30a0a144-2406-4904-a3a0-86c5dc4fe5e9
-Σᶜᵤᵤ
 
 # ╔═╡ c2bb21d3-87b0-4cb0-b161-c5f483e56f5f
 K(1,1)
@@ -260,6 +217,52 @@ begin
 	u = randn(rng,n, 1)
 	md"""**4) normal random vector zero mean, unit variance**"""
 end
+
+# ╔═╡ aaea3e3e-a462-4842-ad2a-82504f52a518
+begin
+	N = 10
+	tₖ = sort(rand(rng, N) * 5) # random pivotal measurement points in the range (0, 5)
+	μ = sin.(tₖ) * 3 + rand(rng, N)/5  # sinus like measurments in the range (-3,3) with noise
+	plot(tₖ, μ,  markers = :x, linetype = :scatter)
+	
+end
+
+# ╔═╡ a189ded8-649a-4bd9-b498-9b22d90ff75c
+μₜ= [eval(MacroTools.replace(Meta.parse(μ_text_equation), :t, i)) for i in tₖ]
+
+# ╔═╡ adf91301-81c9-43b6-be97-80e05a0ae3f5
+begin
+	tᵤ = 0:0.05:5 # unknown approximation pivot points (501) 
+	#σₛₑ = 0.2
+	#α = 10
+	Σᵤᵤ = round.([K(i,j, σₛₑ, α) for i in tᵤ, j in tᵤ], digits = 16)
+	Σₖₖ = round.([K(i,j, σₛₑ, α) for i in tₖ, j in tₖ], digits = 16)
+	Σₖᵤ = round.([K(i,j, σₛₑ, α) for i in tₖ, j in tᵤ], digits = 16)
+	Σᵤₖ = round.([K(i,j, σₛₑ, α) for i in tᵤ, j in tₖ], digits = 16)
+
+	# guess the mean value of μᵤ depending on tᵤ
+	μᵤ = μ_func.(tᵤ)
+	# guess the mean value of μₖ depending on tₖ
+	μₖ = μ_func.(tₖ)
+	
+	
+	
+		
+end
+
+# ╔═╡ 00229b6c-aa67-446e-ab15-fabc9114bc5b
+eigvals(Σₖₖ)
+
+# ╔═╡ 71711c7e-27cb-48f3-bddd-6c8ec77ec65f
+begin
+	# get the conditional μᵤ and Σᵤᵤ
+	μᶜᵤ = μᵤ + Σᵤₖ * (Σₖₖ \ (μ - μₖ))
+	Σᶜᵤᵤ = Σᵤᵤ - Σᵤₖ * inv(Σₖₖ + σ_data * I(length(μ))) * Σₖᵤ
+	sig_diag = diag(Σᶜᵤᵤ)
+end
+
+# ╔═╡ 30a0a144-2406-4904-a3a0-86c5dc4fe5e9
+Σᶜᵤᵤ
 
 # ╔═╡ 5ec8bb79-baf1-49b0-ac17-f00143441d2e
 begin
@@ -384,6 +387,7 @@ TableOfContents()
 # ╟─055b610c-647f-4eec-a85f-5a235db3cf0d
 # ╠═9dd9b2d7-4df0-49f8-948c-a098073938c4
 # ╠═ebe94eb8-7f2c-4590-a85b-4d4e2f16555f
+# ╠═8d0be4b7-e190-4c87-a4cb-05aee57f2297
 # ╠═aaea3e3e-a462-4842-ad2a-82504f52a518
 # ╠═0dfff071-3c08-4801-b283-ff2464a82584
 # ╠═a189ded8-649a-4bd9-b498-9b22d90ff75c
@@ -397,7 +401,7 @@ TableOfContents()
 # ╠═cb214f85-3efa-4d10-8d10-98b36b6c4519
 # ╟─627b21cb-bce6-43bd-8e50-46c2007dd1c9
 # ╟─e2461854-8526-47ef-8947-bb84ef03e5ca
-# ╟─6be2bb7a-6eb6-11eb-2cfb-87383e68bf54
+# ╠═6be2bb7a-6eb6-11eb-2cfb-87383e68bf54
 # ╠═5ec8bb79-baf1-49b0-ac17-f00143441d2e
 # ╠═03438229-9c31-42ba-935c-977ec37f6263
 # ╠═e922003c-5f8c-4834-b21e-30386e3d9208
