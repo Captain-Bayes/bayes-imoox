@@ -205,7 +205,6 @@ y_point = Symbolics.value(substitute(eval(func), Dict(x=> x_point, b => b_val)))
 
 # ╔═╡ 73bc4715-f9fd-4d79-bbe8-0bf77302eba4
 begin 
-	
 	plot(x_range, y_val, linewidth = 3, label = latexstring("\\textrm{Polynom:} y(x)=") * equation, legendfont = font(14,"Computer Modern"), title = "Find " * latexstring(b) * " so that " * latexstring("y'($(x_point)) = 2"), titlefont = font(20,"Computer Modern"), legend = :top)
 	plot!(x_range, slope .* x_range .+ y_point .- x_point*slope, linewidth = 2, style = :dash, alpha = 0.7, label = latexstring("\\textrm{Slope:} y'($(x_point)) = $(round(slope, digits = 2))"), xlabel = latexstring("x"), ylabel = latexstring("y(x)"), guidefont = font(14, "Computer Modern"), tickfont = font(10, "Computer Modern"))
 	plot!([x_point], [y_point], marker = :o, label = :none, ylim = [-25, 70])
